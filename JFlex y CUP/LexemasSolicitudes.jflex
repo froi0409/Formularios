@@ -27,6 +27,7 @@ Ignore = {TerminacionLinea} | [ \t\f]
     //Signos fundamentales
     "<"                     { return new Symbol(MENOR_QUE, yyline+1, yycolumn+1, yytext()); }
     ">"                     { return new Symbol(MAYOR_QUE, yyline+1, yycolumn+1, yytext()); }
+    "="                     { return new Symbol(IGUAL, yyline+1, yycolumn+1 yytext()); }
     "!"                     { return new Symbol(EXCLAMACION, yyline+1, yycolumn+1, yytext()); }
     ":"                     { return new Symbol(PUNTOS, yyline+1, yycolumn+1, yytext()); }
     {COMILLAS}              { return new Symbol(COMILLAS, yyline+1, yycolumn+1, yytext()); }
@@ -87,6 +88,8 @@ Ignore = {TerminacionLinea} | [ \t\f]
     "IMAGEN"                { return new Symbol(IMAGEN, yyline+1, yycolumn+1, yytext()); }
     "COMBO"                 { return new Symbol(COMBO, yyline+1, yycolumn+1, yytext()); }
     "BOTON"                 { return new Symbol(BOTON, yyline+1, yycolumn+1, yytext()); }
+
+    {Ignore}                {/* IGNORAR */}
 }
 
 [^] {
