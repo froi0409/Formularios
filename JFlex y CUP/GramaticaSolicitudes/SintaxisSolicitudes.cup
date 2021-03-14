@@ -1,0 +1,71 @@
+import java_cup.runtime.*;
+
+parser code  {:
+
+:}
+
+//Declaración de terminales
+terminal MENOR_QUE, MAYOR_QUE, IGUAL, EXCLAMACION, PUNTOS, COMILLAS, CORCHETE_A, CORCHETE_C, COMA, DOLAR, GUION_BAJO, GUION, LLAVE_A, LLAVE_C, IDENTIFICADOR, ALFANUMERICO, CONTRASEÑA;
+terminal INI_SOLICITUDES, FIN_SOLICITUDES, INI_SOLICITUD, FIN_SOLICITUD, CREAR_USUARIO, CREDENCIALES_USUARIO, USUARIO, PASSWORD, MODIFICAR_USUARIO, USUARIO_ANTIGUO, NUEVO_PASSWORD, FECHA_MODIFICACION, ELIMINAR_USUARIO;
+terminal NUEVO_FORMULARIO, ID, TITULO, NOMBRE, TEMA, USUARIO_CREACION, USUARIO_NUEVO, FECHA_CREACION, ELIMINAR_FORMULARIO, LOGIN_USUARIO, MODIFICAR_FORMULARIO, PARAMETROS_FORMULARIO, AGREGAR_COMPONENTE, PARAMETROS_COMPONENTE, NOMBRE_CAMPO, FORMULARIO, CLASE;
+terminal INDICE, TEXTO_VISIBLE, ALINEACION, REQUERIDO, OPCIONES, FILAS, COLUMNAS, URL, ELIMINAR_COMPONENTE, MODIFICAR_COMPONENTE, CONSULTAR_DATOS;
+terminal CAMPO_TEXTO, AREA_TEXTO, CHECKBOX, RADIO, FICHERO, IMAGEN, COMBO, BOTON;
+
+non terminal inicio, solicitud, solicitudes, tipo_solicitud, apertura_instruccion_principal1, apertura_instruccion_principal2, cierre_instruccion_principal; 
+//instrucciones
+non terminal instruccion_creacion_usuario, instruccion_modificacion_usuario, instruccion_eliminacion_usuario, instruccion_login_usuario, instruccion_modificacion_formulario, instruccion_agregar_componente;
+non terminal instruccion_eliminacion_componente, instruccion_modificacion_componente, instruccion_consultar_datos;
+
+non terminal instruccion_alfanumerico;
+//acciones
+non terminal accion_crear_usuario;
+
+
+start with inicio;
+
+inicio  ::=     solicitud  
+                | solicitudes  
+                ;
+
+solicitud ::=   MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS COMILLAS tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE
+                ;
+
+tipo_solicitud ::=  CREAR_USUARIO           apertura_instruccion_principal1 CREDENCIALES_USUARIO apertura_instruccion_principal2 instruccion_creacion_usuario cierre_instruccion_principal
+                    | MODIFICAR_USUARIO     apertura_instruccion_principal1
+                    | ELIMINAR_USUARIO      apertura_instruccion_principal1
+                    | LOGIN_USUARIO         apertura_instruccion_principal1
+                    | NUEVO_FORMULARIO      apertura_instruccion_principal1
+                    | ELIMINAR_FORMULARIO   apertura_instruccion_principal1
+                    | MODIFICAR_FORMULARIO  apertura_instruccion_principal1
+                    | AGREGAR_COMPONENTE    apertura_instruccion_principal1
+                    | ELIMINAR_COMPONENTE   apertura_instruccion_principal1
+                    | MODIFICAR_COMPONENTE  apertura_instruccion_principal1
+                    | CONSULTAR_DATOS       apertura_instruccion_principal1
+                    ;
+
+apertura_instruccion_principal1 ::=     COMILLAS MAYOR_QUE LLAVE_A COMILLAS
+                                        ;
+
+apertura_instruccion_principal2 ::=     COMILLAS PUNTOS CORCHETE_A
+                                        ;
+
+cierre_instruccion_principal ::=    CORCHETE_C LLAVE_C
+                                    ;
+
+instruccion_creacion_usuario ::=    accion_crear_usuario COMA instruccion_creacion_usuario
+                                    | accion_crear_usuario
+                                    ;
+
+accion_crear_usuario ::=    LLAVE_A USUARIO PUNTOS instruccion_alfanumerico COMA PASSWORD PUNTOS  LLAVE_C
+                            ;
+
+
+
+
+
+
+
+
+
+instruccion_alfanumerico ::=    COMILLAS ALFANUMERICO COMILLAS
+                                ;

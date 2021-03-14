@@ -1,5 +1,6 @@
+package com.froi.pruebasgramaticas;
 import java_cup.runtime.*;
-
+import static com.froi.pruebasgramaticas.sym.*;
 %%
 
 %public
@@ -17,7 +18,10 @@ FINSOLICITUDES = [fF][iI][nN][_][sS][oO][lL][iI][cC][iI][tT][uU][dD][eE][sS]
 INISOLICITUD =  [iI][nN][iI][_][sS][oO][lL][iI][cC][iI][tT][uU][dD]
 FINSOLICITUD = [fF][iI][nN][_][sS][oO][lL][iI][cC][iI][tT][uU][dD]
 COMILLAS = [\"]
-TEMA = (Dark | White)
+TEMA = ("Dark" | "White")
+IDENTIFICA = ([&] | [_] | [-]) 
+ALFANUMERIC = (([a-zA-Z] | [0-9])+)
+CONTRASEÑA = [\"][^"\""][\"]
 
 TerminacionLinea = [\r|\n|\r\n]
 Ignore = {TerminacionLinea} | [ \t\f]
@@ -27,12 +31,14 @@ Ignore = {TerminacionLinea} | [ \t\f]
     //Signos fundamentales
     "<"                     { return new Symbol(MENOR_QUE, yyline+1, yycolumn+1, yytext()); }
     ">"                     { return new Symbol(MAYOR_QUE, yyline+1, yycolumn+1, yytext()); }
-    "="                     { return new Symbol(IGUAL, yyline+1, yycolumn+1 yytext()); }
+    "="                     { return new Symbol(IGUAL, yyline+1, yycolumn+1, yytext()); }
     "!"                     { return new Symbol(EXCLAMACION, yyline+1, yycolumn+1, yytext()); }
     ":"                     { return new Symbol(PUNTOS, yyline+1, yycolumn+1, yytext()); }
     {COMILLAS}              { return new Symbol(COMILLAS, yyline+1, yycolumn+1, yytext()); }
     "["                     { return new Symbol(CORCHETE_A, yyline+1, yycolumn+1, yytext()); }
     "]"                     { return new Symbol(CORCHETE_C, yyline+1, yycolumn+1, yytext()); }
+    "{"                     { return new Symbol(LLAVE_A, yyline+1, yycolumn+1, yytext()); }
+    "}"                     { return new Symbol(LLAVE_C, yyline+1, yycolumn+1, yytext()); }
     ","                     { return new Symbol(COMA, yyline+1, yycolumn+1, yytext()); }
     "$"                     { return new Symbol(DOLAR, yyline+1, yycolumn+1, yytext()); }
     "_"                     { return new Symbol(GUION_BAJO, yyline+1, yycolumn+1, yytext()); }
@@ -45,8 +51,8 @@ Ignore = {TerminacionLinea} | [ \t\f]
     {FINSOLICITUD}          { return new Symbol(FIN_SOLICITUD, yyline+1, yycolumn+1, yytext()); }
     "CREAR_USUARIO"         { return new Symbol(CREAR_USUARIO, yyline+1, yycolumn+1, yytext()); }
     "CREDENCIALES_USUARIO"  { return new Symbol(CREDENCIALES_USUARIO, yyline+1, yycolumn+1, yytext()); }
-    "USUARIO"               { return new Symbol(USUARIO, yyline+1, yycolumn+1, yytext()); }
-    "PASSWORD"              { return new Symbol(PASSWORD, yyline+1, yycolumn+1, yytext()); }
+    "\"USUARIO\""               { return new Symbol(USUARIO, yyline+1, yycolumn+1, yytext()); }
+    "\"PASSWORD\""              { return new Symbol(PASSWORD, yyline+1, yycolumn+1, yytext()); }
     "MODIFICAR_USUARIO"     { return new Symbol(MODIFICAR_USUARIO, yyline+1, yycolumn+1, yytext()); }
     "USUARIO_ANTIGUO"       { return new Symbol(USUARIO_ANTIGUO, yyline+1, yycolumn+1, yytext()); }
     "USUARIO_NUEVO"         { return new Symbol(USUARIO_NUEVO, yyline+1, yycolumn+1, yytext()); }
@@ -79,6 +85,7 @@ Ignore = {TerminacionLinea} | [ \t\f]
     "URL"                   { return new Symbol(URL, yyline+1, yycolumn+1, yytext()); }
     "ELIMINAR_COMPONENTE"   { return new Symbol(ELIMINAR_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
     "MODIFICAR_COMPONENTE"  { return new Symbol(MODIFICAR_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
+    "CONSULTAR_DATOS"       { return new Symbol(CONSULTAR_DATOS, yyline+1, yycolumn+1, yytext()); }
     //Componentes Solicitados
     "CAMPO_TEXTO"           { return new Symbol(CAMPO_TEXTO, yyline+1, yycolumn+1, yytext()); }
     "AREA_TEXTO"            { return new Symbol(AREA_TEXTO, yyline+1, yycolumn+1, yytext()); }
@@ -88,10 +95,19 @@ Ignore = {TerminacionLinea} | [ \t\f]
     "IMAGEN"                { return new Symbol(IMAGEN, yyline+1, yycolumn+1, yytext()); }
     "COMBO"                 { return new Symbol(COMBO, yyline+1, yycolumn+1, yytext()); }
     "BOTON"                 { return new Symbol(BOTON, yyline+1, yycolumn+1, yytext()); }
+    //Lenguaje de reportería
+
+
+
+    //Cadenas Fundamentales
+    {IDENTIFICA}            { return new Symbol(IDENTIFICADOR, yyline+1, yycolumn+1, yytext()); }
+    {TEMA}                  { return new Symbol(TEMA, yyline+1, yycolumn+1, yytext()); }
+    {ALFANUMERIC}           { return new Symbol(ALFANUMERICO, yyline+1, yycolumn+1, yytext()); }
+    {CONTRASEÑA}            { System.out.println("Se halló una constraseña"); return new Symbol(CONTRASEÑA, yyline+1, yycolumn+1, yytext()); }
 
     {Ignore}                {/* IGNORAR */}
 }
 
 [^] {
-
+    System.out.println("Error en linea: " + yyline+1 + " - Columna: " + yycolumn+1 + ". La expresión: " + yytext() + " no forma parte del lenguaje");
 }
