@@ -20,11 +20,21 @@ FINSOLICITUD = [fF][iI][nN][_][sS][oO][lL][iI][cC][iI][tT][uU][dD]
 COMILLAS = [\"]
 TEMA = ("Dark" | "White")
 IDENTIFICA = ([&] | [_] | [-]) 
-ALFANUMERIC = (([a-zA-Z] | [0-9])+)
-CONTRASEÑA = [\"][^"\""][\"]
+ALFANUMERIC = [\"](([a-zA-Z] | [0-9])+)[\"]
+AÑO = [2-9][0-9][0-9][0-9]
+MESESA = ( 0?[1-9] | [1][0-9] | [2][0-9] | [3][0-1] )
+MESESB = ( 0?[1-9] | [1][0-9] | [2][0-9] | [3][0] )
+MESESC = ( 0?[1-9] | [1][0-9] | [2][0-8] )
+COMPLEMENTOA = ( (0?1)|(0?3)|(0?5)|(0?7)|(0?8)|(10)|(12) ) [-] {MESESA}
+COMPLEMENTOB = ( (0?4)|(0?6)|(0?9)|(11) ) [-] {MESESB}
+COMPLEMENTOC = (0?2) [-] {MESESC}
+FECHA = [\"] {AÑO} [-] ( {COMPLEMENTOA} | {COMPLEMENTOB} | {COMPLEMENTOC} ) [\"] 
+ALLCHARACTERS = [\"]  {NOCOMILLAS} [\"]
+NOCOMILLAS =([^\"])*
 
 TerminacionLinea = [\r|\n|\r\n]
 Ignore = {TerminacionLinea} | [ \t\f]
+ALLCHARACTERSNOSPACE = [\"] (!\") (!{Ignore}) [\"]
 %%
 
 <YYINITIAL> {
@@ -49,61 +59,65 @@ Ignore = {TerminacionLinea} | [ \t\f]
     {FINSOLICITUDES}        { return new Symbol(FIN_SOLICITUDES, yyline+1, yycolumn+1, yytext()); }
     {INISOLICITUD}          { return new Symbol(INI_SOLICITUD, yyline+1, yycolumn+1, yytext()); }
     {FINSOLICITUD}          { return new Symbol(FIN_SOLICITUD, yyline+1, yycolumn+1, yytext()); }
-    "CREAR_USUARIO"         { return new Symbol(CREAR_USUARIO, yyline+1, yycolumn+1, yytext()); }
-    "CREDENCIALES_USUARIO"  { return new Symbol(CREDENCIALES_USUARIO, yyline+1, yycolumn+1, yytext()); }
+    "\"CREAR_USUARIO\""         { System.out.println("crear usuario"); return new Symbol(CREAR_USUARIO, yyline+1, yycolumn+1, yytext()); }
+    "\"CREDENCIALES_USUARIO\""  { return new Symbol(CREDENCIALES_USUARIO, yyline+1, yycolumn+1, yytext()); }
     "\"USUARIO\""               { return new Symbol(USUARIO, yyline+1, yycolumn+1, yytext()); }
     "\"PASSWORD\""              { return new Symbol(PASSWORD, yyline+1, yycolumn+1, yytext()); }
-    "MODIFICAR_USUARIO"     { return new Symbol(MODIFICAR_USUARIO, yyline+1, yycolumn+1, yytext()); }
-    "USUARIO_ANTIGUO"       { return new Symbol(USUARIO_ANTIGUO, yyline+1, yycolumn+1, yytext()); }
-    "USUARIO_NUEVO"         { return new Symbol(USUARIO_NUEVO, yyline+1, yycolumn+1, yytext()); }
-    "NUEVO_PASSWORD"        { return new Symbol(NUEVO_PASSWORD, yyline+1, yycolumn+1, yytext()); }
-    "FECHA_MODIFICACION"    { return new Symbol(FECHA_MODIFICACION, yyline+1, yycolumn+1, yytext()); }
-    "ELIMINAR_USUARIO"      { return new Symbol(ELIMINAR_USUARIO, yyline+1, yycolumn+1, yytext()); }
-    "CREDENCIALES_USUARIO"  { return new Symbol(CREDENCIALES_USUARIO, yyline+1, yycolumn+1, yytext()); }
-    "NUEVO_FORMULARIO"      { return new Symbol(NUEVO_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
-    "ID"                    { return new Symbol(ID, yyline+1, yycolumn+1, yytext()); }
-    "TITULO"                { return new Symbol(TITULO, yyline+1, yycolumn+1, yytext()); }
-    "NOMBRE"                { return new Symbol(NOMBRE, yyline+1, yycolumn+1, yytext()); }
-    "TEMA"                  { return new Symbol(TEMA, yyline+1, yycolumn+1, yytext()); }
-    "USUARIO_CREACION"      { return new Symbol(USUARIO_CREACION, yyline+1, yycolumn+1, yytext()); }
-    "FECHA_CREACION"        { return new Symbol(FECHA_CREACION, yyline+1, yycolumn+1, yytext()); }
-    "ELIMINAR_FORMULARIO"   { return new Symbol(ELIMINAR_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
-    "MODIFICAR_FORMULARIO"  { return new Symbol(MODIFICAR_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
-    "PARAMETROS_FORMULARIO" { return new Symbol(PARAMETROS_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
-    "AGREGAR_COMPONENTE"    { return new Symbol(AGREGAR_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
-    "PARAMETROS_COMPONENTE" { return new Symbol(PARAMETROS_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
-    "NOMBRE_CAMPO"          { return new Symbol(NOMBRE_CAMPO, yyline+1, yycolumn+1, yytext()); }
-    "FORMULARIO"            { return new Symbol(FORMULARIO, yyline+1, yycolumn+1, yytext()); }
-    "CLASE"                 { return new Symbol(CLASE, yyline+1, yycolumn+1, yytext()); }
-    "INDICE"                { return new Symbol(INDICE, yyline+1, yycolumn+1, yytext()); }
-    "TEXTO_VISIBLE"         { return new Symbol(TEXTO_VISIBLE, yyline+1, yycolumn+1, yytext()); }
-    "ALINEACION"            { return new Symbol(ALINEACION, yyline+1, yycolumn+1, yytext()); }
-    "REQUERIDO"             { return new Symbol(REQUERIDO, yyline+1, yycolumn+1, yytext()); }
-    "OPCIONES"              { return new Symbol(OPCIONES, yyline+1, yycolumn+1, yytext()); }
-    "FILAS"                 { return new Symbol(FILAS, yyline+1, yycolumn+1, yytext()); }
-    "COLUMNAS"              { return new Symbol(COLUMNAS, yyline+1, yycolumn+1, yytext()); }
-    "URL"                   { return new Symbol(URL, yyline+1, yycolumn+1, yytext()); }
-    "ELIMINAR_COMPONENTE"   { return new Symbol(ELIMINAR_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
-    "MODIFICAR_COMPONENTE"  { return new Symbol(MODIFICAR_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
-    "CONSULTAR_DATOS"       { return new Symbol(CONSULTAR_DATOS, yyline+1, yycolumn+1, yytext()); }
+    "\"MODIFICAR_USUARIO\""     { return new Symbol(MODIFICAR_USUARIO, yyline+1, yycolumn+1, yytext()); }
+    "\"USUARIO_ANTIGUO\""       { return new Symbol(USUARIO_ANTIGUO, yyline+1, yycolumn+1, yytext()); }
+    "\"USUARIO_NUEVO\""         { return new Symbol(USUARIO_NUEVO, yyline+1, yycolumn+1, yytext()); }
+    "\"NUEVO_PASSWORD\""        { return new Symbol(NUEVO_PASSWORD, yyline+1, yycolumn+1, yytext()); }
+    "\"FECHA_MODIFICACION\""    { return new Symbol(FECHA_MODIFICACION, yyline+1, yycolumn+1, yytext()); }
+    "\"ELIMINAR_USUARIO\""      { return new Symbol(ELIMINAR_USUARIO, yyline+1, yycolumn+1, yytext()); }
+    "\"CREDENCIALES_USUARIO\""  { return new Symbol(CREDENCIALES_USUARIO, yyline+1, yycolumn+1, yytext()); }
+    "\"LOGIN_USUARIO\""         { return new Symbol(LOGIN_USUARIO, yyline+1, yycolumn+1, yytext()); }
+    "\"NUEVO_FORMULARIO\""      { return new Symbol(NUEVO_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
+    "\"ID\""                    { return new Symbol(ID, yyline+1, yycolumn+1, yytext()); }
+    "\"TITULO\""                { return new Symbol(TITULO, yyline+1, yycolumn+1, yytext()); }
+    "\"NOMBRE\""                { return new Symbol(NOMBRE, yyline+1, yycolumn+1, yytext()); }
+    "\"TEMA\""                  { return new Symbol(TEMA, yyline+1, yycolumn+1, yytext()); }
+    "\"USUARIO_CREACION\""      { return new Symbol(USUARIO_CREACION, yyline+1, yycolumn+1, yytext()); }
+    "\"FECHA_CREACION\""        { return new Symbol(FECHA_CREACION, yyline+1, yycolumn+1, yytext()); }
+    "\"ELIMINAR_FORMULARIO\""   { return new Symbol(ELIMINAR_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
+    "\"MODIFICAR_FORMULARIO\""  { return new Symbol(MODIFICAR_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
+    "\"PARAMETROS_FORMULARIO\"" { return new Symbol(PARAMETROS_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
+    "\"AGREGAR_COMPONENTE\""    { return new Symbol(AGREGAR_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
+    "\"PARAMETROS_COMPONENTE\"" { return new Symbol(PARAMETROS_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
+    "\"NOMBRE_CAMPO\""          { return new Symbol(NOMBRE_CAMPO, yyline+1, yycolumn+1, yytext()); }
+    "\"FORMULARIO\""            { return new Symbol(FORMULARIO, yyline+1, yycolumn+1, yytext()); }
+    "\"CLASE\""                 { return new Symbol(CLASE, yyline+1, yycolumn+1, yytext()); }
+    "\"INDICE\""                { return new Symbol(INDICE, yyline+1, yycolumn+1, yytext()); }
+    "\"TEXTO_VISIBLE\""         { return new Symbol(TEXTO_VISIBLE, yyline+1, yycolumn+1, yytext()); }
+    "\"ALINEACION\""            { return new Symbol(ALINEACION, yyline+1, yycolumn+1, yytext()); }
+    "\"REQUERIDO\""             { return new Symbol(REQUERIDO, yyline+1, yycolumn+1, yytext()); }
+    "\"OPCIONES\""              { return new Symbol(OPCIONES, yyline+1, yycolumn+1, yytext()); }
+    "\"FILAS\""                 { return new Symbol(FILAS, yyline+1, yycolumn+1, yytext()); }
+    "\"COLUMNAS\""              { return new Symbol(COLUMNAS, yyline+1, yycolumn+1, yytext()); }
+    "\"URL\""                   { return new Symbol(URL, yyline+1, yycolumn+1, yytext()); }
+    "\"ELIMINAR_COMPONENTE\""   { return new Symbol(ELIMINAR_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
+    "\"MODIFICAR_COMPONENTE\""  { return new Symbol(MODIFICAR_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
+    "\"CONSULTAR_DATOS\""       { return new Symbol(CONSULTAR_DATOS, yyline+1, yycolumn+1, yytext()); }
     //Componentes Solicitados
-    "CAMPO_TEXTO"           { return new Symbol(CAMPO_TEXTO, yyline+1, yycolumn+1, yytext()); }
-    "AREA_TEXTO"            { return new Symbol(AREA_TEXTO, yyline+1, yycolumn+1, yytext()); }
-    "CHECKBOX"              { return new Symbol(CHECKBOX, yyline+1, yycolumn+1, yytext()); }
-    "RADIO"                 { return new Symbol(RADIO, yyline+1, yycolumn+1, yytext()); }
-    "FICHERO"               { return new Symbol(FICHERO, yyline+1, yycolumn+1, yytext()); }
-    "IMAGEN"                { return new Symbol(IMAGEN, yyline+1, yycolumn+1, yytext()); }
-    "COMBO"                 { return new Symbol(COMBO, yyline+1, yycolumn+1, yytext()); }
-    "BOTON"                 { return new Symbol(BOTON, yyline+1, yycolumn+1, yytext()); }
+    "\"CAMPO_TEXTO\""           { return new Symbol(CAMPO_TEXTO, yyline+1, yycolumn+1, yytext()); }
+    "\"AREA_TEXTO\""            { return new Symbol(AREA_TEXTO, yyline+1, yycolumn+1, yytext()); }
+    "\"CHECKBOX\""              { return new Symbol(CHECKBOX, yyline+1, yycolumn+1, yytext()); }
+    "\"RADIO\""                 { return new Symbol(RADIO, yyline+1, yycolumn+1, yytext()); }
+    "\"FICHERO\""               { return new Symbol(FICHERO, yyline+1, yycolumn+1, yytext()); }
+    "\"IMAGEN\""                { return new Symbol(IMAGEN, yyline+1, yycolumn+1, yytext()); }
+    "\"COMBO\""                 { return new Symbol(COMBO, yyline+1, yycolumn+1, yytext()); }
+    "\"BOTON\""                 { return new Symbol(BOTON, yyline+1, yycolumn+1, yytext()); }
     //Lenguaje de reportería
 
 
 
     //Cadenas Fundamentales
     {IDENTIFICA}            { return new Symbol(IDENTIFICADOR, yyline+1, yycolumn+1, yytext()); }
-    {TEMA}                  { return new Symbol(TEMA, yyline+1, yycolumn+1, yytext()); }
+    {TEMA}                  { return new Symbol(THEME, yyline+1, yycolumn+1, yytext()); }
     {ALFANUMERIC}           { return new Symbol(ALFANUMERICO, yyline+1, yycolumn+1, yytext()); }
-    {CONTRASEÑA}            { System.out.println("Se halló una constraseña"); return new Symbol(CONTRASEÑA, yyline+1, yycolumn+1, yytext()); }
+    {FECHA}                 { return new Symbol(FECHA, yyline+1, yycolumn+1, yytext()); }
+    //{ALLCHARACTERS}         { System.out.println("allcharacters: " + yyline + " " + yycolumn); return new Symbol(ALLCHARACTERS, yyline+1, yycolumn+1, yytext()); }
+    //{ALLCHARACTERSNOSPACE}  { return new Symbol(ALLCHARACTERSNOSPACE, yyline+1, yycolumn+1, yytext()); }
+    //{CONTRASEÑA}            { System.out.println("Se halló una constraseña"); return new Symbol(CONTRASEÑA, yyline+1, yycolumn+1, yytext()); }
 
     {Ignore}                {/* IGNORAR */}
 }
