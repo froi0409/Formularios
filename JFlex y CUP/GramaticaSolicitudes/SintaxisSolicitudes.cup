@@ -21,22 +21,22 @@ parser code  {:
 :}
 
 //Declaración de terminales
-terminal MENOR_QUE, MAYOR_QUE, IGUAL, EXCLAMACION, PUNTOS, COMILLAS, CORCHETE_A, CORCHETE_C, COMA, DOLAR, GUION_BAJO, GUION, LLAVE_A, LLAVE_C, IDENTIFICADOR, ALFANUMERICO, CONTRASEÑA, FECHA, THEME, ALLCHARACTERS, ALLCHARACTERSNOSPACE;
+terminal MENOR_QUE, MAYOR_QUE, IGUAL, EXCLAMACION, PUNTOS, COMILLAS, CORCHETE_A, CORCHETE_C, COMA, DOLAR, GUION_BAJO, GUION, LLAVE_A, LLAVE_C, IDENTIFICADOR, ALFANUMERICO, CONTRASEÑA, FECHA, THEME, ALLCHARACTERS, ALLCHARACTERSNOSPACE, NUMERO, SI, NO, CENTRO, IZQUIERDA, DERECHA, JUSTIFICAR, OPTIONS;
 terminal INI_SOLICITUDES, FIN_SOLICITUDES, INI_SOLICITUD, FIN_SOLICITUD, CREAR_USUARIO, CREDENCIALES_USUARIO, USUARIO, PASSWORD, MODIFICAR_USUARIO, USUARIO_ANTIGUO, NUEVO_PASSWORD, FECHA_MODIFICACION, ELIMINAR_USUARIO;
 terminal NUEVO_FORMULARIO, ID, TITULO, NOMBRE, TEMA, USUARIO_CREACION, USUARIO_NUEVO, FECHA_CREACION, ELIMINAR_FORMULARIO, LOGIN_USUARIO, MODIFICAR_FORMULARIO, PARAMETROS_FORMULARIO, AGREGAR_COMPONENTE, PARAMETROS_COMPONENTE, NOMBRE_CAMPO, FORMULARIO, CLASE;
 terminal INDICE, TEXTO_VISIBLE, ALINEACION, REQUERIDO, OPCIONES, FILAS, COLUMNAS, URL, ELIMINAR_COMPONENTE, MODIFICAR_COMPONENTE, CONSULTAR_DATOS;
 terminal CAMPO_TEXTO, AREA_TEXTO, CHECKBOX, RADIO, FICHERO, IMAGEN, COMBO, BOTON;
 
-non terminal inicio, solicitud, solicitudes, tipo_solicitud, apertura_instruccion_principal1, apertura_instruccion_principal2, cierre_instruccion_principal; 
+non terminal inicio, solicitud, solicitudes, tipo_solicitud, apertura_instruccion_principal1, apertura_instruccion_principal2, cierre_instruccion_principal, tipo_clase, required, tipo_alineacion; 
 //instrucciones
 non terminal instruccion_creacion_usuario, instruccion_modificacion_usuario, instruccion_eliminacion_usuario, instruccion_login_usuario, instruccion_modificacion_formulario, instruccion_agregar_componente, instruccion_nuevo_formulario;
-non terminal instruccion_eliminacion_componente, instruccion_modificacion_componente, instruccion_consultar_datos;
+non terminal instruccion_eliminacion_componente, instruccion_modificacion_componente, instruccion_consultar_datos, instruccion_eliminacion_formulario;
 
 non terminal instruccion_alfanumerico;
 //acciones
-non terminal accion_crear_usuario, accion_modificacion_usuario, accion_eliminacion_usuario, accion_login_usuario, accion_nuevo_formulario;
-non terminal accion_crear_usuario_p, accion_modificacion_usuario_p, accion_eliminacion_usuario_p, accion_login_usuario_p, accion_nuevo_formulario_p;
-non terminal opciones_crear_usuario, opciones_modificacion_usuario, opciones_eliminacion_usuario, opciones_login_usuario, opciones_nuevo_formulario;
+non terminal accion_crear_usuario, accion_modificacion_usuario, accion_eliminacion_usuario, accion_login_usuario, accion_nuevo_formulario, accion_eliminacion_formulario, accion_modificacion_formulario, accion_agregar_componente, accion_eliminacion_componente, accion_modificacion_componente;
+non terminal accion_crear_usuario_p, accion_modificacion_usuario_p, accion_eliminacion_usuario_p, accion_login_usuario_p, accion_nuevo_formulario_p, accion_eliminacion_formulario_p, accion_modificacion_formulario_p, accion_agregar_componente_p, accion_eliminacion_componente_p, accion_modificacion_componente_p;
+non terminal opciones_crear_usuario, opciones_modificacion_usuario, opciones_eliminacion_usuario, opciones_login_usuario, opciones_nuevo_formulario, opciones_eliminacion_formulario, opciones_modificacion_formulario, opciones_agregar_componente, opciones_eliminacion_componente, opciones_modificacion_componente;
 
 
 start with inicio;
@@ -53,12 +53,12 @@ tipo_solicitud ::=  CREAR_USUARIO           apertura_instruccion_principal1 CRED
                     | ELIMINAR_USUARIO      apertura_instruccion_principal1 CREDENCIALES_USUARIO apertura_instruccion_principal2 instruccion_eliminacion_usuario cierre_instruccion_principal {: System.out.println("ELIMINACION DE USUARIO"); :}
                     | LOGIN_USUARIO         apertura_instruccion_principal1 CREDENCIALES_USUARIO apertura_instruccion_principal2 instruccion_login_usuario cierre_instruccion_principal {: System.out.println("LOGIN USUARIO"); :}
                     | NUEVO_FORMULARIO      apertura_instruccion_principal1 PARAMETROS_FORMULARIO apertura_instruccion_principal2 instruccion_nuevo_formulario cierre_instruccion_principal {: System.out.println("NUEVO FORMULARIO"); :}
-                    | ELIMINAR_FORMULARIO   apertura_instruccion_principal1 
-                    | MODIFICAR_FORMULARIO  apertura_instruccion_principal1
-                    | AGREGAR_COMPONENTE    apertura_instruccion_principal1
-                    | ELIMINAR_COMPONENTE   apertura_instruccion_principal1
-                    | MODIFICAR_COMPONENTE  apertura_instruccion_principal1
-                    | CONSULTAR_DATOS       apertura_instruccion_principal1
+                    | ELIMINAR_FORMULARIO   apertura_instruccion_principal1 PARAMETROS_FORMULARIO apertura_instruccion_principal2 instruccion_eliminacion_formulario cierre_instruccion_principal {: System.out.println("ELIMINAR FORMULARIO"); :}
+                    | MODIFICAR_FORMULARIO  apertura_instruccion_principal1 PARAMETROS_FORMULARIO apertura_instruccion_principal2 instruccion_modificacion_formulario cierre_instruccion_principal {: System.out.println("MODIFICAR FORMULARIO"); :}
+                    | AGREGAR_COMPONENTE    apertura_instruccion_principal1 PARAMETROS_COMPONENTE apertura_instruccion_principal2 instruccion_agregar_componente cierre_instruccion_principal {: System.out.println("AGREGAR COMPONENTE"); :}
+                    | ELIMINAR_COMPONENTE   apertura_instruccion_principal1 PARAMETROS_COMPONENTE apertura_instruccion_principal2 instruccion_eliminacion_componente cierre_instruccion_principal {: System.out.println("ELIMINAR COMPONENTE"); :}
+                    | MODIFICAR_COMPONENTE  apertura_instruccion_principal1 PARAMETROS_COMPONENTE apertura_instruccion_principal2 instruccion_modificacion_componente cierre_instruccion_principal {: System.out.println("MODIFICAR COMPONENTE"); :}
+                    | CONSULTAR_DATOS       apertura_instruccion_principal1 PARAMETROS_FORMULARIO 
                     ;
 
 //Ejemplo de manejo de errores
@@ -87,7 +87,7 @@ accion_crear_usuario_p ::=  opciones_crear_usuario COMA accion_crear_usuario_p
                             ;
 
 opciones_crear_usuario ::=  USUARIO PUNTOS ALFANUMERICO
-                            | PASSWORD PUNTOS ALLCHARACTERS
+                            | PASSWORD PUNTOS ALFANUMERICO
                             ;
 
 /* INSTRUCCIONES DE MODIFICACION DE USUARIO */
@@ -105,7 +105,7 @@ accion_modificacion_usuario_p ::=   opciones_modificacion_usuario COMA accion_mo
 
 opciones_modificacion_usuario ::=   USUARIO_ANTIGUO PUNTOS ALFANUMERICO
                                     | USUARIO_NUEVO PUNTOS ALFANUMERICO
-                                    | NUEVO_PASSWORD PUNTOS ALLCHARACTERS
+                                    | NUEVO_PASSWORD PUNTOS ALFANUMERICO
                                     | FECHA_MODIFICACION PUNTOS FECHA
                                     ;
 
@@ -133,7 +133,7 @@ accion_login_usuario_p ::=          opciones_login_usuario COMA accion_login_usu
                                     ;
 
 opciones_login_usuario ::=          USUARIO PUNTOS ALFANUMERICO
-                                    | PASSWORD PUNTOS ALLCHARACTERSNOSPACE
+                                    | PASSWORD PUNTOS ALFANUMERICO
                                     ;
 
 /* INSTRUCCIONES DE NUEVO FORMULARIO */
@@ -149,9 +149,117 @@ accion_nuevo_formulario_p ::=       opciones_nuevo_formulario COMA accion_nuevo_
                                     ;
 
 opciones_nuevo_formulario ::=       ID PUNTOS IDENTIFICADOR
-                                    | TITULO PUNTOS ALLCHARACTERS
-                                    | NOMBRE PUNTOS ALLCHARACTERSNOSPACE
+                                    | TITULO PUNTOS ALFANUMERICO
+                                    | NOMBRE PUNTOS ALFANUMERICO
                                     | TEMA PUNTOS THEME
                                     | USUARIO_CREACION PUNTOS ALFANUMERICO
                                     | FECHA_CREACION PUNTOS FECHA 
                                     ;
+
+/* INSTRUCCIONES DE ELIMINAR FORMLARIO */
+instruccion_eliminacion_formulario ::=  accion_eliminacion_formulario COMA instruccion_eliminacion_formulario
+                                        | accion_eliminacion_formulario
+                                        ;
+
+accion_eliminacion_formulario ::=       LLAVE_A accion_eliminacion_formulario_p LLAVE_C
+                                        ;
+
+accion_eliminacion_formulario_p ::=     opciones_eliminacion_formulario COMA accion_eliminacion_formulario_p
+                                        | opciones_eliminacion_formulario
+                                        ;
+
+opciones_eliminacion_formulario ::=     ID PUNTOS IDENTIFICADOR
+                                        ;
+
+/* INSTRUCCIONES MODIFICAR FORMULARIO */
+instruccion_modificacion_formulario ::= accion_modificacion_formulario COMA  instruccion_modificacion_formulario
+                                        | accion_modificacion_formulario
+                                        ;
+
+accion_modificacion_formulario ::=      LLAVE_A accion_modificacion_formulario_p LLAVE_C
+                                        ;
+
+accion_modificacion_formulario_p ::=    opciones_modificacion_formulario COMA accion_modificacion_formulario_p
+                                        | opciones_modificacion_formulario
+                                        ;
+
+opciones_modificacion_formulario ::=    ID PUNTOS IDENTIFICADOR
+                                        | TITULO PUNTOS ALFANUMERICO
+                                        | NOMBRE PUNTOS ALFANUMERICO
+                                        | TEMA PUNTOS THEME
+                                        ;
+
+/* INSTRUCCIONES PARA AGREGAR COMPONENTE */
+instruccion_agregar_componente ::=  accion_agregar_componente COMA instruccion_agregar_componente
+                                    | accion_agregar_componente
+                                    ;
+
+accion_agregar_componente ::=       LLAVE_A accion_agregar_componente_p LLAVE_C
+                                    ;
+
+accion_agregar_componente_p ::=     opciones_agregar_componente COMA accion_agregar_componente_p
+                                    | opciones_agregar_componente
+                                    ;
+
+opciones_agregar_componente ::=     ID PUNTOS IDENTIFICADOR
+                                    | NOMBRE_CAMPO PUNTOS ALFANUMERICO
+                                    | FORMULARIO PUNTOS ALFANUMERICO    
+                                    | CLASE PUNTOS tipo_clase
+                                    //| INDICE PUNTOS NUMERO
+                                    | TEXTO_VISIBLE  ALFANUMERICO
+                                    | ALINEACION PUNTOS tipo_alineacion
+                                    | REQUERIDO PUNTOS required
+                                    | OPCIONES PUNTOS OPTIONS
+                                    | FILAS PUNTOS NUMERO
+                                    | COLUMNAS PUNTOS NUMERO
+                                    | URL PUNTOS ALFANUMERICO
+                                    ;
+
+tipo_clase ::=                      CAMPO_TEXTO
+                                    | AREA_TEXTO
+                                    | CHECKBOX
+                                    | RADIO 
+                                    | FICHERO   
+                                    | IMAGEN
+                                    | COMBO
+                                    | BOTON
+                                    ;
+
+tipo_alineacion ::=                 CENTRO
+                                    | IZQUIERDA
+                                    | DERECHA
+                                    | JUSTIFICAR
+                                    ;
+
+/* INSTRUCCIONES PARA ELIMINAR COMPONENTES DE UN FORMULARIO */
+instruccion_eliminacion_componente ::=  accion_eliminacion_componente COMA instruccion_eliminacion_componente
+                                        | accion_eliminacion_componente
+                                        ;
+
+accion_eliminacion_componente ::=       LLAVE_A accion_eliminacion_componente_p LLAVE_C
+                                        ;
+
+accion_eliminacion_componente_p ::=     opciones_eliminacion_componente COMA accion_eliminacion_componente_p
+                                        | opciones_eliminacion_componente
+                                        ;
+
+opciones_eliminacion_componente ::=     ID PUNTOS IDENTIFICADOR
+                                        | FORMULARIO PUNTOS IDENTIFICADOR
+                                        ;
+
+/* INSTRUCCIONES PARA MODIFICACION DE UN COMPONENTE */
+instruccion_modificacion_componente ::= accion_modificacion_componente COMA instruccion_modificacion_componente
+                                        | accion_modificacion_componente
+                                        ;
+
+accion_modificacion_componente ::=      LLAVE_A accion_modificacion_componente_p LLAVE_C
+                                        ;
+
+accion_modificacion_componente_p ::=    opciones_modificacion_componente COMA accion_modificacion_componente_p
+                                        | opciones_modificacion_componente
+                                        ;
+
+opciones_modificacion_componente ::=    FORMULARIO PUNTOS IDENTIFICADOR
+                                        | INDICE PUNTOS NUMERO
+                                        | opciones_agregar_componente
+                                        ;
