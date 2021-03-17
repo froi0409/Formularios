@@ -11,27 +11,28 @@ public class sym {
   public static final int USUARIO_ANTIGUO = 40;
   public static final int COMILLAS = 7;
   public static final int IDENTIFICADOR = 16;
-  public static final int THEME = 20;
   public static final int INI_SOLICITUD = 33;
   public static final int CONSULTAR_DATOS = 71;
+  public static final int DARK = 29;
   public static final int MENOR_QUE = 2;
   public static final int MODIFICAR_FORMULARIO = 54;
   public static final int EXCLAMACION = 5;
   public static final int CAMPO_TEXTO = 72;
   public static final int TITULO = 46;
-  public static final int IZQUIERDA = 27;
+  public static final int IZQUIERDA = 25;
   public static final int FIN_SOLICITUDES = 32;
   public static final int CHECKBOX = 74;
-  public static final int SI = 24;
+  public static final int SI = 22;
   public static final int USUARIO_NUEVO = 50;
   public static final int FECHA_MODIFICACION = 42;
   public static final int USUARIO_CREACION = 49;
-  public static final int CONTRASEÑA = 18;
+  public static final int CONTRASEÑA = 17;
   public static final int TEMA = 48;
   public static final int ELIMINAR_COMPONENTE = 69;
-  public static final int CENTRO = 26;
+  public static final int CENTRO = 24;
+  public static final int WHITE = 30;
   public static final int PASSWORD = 38;
-  public static final int NUMERO = 23;
+  public static final int NUMERO = 21;
   public static final int OPCIONES = 65;
   public static final int MAYOR_QUE = 3;
   public static final int MODIFICAR_USUARIO = 39;
@@ -51,7 +52,7 @@ public class sym {
   public static final int ELIMINAR_FORMULARIO = 52;
   public static final int COMA = 10;
   public static final int IGUAL = 4;
-  public static final int FECHA = 19;
+  public static final int FECHA = 18;
   public static final int CLASE = 60;
   public static final int NOMBRE = 47;
   public static final int NOMBRE_CAMPO = 58;
@@ -70,22 +71,21 @@ public class sym {
   public static final int error = 1;
   public static final int BOTON = 79;
   public static final int CREDENCIALES_USUARIO = 36;
-  public static final int JUSTIFICAR = 29;
+  public static final int JUSTIFICAR = 27;
   public static final int ID = 45;
-  public static final int DERECHA = 28;
-  public static final int ALLCHARACTERS = 21;
+  public static final int DERECHA = 26;
+  public static final int ALLCHARACTERS = 19;
   public static final int RADIO = 75;
   public static final int FECHA_CREACION = 51;
   public static final int REQUERIDO = 64;
   public static final int PARAMETROS_FORMULARIO = 55;
-  public static final int ALLCHARACTERSNOSPACE = 22;
-  public static final int ALFANUMERICO = 17;
+  public static final int ALLCHARACTERSNOSPACE = 20;
   public static final int DOLAR = 11;
   public static final int COMBO = 78;
   public static final int INDICE = 61;
   public static final int ALINEACION = 63;
-  public static final int OPTIONS = 30;
-  public static final int NO = 25;
+  public static final int OPTIONS = 28;
+  public static final int NO = 23;
   public static final int GUION_BAJO = 12;
   public static final int AGREGAR_COMPONENTE = 56;
   public static final String[] terminalNames = new String[] {
@@ -106,10 +106,8 @@ public class sym {
   "LLAVE_A",
   "LLAVE_C",
   "IDENTIFICADOR",
-  "ALFANUMERICO",
   "CONTRASEÑA",
   "FECHA",
-  "THEME",
   "ALLCHARACTERS",
   "ALLCHARACTERSNOSPACE",
   "NUMERO",
@@ -120,6 +118,8 @@ public class sym {
   "DERECHA",
   "JUSTIFICAR",
   "OPTIONS",
+  "DARK",
+  "WHITE",
   "INI_SOLICITUDES",
   "FIN_SOLICITUDES",
   "INI_SOLICITUD",

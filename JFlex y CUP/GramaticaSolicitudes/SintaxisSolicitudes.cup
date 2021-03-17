@@ -13,6 +13,7 @@ parser code  {:
     @Override
     public void syntax_error(Symbol s) {
         System.out.println("linea: " + s.left + "   columna: " + s.right);
+        System.out.println("Simbolo: " + symbl_name_from_id(s.sym) + "  - Valor: " + s.value);
     }
     protected int error_sync_size() {
         return 1;
@@ -21,13 +22,13 @@ parser code  {:
 :}
 
 //Declaración de terminales
-terminal MENOR_QUE, MAYOR_QUE, IGUAL, EXCLAMACION, PUNTOS, COMILLAS, CORCHETE_A, CORCHETE_C, COMA, DOLAR, GUION_BAJO, GUION, LLAVE_A, LLAVE_C, IDENTIFICADOR, ALFANUMERICO, CONTRASEÑA, FECHA, THEME, ALLCHARACTERS, ALLCHARACTERSNOSPACE, NUMERO, SI, NO, CENTRO, IZQUIERDA, DERECHA, JUSTIFICAR, OPTIONS;
+terminal MENOR_QUE, MAYOR_QUE, IGUAL, EXCLAMACION, PUNTOS, COMILLAS, CORCHETE_A, CORCHETE_C, COMA, DOLAR, GUION_BAJO, GUION, LLAVE_A, LLAVE_C, IDENTIFICADOR, CONTRASEÑA, FECHA, ALLCHARACTERS, ALLCHARACTERSNOSPACE, NUMERO, SI, NO, CENTRO, IZQUIERDA, DERECHA, JUSTIFICAR, OPTIONS, DARK, WHITE;
 terminal INI_SOLICITUDES, FIN_SOLICITUDES, INI_SOLICITUD, FIN_SOLICITUD, CREAR_USUARIO, CREDENCIALES_USUARIO, USUARIO, PASSWORD, MODIFICAR_USUARIO, USUARIO_ANTIGUO, NUEVO_PASSWORD, FECHA_MODIFICACION, ELIMINAR_USUARIO;
 terminal NUEVO_FORMULARIO, ID, TITULO, NOMBRE, TEMA, USUARIO_CREACION, USUARIO_NUEVO, FECHA_CREACION, ELIMINAR_FORMULARIO, LOGIN_USUARIO, MODIFICAR_FORMULARIO, PARAMETROS_FORMULARIO, AGREGAR_COMPONENTE, PARAMETROS_COMPONENTE, NOMBRE_CAMPO, FORMULARIO, CLASE;
 terminal INDICE, TEXTO_VISIBLE, ALINEACION, REQUERIDO, OPCIONES, FILAS, COLUMNAS, URL, ELIMINAR_COMPONENTE, MODIFICAR_COMPONENTE, CONSULTAR_DATOS;
 terminal CAMPO_TEXTO, AREA_TEXTO, CHECKBOX, RADIO, FICHERO, IMAGEN, COMBO, BOTON;
 
-non terminal inicio, solicitud, solicitudes, tipo_solicitud, apertura_instruccion_principal1, apertura_instruccion_principal2, cierre_instruccion_principal, tipo_clase, required, tipo_alineacion; 
+non terminal inicio, solicitud, solicitudes, tipo_solicitud, apertura_instruccion_principal1, apertura_instruccion_principal2, cierre_instruccion_principal, tipo_clase, required, tipo_alineacion, theme; 
 //instrucciones
 non terminal instruccion_creacion_usuario, instruccion_modificacion_usuario, instruccion_eliminacion_usuario, instruccion_login_usuario, instruccion_modificacion_formulario, instruccion_agregar_componente, instruccion_nuevo_formulario;
 non terminal instruccion_eliminacion_componente, instruccion_modificacion_componente, instruccion_consultar_datos, instruccion_eliminacion_formulario;
@@ -86,8 +87,8 @@ accion_crear_usuario_p ::=  opciones_crear_usuario COMA accion_crear_usuario_p
                             | opciones_crear_usuario
                             ;
 
-opciones_crear_usuario ::=  USUARIO PUNTOS ALFANUMERICO
-                            | PASSWORD PUNTOS ALFANUMERICO
+opciones_crear_usuario ::=  USUARIO PUNTOS ALLCHARACTERSNOSPACE
+                            | PASSWORD PUNTOS ALLCHARACTERSNOSPACE
                             ;
 
 /* INSTRUCCIONES DE MODIFICACION DE USUARIO */
@@ -103,9 +104,9 @@ accion_modificacion_usuario_p ::=   opciones_modificacion_usuario COMA accion_mo
                                     ;
 
 
-opciones_modificacion_usuario ::=   USUARIO_ANTIGUO PUNTOS ALFANUMERICO
-                                    | USUARIO_NUEVO PUNTOS ALFANUMERICO
-                                    | NUEVO_PASSWORD PUNTOS ALFANUMERICO
+opciones_modificacion_usuario ::=   USUARIO_ANTIGUO PUNTOS ALLCHARACTERSNOSPACE
+                                    | USUARIO_NUEVO PUNTOS ALLCHARACTERSNOSPACE
+                                    | NUEVO_PASSWORD PUNTOS ALLCHARACTERSNOSPACE
                                     | FECHA_MODIFICACION PUNTOS FECHA
                                     ;
 
@@ -117,7 +118,7 @@ instruccion_eliminacion_usuario ::=     accion_eliminacion_usuario COMA instrucc
 accion_eliminacion_usuario ::=          LLAVE_A opciones_eliminacion_usuario LLAVE_C
                                         ;
 
-opciones_eliminacion_usuario ::=        USUARIO PUNTOS ALFANUMERICO
+opciones_eliminacion_usuario ::=        USUARIO PUNTOS ALLCHARACTERSNOSPACE
                                         ;
 
 /* INSTRUCCIONES DEL LOGIN */
@@ -132,8 +133,8 @@ accion_login_usuario_p ::=          opciones_login_usuario COMA accion_login_usu
                                     | opciones_login_usuario
                                     ;
 
-opciones_login_usuario ::=          USUARIO PUNTOS ALFANUMERICO
-                                    | PASSWORD PUNTOS ALFANUMERICO
+opciones_login_usuario ::=          USUARIO PUNTOS ALLCHARACTERSNOSPACE
+                                    | PASSWORD PUNTOS ALLCHARACTERSNOSPACE
                                     ;
 
 /* INSTRUCCIONES DE NUEVO FORMULARIO */
@@ -149,12 +150,16 @@ accion_nuevo_formulario_p ::=       opciones_nuevo_formulario COMA accion_nuevo_
                                     ;
 
 opciones_nuevo_formulario ::=       ID PUNTOS IDENTIFICADOR
-                                    | TITULO PUNTOS ALFANUMERICO
-                                    | NOMBRE PUNTOS ALFANUMERICO
-                                    | TEMA PUNTOS THEME
-                                    | USUARIO_CREACION PUNTOS ALFANUMERICO
+                                    | TITULO PUNTOS ALLCHARACTERS
+                                    | NOMBRE PUNTOS ALLCHARACTERSNOSPACE
+                                    | TEMA PUNTOS theme
+                                    | USUARIO_CREACION PUNTOS ALLCHARACTERSNOSPACE
                                     | FECHA_CREACION PUNTOS FECHA 
                                     ;
+
+theme ::=   DARK
+            | WHITE
+            ;
 
 /* INSTRUCCIONES DE ELIMINAR FORMLARIO */
 instruccion_eliminacion_formulario ::=  accion_eliminacion_formulario COMA instruccion_eliminacion_formulario
@@ -184,9 +189,9 @@ accion_modificacion_formulario_p ::=    opciones_modificacion_formulario COMA ac
                                         ;
 
 opciones_modificacion_formulario ::=    ID PUNTOS IDENTIFICADOR
-                                        | TITULO PUNTOS ALFANUMERICO
-                                        | NOMBRE PUNTOS ALFANUMERICO
-                                        | TEMA PUNTOS THEME
+                                        | TITULO PUNTOS ALLCHARACTERS
+                                        | NOMBRE PUNTOS ALLCHARACTERSNOSPACE
+                                        | TEMA PUNTOS theme
                                         ;
 
 /* INSTRUCCIONES PARA AGREGAR COMPONENTE */
@@ -202,17 +207,17 @@ accion_agregar_componente_p ::=     opciones_agregar_componente COMA accion_agre
                                     ;
 
 opciones_agregar_componente ::=     ID PUNTOS IDENTIFICADOR
-                                    | NOMBRE_CAMPO PUNTOS ALFANUMERICO
-                                    | FORMULARIO PUNTOS ALFANUMERICO    
+                                    | NOMBRE_CAMPO PUNTOS ALLCHARACTERSNOSPACE
+                                    | FORMULARIO PUNTOS IDENTIFICADOR    
                                     | CLASE PUNTOS tipo_clase
                                     //| INDICE PUNTOS NUMERO
-                                    | TEXTO_VISIBLE  ALFANUMERICO
+                                    | TEXTO_VISIBLE PUNTOS ALLCHARACTERS
                                     | ALINEACION PUNTOS tipo_alineacion
                                     | REQUERIDO PUNTOS required
                                     | OPCIONES PUNTOS OPTIONS
                                     | FILAS PUNTOS NUMERO
                                     | COLUMNAS PUNTOS NUMERO
-                                    | URL PUNTOS ALFANUMERICO
+                                    | URL PUNTOS ALLCHARACTERS
                                     ;
 
 tipo_clase ::=                      CAMPO_TEXTO
@@ -229,6 +234,10 @@ tipo_alineacion ::=                 CENTRO
                                     | IZQUIERDA
                                     | DERECHA
                                     | JUSTIFICAR
+                                    ;
+
+required ::=                        SI
+                                    | NO
                                     ;
 
 /* INSTRUCCIONES PARA ELIMINAR COMPONENTES DE UN FORMULARIO */
@@ -259,7 +268,6 @@ accion_modificacion_componente_p ::=    opciones_modificacion_componente COMA ac
                                         | opciones_modificacion_componente
                                         ;
 
-opciones_modificacion_componente ::=    FORMULARIO PUNTOS IDENTIFICADOR
-                                        | INDICE PUNTOS NUMERO
+opciones_modificacion_componente ::=    INDICE PUNTOS NUMERO
                                         | opciones_agregar_componente
                                         ;

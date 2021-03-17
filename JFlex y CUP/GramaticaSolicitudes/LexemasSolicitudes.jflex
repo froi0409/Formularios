@@ -17,11 +17,11 @@ INISOLICITUDES = [iI][nN][iI][_][sS][oO][lL][iI][cC][iI][tT][uU][dD][eE][sS]
 FINSOLICITUDES = [fF][iI][nN][_][sS][oO][lL][iI][cC][iI][tT][uU][dD][eE][sS]
 INISOLICITUD =  [iI][nN][iI][_][sS][oO][lL][iI][cC][iI][tT][uU][dD]
 FINSOLICITUD = [fF][iI][nN][_][sS][oO][lL][iI][cC][iI][tT][uU][dD]
-COMILLAS = [\"]
 TEMA = ("Dark" | "White")
-IDENTIFICA = ([&] | [_] | [-]) 
 ALFANUMERIC = [\"](([a-zA-Z] | [0-9])+)[\"]
+IDENTIFICA = [\"] ("$" | "_" | "-") ( [a-zA-Z] | [0-9] | "$" | "_" | "-")* [\"]
 NUMERO = [\"][0-9]+[\"]
+
 AÑO = [2-9][0-9][0-9][0-9]
 MESESA = ( 0?[1-9] | [1][0-9] | [2][0-9] | [3][0-1] )
 MESESB = ( 0?[1-9] | [1][0-9] | [2][0-9] | [3][0] )
@@ -30,13 +30,14 @@ COMPLEMENTOA = ( (0?1)|(0?3)|(0?5)|(0?7)|(0?8)|(10)|(12) ) [-] {MESESA}
 COMPLEMENTOB = ( (0?4)|(0?6)|(0?9)|(11) ) [-] {MESESB}
 COMPLEMENTOC = (0?2) [-] {MESESC}
 FECHA = [\"] {AÑO} [-] ( {COMPLEMENTOA} | {COMPLEMENTOB} | {COMPLEMENTOC} ) [\"] 
-ALLCHARACTERS = [\"]  {NOCOMILLAS} [\"]
+
+ALLCHARACTERS = [\"]  [^"\"" "|"]+ [\"]
+ALLCHARACTERSNOSPACE = [\"]  [^" " "\"" "|"]+ [\"]
 NOCOMILLAS =([^\"])*
-OPTIONS = [\"] {ALFANUMERIC} ("|" {ALFANUMERIC})* [\"]
+OPTIONS = [\"] ([a-zA-Z0-9] | {Ignore})+ ("|" ([a-zA-Z0-9] | {Ignore}})+)* [\"]
 
 TerminacionLinea = [\r|\n|\r\n]
 Ignore = {TerminacionLinea} | [ \t\f]
-ALLCHARACTERSNOSPACE = [\"] (!\") (!{Ignore}) [\"]
 %%
 
 <YYINITIAL> {
@@ -46,15 +47,11 @@ ALLCHARACTERSNOSPACE = [\"] (!\") (!{Ignore}) [\"]
     "="                     { return new Symbol(IGUAL, yyline+1, yycolumn+1, yytext()); }
     "!"                     { return new Symbol(EXCLAMACION, yyline+1, yycolumn+1, yytext()); }
     ":"                     { return new Symbol(PUNTOS, yyline+1, yycolumn+1, yytext()); }
-    {COMILLAS}              { return new Symbol(COMILLAS, yyline+1, yycolumn+1, yytext()); }
     "["                     { return new Symbol(CORCHETE_A, yyline+1, yycolumn+1, yytext()); }
     "]"                     { return new Symbol(CORCHETE_C, yyline+1, yycolumn+1, yytext()); }
     "{"                     { return new Symbol(LLAVE_A, yyline+1, yycolumn+1, yytext()); }
     "}"                     { return new Symbol(LLAVE_C, yyline+1, yycolumn+1, yytext()); }
     ","                     { return new Symbol(COMA, yyline+1, yycolumn+1, yytext()); }
-    "$"                     { return new Symbol(DOLAR, yyline+1, yycolumn+1, yytext()); }
-    "_"                     { return new Symbol(GUION_BAJO, yyline+1, yycolumn+1, yytext()); }
-    "-"                     { return new Symbol(GUION, yyline+1, yycolumn+1, yytext()); }
     
     //Instrucciones
     {INISOLICITUDES}        { return new Symbol(INI_SOLICITUDES, yyline+1, yycolumn+1, yytext()); }
@@ -114,16 +111,20 @@ ALLCHARACTERSNOSPACE = [\"] (!\") (!{Ignore}) [\"]
     "\"IZQUIERDA\""             { return new Symbol(IZQUIERDA, yyline+1, yycolumn+1, yytext()); }
     "\"DERECHA\""               { return new Symbol(DERECHA, yyline+1, yycolumn+1, yytext()); }
     "\"JUSTIFICAR\""            { return new Symbol(JUSTIFICAR, yyline+1, yycolumn+1, yytext()); }
+    "\"SI\""                    { return new Symbol(SI, yyline+1, yycolumn+1, yytext()); }
+    "\"NO\""                    { return new Symbol(NO, yyline+1, yycolumn+1, yytext()); }
+    "\"Dark\""                  { return new Symbol(DARK, yyline+1, yycolumn+1, yytext()); }
+    "\"White\""                 { return new Symbol(WHITE, yyline+1, yycolumn+1, yytext()); }
     //Lenguaje de reportería
 
 
 
     //Cadenas Fundamentales
     {IDENTIFICA}            { return new Symbol(IDENTIFICADOR, yyline+1, yycolumn+1, yytext()); }
-    {TEMA}                  { return new Symbol(THEME, yyline+1, yycolumn+1, yytext()); }
-    {ALFANUMERIC}           { return new Symbol(ALFANUMERICO, yyline+1, yycolumn+1, yytext()); }
     {NUMERO}                { return new Symbol(NUMERO, yyline+1, yycolumn+1, yytext()); }
     {FECHA}                 { return new Symbol(FECHA, yyline+1, yycolumn+1, yytext()); }
+    {ALLCHARACTERSNOSPACE}  { return new Symbol(ALLCHARACTERSNOSPACE, yyline+1, yycolumn+1, yytext()); }
+    {ALLCHARACTERS}         { return new Symbol(ALLCHARACTERS, yyline+1, yycolumn+1, yytext()); }
     {OPTIONS}               { return new Symbol(OPTIONS, yyline+1, yycolumn+1, yytext()); }
     {Ignore}                {/* IGNORAR */}
 }
