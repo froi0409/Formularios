@@ -1,9 +1,17 @@
 package com.froi.pruebasgramaticas;
 
 import java_cup.runtime.*;
+import java.util.ArrayList;
 
 parser code  {:
 
+    private ArrayList<Advertencia> listaErrores;
+    private int punteroErrores;
+
+    public parser(SolicitudesLexer lexer, ArrayList<Advertencia> listaErrores) {
+        super(lexer);
+        this.listaErrores = listaErrores;
+    }
     public void report_error(String message, Object info) {
         System.out.println("reporterror");
     }
@@ -13,7 +21,9 @@ parser code  {:
     @Override
     public void syntax_error(Symbol s) {
         System.out.println("linea: " + s.left + "   columna: " + s.right);
-        System.out.println("Simbolo: " + symbl_name_from_id(s.sym) + "  - Valor: " + s.value);
+        Advertencia advert = new Advertencia((String)s.value, s.left, s.right, "Sintáctico", "error sintáctico");
+        listaErrores.add(advert);
+        punteroErrores = listaErrores.size()-1;
     }
     protected int error_sync_size() {
         return 1;
@@ -28,12 +38,12 @@ terminal NUEVO_FORMULARIO, ID, TITULO, NOMBRE, TEMA, USUARIO_CREACION, USUARIO_N
 terminal INDICE, TEXTO_VISIBLE, ALINEACION, REQUERIDO, OPCIONES, FILAS, COLUMNAS, URL, ELIMINAR_COMPONENTE, MODIFICAR_COMPONENTE, CONSULTAR_DATOS;
 terminal CAMPO_TEXTO, AREA_TEXTO, CHECKBOX, RADIO, FICHERO, IMAGEN, COMBO, BOTON;
 
-non terminal inicio, solicitud, solicitudes, tipo_solicitud, apertura_instruccion_principal1, apertura_instruccion_principal2, cierre_instruccion_principal, tipo_clase, required, tipo_alineacion, theme; 
+non terminal inicio, solicitud, solicitudes, tipo_solicitud, apertura_instruccion_principal1, apertura_instruccion_principal2, cierre_instruccion_principal, tipo_clase, required, tipo_alineacion, theme, tipos_entrada, tipos_entrada_complete; 
 //instrucciones
 non terminal instruccion_creacion_usuario, instruccion_modificacion_usuario, instruccion_eliminacion_usuario, instruccion_login_usuario, instruccion_modificacion_formulario, instruccion_agregar_componente, instruccion_nuevo_formulario;
 non terminal instruccion_eliminacion_componente, instruccion_modificacion_componente, instruccion_consultar_datos, instruccion_eliminacion_formulario;
 
-non terminal instruccion_alfanumerico;
+non terminal instruccion_solicitudes, instruccion_solicitudes_p, instruccion_alfanumerico;
 //acciones
 non terminal accion_crear_usuario, accion_modificacion_usuario, accion_eliminacion_usuario, accion_login_usuario, accion_nuevo_formulario, accion_eliminacion_formulario, accion_modificacion_formulario, accion_agregar_componente, accion_eliminacion_componente, accion_modificacion_componente;
 non terminal accion_crear_usuario_p, accion_modificacion_usuario_p, accion_eliminacion_usuario_p, accion_login_usuario_p, accion_nuevo_formulario_p, accion_eliminacion_formulario_p, accion_modificacion_formulario_p, accion_agregar_componente_p, accion_eliminacion_componente_p, accion_modificacion_componente_p;
@@ -46,7 +56,35 @@ inicio  ::=     solicitud
                 | solicitudes  
                 ;
 
+solicitudes ::= MENOR_QUE EXCLAMACION INI_SOLICITUDES MAYOR_QUE instruccion_solicitudes
+                | error EXCLAMACION INI_SOLICITUDES MAYOR_QUE instruccion_solicitudes               {: listaErrores.get(punteroErrores).setDescripcion("Falta un simbolo'<' en la instrucción"); :}
+                | MENOR_QUE error INI_SOLICITUDES MAYOR_QUE instruccion_solicitudes                 {: listaErrores.get(punteroErrores).setDescripcion("Falta un simbolo '!' en la instrucción"); :}
+                | MENOR_QUE EXCLAMACION error MAYOR_QUE instruccion_solicitudes                     {: listaErrores.get(punteroErrores).setDescripcion("Falta la palabra reservada \"INI_SOLICITUDES\" en la instruccion");:}
+                | MENOR_QUE EXCLAMACION INI_SOLICITUDES error instruccion_solicitudes               {: listaErrores.get(punteroErrores).setDescripcion("Falta un simbolo '>' en la instrucción"); :}
+                | error instruccion_solicitudes                                                     {: listaErrores.get(punteroErrores).setDescripcion("Se espeaba exáctamente la instruccion '< ! \"INI_SOLICITUDES\" >', revise si la instrucción fue escrita correctamente"); :}
+                ;
+
+instruccion_solicitudes ::= solicitud instruccion_solicitudes
+                            | MENOR_QUE EXCLAMACION FIN_SOLICITUDES MAYOR_QUE
+                            | error EXCLAMACION FIN_SOLICITUDES MAYOR_QUE               {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '<' en la instruccion"); :}
+                            | MENOR_QUE error FIN_SOLICITUDES MAYOR_QUE                 {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '!' en la instrucción"); :}             
+                            | MENOR_QUE EXCLAMACION error MAYOR_QUE                     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba la palabra reservada \"FIN_SOLICITUDES\" en la instrucción"); :}
+                            | MENOR_QUE EXCLAMACION FIN_SOLICITUDES error               {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instrucción"); :}
+                            | error                                                     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exáctamente la instrucción '< ! \"FIN_SOLICITUDES\" >'"); :}
+                            ;
+
+
 solicitud ::=   MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE
+                | error EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE
+                | MENOR_QUE error INI_SOLICITUD PUNTOS tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE
+                | MENOR_QUE EXCLAMACION error PUNTOS tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE
+                | MENOR_QUE EXCLAMACION INI_SOLICITUD error tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE
+                | error tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE
+                | MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud error FIN_SOLICITUD EXCLAMACION MAYOR_QUE
+                | MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud MENOR_QUE error EXCLAMACION MAYOR_QUE
+                | MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud MENOR_QUE FIN_SOLICITUD error MAYOR_QUE
+                | MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION error
+                | MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud error
                 ;
 
 tipo_solicitud ::=  CREAR_USUARIO           apertura_instruccion_principal1 CREDENCIALES_USUARIO apertura_instruccion_principal2 instruccion_creacion_usuario cierre_instruccion_principal  {: System.out.println("CREACION DE USUARIO"); :}
@@ -64,15 +102,21 @@ tipo_solicitud ::=  CREAR_USUARIO           apertura_instruccion_principal1 CRED
 
 //Ejemplo de manejo de errores
 apertura_instruccion_principal1 ::=     MAYOR_QUE LLAVE_A
-                                        | error LLAVE_A         {: System.out.println("Falta >"); :}
-                                        | MAYOR_QUE error       {: System.out.println("Falta {"); :}
-                                        | error                 {: System.out.println("Error en la expresion"); :}
+                                        | error LLAVE_A         {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instrucción"); :}
+                                        | MAYOR_QUE error       {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' en la instrucción"); :}
+                                        | error                 {: listaErrores.get(punteroErrores).setDescripcion("Se esperaban los simbolos '>' y '{' en la instrucción"); :}
                                         ;
 
 apertura_instruccion_principal2 ::=     PUNTOS CORCHETE_A
+                                        | error CORCHETE_A      {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                                        | PUNTOS error          {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' en la instrucción"); :}
+                                        | error                 {: listaErrores.get(punteroErrores).setDescripcion("Se esperaban los simbolos ':' y '[' en la instrucción"); :}
                                         ;
 
 cierre_instruccion_principal ::=    CORCHETE_C LLAVE_C
+                                    | error LLAVE_C             {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ']' en la instrucción"); :}
+                                    | CORCHETE_C error          {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '}' en la instrucción"); :}
+                                    | error                     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaban los simbolos ']' y '}' en la instrucción"); :}
                                     ;
 
 /* INSTRUCCIONES DE CREACION DE USUARIO */
@@ -81,14 +125,24 @@ instruccion_creacion_usuario ::=    accion_crear_usuario COMA instruccion_creaci
                                     ;
 
 accion_crear_usuario ::=    LLAVE_A accion_crear_usuario_p LLAVE_C
+                            | error accion_crear_usuario_p LLAVE_C
+                            | LLAVE_A accion_crear_usuario_p error
                             ;
 
 accion_crear_usuario_p ::=  opciones_crear_usuario COMA accion_crear_usuario_p
                             | opciones_crear_usuario
                             ;
 
-opciones_crear_usuario ::=  USUARIO PUNTOS ALLCHARACTERSNOSPACE
-                            | PASSWORD PUNTOS ALLCHARACTERSNOSPACE
+opciones_crear_usuario ::=  USUARIO PUNTOS tipos_entrada
+                            | PASSWORD PUNTOS tipos_entrada
+                            | error tipos_entrada
+                            | USUARIO error tipos_entrada
+                            | PASSWORD error tipos_entrada
+                            | USUARIO error
+                            | USUARIO PUNTOS error
+                            | PASSWORD PUNTOS error
+                            | PASSWORD error
+                            | error
                             ;
 
 /* INSTRUCCIONES DE MODIFICACION DE USUARIO */
@@ -97,6 +151,8 @@ instruccion_modificacion_usuario ::=    accion_modificacion_usuario COMA instruc
                                         ;
 
 accion_modificacion_usuario ::= LLAVE_A accion_modificacion_usuario_p LLAVE_C
+                                | error accion_modificacion_usuario_p LLAVE_C
+                                | LLAVE_A accion_modificacion_usuario_p error
                                 ;
 
 accion_modificacion_usuario_p ::=   opciones_modificacion_usuario COMA accion_modificacion_usuario_p
@@ -104,10 +160,19 @@ accion_modificacion_usuario_p ::=   opciones_modificacion_usuario COMA accion_mo
                                     ;
 
 
-opciones_modificacion_usuario ::=   USUARIO_ANTIGUO PUNTOS ALLCHARACTERSNOSPACE
-                                    | USUARIO_NUEVO PUNTOS ALLCHARACTERSNOSPACE
-                                    | NUEVO_PASSWORD PUNTOS ALLCHARACTERSNOSPACE
+opciones_modificacion_usuario ::=   USUARIO_ANTIGUO PUNTOS tipos_entrada
+                                    | USUARIO_NUEVO PUNTOS tipos_entrada
+                                    | NUEVO_PASSWORD PUNTOS tipos_entrada
                                     | FECHA_MODIFICACION PUNTOS FECHA
+                                    | error tipos_entrada
+                                    | error PUNTOS tipos_entrada
+                                    | USUARIO PUNTOS error
+                                    | USUARIO error tipos_entrada
+                                    | USUARIO error
+                                    | PASSWORD PUNTOS error 
+                                    | PASSWORD error tipos_entrada
+                                    | PASSWORD error
+                                    | error
                                     ;
 
 /* INSTRUCCIONES DE ELIMINACIÓN DE USUARIO */
@@ -116,9 +181,17 @@ instruccion_eliminacion_usuario ::=     accion_eliminacion_usuario COMA instrucc
                                         ;
 
 accion_eliminacion_usuario ::=          LLAVE_A opciones_eliminacion_usuario LLAVE_C
+                                        | error opciones_eliminacion_usuario LLAVE_C
+                                        | LLAVE_A opciones_eliminacion_usuario error
                                         ;
 
-opciones_eliminacion_usuario ::=        USUARIO PUNTOS ALLCHARACTERSNOSPACE
+opciones_eliminacion_usuario ::=        USUARIO PUNTOS tipos_entrada
+                                        | error tipos_entrada
+                                        | error PUNTOS tipos_entrada
+                                        | USUARIO PUNTOS error
+                                        | USUARIO error tipos_entrada
+                                        | USUARIO error
+                                        | error
                                         ;
 
 /* INSTRUCCIONES DEL LOGIN */
@@ -127,14 +200,25 @@ instruccion_login_usuario ::=       accion_login_usuario COMA instruccion_login_
                                     ;
 
 accion_login_usuario ::=            LLAVE_A accion_login_usuario_p LLAVE_C
+                                    | error accion_login_usuario_p LLAVE_C
+                                    | LLAVE_A accion_login_usuario_p error
                                     ;
 
 accion_login_usuario_p ::=          opciones_login_usuario COMA accion_login_usuario_p
                                     | opciones_login_usuario
                                     ;
 
-opciones_login_usuario ::=          USUARIO PUNTOS ALLCHARACTERSNOSPACE
-                                    | PASSWORD PUNTOS ALLCHARACTERSNOSPACE
+opciones_login_usuario ::=          USUARIO PUNTOS tipos_entrada
+                                    | PASSWORD PUNTOS tipos_entrada
+                                    | error tipos_entrada
+                                    | error PUNTOS tipos_entrada
+                                    | USUARIO PUNTOS error
+                                    | USUARIO error tipos_entrada
+                                    | USUARIO error
+                                    | PASSWORD PUNTOS error
+                                    | PASSWORD error tipos_entrada
+                                    | PASSWORD error
+                                    | error
                                     ;
 
 /* INSTRUCCIONES DE NUEVO FORMULARIO */
@@ -143,6 +227,8 @@ instruccion_nuevo_formulario ::=    accion_nuevo_formulario COMA instruccion_nue
                                     ;
 
 accion_nuevo_formulario ::=         LLAVE_A accion_nuevo_formulario_p LLAVE_C
+                                    | error accion_nuevo_formulario_p LLAVE_C
+                                    | LLAVE_A accion_nuevo_formulario_p error
                                     ;
 
 accion_nuevo_formulario_p ::=       opciones_nuevo_formulario COMA accion_nuevo_formulario_p
@@ -150,11 +236,32 @@ accion_nuevo_formulario_p ::=       opciones_nuevo_formulario COMA accion_nuevo_
                                     ;
 
 opciones_nuevo_formulario ::=       ID PUNTOS IDENTIFICADOR
-                                    | TITULO PUNTOS ALLCHARACTERS
-                                    | NOMBRE PUNTOS ALLCHARACTERSNOSPACE
+                                    | TITULO PUNTOS tipos_entrada_complete
+                                    | NOMBRE PUNTOS tipos_entrada
                                     | TEMA PUNTOS theme
-                                    | USUARIO_CREACION PUNTOS ALLCHARACTERSNOSPACE
+                                    | USUARIO_CREACION PUNTOS tipos_entrada
                                     | FECHA_CREACION PUNTOS FECHA 
+                                    | error tipos_entrada_complete
+                                    | error PUNTOS tipos_entrada_complete
+                                    | ID PUNTOS error
+                                    | ID error IDENTIFICADOR
+                                    | ID error
+                                    | TITULO PUNTOS error 
+                                    | TITULO error tipos_entrada_complete
+                                    | TITULO error
+                                    | NOMBRE PUNTOS error
+                                    | NOMBRE error tipos_entrada
+                                    | NOMBRE error
+                                    | TEMA PUNTOS error
+                                    | TEMA error theme
+                                    | TEMA error
+                                    | USUARIO_CREACION PUNTOS error
+                                    | USUARIO_CREACION error tipos_entrada
+                                    | USUARIO_CREACION error
+                                    | FECHA_CREACION PUNTOS error
+                                    | FECHA_CREACION error FECHA
+                                    | FECHA_CREACION error
+                                    | error
                                     ;
 
 theme ::=   DARK
@@ -167,6 +274,8 @@ instruccion_eliminacion_formulario ::=  accion_eliminacion_formulario COMA instr
                                         ;
 
 accion_eliminacion_formulario ::=       LLAVE_A accion_eliminacion_formulario_p LLAVE_C
+                                        | error accion_eliminacion_formulario_p LLAVE_C
+                                        | LLAVE_A accion_eliminacion_formulario_p error
                                         ;
 
 accion_eliminacion_formulario_p ::=     opciones_eliminacion_formulario COMA accion_eliminacion_formulario_p
@@ -174,6 +283,12 @@ accion_eliminacion_formulario_p ::=     opciones_eliminacion_formulario COMA acc
                                         ;
 
 opciones_eliminacion_formulario ::=     ID PUNTOS IDENTIFICADOR
+                                        | error PUNTOS IDENTIFICADOR
+                                        | error IDENTIFICADOR
+                                        | ID PUNTOS error 
+                                        | ID error IDENTIFICADOR
+                                        | ID error
+                                        | error
                                         ;
 
 /* INSTRUCCIONES MODIFICAR FORMULARIO */
@@ -182,6 +297,8 @@ instruccion_modificacion_formulario ::= accion_modificacion_formulario COMA  ins
                                         ;
 
 accion_modificacion_formulario ::=      LLAVE_A accion_modificacion_formulario_p LLAVE_C
+                                        | error accion_modificacion_formulario_p LLAVE_C
+                                        | LLAVE_A accion_modificacion_formulario_p error
                                         ;
 
 accion_modificacion_formulario_p ::=    opciones_modificacion_formulario COMA accion_modificacion_formulario_p
@@ -189,9 +306,24 @@ accion_modificacion_formulario_p ::=    opciones_modificacion_formulario COMA ac
                                         ;
 
 opciones_modificacion_formulario ::=    ID PUNTOS IDENTIFICADOR
-                                        | TITULO PUNTOS ALLCHARACTERS
-                                        | NOMBRE PUNTOS ALLCHARACTERSNOSPACE
+                                        | TITULO PUNTOS tipos_entrada_complete
+                                        | NOMBRE PUNTOS tipos_entrada
                                         | TEMA PUNTOS theme
+                                        | error PUNTOS tipos_entrada_complete
+                                        | error tipos_entrada_complete
+                                        | ID PUNTOS error
+                                        | ID error IDENTIFICADOR
+                                        | ID error
+                                        | TITULO PUNTOS error
+                                        | TITULO error tipos_entrada_complete
+                                        | TITULO error
+                                        | NOMBRE PUNTOS error
+                                        | NOMBRE error tipos_entrada
+                                        | NOMBRE error
+                                        | TEMA PUNTOS error
+                                        | TEMA error theme
+                                        | TEMA error
+                                        | error
                                         ;
 
 /* INSTRUCCIONES PARA AGREGAR COMPONENTE */
@@ -200,6 +332,8 @@ instruccion_agregar_componente ::=  accion_agregar_componente COMA instruccion_a
                                     ;
 
 accion_agregar_componente ::=       LLAVE_A accion_agregar_componente_p LLAVE_C
+                                    | error accion_agregar_componente_p LLAVE_C
+                                    | LLAVE_A accion_agregar_componente_p error
                                     ;
 
 accion_agregar_componente_p ::=     opciones_agregar_componente COMA accion_agregar_componente_p
@@ -207,17 +341,53 @@ accion_agregar_componente_p ::=     opciones_agregar_componente COMA accion_agre
                                     ;
 
 opciones_agregar_componente ::=     ID PUNTOS IDENTIFICADOR
-                                    | NOMBRE_CAMPO PUNTOS ALLCHARACTERSNOSPACE
+                                    | NOMBRE_CAMPO PUNTOS tipos_entrada
                                     | FORMULARIO PUNTOS IDENTIFICADOR    
                                     | CLASE PUNTOS tipo_clase
                                     //| INDICE PUNTOS NUMERO
-                                    | TEXTO_VISIBLE PUNTOS ALLCHARACTERS
+                                    | TEXTO_VISIBLE PUNTOS tipos_entrada_complete
                                     | ALINEACION PUNTOS tipo_alineacion
                                     | REQUERIDO PUNTOS required
                                     | OPCIONES PUNTOS OPTIONS
                                     | FILAS PUNTOS NUMERO
                                     | COLUMNAS PUNTOS NUMERO
-                                    | URL PUNTOS ALLCHARACTERS
+                                    | URL PUNTOS tipos_entrada_complete
+                                    | error PUNTOS tipos_entrada_complete
+                                    | error tipos_entrada_complete
+                                    | ID PUNTOS error
+                                    | ID error IDENTIFICADOR
+                                    | ID error
+                                    | NOMBRE_CAMPO PUNTOS error
+                                    | NOMBRE_CAMPO error tipos_entrada
+                                    | NOMBRE_CAMPO error
+                                    | FORMULARIO PUNTOS error 
+                                    | FORMULARIO error IDENTIFICADOR
+                                    | FORMULARIO error
+                                    | CLASE PUNTOS error
+                                    | CLASE error tipo_clase
+                                    | CLASE error
+                                    | TEXTO_VISIBLE PUNTOS error
+                                    | TEXTO_VISIBLE error tipos_entrada_complete
+                                    | TEXTO_VISIBLE error
+                                    | ALINEACION PUNTOS error
+                                    | ALINEACION error tipo_alineacion
+                                    | ALINEACION error
+                                    | REQUERIDO PUNTOS error
+                                    | REQUERIDO error required
+                                    | REQUERIDO error
+                                    | OPCIONES PUNTOS error 
+                                    | OPCIONES error OPTIONS
+                                    | OPCIONES error
+                                    | FILAS PUNTOS error
+                                    | FILAS error NUMERO 
+                                    | FILAS error
+                                    | COLUMNAS PUNTOS error
+                                    | COLUMNAS error NUMERO
+                                    | COLUMNAS error
+                                    | URL PUNTOS error
+                                    | URL error tipos_entrada_complete
+                                    | URL error
+                                    | error
                                     ;
 
 tipo_clase ::=                      CAMPO_TEXTO
@@ -246,6 +416,8 @@ instruccion_eliminacion_componente ::=  accion_eliminacion_componente COMA instr
                                         ;
 
 accion_eliminacion_componente ::=       LLAVE_A accion_eliminacion_componente_p LLAVE_C
+                                        | error accion_eliminacion_componente_p LLAVE_C
+                                        | LLAVE_A accion_eliminacion_componente_p error
                                         ;
 
 accion_eliminacion_componente_p ::=     opciones_eliminacion_componente COMA accion_eliminacion_componente_p
@@ -254,6 +426,15 @@ accion_eliminacion_componente_p ::=     opciones_eliminacion_componente COMA acc
 
 opciones_eliminacion_componente ::=     ID PUNTOS IDENTIFICADOR
                                         | FORMULARIO PUNTOS IDENTIFICADOR
+                                        | error PUNTOS IDENTIFICADOR
+                                        | error IDENTIFICADOR
+                                        | ID PUNTOS error
+                                        | ID error IDENTIFICADOR
+                                        | ID error
+                                        | FORMULARIO PUNTOS error
+                                        | FORMULARIO error IDENTIFICADOR
+                                        | FORMULARIO error
+                                        | error
                                         ;
 
 /* INSTRUCCIONES PARA MODIFICACION DE UN COMPONENTE */
@@ -262,6 +443,8 @@ instruccion_modificacion_componente ::= accion_modificacion_componente COMA inst
                                         ;
 
 accion_modificacion_componente ::=      LLAVE_A accion_modificacion_componente_p LLAVE_C
+                                        | error accion_modificacion_componente_p LLAVE_C
+                                        | LLAVE_A accion_modificacion_componente_p error
                                         ;
 
 accion_modificacion_componente_p ::=    opciones_modificacion_componente COMA accion_modificacion_componente_p
@@ -270,4 +453,28 @@ accion_modificacion_componente_p ::=    opciones_modificacion_componente COMA ac
 
 opciones_modificacion_componente ::=    INDICE PUNTOS NUMERO
                                         | opciones_agregar_componente
+                                        | INDICE PUNTOS error
+                                        | INDICE error NUMERO
+                                        | INDICE error
                                         ;
+
+/* ENTRADAS */
+tipos_entrada ::=   ALLCHARACTERSNOSPACE
+                    | NUMERO
+                    | FECHA
+                    | IDENTIFICADOR
+                    | tipo_alineacion
+                    | required
+                    | theme
+                    ;
+
+tipos_entrada_complete ::=  ALLCHARACTERSNOSPACE
+                            | ALLCHARACTERS
+                            | NUMERO
+                            | FECHA
+                            | IDENTIFICADOR
+                            | OPTIONS
+                            | tipo_alineacion
+                            | required
+                            | theme
+                            ;

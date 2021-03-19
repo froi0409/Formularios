@@ -11,6 +11,10 @@ import static com.froi.pruebasgramaticas.sym.*;
 %column
 
 //Codigo añadido
+%{
+
+
+%}
 
 //Definición de expresiones regulares específicas
 INISOLICITUDES = [iI][nN][iI][_][sS][oO][lL][iI][cC][iI][tT][uU][dD][eE][sS]
@@ -32,11 +36,12 @@ COMPLEMENTOC = (0?2) [-] {MESESC}
 FECHA = [\"] {AÑO} [-] ( {COMPLEMENTOA} | {COMPLEMENTOB} | {COMPLEMENTOC} ) [\"] 
 
 ALLCHARACTERS = [\"]  [^"\"" "|"]+ [\"]
-ALLCHARACTERSNOSPACE = [\"]  [^" " "\"" "|"]+ [\"]
+ALLCHARACTERSNOSPACE = [\"]  [^' ' "\"" "|"]+ [\"]
 NOCOMILLAS =([^\"])*
 OPTIONS = [\"] ([a-zA-Z0-9] | {Ignore})+ ("|" ([a-zA-Z0-9] | {Ignore}})+)* [\"]
 
 TerminacionLinea = [\r|\n|\r\n]
+WS = [ \t\f]
 Ignore = {TerminacionLinea} | [ \t\f]
 %%
 
@@ -58,63 +63,63 @@ Ignore = {TerminacionLinea} | [ \t\f]
     {FINSOLICITUDES}        { return new Symbol(FIN_SOLICITUDES, yyline+1, yycolumn+1, yytext()); }
     {INISOLICITUD}          { return new Symbol(INI_SOLICITUD, yyline+1, yycolumn+1, yytext()); }
     {FINSOLICITUD}          { return new Symbol(FIN_SOLICITUD, yyline+1, yycolumn+1, yytext()); }
-    "\"CREAR_USUARIO\""         { System.out.println("crear usuario"); return new Symbol(CREAR_USUARIO, yyline+1, yycolumn+1, yytext()); }
-    "\"CREDENCIALES_USUARIO\""  { return new Symbol(CREDENCIALES_USUARIO, yyline+1, yycolumn+1, yytext()); }
-    "\"USUARIO\""               { return new Symbol(USUARIO, yyline+1, yycolumn+1, yytext()); }
-    "\"PASSWORD\""              { return new Symbol(PASSWORD, yyline+1, yycolumn+1, yytext()); }
-    "\"MODIFICAR_USUARIO\""     { return new Symbol(MODIFICAR_USUARIO, yyline+1, yycolumn+1, yytext()); }
-    "\"USUARIO_ANTIGUO\""       { return new Symbol(USUARIO_ANTIGUO, yyline+1, yycolumn+1, yytext()); }
-    "\"USUARIO_NUEVO\""         { return new Symbol(USUARIO_NUEVO, yyline+1, yycolumn+1, yytext()); }
-    "\"NUEVO_PASSWORD\""        { return new Symbol(NUEVO_PASSWORD, yyline+1, yycolumn+1, yytext()); }
-    "\"FECHA_MODIFICACION\""    { return new Symbol(FECHA_MODIFICACION, yyline+1, yycolumn+1, yytext()); }
-    "\"ELIMINAR_USUARIO\""      { return new Symbol(ELIMINAR_USUARIO, yyline+1, yycolumn+1, yytext()); }
-    "\"CREDENCIALES_USUARIO\""  { return new Symbol(CREDENCIALES_USUARIO, yyline+1, yycolumn+1, yytext()); }
-    "\"LOGIN_USUARIO\""         { return new Symbol(LOGIN_USUARIO, yyline+1, yycolumn+1, yytext()); }
-    "\"NUEVO_FORMULARIO\""      { return new Symbol(NUEVO_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
-    "\"ID\""                    { return new Symbol(ID, yyline+1, yycolumn+1, yytext()); }
-    "\"TITULO\""                { return new Symbol(TITULO, yyline+1, yycolumn+1, yytext()); }
-    "\"NOMBRE\""                { return new Symbol(NOMBRE, yyline+1, yycolumn+1, yytext()); }
-    "\"TEMA\""                  { return new Symbol(TEMA, yyline+1, yycolumn+1, yytext()); }
-    "\"USUARIO_CREACION\""      { return new Symbol(USUARIO_CREACION, yyline+1, yycolumn+1, yytext()); }
-    "\"FECHA_CREACION\""        { return new Symbol(FECHA_CREACION, yyline+1, yycolumn+1, yytext()); }
-    "\"ELIMINAR_FORMULARIO\""   { return new Symbol(ELIMINAR_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
-    "\"MODIFICAR_FORMULARIO\""  { return new Symbol(MODIFICAR_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
-    "\"PARAMETROS_FORMULARIO\"" { return new Symbol(PARAMETROS_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
-    "\"AGREGAR_COMPONENTE\""    { return new Symbol(AGREGAR_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
-    "\"PARAMETROS_COMPONENTE\"" { return new Symbol(PARAMETROS_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
-    "\"NOMBRE_CAMPO\""          { return new Symbol(NOMBRE_CAMPO, yyline+1, yycolumn+1, yytext()); }
-    "\"FORMULARIO\""            { return new Symbol(FORMULARIO, yyline+1, yycolumn+1, yytext()); }
-    "\"CLASE\""                 { return new Symbol(CLASE, yyline+1, yycolumn+1, yytext()); }
-    "\"INDICE\""                { return new Symbol(INDICE, yyline+1, yycolumn+1, yytext()); }
-    "\"TEXTO_VISIBLE\""         { return new Symbol(TEXTO_VISIBLE, yyline+1, yycolumn+1, yytext()); }
-    "\"ALINEACION\""            { return new Symbol(ALINEACION, yyline+1, yycolumn+1, yytext()); }
-    "\"REQUERIDO\""             { return new Symbol(REQUERIDO, yyline+1, yycolumn+1, yytext()); }
-    "\"OPCIONES\""              { return new Symbol(OPCIONES, yyline+1, yycolumn+1, yytext()); }
-    "\"FILAS\""                 { return new Symbol(FILAS, yyline+1, yycolumn+1, yytext()); }
-    "\"COLUMNAS\""              { return new Symbol(COLUMNAS, yyline+1, yycolumn+1, yytext()); }
-    "\"URL\""                   { return new Symbol(URL, yyline+1, yycolumn+1, yytext()); }
-    "\"ELIMINAR_COMPONENTE\""   { return new Symbol(ELIMINAR_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
-    "\"MODIFICAR_COMPONENTE\""  { return new Symbol(MODIFICAR_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
-    "\"CONSULTAR_DATOS\""       { return new Symbol(CONSULTAR_DATOS, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"CREAR_USUARIO"{WS}*"\""         { return new Symbol(CREAR_USUARIO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"CREDENCIALES_USUARIO"{WS}*"\""  { return new Symbol(CREDENCIALES_USUARIO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"USUARIO"{WS}*"\""               { return new Symbol(USUARIO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"PASSWORD"{WS}*"\""              { return new Symbol(PASSWORD, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"MODIFICAR_USUARIO"{WS}*"\""     { return new Symbol(MODIFICAR_USUARIO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"USUARIO_ANTIGUO"{WS}*"\""       { return new Symbol(USUARIO_ANTIGUO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"USUARIO_NUEVO"{WS}*"\""         { return new Symbol(USUARIO_NUEVO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"NUEVO_PASSWORD"{WS}*"\""        { return new Symbol(NUEVO_PASSWORD, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"FECHA_MODIFICACION"{WS}*"\""    { return new Symbol(FECHA_MODIFICACION, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"ELIMINAR_USUARIO"{WS}*"\""      { return new Symbol(ELIMINAR_USUARIO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"CREDENCIALES_USUARIO"{WS}*"\""  { return new Symbol(CREDENCIALES_USUARIO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"LOGIN_USUARIO"{WS}*"\""         { return new Symbol(LOGIN_USUARIO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"NUEVO_FORMULARIO"{WS}*"\""      { return new Symbol(NUEVO_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"ID"{WS}*"\""                    { return new Symbol(ID, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"TITULO"{WS}*"\""                { return new Symbol(TITULO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"NOMBRE"{WS}*"\""                { return new Symbol(NOMBRE, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"TEMA"{WS}*"\""                  { return new Symbol(TEMA, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"USUARIO_CREACION"{WS}*"\""      { return new Symbol(USUARIO_CREACION, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"FECHA_CREACION"{WS}*"\""        { return new Symbol(FECHA_CREACION, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"ELIMINAR_FORMULARIO"{WS}*"\""   { return new Symbol(ELIMINAR_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"MODIFICAR_FORMULARIO"{WS}*"\""  { return new Symbol(MODIFICAR_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"PARAMETROS_FORMULARIO"{WS}*"\"" { return new Symbol(PARAMETROS_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"AGREGAR_COMPONENT"{WS}*"E\""    { return new Symbol(AGREGAR_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"PARAMETROS_COMPONENTE"{WS}*"\"" { return new Symbol(PARAMETROS_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"NOMBRE_CAMPO"{WS}*"\""          { return new Symbol(NOMBRE_CAMPO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"FORMULARIO"{WS}*"\""            { return new Symbol(FORMULARIO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"CLASE"{WS}*"\""                 { return new Symbol(CLASE, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"INDICE"{WS}*"\""                { return new Symbol(INDICE, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"TEXTO_VISIBLE"{WS}*"\""         { return new Symbol(TEXTO_VISIBLE, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"ALINEACION"{WS}*"\""            { return new Symbol(ALINEACION, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"REQUERIDO"{WS}*"\""             { return new Symbol(REQUERIDO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"OPCIONES"{WS}*"\""              { return new Symbol(OPCIONES, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"FILAS"{WS}*"\""                 { return new Symbol(FILAS, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"COLUMNAS"{WS}*"\""              { return new Symbol(COLUMNAS, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"URL"{WS}*"\""                   { return new Symbol(URL, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"ELIMINAR_COMPONENTE"{WS}*"\""   { return new Symbol(ELIMINAR_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"MODIFICAR_COMPONENTE"{WS}*"\""  { return new Symbol(MODIFICAR_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"CONSULTAR_DATOS"{WS}*"\""       { return new Symbol(CONSULTAR_DATOS, yyline+1, yycolumn+1, yytext()); }
     //Componentes Solicitados
-    "\"CAMPO_TEXTO\""           { return new Symbol(CAMPO_TEXTO, yyline+1, yycolumn+1, yytext()); }
-    "\"AREA_TEXTO\""            { return new Symbol(AREA_TEXTO, yyline+1, yycolumn+1, yytext()); }
-    "\"CHECKBOX\""              { return new Symbol(CHECKBOX, yyline+1, yycolumn+1, yytext()); }
-    "\"RADIO\""                 { return new Symbol(RADIO, yyline+1, yycolumn+1, yytext()); }
-    "\"FICHERO\""               { return new Symbol(FICHERO, yyline+1, yycolumn+1, yytext()); }
-    "\"IMAGEN\""                { return new Symbol(IMAGEN, yyline+1, yycolumn+1, yytext()); }
-    "\"COMBO\""                 { return new Symbol(COMBO, yyline+1, yycolumn+1, yytext()); }
-    "\"BOTON\""                 { return new Symbol(BOTON, yyline+1, yycolumn+1, yytext()); }
-    "\"SI\""                    { return new Symbol(SI, yyline+1, yycolumn+1, yytext()); }
-    "\"NO\""                    { return new Symbol(NO, yyline+1, yycolumn+1, yytext()); }
-    "\"CENTRO\""                { return new Symbol(CENTRO, yyline+1, yycolumn+1, yytext()); }
-    "\"IZQUIERDA\""             { return new Symbol(IZQUIERDA, yyline+1, yycolumn+1, yytext()); }
-    "\"DERECHA\""               { return new Symbol(DERECHA, yyline+1, yycolumn+1, yytext()); }
-    "\"JUSTIFICAR\""            { return new Symbol(JUSTIFICAR, yyline+1, yycolumn+1, yytext()); }
-    "\"SI\""                    { return new Symbol(SI, yyline+1, yycolumn+1, yytext()); }
-    "\"NO\""                    { return new Symbol(NO, yyline+1, yycolumn+1, yytext()); }
-    "\"Dark\""                  { return new Symbol(DARK, yyline+1, yycolumn+1, yytext()); }
-    "\"White\""                 { return new Symbol(WHITE, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"CAMPO_TEXTO"{WS}*"\""           { return new Symbol(CAMPO_TEXTO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"AREA_TEXTO"{WS}*"\""            { return new Symbol(AREA_TEXTO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"CHECKBOX"{WS}*"\""              { return new Symbol(CHECKBOX, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"RADIO"{WS}*"\""                 { return new Symbol(RADIO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"FICHERO"{WS}*"\""               { return new Symbol(FICHERO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"IMAGEN"{WS}*"\""                { return new Symbol(IMAGEN, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"COMBO"{WS}*"\""                 { return new Symbol(COMBO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"BOTON"{WS}*"\""                 { return new Symbol(BOTON, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"SI"{WS}*"\""                    { return new Symbol(SI, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"NO"{WS}*"\""                    { return new Symbol(NO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"CENTRO"{WS}*"\""                { return new Symbol(CENTRO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"IZQUIERDA"{WS}*"\""             { return new Symbol(IZQUIERDA, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"DERECHA"{WS}*"\""               { return new Symbol(DERECHA, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"JUSTIFICAR"{WS}*"\""            { return new Symbol(JUSTIFICAR, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"SI"{WS}*"\""                    { return new Symbol(SI, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"NO"{WS}*"\""                    { return new Symbol(NO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"Dark"{WS}*"\""                  { return new Symbol(DARK, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"White"{WS}*"\""                 { return new Symbol(WHITE, yyline+1, yycolumn+1, yytext()); }
     //Lenguaje de reportería
 
 
