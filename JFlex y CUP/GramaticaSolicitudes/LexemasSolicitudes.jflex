@@ -1,6 +1,7 @@
-package com.froi.pruebasgramaticas;
+package com.froi.editorcodigoindigo.gramaticas.codigoindigo;
+
 import java_cup.runtime.*;
-import static com.froi.pruebasgramaticas.sym.*;
+import static com.froi.editorcodigoindigo.gramaticas.codigoindigo.ParserSolicitudesSym.*;
 %%
 
 %public
@@ -132,9 +133,9 @@ Ignore = {TerminacionLinea} | [ \t\f]
     "TO"                                        { return new Symbol(TO, yyline+1, yycolumn+1, yytext()); }
     "FROM"                                      { return new Symbol(FROM, yyline+1, yycolumn+1, yytext()); }
     "WHERE"                                     { return new Symbol(WHERE, yyline+1, yycolumn+1, yytext()); }
-    "AND"                                       { return new Symbols(AND, yyline+1, yycolumn+1, yytext()); }
+    "AND"                                       { return new Symbol(AND, yyline+1, yycolumn+1, yytext()); }
     "OR"                                        { return new Symbol(OR, yyline+1, yycolumn+1, yytext()); }
-    "NOT"                                       { return new Symbol(NOT, yyline+1 yycolumn+1, yytext()); }
+    "NOT"                                       { return new Symbol(NOT, yyline+1, yycolumn+1, yytext()); }
 
 
     //Cadenas Fundamentales

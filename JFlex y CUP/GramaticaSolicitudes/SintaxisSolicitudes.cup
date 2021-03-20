@@ -1,7 +1,10 @@
-package com.froi.pruebasgramaticas;
+package com.froi.editorcodigoindigo.gramaticas.codigoindigo;
 
+import com.froi.editorcodigoindigo.entidades.Advertencia;
 import java_cup.runtime.*;
 import java.util.ArrayList;
+
+class ParserSolicitudes;
 
 parser code  {:
 
@@ -12,7 +15,7 @@ parser code  {:
     private int bloque = 0, linea;
     private String clase = "";
 
-    public parser(SolicitudesLexer lexer, ArrayList<Advertencia> listaErrores) {
+    public ParserSolicitudes(SolicitudesLexer lexer, ArrayList<Advertencia> listaErrores) {
         super(lexer);
         this.listaErrores = listaErrores;
         this.listaParametros = new ArrayList<>();
@@ -79,6 +82,7 @@ terminal INI_SOLICITUDES, FIN_SOLICITUDES, INI_SOLICITUD, FIN_SOLICITUD, CREAR_U
 terminal NUEVO_FORMULARIO, ID, TITULO, NOMBRE, TEMA, USUARIO_CREACION, USUARIO_NUEVO, FECHA_CREACION, ELIMINAR_FORMULARIO, LOGIN_USUARIO, MODIFICAR_FORMULARIO, PARAMETROS_FORMULARIO, AGREGAR_COMPONENTE, PARAMETROS_COMPONENTE, NOMBRE_CAMPO, FORMULARIO, CLASE;
 terminal INDICE, TEXTO_VISIBLE, ALINEACION, REQUERIDO, OPCIONES, FILAS, COLUMNAS, URL, ELIMINAR_COMPONENTE, MODIFICAR_COMPONENTE, CONSULTAR_DATOS;
 terminal CAMPO_TEXTO, AREA_TEXTO, CHECKBOX, RADIO, FICHERO, IMAGEN, COMBO, BOTON;
+terminal FLECHA, MENOR_IGUAL, DIFERENTE, MAYOR_IGUAL, OR, TO, CADENA, AND, NOT, FROM, WHERE, SELECT, CONSULTA;
 
 non terminal inicio, solicitud, solicitudes, tipo_solicitud, apertura_instruccion_principal1, apertura_instruccion_principal2, cierre_instruccion_principal, tipo_clase, required, tipo_alineacion, theme, tipos_entrada, tipos_entrada_complete; 
 //instrucciones
