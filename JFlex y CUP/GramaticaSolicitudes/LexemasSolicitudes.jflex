@@ -40,6 +40,9 @@ ALLCHARACTERSNOSPACE = [\"]  [^' ' "\"" "|"]+ [\"]
 NOCOMILLAS =([^\"])*
 OPTIONS = [\"] ([a-zA-Z0-9] | {Ignore})+ ("|" ([a-zA-Z0-9] | {Ignore}})+)* [\"]
 
+CONSULTA = [\"] "CONSULTA-" [0-100]  [\"]
+CADENA = ['] [^"'" "\""] [']
+
 TerminacionLinea = [\r|\n|\r\n]
 WS = [ \t\f]
 Ignore = {TerminacionLinea} | [ \t\f]
@@ -49,6 +52,9 @@ Ignore = {TerminacionLinea} | [ \t\f]
     //Signos fundamentales
     "<"                     { return new Symbol(MENOR_QUE, yyline+1, yycolumn+1, yytext()); }
     ">"                     { return new Symbol(MAYOR_QUE, yyline+1, yycolumn+1, yytext()); }
+    "<>"                    { return new Symbol(DIFERENTE, yyline+1, yycolumn+1, yytext()); }
+    "<="                    { return new Symbol(MENOR_IGUAL, yyline+1, yycolumn+1, yytext()); }
+    ">="                    { return new Symbil(MAYOR_IGUAL, yyline+1, yycolumn+1, yytext()); }
     "="                     { return new Symbol(IGUAL, yyline+1, yycolumn+1, yytext()); }
     "!"                     { return new Symbol(EXCLAMACION, yyline+1, yycolumn+1, yytext()); }
     ":"                     { return new Symbol(PUNTOS, yyline+1, yycolumn+1, yytext()); }
@@ -57,7 +63,8 @@ Ignore = {TerminacionLinea} | [ \t\f]
     "{"                     { return new Symbol(LLAVE_A, yyline+1, yycolumn+1, yytext()); }
     "}"                     { return new Symbol(LLAVE_C, yyline+1, yycolumn+1, yytext()); }
     ","                     { return new Symbol(COMA, yyline+1, yycolumn+1, yytext()); }
-    
+    "->"                    { return new Symbol(FLECHA, yyline+1, yycolumn+1, yytext()); }
+
     //Instrucciones
     {INISOLICITUDES}        { return new Symbol(INI_SOLICITUDES, yyline+1, yycolumn+1, yytext()); }
     {FINSOLICITUDES}        { return new Symbol(FIN_SOLICITUDES, yyline+1, yycolumn+1, yytext()); }
@@ -121,16 +128,24 @@ Ignore = {TerminacionLinea} | [ \t\f]
     "\""{WS}*"Dark"{WS}*"\""                  { return new Symbol(DARK, yyline+1, yycolumn+1, yytext()); }
     "\""{WS}*"White"{WS}*"\""                 { return new Symbol(WHITE, yyline+1, yycolumn+1, yytext()); }
     //Lenguaje de reportería
-
+    "SELECT"                                    { return new Symbol(SELECT, yyline+1, yycolumn+1, yytext()); }
+    "TO"                                        { return new Symbol(TO, yyline+1, yycolumn+1, yytext()); }
+    "FROM"                                      { return new Symbol(FROM, yyline+1, yycolumn+1, yytext()); }
+    "WHERE"                                     { return new Symbol(WHERE, yyline+1, yycolumn+1, yytext()); }
+    "AND"                                       { return new Symbols(AND, yyline+1, yycolumn+1, yytext()); }
+    "OR"                                        { return new Symbol(OR, yyline+1, yycolumn+1, yytext()); }
+    "NOT"                                       { return new Symbol(NOT, yyline+1 yycolumn+1, yytext()); }
 
 
     //Cadenas Fundamentales
     {IDENTIFICA}            { return new Symbol(IDENTIFICADOR, yyline+1, yycolumn+1, yytext()); }
     {NUMERO}                { return new Symbol(NUMERO, yyline+1, yycolumn+1, yytext()); }
     {FECHA}                 { return new Symbol(FECHA, yyline+1, yycolumn+1, yytext()); }
+    {CONSULTA}              { return new Symbol(CONSULTA, yyline+1, yycolumn+1, yytext()); }
     {ALLCHARACTERSNOSPACE}  { return new Symbol(ALLCHARACTERSNOSPACE, yyline+1, yycolumn+1, yytext()); }
     {ALLCHARACTERS}         { return new Symbol(ALLCHARACTERS, yyline+1, yycolumn+1, yytext()); }
     {OPTIONS}               { return new Symbol(OPTIONS, yyline+1, yycolumn+1, yytext()); }
+    {CADENA}                { return new Symbol(CADENA, yyline+1, yycolumn+1, yytext()); }
     {Ignore}                {/* IGNORAR */}
 }
 

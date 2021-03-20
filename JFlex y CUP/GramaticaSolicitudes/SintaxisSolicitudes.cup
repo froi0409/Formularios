@@ -6,11 +6,17 @@ import java.util.ArrayList;
 parser code  {:
 
     private ArrayList<Advertencia> listaErrores;
+    private ArrayList<String> listaParametros;
+    private ArrayList<String> listaParametrosClase;
     private int punteroErrores;
+    private int bloque = 0, linea;
+    private String clase = "";
 
     public parser(SolicitudesLexer lexer, ArrayList<Advertencia> listaErrores) {
         super(lexer);
         this.listaErrores = listaErrores;
+        this.listaParametros = new ArrayList<>();
+        this.listaParametrosClase = new ArrayList<>();
     }
     public void report_error(String message, Object info) {
         System.out.println("reporterror");
@@ -27,6 +33,42 @@ parser code  {:
     }
     protected int error_sync_size() {
         return 1;
+    }
+
+    public void verificacionBloque(String[] listaObligatorios, ArrayList<String> listaParametros) {
+        for (String element: listaObligatorios) {
+            if(!listaParametros.contains(element)) {
+                System.out.println("Hace falta el parametro: " + element + " En el bloque de la linea " + linea);
+            }
+        }
+        ArrayList<String> auxiliar = new ArrayList<>();
+        for(String element: listaParametros) {
+            if(listaParametros.indexOf(element) != listaParametros.lastIndexOf(element)) {
+                System.out.println("Se ha repetido el parametro " + element + " en el bloque de la linea " + linea);
+            }
+        }
+    }
+
+    public void verificacionClase(ArrayList<String> listaParametros, String clase) {
+        for(String element: listaParametros) {
+            if(element.equals("\"OPCIONES\"")) {
+                if(!clase.equals("\"CHECKBOX\"") && !clase.equals("\"RADIO\"") && !clase.equals("\"COMBO\"")) {
+                    System.out.println("La instrucción \"OPCIONES\" del bloque de la linea "  + linea +  " no es valida para " + clase);
+                }
+            } else if(element.equals("\"FILAS\"")) {
+                if(!clase.equals("\"AREA_TEXTO\"")) {
+                    System.out.println("La instruccion \"FILAS\" del bloque de la linea "  + linea + " no es valida para " + clase);
+                }
+            } else if(element.equals("\"COLUMNAS\"")) {
+                if(!clase.equals("\"AREA_TEXTO\"")) {
+                    System.out.println("La instruccion \"COLUMNAS\" del bloque de la linea "  + linea + " no es valida para " + clase);
+                }
+            } else if(element.equals("\"URL\"")) {
+                if(!clase.equals("\"IMAGEN\"")) {
+                    System.out.println("La instruccion \"URL\" del bloque de la linea "  + linea + " no es valida para " + clase);
+                }
+            }
+        }
     }
 
 :}
@@ -49,6 +91,7 @@ non terminal accion_crear_usuario, accion_modificacion_usuario, accion_eliminaci
 non terminal accion_crear_usuario_p, accion_modificacion_usuario_p, accion_eliminacion_usuario_p, accion_login_usuario_p, accion_nuevo_formulario_p, accion_eliminacion_formulario_p, accion_modificacion_formulario_p, accion_agregar_componente_p, accion_eliminacion_componente_p, accion_modificacion_componente_p;
 non terminal opciones_crear_usuario, opciones_modificacion_usuario, opciones_eliminacion_usuario, opciones_login_usuario, opciones_nuevo_formulario, opciones_eliminacion_formulario, opciones_modificacion_formulario, opciones_agregar_componente, opciones_eliminacion_componente, opciones_modificacion_componente;
 
+precedence left COMA;
 
 start with inicio;
 
@@ -85,6 +128,7 @@ solicitud ::=   MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud MENOR_
                 | MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud MENOR_QUE FIN_SOLICITUD error MAYOR_QUE
                 | MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION error
                 | MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud error
+                | MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS error MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE        {: listaErrores.get(punteroErrores).setDescripcion("Error general en la instruccion"); :}
                 ;
 
 tipo_solicitud ::=  CREAR_USUARIO           apertura_instruccion_principal1 CREDENCIALES_USUARIO apertura_instruccion_principal2 instruccion_creacion_usuario cierre_instruccion_principal  {: System.out.println("CREACION DE USUARIO"); :}
@@ -97,7 +141,7 @@ tipo_solicitud ::=  CREAR_USUARIO           apertura_instruccion_principal1 CRED
                     | AGREGAR_COMPONENTE    apertura_instruccion_principal1 PARAMETROS_COMPONENTE apertura_instruccion_principal2 instruccion_agregar_componente cierre_instruccion_principal {: System.out.println("AGREGAR COMPONENTE"); :}
                     | ELIMINAR_COMPONENTE   apertura_instruccion_principal1 PARAMETROS_COMPONENTE apertura_instruccion_principal2 instruccion_eliminacion_componente cierre_instruccion_principal {: System.out.println("ELIMINAR COMPONENTE"); :}
                     | MODIFICAR_COMPONENTE  apertura_instruccion_principal1 PARAMETROS_COMPONENTE apertura_instruccion_principal2 instruccion_modificacion_componente cierre_instruccion_principal {: System.out.println("MODIFICAR COMPONENTE"); :}
-                    | CONSULTAR_DATOS       apertura_instruccion_principal1 PARAMETROS_FORMULARIO 
+                    | CONSULTAR_DATOS       apertura_instruccion_principal1 CONSULTAR_DATOS apertura_instruccion_principal2 instruccion_consultar_datos cierre_instruccion_principal 
                     ;
 
 //Ejemplo de manejo de errores
@@ -120,29 +164,37 @@ cierre_instruccion_principal ::=    CORCHETE_C LLAVE_C
                                     ;
 
 /* INSTRUCCIONES DE CREACION DE USUARIO */
-instruccion_creacion_usuario ::=    accion_crear_usuario COMA instruccion_creacion_usuario
-                                    | accion_crear_usuario
+instruccion_creacion_usuario ::=    accion_crear_usuario COMA instruccion_creacion_usuario  
+                                    | accion_crear_usuario                                  
                                     ;
 
-accion_crear_usuario ::=    LLAVE_A accion_crear_usuario_p LLAVE_C
-                            | error accion_crear_usuario_p LLAVE_C
-                            | LLAVE_A accion_crear_usuario_p error
+accion_crear_usuario ::=    LLAVE_A:llaA accion_crear_usuario_p LLAVE_C         {: 
+                                                                                    linea = llaAleft;
+                                                                                    String[] listaObligatorios = {"\"USUARIO\"", "\"PASSWORD\""};
+                                                                                    verificacionBloque(listaObligatorios, listaParametros);
+                                                                                    listaParametros.clear(); 
+                                                                                :}
+                            | error accion_crear_usuario_p                     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' en la instrucción"); :}
                             ;
 
-accion_crear_usuario_p ::=  opciones_crear_usuario COMA accion_crear_usuario_p
-                            | opciones_crear_usuario
+accion_crear_usuario_p ::=  opciones_crear_usuario COMA accion_crear_usuario_p 
+                            | opciones_crear_usuario 
                             ;
 
-opciones_crear_usuario ::=  USUARIO PUNTOS tipos_entrada
-                            | PASSWORD PUNTOS tipos_entrada
-                            | error tipos_entrada
-                            | USUARIO error tipos_entrada
-                            | PASSWORD error tipos_entrada
-                            | USUARIO error
-                            | USUARIO PUNTOS error
-                            | PASSWORD PUNTOS error
-                            | PASSWORD error
-                            | error
+opciones_crear_usuario ::=  USUARIO:usr PUNTOS tipos_entrada                    {: listaParametros.add(usr.toString()); :}
+                            | PASSWORD:psw PUNTOS tipos_entrada_complete        {: listaParametros.add(psw.toString()); :}
+                            | FECHA_CREACION:fc PUNTOS FECHA                    {: listaParametros.add(fc.toString()); :}
+                            | error tipos_entrada                               {: listaErrores.get(punteroErrores).setDescripcion("No se reconoce el tipo de parámetro a asignar valor en la instrucción"); :}
+                            | USUARIO error tipos_entrada                       {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                            | PASSWORD error tipos_entrada                      {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                            | USUARIO error                                     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido a asignar a un usuario"); :}
+                            | USUARIO PUNTOS error                              {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un usuario, revise si el valor a asignar al usuario contiene caracteres inválidos o si hace falta la coma de fin de instrucción"); :}
+                            | PASSWORD PUNTOS error                             {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una contraseña"); :}
+                            | PASSWORD error                                    {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido a asignar a una contraseña"); :}
+                            | FECHA_CREACION PUNTOS error
+                            | FECHA_CREACION error FECHA
+                            | FECHA_CREACION error
+                            | error                                             {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instucción: \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); :}
                             ;
 
 /* INSTRUCCIONES DE MODIFICACION DE USUARIO */
@@ -150,7 +202,7 @@ instruccion_modificacion_usuario ::=    accion_modificacion_usuario COMA instruc
                                         | accion_modificacion_usuario
                                         ;
 
-accion_modificacion_usuario ::= LLAVE_A accion_modificacion_usuario_p LLAVE_C
+accion_modificacion_usuario ::= LLAVE_A accion_modificacion_usuario_p LLAVE_C                   
                                 | error accion_modificacion_usuario_p LLAVE_C
                                 | LLAVE_A accion_modificacion_usuario_p error
                                 ;
@@ -331,7 +383,12 @@ instruccion_agregar_componente ::=  accion_agregar_componente COMA instruccion_a
                                     | accion_agregar_componente
                                     ;
 
-accion_agregar_componente ::=       LLAVE_A accion_agregar_componente_p LLAVE_C
+accion_agregar_componente ::=       LLAVE_A:llaA accion_agregar_componente_p LLAVE_C            {:
+                                                                                                    linea = llaAleft;
+                                                                                                    verificacionClase(listaParametros, clase);
+                                                                                                    listaParametros.clear();
+                                                                                                    listaParametrosClase.clear();
+                                                                                                :}
                                     | error accion_agregar_componente_p LLAVE_C
                                     | LLAVE_A accion_agregar_componente_p error
                                     ;
@@ -340,18 +397,18 @@ accion_agregar_componente_p ::=     opciones_agregar_componente COMA accion_agre
                                     | opciones_agregar_componente
                                     ;
 
-opciones_agregar_componente ::=     ID PUNTOS IDENTIFICADOR
-                                    | NOMBRE_CAMPO PUNTOS tipos_entrada
-                                    | FORMULARIO PUNTOS IDENTIFICADOR    
-                                    | CLASE PUNTOS tipo_clase
+opciones_agregar_componente ::=     ID:par PUNTOS IDENTIFICADOR                                 {: listaParametros.add(par.toString()); :}
+                                    | NOMBRE_CAMPO:par PUNTOS tipos_entrada                     {: listaParametros.add(par.toString()); :}
+                                    | FORMULARIO:par PUNTOS IDENTIFICADOR                       {: listaParametros.add(par.toString()); :}
+                                    | CLASE:par PUNTOS tipo_clase:tc                            {: listaParametros.add(par.toString()); clase = tc.toString(); :}
                                     //| INDICE PUNTOS NUMERO
-                                    | TEXTO_VISIBLE PUNTOS tipos_entrada_complete
-                                    | ALINEACION PUNTOS tipo_alineacion
-                                    | REQUERIDO PUNTOS required
-                                    | OPCIONES PUNTOS OPTIONS
-                                    | FILAS PUNTOS NUMERO
-                                    | COLUMNAS PUNTOS NUMERO
-                                    | URL PUNTOS tipos_entrada_complete
+                                    | TEXTO_VISIBLE:par PUNTOS tipos_entrada_complete           {: listaParametros.add(par.toString()); :}
+                                    | ALINEACION:par PUNTOS tipo_alineacion                     {: listaParametros.add(par.toString()); :}
+                                    | REQUERIDO:par PUNTOS required                             {: listaParametros.add(par.toString()); :}
+                                    | OPCIONES:par PUNTOS OPTIONS                               {: listaParametros.add(par.toString()); :}
+                                    | FILAS:par PUNTOS NUMERO                                   {: listaParametros.add(par.toString()); :}
+                                    | COLUMNAS:par PUNTOS NUMERO                                {: listaParametros.add(par.toString()); :}
+                                    | URL:par PUNTOS tipos_entrada_complete                     {: listaParametros.add(par.toString()); :}
                                     | error PUNTOS tipos_entrada_complete
                                     | error tipos_entrada_complete
                                     | ID PUNTOS error
@@ -390,14 +447,14 @@ opciones_agregar_componente ::=     ID PUNTOS IDENTIFICADOR
                                     | error
                                     ;
 
-tipo_clase ::=                      CAMPO_TEXTO
-                                    | AREA_TEXTO
-                                    | CHECKBOX
-                                    | RADIO 
-                                    | FICHERO   
-                                    | IMAGEN
-                                    | COMBO
-                                    | BOTON
+tipo_clase ::=                      CAMPO_TEXTO:val         {: RESULT=val; :}
+                                    | AREA_TEXTO:val        {: RESULT=val; :}
+                                    | CHECKBOX:val          {: RESULT=val; :}
+                                    | RADIO:val             {: RESULT=val; :}
+                                    | FICHERO:val           {: RESULT=val; :}
+                                    | IMAGEN:val            {: RESULT=val; :}
+                                    | COMBO:val             {: RESULT=val; :}
+                                    | BOTON:val             {: RESULT=val; :}
                                     ;
 
 tipo_alineacion ::=                 CENTRO
@@ -458,6 +515,10 @@ opciones_modificacion_componente ::=    INDICE PUNTOS NUMERO
                                         | INDICE error
                                         ;
 
+/* INSTRUCCION PARA CONSULTAS */
+instruccion_consultar_datos ::=     
+                                    ;
+
 /* ENTRADAS */
 tipos_entrada ::=   ALLCHARACTERSNOSPACE
                     | NUMERO
@@ -478,3 +539,4 @@ tipos_entrada_complete ::=  ALLCHARACTERSNOSPACE
                             | required
                             | theme
                             ;
+
