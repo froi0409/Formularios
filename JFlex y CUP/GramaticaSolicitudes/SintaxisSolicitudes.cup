@@ -90,7 +90,7 @@ parser code  {:
 :}
 
 //Declaración de terminales
-terminal MENOR_QUE, MAYOR_QUE, IGUAL, EXCLAMACION, PUNTOS, COMILLAS, CORCHETE_A, CORCHETE_C, COMA, DOLAR, GUION_BAJO, GUION, LLAVE_A, LLAVE_C, IDENTIFICADOR, CONTRASEÑA, FECHA, ALLCHARACTERS, ALLCHARACTERSNOSPACE, NUMERO, SI, NO, CENTRO, IZQUIERDA, DERECHA, JUSTIFICAR, OPTIONS, DARK, WHITE, IDENTIFCONSULTA, CAMPOS, CAMPO, NUMERO_CONSULTA, CADENA_CONSULTA;
+terminal MENOR_QUE, MAYOR_QUE, IGUAL, EXCLAMACION, PUNTOS, COMILLAS, CORCHETE_A, CORCHETE_C, COMA, DOLAR, GUION_BAJO, GUION, LLAVE_A, LLAVE_C, IDENTIFICADOR, CONTRASEÑA, FECHA, ALLCHARACTERS, ALLCHARACTERSNOSPACE, NUMERO, SI, NO, CENTRO, IZQUIERDA, DERECHA, JUSTIFICAR, OPTIONS, DARK, WHITE, IDENTIFCONSULTA, CAMPOS, CAMPO, NUMERO_CONSULTA, CADENA_CONSULTA, COMILLAS_INCLINADAS;
 terminal INI_SOLICITUDES, FIN_SOLICITUDES, INI_SOLICITUD, FIN_SOLICITUD, CREAR_USUARIO, CREDENCIALES_USUARIO, USUARIO, PASSWORD, MODIFICAR_USUARIO, USUARIO_ANTIGUO, NUEVO_PASSWORD, FECHA_MODIFICACION, ELIMINAR_USUARIO;
 terminal NUEVO_FORMULARIO, ID, TITULO, NOMBRE, TEMA, USUARIO_CREACION, USUARIO_NUEVO, FECHA_CREACION, ELIMINAR_FORMULARIO, LOGIN_USUARIO, MODIFICAR_FORMULARIO, PARAMETROS_FORMULARIO, AGREGAR_COMPONENTE, PARAMETROS_COMPONENTE, NOMBRE_CAMPO, FORMULARIO, CLASE;
 terminal INDICE, TEXTO_VISIBLE, ALINEACION, REQUERIDO, OPCIONES, FILAS, COLUMNAS, URL, ELIMINAR_COMPONENTE, MODIFICAR_COMPONENTE, CONSULTAR_DATOS, CONSULTAS;
@@ -269,12 +269,12 @@ accion_eliminacion_usuario ::=          LLAVE_A:llaA opciones_eliminacion_usuari
                                         ;
 
 opciones_eliminacion_usuario ::=        USUARIO:para PUNTOS tipos_entrada       {: listaParametros.add(para.toString()); :}
-                                        | error tipos_entrada
-                                        | error PUNTOS tipos_entrada
-                                        | USUARIO PUNTOS error
-                                        | USUARIO error tipos_entrada
-                                        | USUARIO error
-                                        | error
+                                        | error tipos_entrada                   {: listaErrores.get(punteroErrores).setDescripcion("No se reconoce el tipo de parametro al cual se le asignará valor"); :}
+                                        | error PUNTOS tipos_entrada            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un parametro valido para asignar valor seguido del símbolo ';' "); :}
+                                        | USUARIO PUNTOS error                  {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un usuario, revise si el valor a asignar contiene caracteres invalidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
+                                        | USUARIO error tipos_entrada           {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                                        | USUARIO error                         {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un usuario"); :}
+                                        | error                                 {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"PARAMETRO\" ':' \"VALOR_A_ASOGNAR\""); :}
                                         ;
 
 /* INSTRUCCIONES DEL LOGIN */
@@ -298,14 +298,14 @@ accion_login_usuario_p ::=          opciones_login_usuario COMA accion_login_usu
 
 opciones_login_usuario ::=          USUARIO:para PUNTOS tipos_entrada           {: listaParametros.add(para.toString()); :}
                                     | PASSWORD:para PUNTOS tipos_entrada        {: listaParametros.add(para.toString()); :}
-                                    | error tipos_entrada
-                                    | error PUNTOS tipos_entrada
-                                    | USUARIO PUNTOS error
-                                    | USUARIO error tipos_entrada
-                                    | USUARIO error
-                                    | PASSWORD PUNTOS error
-                                    | PASSWORD error tipos_entrada
-                                    | PASSWORD error
+                                    | error tipos_entrada                       {: listaErrores.get(punteroErrores).setDescripcion("No se reconoce el tipo de parametro al cual se le asignará valor"); :}
+                                    | error PUNTOS tipos_entrada                {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un parametro válido para asignar valor, seguido del símbolo ':'"); :}
+                                    | USUARIO PUNTOS error                      {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un usuario, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción "); :}
+                                    | USUARIO error tipos_entrada               {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                                    | USUARIO error                             {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un usuario"); :}
+                                    | PASSWORD PUNTOS error                     {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una contraseña, revise si el valor a asignar contiene caracteres inválidos o si hace falta el símbolo ',' p '}' de fin de instrucción"); :}
+                                    | PASSWORD error tipos_entrada              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                                    | PASSWORD error                            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); :}
                                     | error
                                     ;
 
@@ -334,27 +334,27 @@ opciones_nuevo_formulario ::=       ID:para PUNTOS IDENTIFICADOR                
                                     | TEMA:para PUNTOS theme                            {: listaParametros.add(para.toString()); :}
                                     | USUARIO_CREACION:para PUNTOS tipos_entrada        {: listaParametros.add(para.toString()); :}
                                     | FECHA_CREACION:para PUNTOS FECHA                  {: listaParametros.add(para.toString()); :}
-                                    | error tipos_entrada_complete
-                                    | error PUNTOS tipos_entrada_complete
-                                    | ID PUNTOS error
-                                    | ID error IDENTIFICADOR
-                                    | ID error
-                                    | TITULO PUNTOS error 
-                                    | TITULO error tipos_entrada_complete
-                                    | TITULO error
-                                    | NOMBRE PUNTOS error
-                                    | NOMBRE error tipos_entrada
-                                    | NOMBRE error
-                                    | TEMA PUNTOS error
-                                    | TEMA error theme
-                                    | TEMA error
-                                    | USUARIO_CREACION PUNTOS error
-                                    | USUARIO_CREACION error tipos_entrada
-                                    | USUARIO_CREACION error
-                                    | FECHA_CREACION PUNTOS error
-                                    | FECHA_CREACION error FECHA
-                                    | FECHA_CREACION error
-                                    | error
+                                    | error tipos_entrada_complete                      {: listaErrores.get(punteroErrores).setDescripcion("No se reconoce el tipo de parametro al cual se le asignará valor"); :}
+                                    | error PUNTOS tipos_entrada_complete               {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un parametro válido para asignar valor, seguido del símbolo ':'"); :}
+                                    | ID PUNTOS error                                   {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un identificador, revise si el valor a asignar contiene caracteres inválidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
+                                    | ID error IDENTIFICADOR                            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                                    | ID error                                          {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un identificador"); :}
+                                    | TITULO PUNTOS error                               {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un titulo, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción"); :} 
+                                    | TITULO error tipos_entrada_complete               {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                                    | TITULO error                                      {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un título"); :}
+                                    | NOMBRE PUNTOS error                               {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un nombre, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simnolo ',' o '}' de fin de instrucción"); :}
+                                    | NOMBRE error tipos_entrada                        {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                                    | NOMBRE error                                      {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un nombre"); :}
+                                    | TEMA PUNTOS error                                 {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un tema, revise si el valor a asignar contiene caracteres inválidos o si hace falta el símbolo ',' o '}' de fin de insrucción"); :}
+                                    | TEMA error theme                                  {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                                    | TEMA error                                        {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un tema"); :}
+                                    | USUARIO_CREACION PUNTOS error                     {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un usuario, revise si el valor a asignar contiene caracterews inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción"); :}
+                                    | USUARIO_CREACION error tipos_entrada              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                                    | USUARIO_CREACION error                            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un usuario"); :}
+                                    | FECHA_CREACION PUNTOS error                       {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una fecha, revise si el valor a asignar contiene caracteres inválidos o si hace falta el síbolo ',' o '}' de fin de instrucción"); :}
+                                    | FECHA_CREACION error FECHA                        {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                                    | FECHA_CREACION error                              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a una fecha"); :}
+                                    | error                                             {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); :}
                                     ;
 
 theme ::=   DARK
@@ -592,9 +592,21 @@ accion_consultar_datos_p ::=        opciones_consultar_datos COMA accion_consult
                                     ;
 
 opciones_consultar_datos ::=        CONSULTA PUNTOS COMILLAS consulta_datos COMILLAS
+                                    | error PUNTOS COMILLAS consulta_datos COMILLAS
+                                    | CONSULTA error COMILLAS consulta_datos COMILLAS
+                                    | CONSULTA PUNTOS error consulta_datos COMILLAS
+                                    | CONSULTA PUNTOS COMILLAS consulta_datos error
                                     ;
 
 consulta_datos ::=                  SELECT TO FROM FLECHA IDENTIFCONSULTA CORCHETE_A campos_posibles CORCHETE_C condicion_principal
+                                    | error TO FROM FLECHA IDENTIFCONSULTA CORCHETE_A campos_posibles CORCHETE_C condicion_principal
+                                    | SELECT error FROM FLECHA IDENTIFCONSULTA CORCHETE_A campos_posibles CORCHETE_C condicion_principal
+                                    | SELECT TO error FLECHA IDENTIFCONSULTA CORCHETE_A campos_posibles CORCHETE_C condicion_principal
+                                    | SELECT TO FROM error IDENTIFCONSULTA CORCHETE_A campos_posibles CORCHETE_C condicion_principal
+                                    | SELECT TO FROM FLECHA error CORCHETE_A campos_posibles CORCHETE_C condicion_principal
+                                    | SELECT TO FROM FLECHA IDENTIFCONSULTA error campos_posibles CORCHETE_C condicion_principal
+                                    //| SELECT TO FROM FLECHA IDENTIFCONSULTA CORCHETE_A error CORCHETE_C condicion_principal
+                                    | SELECT TO FROM FLECHA IDENTIFCONSULTA CORCHETE_A campos_posibles error condicion_principal
                                     ;
 
 campos_posibles ::=                 CAMPOS
@@ -603,14 +615,20 @@ campos_posibles ::=                 CAMPOS
                                     ;
 
 condicion_principal ::=             WHERE CORCHETE_A condicion_interna
-                                    |
+                                    | error CORCHETE_A condicion_interna
+                                    | WHERE error condicion_interna
                                     ;
 
 condicion_interna ::=               CAMPO operador valor_condicion condicion_secundaria
+                                    | error operador valor_condicion condicion_secundaria
+                                    | CAMPO error valor_condicion condicion_secundaria
+                                    | CAMPO operador error condicion_secundaria
+                                    | CAMPO error condicion_secundaria
+                                    | CAMPO error
                                     ;
 
 condicion_secundaria ::=    AND condicion_interna
-                            OR condicion_interna
+                            | OR condicion_interna
                             | CORCHETE_C
                             ;
 /* ENTRADAS */
@@ -640,6 +658,7 @@ operador ::=    MAYOR_QUE
                 | MENOR_IGUAL
                 | DIFERENTE
                 | IGUAL
+                | NOT
                 ;
 
 valor_condicion ::=     NUMERO_CONSULTA

@@ -7,7 +7,7 @@ import static com.froi.editorcodigoindigo.gramaticas.codigoindigo.ParserSolicitu
 %public
 %class SolicitudesLexer
 %cup
-%unicode
+//%unicode
 %line
 %column
 
@@ -16,6 +16,11 @@ import static com.froi.editorcodigoindigo.gramaticas.codigoindigo.ParserSolicitu
 
 
 %}
+
+
+TerminacionLinea = [\r|\n|\r\n]
+WS = [ \t\f]
+Ignore = {TerminacionLinea} | [ \t\f]
 
 //Definición de expresiones regulares específicas
 INISOLICITUDES = [iI][nN][iI][_][sS][oO][lL][iI][cC][iI][tT][uU][dD][eE][sS]
@@ -42,16 +47,12 @@ NOCOMILLAS =([^\"])*
 OPTIONS = [\"] ([a-zA-Z0-9] | {Ignore})+ ("|" ([a-zA-Z0-9] | {Ignore}})+)* [\"]
 
 CONSULTA = [\"] "CONSULTA-" [0-9]+  [\"]
-CADENA = ['] [^"'" "\""] [']
 IDENTIFCONSULTA = ("$" | "_" | "-") ( [a-zA-Z] | [0-9] | "$" | "_" | "-")*
-CAMPOS = [^"[" "]" "\"" "," "|"]+ ("," [^"[" "]" "\"" "," "|"]+)+ 
-CAMPO = [^"[" "]" "\"" "," "|" "<" ">" "!" "=" ":" "{" "}" [ \t\f] [\r|\n|\r\n]]+
-CADENACONSULTA = "'" [^"'" "\""]* "'"
+CAMPOS = [^"[" "]" "\"" "," "|" "<" ">" "!" "=" ":" "{" "}" "\’" "\'" [ \t\f] [\r|\n|\r\n]]+ ({WS}*","{WS}* [^"[" "]" "\"" "," "|" "<" ">" "!" "=" ":" "{" "}" "\’" "\'" "&" [ \t\f] [\r|\n|\r\n]]+)+ 
+CAMPO = [^"[" "]" "\"" "," "|" "<" ">" "!" "=" ":" "{" "}" "\’" "\'" [ \t\f] [\r|\n|\r\n]]+
+CADENACONSULTA = ("\’" | "\'") ([^ "\"" "|"] | [ \t\f])* ("\’" | "\'")
 NUMEROCONSULTA = [0-9]+
 
-TerminacionLinea = [\r|\n|\r\n]
-WS = [ \t\f]
-Ignore = {TerminacionLinea} | [ \t\f]
 %%
 
 <YYINITIAL> {
@@ -146,7 +147,7 @@ Ignore = {TerminacionLinea} | [ \t\f]
     "NOT"                                       { return new Symbol(NOT, yyline+1, yycolumn+1, yytext()); }
     {NUMEROCONSULTA}                            { return new Symbol(NUMERO_CONSULTA, yyline+1, yycolumn+1, yytext()); }
     {IDENTIFCONSULTA}                           { return new Symbol(IDENTIFCONSULTA, yyline+1, yycolumn+1, yytext()); }
-    {CADENACONSULTA}                            { return new Symbol(CADENA_CONSULTA, yyline+1, yycolumn+1, yytext()); }
+    {CADENACONSULTA}                            { System.out.println("CADENA en: " + yyline + " , " + yycolumn + " - " + yytext()); return new Symbol(CADENA_CONSULTA, yyline+1, yycolumn+1, yytext()); }
 
     //Cadenas Fundamentales
     {IDENTIFICA}            { return new Symbol(IDENTIFICADOR, yyline+1, yycolumn+1, yytext()); }
@@ -159,9 +160,12 @@ Ignore = {TerminacionLinea} | [ \t\f]
     /*
     */
     {Ignore}                {/* IGNORAR */}
-    {CAMPO}                                     { System.out.println("CAMPO en: " + yyline + " , " + yycolumn);return new Symbol(CAMPO, yyline+1, yycolumn+1, yytext()); }
+    {CAMPO}                                     { System.out.println("CAMPO en: " + yyline + " , " + yycolumn + " - " + yytext());return new Symbol(CAMPO, yyline+1, yycolumn+1, yytext()); }
     {CAMPOS}                                    { return new Symbol(CAMPOS, yyline+1, yycolumn+1, yytext()); }
-    
+    /*
+    "\’"                    { return new Symbol(COMILLAS_INCLINADAS, yyline+1, yycolumn+1, yytext()); }
+    */
+
 }
 
 [^] {
