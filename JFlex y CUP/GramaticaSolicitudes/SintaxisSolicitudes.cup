@@ -93,7 +93,7 @@ parser code  {:
 terminal MENOR_QUE, MAYOR_QUE, IGUAL, EXCLAMACION, PUNTOS, COMILLAS, CORCHETE_A, CORCHETE_C, COMA, DOLAR, GUION_BAJO, GUION, LLAVE_A, LLAVE_C, IDENTIFICADOR, CONTRASEÑA, FECHA, ALLCHARACTERS, ALLCHARACTERSNOSPACE, NUMERO, SI, NO, CENTRO, IZQUIERDA, DERECHA, JUSTIFICAR, OPTIONS, DARK, WHITE, IDENTIFCONSULTA, CAMPOS, CAMPO, NUMERO_CONSULTA, CADENA_CONSULTA;
 terminal INI_SOLICITUDES, FIN_SOLICITUDES, INI_SOLICITUD, FIN_SOLICITUD, CREAR_USUARIO, CREDENCIALES_USUARIO, USUARIO, PASSWORD, MODIFICAR_USUARIO, USUARIO_ANTIGUO, NUEVO_PASSWORD, FECHA_MODIFICACION, ELIMINAR_USUARIO;
 terminal NUEVO_FORMULARIO, ID, TITULO, NOMBRE, TEMA, USUARIO_CREACION, USUARIO_NUEVO, FECHA_CREACION, ELIMINAR_FORMULARIO, LOGIN_USUARIO, MODIFICAR_FORMULARIO, PARAMETROS_FORMULARIO, AGREGAR_COMPONENTE, PARAMETROS_COMPONENTE, NOMBRE_CAMPO, FORMULARIO, CLASE;
-terminal INDICE, TEXTO_VISIBLE, ALINEACION, REQUERIDO, OPCIONES, FILAS, COLUMNAS, URL, ELIMINAR_COMPONENTE, MODIFICAR_COMPONENTE, CONSULTAR_DATOS;
+terminal INDICE, TEXTO_VISIBLE, ALINEACION, REQUERIDO, OPCIONES, FILAS, COLUMNAS, URL, ELIMINAR_COMPONENTE, MODIFICAR_COMPONENTE, CONSULTAR_DATOS, CONSULTAS;
 terminal CAMPO_TEXTO, AREA_TEXTO, CHECKBOX, RADIO, FICHERO, IMAGEN, COMBO, BOTON;
 terminal FLECHA, MENOR_IGUAL, DIFERENTE, MAYOR_IGUAL, OR, TO, AND, NOT, FROM, WHERE, SELECT, CONSULTA;
 
@@ -161,7 +161,7 @@ tipo_solicitud ::=  CREAR_USUARIO           apertura_instruccion_principal1 CRED
                     | AGREGAR_COMPONENTE    apertura_instruccion_principal1 PARAMETROS_COMPONENTE apertura_instruccion_principal2 instruccion_agregar_componente cierre_instruccion_principal {: System.out.println("AGREGAR COMPONENTE"); :}
                     | ELIMINAR_COMPONENTE   apertura_instruccion_principal1 PARAMETROS_COMPONENTE apertura_instruccion_principal2 instruccion_eliminacion_componente cierre_instruccion_principal {: System.out.println("ELIMINAR COMPONENTE"); :}
                     | MODIFICAR_COMPONENTE  apertura_instruccion_principal1 PARAMETROS_COMPONENTE apertura_instruccion_principal2 instruccion_modificacion_componente cierre_instruccion_principal {: System.out.println("MODIFICAR COMPONENTE"); :}
-                    | CONSULTAR_DATOS       apertura_instruccion_principal1 CONSULTAR_DATOS apertura_instruccion_principal2 instruccion_consultar_datos cierre_instruccion_principal 
+                    | CONSULTAR_DATOS       apertura_instruccion_principal1 CONSULTAS apertura_instruccion_principal2 instruccion_consultar_datos cierre_instruccion_principal 
                     ;
 
 //Ejemplo de manejo de errores
@@ -603,6 +603,7 @@ campos_posibles ::=                 CAMPOS
                                     ;
 
 condicion_principal ::=             WHERE CORCHETE_A condicion_interna
+                                    |
                                     ;
 
 condicion_interna ::=               CAMPO operador valor_condicion condicion_secundaria

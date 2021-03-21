@@ -11,25 +11,25 @@ public class ParserSolicitudesSym {
   public static final int USUARIO_ANTIGUO = 45;
   public static final int COMILLAS = 7;
   public static final int IDENTIFICADOR = 16;
-  public static final int FROM = 93;
+  public static final int FROM = 94;
   public static final int INI_SOLICITUD = 38;
   public static final int CONSULTAR_DATOS = 76;
   public static final int DARK = 29;
-  public static final int MENOR_IGUAL = 86;
+  public static final int MENOR_IGUAL = 87;
   public static final int MENOR_QUE = 2;
   public static final int MODIFICAR_FORMULARIO = 59;
   public static final int EXCLAMACION = 5;
-  public static final int CAMPO_TEXTO = 77;
+  public static final int CAMPO_TEXTO = 78;
   public static final int TITULO = 51;
   public static final int IZQUIERDA = 25;
   public static final int FIN_SOLICITUDES = 37;
-  public static final int CHECKBOX = 79;
+  public static final int CHECKBOX = 80;
   public static final int SI = 22;
   public static final int USUARIO_NUEVO = 55;
   public static final int FECHA_MODIFICACION = 47;
   public static final int USUARIO_CREACION = 54;
   public static final int CONTRASEÑA = 17;
-  public static final int DIFERENTE = 87;
+  public static final int DIFERENTE = 88;
   public static final int TEMA = 53;
   public static final int ELIMINAR_COMPONENTE = 74;
   public static final int CENTRO = 24;
@@ -40,23 +40,23 @@ public class ParserSolicitudesSym {
   public static final int MAYOR_QUE = 3;
   public static final int CAMPO = 33;
   public static final int MODIFICAR_USUARIO = 44;
-  public static final int NOT = 92;
+  public static final int NOT = 93;
   public static final int CORCHETE_C = 9;
   public static final int CORCHETE_A = 8;
   public static final int GUION = 13;
-  public static final int FICHERO = 81;
+  public static final int FICHERO = 82;
   public static final int ELIMINAR_USUARIO = 48;
   public static final int TEXTO_VISIBLE = 67;
   public static final int CREAR_USUARIO = 40;
-  public static final int FLECHA = 85;
+  public static final int FLECHA = 86;
   public static final int FILAS = 71;
   public static final int NUEVO_PASSWORD = 46;
-  public static final int AREA_TEXTO = 78;
+  public static final int AREA_TEXTO = 79;
   public static final int LLAVE_C = 15;
   public static final int LLAVE_A = 14;
   public static final int FORMULARIO = 64;
   public static final int NUMERO_CONSULTA = 34;
-  public static final int SELECT = 95;
+  public static final int SELECT = 96;
   public static final int ELIMINAR_FORMULARIO = 57;
   public static final int COMA = 10;
   public static final int IGUAL = 4;
@@ -65,45 +65,46 @@ public class ParserSolicitudesSym {
   public static final int CAMPOS = 32;
   public static final int NOMBRE = 52;
   public static final int NOMBRE_CAMPO = 63;
-  public static final int CONSULTA = 96;
+  public static final int CONSULTA = 97;
   public static final int NUEVO_FORMULARIO = 49;
   public static final int COLUMNAS = 72;
   public static final int LOGIN_USUARIO = 58;
   public static final int FIN_SOLICITUD = 39;
   public static final int PUNTOS = 6;
   public static final int USUARIO = 42;
+  public static final int CONSULTAS = 77;
   public static final int CADENA_CONSULTA = 35;
   public static final int IDENTIFCONSULTA = 31;
   public static final int URL = 73;
   public static final int PARAMETROS_COMPONENTE = 62;
   public static final int EOF = 0;
-  public static final int WHERE = 94;
-  public static final int IMAGEN = 82;
+  public static final int WHERE = 95;
+  public static final int IMAGEN = 83;
   public static final int MODIFICAR_COMPONENTE = 75;
-  public static final int OR = 89;
+  public static final int OR = 90;
   public static final int INI_SOLICITUDES = 36;
   public static final int error = 1;
-  public static final int BOTON = 84;
+  public static final int BOTON = 85;
   public static final int CREDENCIALES_USUARIO = 41;
   public static final int JUSTIFICAR = 27;
   public static final int ID = 50;
   public static final int DERECHA = 26;
   public static final int ALLCHARACTERS = 19;
-  public static final int RADIO = 80;
+  public static final int RADIO = 81;
   public static final int FECHA_CREACION = 56;
   public static final int REQUERIDO = 69;
   public static final int PARAMETROS_FORMULARIO = 60;
   public static final int ALLCHARACTERSNOSPACE = 20;
   public static final int DOLAR = 11;
-  public static final int COMBO = 83;
+  public static final int COMBO = 84;
   public static final int INDICE = 66;
   public static final int ALINEACION = 68;
   public static final int OPTIONS = 28;
   public static final int NO = 23;
-  public static final int AND = 91;
+  public static final int AND = 92;
   public static final int GUION_BAJO = 12;
-  public static final int TO = 90;
-  public static final int MAYOR_IGUAL = 88;
+  public static final int TO = 91;
+  public static final int MAYOR_IGUAL = 89;
   public static final int AGREGAR_COMPONENTE = 61;
   public static final String[] terminalNames = new String[] {
   "EOF",
@@ -183,6 +184,7 @@ public class ParserSolicitudesSym {
   "ELIMINAR_COMPONENTE",
   "MODIFICAR_COMPONENTE",
   "CONSULTAR_DATOS",
+  "CONSULTAS",
   "CAMPO_TEXTO",
   "AREA_TEXTO",
   "CHECKBOX",

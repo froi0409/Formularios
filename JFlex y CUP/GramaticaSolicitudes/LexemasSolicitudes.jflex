@@ -41,11 +41,11 @@ ALLCHARACTERSNOSPACE = [\"]  [^' ' "\"" "|"]+ [\"]
 NOCOMILLAS =([^\"])*
 OPTIONS = [\"] ([a-zA-Z0-9] | {Ignore})+ ("|" ([a-zA-Z0-9] | {Ignore}})+)* [\"]
 
-CONSULTA = [\"] "CONSULTA-" [0-100]  [\"]
+CONSULTA = [\"] "CONSULTA-" [0-9]+  [\"]
 CADENA = ['] [^"'" "\""] [']
 IDENTIFCONSULTA = ("$" | "_" | "-") ( [a-zA-Z] | [0-9] | "$" | "_" | "-")*
 CAMPOS = [^"[" "]" "\"" "," "|"]+ ("," [^"[" "]" "\"" "," "|"]+)+ 
-CAMPO = [^"[" "]" "\"" "," "|" "<" ">" "!" "="]+
+CAMPO = [^"[" "]" "\"" "," "|" "<" ">" "!" "=" ":" "{" "}" [ \t\f] [\r|\n|\r\n]]+
 CADENACONSULTA = "'" [^"'" "\""]* "'"
 NUMEROCONSULTA = [0-9]+
 
@@ -55,6 +55,7 @@ Ignore = {TerminacionLinea} | [ \t\f]
 %%
 
 <YYINITIAL> {
+
     //Signos fundamentales
     "<"                     { return new Symbol(MENOR_QUE, yyline+1, yycolumn+1, yytext()); }
     ">"                     { return new Symbol(MAYOR_QUE, yyline+1, yycolumn+1, yytext()); }
@@ -70,6 +71,7 @@ Ignore = {TerminacionLinea} | [ \t\f]
     "}"                     { return new Symbol(LLAVE_C, yyline+1, yycolumn+1, yytext()); }
     ","                     { return new Symbol(COMA, yyline+1, yycolumn+1, yytext()); }
     "->"                    { return new Symbol(FLECHA, yyline+1, yycolumn+1, yytext()); }
+    "\""                    { return new Symbol(COMILLAS, yyline+1, yycolumn+1, yytext()); }
 
     //Instrucciones
     {INISOLICITUDES}        { return new Symbol(INI_SOLICITUDES, yyline+1, yycolumn+1, yytext()); }
@@ -134,9 +136,10 @@ Ignore = {TerminacionLinea} | [ \t\f]
     "\""{WS}*"Dark"{WS}*"\""                  { return new Symbol(DARK, yyline+1, yycolumn+1, yytext()); }
     "\""{WS}*"White"{WS}*"\""                 { return new Symbol(WHITE, yyline+1, yycolumn+1, yytext()); }
     //Lenguaje de reportería
+    "\""{WS}*"CONSULTAS"{WS}*"\""               { return new Symbol(CONSULTAS, yyline+1, yycolumn+1, yytext()); }
     "SELECT"                                    { return new Symbol(SELECT, yyline+1, yycolumn+1, yytext()); }
     "TO"                                        { return new Symbol(TO, yyline+1, yycolumn+1, yytext()); }
-    "FROM"                                      { return new Symbol(FROM, yyline+1, yycolumn+1, yytext()); }
+    "FORM"                                      { return new Symbol(FROM, yyline+1, yycolumn+1, yytext()); }
     "WHERE"                                     { return new Symbol(WHERE, yyline+1, yycolumn+1, yytext()); }
     "AND"                                       { return new Symbol(AND, yyline+1, yycolumn+1, yytext()); }
     "OR"                                        { return new Symbol(OR, yyline+1, yycolumn+1, yytext()); }
@@ -156,11 +159,10 @@ Ignore = {TerminacionLinea} | [ \t\f]
     /*
     */
     {Ignore}                {/* IGNORAR */}
-}
-
     {CAMPO}                                     { System.out.println("CAMPO en: " + yyline + " , " + yycolumn);return new Symbol(CAMPO, yyline+1, yycolumn+1, yytext()); }
     {CAMPOS}                                    { return new Symbol(CAMPOS, yyline+1, yycolumn+1, yytext()); }
     
+}
 
 [^] {
     System.out.println("Error en linea: " + yyline+1 + " - Columna: " + yycolumn+1 + ". La expresión: " + yytext() + " no forma parte del lenguaje");
