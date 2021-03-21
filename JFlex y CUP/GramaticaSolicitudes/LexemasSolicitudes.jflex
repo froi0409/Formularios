@@ -43,6 +43,11 @@ OPTIONS = [\"] ([a-zA-Z0-9] | {Ignore})+ ("|" ([a-zA-Z0-9] | {Ignore}})+)* [\"]
 
 CONSULTA = [\"] "CONSULTA-" [0-100]  [\"]
 CADENA = ['] [^"'" "\""] [']
+IDENTIFCONSULTA = ("$" | "_" | "-") ( [a-zA-Z] | [0-9] | "$" | "_" | "-")*
+CAMPOS = [^"[" "]" "\"" "," "|"]+ ("," [^"[" "]" "\"" "," "|"]+)+ 
+CAMPO = [^"[" "]" "\"" "," "|" "<" ">" "!" "="]+
+CADENACONSULTA = "'" [^"'" "\""]* "'"
+NUMEROCONSULTA = [0-9]+
 
 TerminacionLinea = [\r|\n|\r\n]
 WS = [ \t\f]
@@ -55,7 +60,7 @@ Ignore = {TerminacionLinea} | [ \t\f]
     ">"                     { return new Symbol(MAYOR_QUE, yyline+1, yycolumn+1, yytext()); }
     "<>"                    { return new Symbol(DIFERENTE, yyline+1, yycolumn+1, yytext()); }
     "<="                    { return new Symbol(MENOR_IGUAL, yyline+1, yycolumn+1, yytext()); }
-    ">="                    { return new Symbil(MAYOR_IGUAL, yyline+1, yycolumn+1, yytext()); }
+    ">="                    { return new Symbol(MAYOR_IGUAL, yyline+1, yycolumn+1, yytext()); }
     "="                     { return new Symbol(IGUAL, yyline+1, yycolumn+1, yytext()); }
     "!"                     { return new Symbol(EXCLAMACION, yyline+1, yycolumn+1, yytext()); }
     ":"                     { return new Symbol(PUNTOS, yyline+1, yycolumn+1, yytext()); }
@@ -136,7 +141,9 @@ Ignore = {TerminacionLinea} | [ \t\f]
     "AND"                                       { return new Symbol(AND, yyline+1, yycolumn+1, yytext()); }
     "OR"                                        { return new Symbol(OR, yyline+1, yycolumn+1, yytext()); }
     "NOT"                                       { return new Symbol(NOT, yyline+1, yycolumn+1, yytext()); }
-
+    {NUMEROCONSULTA}                            { return new Symbol(NUMERO_CONSULTA, yyline+1, yycolumn+1, yytext()); }
+    {IDENTIFCONSULTA}                           { return new Symbol(IDENTIFCONSULTA, yyline+1, yycolumn+1, yytext()); }
+    {CADENACONSULTA}                            { return new Symbol(CADENA_CONSULTA, yyline+1, yycolumn+1, yytext()); }
 
     //Cadenas Fundamentales
     {IDENTIFICA}            { return new Symbol(IDENTIFICADOR, yyline+1, yycolumn+1, yytext()); }
@@ -146,9 +153,14 @@ Ignore = {TerminacionLinea} | [ \t\f]
     {ALLCHARACTERSNOSPACE}  { return new Symbol(ALLCHARACTERSNOSPACE, yyline+1, yycolumn+1, yytext()); }
     {ALLCHARACTERS}         { return new Symbol(ALLCHARACTERS, yyline+1, yycolumn+1, yytext()); }
     {OPTIONS}               { return new Symbol(OPTIONS, yyline+1, yycolumn+1, yytext()); }
-    {CADENA}                { return new Symbol(CADENA, yyline+1, yycolumn+1, yytext()); }
+    /*
+    */
     {Ignore}                {/* IGNORAR */}
 }
+
+    {CAMPO}                                     { System.out.println("CAMPO en: " + yyline + " , " + yycolumn);return new Symbol(CAMPO, yyline+1, yycolumn+1, yytext()); }
+    {CAMPOS}                                    { return new Symbol(CAMPOS, yyline+1, yycolumn+1, yytext()); }
+    
 
 [^] {
     System.out.println("Error en linea: " + yyline+1 + " - Columna: " + yycolumn+1 + ". La expresión: " + yytext() + " no forma parte del lenguaje");

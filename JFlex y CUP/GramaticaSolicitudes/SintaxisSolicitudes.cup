@@ -12,7 +12,7 @@ parser code  {:
     private ArrayList<String> listaParametros;
     private ArrayList<String> listaParametrosClase;
     private int punteroErrores;
-    private int bloque = 0, linea;
+    private int bloque = 0, linea, columna;
     private String clase = "";
 
     public ParserSolicitudes(SolicitudesLexer lexer, ArrayList<Advertencia> listaErrores) {
@@ -41,15 +41,20 @@ parser code  {:
     public void verificacionBloque(String[] listaObligatorios, ArrayList<String> listaParametros) {
         for (String element: listaObligatorios) {
             if(!listaParametros.contains(element)) {
+                Advertencia advert = new Advertencia("Elemento Faltante", linea, columna, element);
                 System.out.println("Hace falta el parametro: " + element + " En el bloque de la linea " + linea);
+                listaErrores.add(advert);
             }
         }
         ArrayList<String> auxiliar = new ArrayList<>();
         for(String element: listaParametros) {
             if(listaParametros.indexOf(element) != listaParametros.lastIndexOf(element)) {
                 System.out.println("Se ha repetido el parametro " + element + " en el bloque de la linea " + linea);
+                Advertencia advert = new Advertencia("Elemento Repetido", linea, columna, element);
+                listaErrores.add(advert);
             }
         }
+        listaParametros.clear();
     }
 
     public void verificacionClase(ArrayList<String> listaParametros, String clase) {
@@ -57,18 +62,26 @@ parser code  {:
             if(element.equals("\"OPCIONES\"")) {
                 if(!clase.equals("\"CHECKBOX\"") && !clase.equals("\"RADIO\"") && !clase.equals("\"COMBO\"")) {
                     System.out.println("La instrucción \"OPCIONES\" del bloque de la linea "  + linea +  " no es valida para " + clase);
+                    Advertencia advert = new Advertencia("Clase Invalida", linea, columna, "El parámetro " + element + " no es válido para la clase " + clase);
+                    listaErrores.add(advert);
                 }
             } else if(element.equals("\"FILAS\"")) {
                 if(!clase.equals("\"AREA_TEXTO\"")) {
                     System.out.println("La instruccion \"FILAS\" del bloque de la linea "  + linea + " no es valida para " + clase);
+                    Advertencia advert = new Advertencia("Clase Invalida", linea, columna, "El parámetro " + element + " no es válido para la clase " + clase);
+                    listaErrores.add(advert);
                 }
             } else if(element.equals("\"COLUMNAS\"")) {
                 if(!clase.equals("\"AREA_TEXTO\"")) {
                     System.out.println("La instruccion \"COLUMNAS\" del bloque de la linea "  + linea + " no es valida para " + clase);
+                    Advertencia advert = new Advertencia("Clase Invalida", linea, columna, "El parámetro " + element + " no es válido para la clase " + clase);
+                    listaErrores.add(advert);
                 }
             } else if(element.equals("\"URL\"")) {
                 if(!clase.equals("\"IMAGEN\"")) {
                     System.out.println("La instruccion \"URL\" del bloque de la linea "  + linea + " no es valida para " + clase);
+                    Advertencia advert = new Advertencia("Clase Invalida", linea, columna, "El parámetro " + element + " no es válido para la clase " + clase);
+                    listaErrores.add(advert);
                 }
             }
         }
@@ -77,23 +90,26 @@ parser code  {:
 :}
 
 //Declaración de terminales
-terminal MENOR_QUE, MAYOR_QUE, IGUAL, EXCLAMACION, PUNTOS, COMILLAS, CORCHETE_A, CORCHETE_C, COMA, DOLAR, GUION_BAJO, GUION, LLAVE_A, LLAVE_C, IDENTIFICADOR, CONTRASEÑA, FECHA, ALLCHARACTERS, ALLCHARACTERSNOSPACE, NUMERO, SI, NO, CENTRO, IZQUIERDA, DERECHA, JUSTIFICAR, OPTIONS, DARK, WHITE;
+terminal MENOR_QUE, MAYOR_QUE, IGUAL, EXCLAMACION, PUNTOS, COMILLAS, CORCHETE_A, CORCHETE_C, COMA, DOLAR, GUION_BAJO, GUION, LLAVE_A, LLAVE_C, IDENTIFICADOR, CONTRASEÑA, FECHA, ALLCHARACTERS, ALLCHARACTERSNOSPACE, NUMERO, SI, NO, CENTRO, IZQUIERDA, DERECHA, JUSTIFICAR, OPTIONS, DARK, WHITE, IDENTIFCONSULTA, CAMPOS, CAMPO, NUMERO_CONSULTA, CADENA_CONSULTA;
 terminal INI_SOLICITUDES, FIN_SOLICITUDES, INI_SOLICITUD, FIN_SOLICITUD, CREAR_USUARIO, CREDENCIALES_USUARIO, USUARIO, PASSWORD, MODIFICAR_USUARIO, USUARIO_ANTIGUO, NUEVO_PASSWORD, FECHA_MODIFICACION, ELIMINAR_USUARIO;
 terminal NUEVO_FORMULARIO, ID, TITULO, NOMBRE, TEMA, USUARIO_CREACION, USUARIO_NUEVO, FECHA_CREACION, ELIMINAR_FORMULARIO, LOGIN_USUARIO, MODIFICAR_FORMULARIO, PARAMETROS_FORMULARIO, AGREGAR_COMPONENTE, PARAMETROS_COMPONENTE, NOMBRE_CAMPO, FORMULARIO, CLASE;
 terminal INDICE, TEXTO_VISIBLE, ALINEACION, REQUERIDO, OPCIONES, FILAS, COLUMNAS, URL, ELIMINAR_COMPONENTE, MODIFICAR_COMPONENTE, CONSULTAR_DATOS;
 terminal CAMPO_TEXTO, AREA_TEXTO, CHECKBOX, RADIO, FICHERO, IMAGEN, COMBO, BOTON;
-terminal FLECHA, MENOR_IGUAL, DIFERENTE, MAYOR_IGUAL, OR, TO, CADENA, AND, NOT, FROM, WHERE, SELECT, CONSULTA;
+terminal FLECHA, MENOR_IGUAL, DIFERENTE, MAYOR_IGUAL, OR, TO, AND, NOT, FROM, WHERE, SELECT, CONSULTA;
 
 non terminal inicio, solicitud, solicitudes, tipo_solicitud, apertura_instruccion_principal1, apertura_instruccion_principal2, cierre_instruccion_principal, tipo_clase, required, tipo_alineacion, theme, tipos_entrada, tipos_entrada_complete; 
 //instrucciones
 non terminal instruccion_creacion_usuario, instruccion_modificacion_usuario, instruccion_eliminacion_usuario, instruccion_login_usuario, instruccion_modificacion_formulario, instruccion_agregar_componente, instruccion_nuevo_formulario;
 non terminal instruccion_eliminacion_componente, instruccion_modificacion_componente, instruccion_consultar_datos, instruccion_eliminacion_formulario;
 
-non terminal instruccion_solicitudes, instruccion_solicitudes_p, instruccion_alfanumerico;
+non terminal instruccion_solicitudes, instruccion_solicitudes_p, instruccion_alfanumerico, consulta_datos;
 //acciones
-non terminal accion_crear_usuario, accion_modificacion_usuario, accion_eliminacion_usuario, accion_login_usuario, accion_nuevo_formulario, accion_eliminacion_formulario, accion_modificacion_formulario, accion_agregar_componente, accion_eliminacion_componente, accion_modificacion_componente;
-non terminal accion_crear_usuario_p, accion_modificacion_usuario_p, accion_eliminacion_usuario_p, accion_login_usuario_p, accion_nuevo_formulario_p, accion_eliminacion_formulario_p, accion_modificacion_formulario_p, accion_agregar_componente_p, accion_eliminacion_componente_p, accion_modificacion_componente_p;
-non terminal opciones_crear_usuario, opciones_modificacion_usuario, opciones_eliminacion_usuario, opciones_login_usuario, opciones_nuevo_formulario, opciones_eliminacion_formulario, opciones_modificacion_formulario, opciones_agregar_componente, opciones_eliminacion_componente, opciones_modificacion_componente;
+non terminal accion_crear_usuario, accion_modificacion_usuario, accion_eliminacion_usuario, accion_login_usuario, accion_nuevo_formulario, accion_eliminacion_formulario, accion_modificacion_formulario, accion_agregar_componente, accion_eliminacion_componente, accion_modificacion_componente, accion_consultar_datos;
+non terminal accion_crear_usuario_p, accion_modificacion_usuario_p, accion_eliminacion_usuario_p, accion_login_usuario_p, accion_nuevo_formulario_p, accion_eliminacion_formulario_p, accion_modificacion_formulario_p, accion_agregar_componente_p, accion_eliminacion_componente_p, accion_modificacion_componente_p, accion_consultar_datos_p;
+non terminal opciones_crear_usuario, opciones_modificacion_usuario, opciones_eliminacion_usuario, opciones_login_usuario, opciones_nuevo_formulario, opciones_eliminacion_formulario, opciones_modificacion_formulario, opciones_agregar_componente, opciones_eliminacion_componente, opciones_modificacion_componente, opciones_consultar_datos;
+
+//No terminales de reportes
+non terminal campos_posibles, condicion_principal, condicion_interna, operador, valor_condicion, condicion_secundaria;
 
 precedence left COMA;
 
@@ -174,30 +190,31 @@ instruccion_creacion_usuario ::=    accion_crear_usuario COMA instruccion_creaci
 
 accion_crear_usuario ::=    LLAVE_A:llaA accion_crear_usuario_p LLAVE_C         {: 
                                                                                     linea = llaAleft;
+                                                                                    columna = llaAright;
                                                                                     String[] listaObligatorios = {"\"USUARIO\"", "\"PASSWORD\""};
                                                                                     verificacionBloque(listaObligatorios, listaParametros);
-                                                                                    listaParametros.clear(); 
                                                                                 :}
-                            | error accion_crear_usuario_p                     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' en la instrucción"); :}
+                            | error accion_crear_usuario_p LLAVE_C              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' en la instrucción"); :}
+                            | LLAVE_A accion_crear_usuario_p error
                             ;
 
 accion_crear_usuario_p ::=  opciones_crear_usuario COMA accion_crear_usuario_p 
                             | opciones_crear_usuario 
                             ;
 
-opciones_crear_usuario ::=  USUARIO:usr PUNTOS tipos_entrada                    {: listaParametros.add(usr.toString()); :}
-                            | PASSWORD:psw PUNTOS tipos_entrada_complete        {: listaParametros.add(psw.toString()); :}
+opciones_crear_usuario ::=  USUARIO:usr PUNTOS tipos_entrada_complete           {: listaParametros.add(usr.toString()); :}
+                            | PASSWORD:psw PUNTOS tipos_entrada                 {: listaParametros.add(psw.toString()); :}
                             | FECHA_CREACION:fc PUNTOS FECHA                    {: listaParametros.add(fc.toString()); :}
                             | error tipos_entrada                               {: listaErrores.get(punteroErrores).setDescripcion("No se reconoce el tipo de parámetro a asignar valor en la instrucción"); :}
                             | USUARIO error tipos_entrada                       {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
                             | PASSWORD error tipos_entrada                      {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
                             | USUARIO error                                     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido a asignar a un usuario"); :}
-                            | USUARIO PUNTOS error                              {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un usuario, revise si el valor a asignar al usuario contiene caracteres inválidos o si hace falta la coma de fin de instrucción"); :}
-                            | PASSWORD PUNTOS error                             {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una contraseña"); :}
-                            | PASSWORD error                                    {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido a asignar a una contraseña"); :}
-                            | FECHA_CREACION PUNTOS error
-                            | FECHA_CREACION error FECHA
-                            | FECHA_CREACION error
+                            | USUARIO PUNTOS error                              {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un usuario, revise si el valor a asignar contiene caracteres inválidos o si hace falta la coma de fin de instrucción"); :}
+                            | PASSWORD PUNTOS error                             {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una contraseña, revise si el valor a asignar contiene caracteres inválidos o si hace falta la coma de fin de instrucción"); :}
+                            | PASSWORD error                                    {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una fecha de creación, revise si la fecha ingresada pertenece al calendario, si la misma contiene caracteres inválidos o si hace falta la coma de fin de instrucción"); :}
+                            | FECHA_CREACION PUNTOS error                       {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                            | FECHA_CREACION error FECHA                        {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                            | FECHA_CREACION error                              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción y una fecha válda a asignar a la fecha de creación"); :}
                             | error                                             {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instucción: \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); :}
                             ;
 
@@ -206,7 +223,12 @@ instruccion_modificacion_usuario ::=    accion_modificacion_usuario COMA instruc
                                         | accion_modificacion_usuario
                                         ;
 
-accion_modificacion_usuario ::= LLAVE_A accion_modificacion_usuario_p LLAVE_C                   
+accion_modificacion_usuario ::= LLAVE_A:llaA accion_modificacion_usuario_p LLAVE_C  {:
+                                                                                        linea = llaAleft;
+                                                                                        columna = llaAright;
+                                                                                        String[] listaObligatorios = {"\"USUARIO_ANTIGUO\"", "\"USUARIO_NUEVO\"", "\"NUEVO_PASSWORD\""};
+                                                                                        verificacionBloque(listaObligatorios, listaParametros);
+                                                                                    :}            
                                 | error accion_modificacion_usuario_p LLAVE_C
                                 | LLAVE_A accion_modificacion_usuario_p error
                                 ;
@@ -216,11 +238,11 @@ accion_modificacion_usuario_p ::=   opciones_modificacion_usuario COMA accion_mo
                                     ;
 
 
-opciones_modificacion_usuario ::=   USUARIO_ANTIGUO PUNTOS tipos_entrada
-                                    | USUARIO_NUEVO PUNTOS tipos_entrada
-                                    | NUEVO_PASSWORD PUNTOS tipos_entrada
-                                    | FECHA_MODIFICACION PUNTOS FECHA
-                                    | error tipos_entrada
+opciones_modificacion_usuario ::=   USUARIO_ANTIGUO:para PUNTOS tipos_entrada       {: listaParametros.add(para.toString()); :}
+                                    | USUARIO_NUEVO:para PUNTOS tipos_entrada       {: listaParametros.add(para.toString()); :}
+                                    | NUEVO_PASSWORD:para PUNTOS tipos_entrada      {: listaParametros.add(para.toString()); :}
+                                    | FECHA_MODIFICACION:para PUNTOS FECHA          {: listaParametros.add(para.toString()); :}
+                                    | error tipos_entrada                       
                                     | error PUNTOS tipos_entrada
                                     | USUARIO PUNTOS error
                                     | USUARIO error tipos_entrada
@@ -236,12 +258,17 @@ instruccion_eliminacion_usuario ::=     accion_eliminacion_usuario COMA instrucc
                                         | accion_eliminacion_usuario
                                         ;
 
-accion_eliminacion_usuario ::=          LLAVE_A opciones_eliminacion_usuario LLAVE_C
+accion_eliminacion_usuario ::=          LLAVE_A:llaA opciones_eliminacion_usuario LLAVE_C       {:
+                                                                                                    linea = llaAleft;
+                                                                                                    columna = llaAright;
+                                                                                                    String[] listaObligatorios = {"\"USUARIO\""};
+                                                                                                    verificacionBloque(listaObligatorios, listaParametros);
+                                                                                                :}
                                         | error opciones_eliminacion_usuario LLAVE_C
                                         | LLAVE_A opciones_eliminacion_usuario error
                                         ;
 
-opciones_eliminacion_usuario ::=        USUARIO PUNTOS tipos_entrada
+opciones_eliminacion_usuario ::=        USUARIO:para PUNTOS tipos_entrada       {: listaParametros.add(para.toString()); :}
                                         | error tipos_entrada
                                         | error PUNTOS tipos_entrada
                                         | USUARIO PUNTOS error
@@ -255,7 +282,12 @@ instruccion_login_usuario ::=       accion_login_usuario COMA instruccion_login_
                                     | accion_login_usuario
                                     ;
 
-accion_login_usuario ::=            LLAVE_A accion_login_usuario_p LLAVE_C
+accion_login_usuario ::=            LLAVE_A:llaA accion_login_usuario_p LLAVE_C             {:
+                                                                                                linea = llaAleft;
+                                                                                                columna = llaAright;
+                                                                                                String[] listaObligatorios = {"\"USUARIO\"", "\"PASSWORD\""};
+                                                                                                verificacionBloque(listaObligatorios, listaParametros);
+                                                                                            :}
                                     | error accion_login_usuario_p LLAVE_C
                                     | LLAVE_A accion_login_usuario_p error
                                     ;
@@ -264,8 +296,8 @@ accion_login_usuario_p ::=          opciones_login_usuario COMA accion_login_usu
                                     | opciones_login_usuario
                                     ;
 
-opciones_login_usuario ::=          USUARIO PUNTOS tipos_entrada
-                                    | PASSWORD PUNTOS tipos_entrada
+opciones_login_usuario ::=          USUARIO:para PUNTOS tipos_entrada           {: listaParametros.add(para.toString()); :}
+                                    | PASSWORD:para PUNTOS tipos_entrada        {: listaParametros.add(para.toString()); :}
                                     | error tipos_entrada
                                     | error PUNTOS tipos_entrada
                                     | USUARIO PUNTOS error
@@ -282,7 +314,12 @@ instruccion_nuevo_formulario ::=    accion_nuevo_formulario COMA instruccion_nue
                                     | accion_nuevo_formulario
                                     ;
 
-accion_nuevo_formulario ::=         LLAVE_A accion_nuevo_formulario_p LLAVE_C
+accion_nuevo_formulario ::=         LLAVE_A:llaA accion_nuevo_formulario_p LLAVE_C          {:
+                                                                                                linea = llaAleft;
+                                                                                                columna = llaAright;
+                                                                                                String[] listaObligatorios = {"\"ID\"", "\"TITULO\"", "\"NOMBRE\"", "\"TEMA\""};
+                                                                                                verificacionBloque(listaObligatorios, listaParametros);
+                                                                                            :}
                                     | error accion_nuevo_formulario_p LLAVE_C
                                     | LLAVE_A accion_nuevo_formulario_p error
                                     ;
@@ -291,12 +328,12 @@ accion_nuevo_formulario_p ::=       opciones_nuevo_formulario COMA accion_nuevo_
                                     | opciones_nuevo_formulario
                                     ;
 
-opciones_nuevo_formulario ::=       ID PUNTOS IDENTIFICADOR
-                                    | TITULO PUNTOS tipos_entrada_complete
-                                    | NOMBRE PUNTOS tipos_entrada
-                                    | TEMA PUNTOS theme
-                                    | USUARIO_CREACION PUNTOS tipos_entrada
-                                    | FECHA_CREACION PUNTOS FECHA 
+opciones_nuevo_formulario ::=       ID:para PUNTOS IDENTIFICADOR                        {: listaParametros.add(para.toString()); :}
+                                    | TITULO:para PUNTOS tipos_entrada_complete         {: listaParametros.add(para.toString()); :}
+                                    | NOMBRE:para PUNTOS tipos_entrada                  {: listaParametros.add(para.toString()); :}
+                                    | TEMA:para PUNTOS theme                            {: listaParametros.add(para.toString()); :}
+                                    | USUARIO_CREACION:para PUNTOS tipos_entrada        {: listaParametros.add(para.toString()); :}
+                                    | FECHA_CREACION:para PUNTOS FECHA                  {: listaParametros.add(para.toString()); :}
                                     | error tipos_entrada_complete
                                     | error PUNTOS tipos_entrada_complete
                                     | ID PUNTOS error
@@ -329,7 +366,12 @@ instruccion_eliminacion_formulario ::=  accion_eliminacion_formulario COMA instr
                                         | accion_eliminacion_formulario
                                         ;
 
-accion_eliminacion_formulario ::=       LLAVE_A accion_eliminacion_formulario_p LLAVE_C
+accion_eliminacion_formulario ::=       LLAVE_A:llaA accion_eliminacion_formulario_p LLAVE_C    {:
+                                                                                                    linea = llaAleft;
+                                                                                                    columna = llaAright;
+                                                                                                    String[] listaObligatorios = {"\"ID\""};
+                                                                                                    verificacionBloque(listaObligatorios, listaParametros);
+                                                                                                :}
                                         | error accion_eliminacion_formulario_p LLAVE_C
                                         | LLAVE_A accion_eliminacion_formulario_p error
                                         ;
@@ -338,7 +380,7 @@ accion_eliminacion_formulario_p ::=     opciones_eliminacion_formulario COMA acc
                                         | opciones_eliminacion_formulario
                                         ;
 
-opciones_eliminacion_formulario ::=     ID PUNTOS IDENTIFICADOR
+opciones_eliminacion_formulario ::=     ID:para PUNTOS IDENTIFICADOR
                                         | error PUNTOS IDENTIFICADOR
                                         | error IDENTIFICADOR
                                         | ID PUNTOS error 
@@ -352,7 +394,12 @@ instruccion_modificacion_formulario ::= accion_modificacion_formulario COMA  ins
                                         | accion_modificacion_formulario
                                         ;
 
-accion_modificacion_formulario ::=      LLAVE_A accion_modificacion_formulario_p LLAVE_C
+accion_modificacion_formulario ::=      LLAVE_A:llaA accion_modificacion_formulario_p LLAVE_C   {:
+                                                                                                    linea = llaAleft;
+                                                                                                    columna = llaAright;
+                                                                                                    String[] listaObligatorios = {"\"ID\""};
+                                                                                                    verificacionBloque(listaObligatorios, listaParametros);
+                                                                                                :}
                                         | error accion_modificacion_formulario_p LLAVE_C
                                         | LLAVE_A accion_modificacion_formulario_p error
                                         ;
@@ -361,10 +408,10 @@ accion_modificacion_formulario_p ::=    opciones_modificacion_formulario COMA ac
                                         | opciones_modificacion_formulario
                                         ;
 
-opciones_modificacion_formulario ::=    ID PUNTOS IDENTIFICADOR
-                                        | TITULO PUNTOS tipos_entrada_complete
-                                        | NOMBRE PUNTOS tipos_entrada
-                                        | TEMA PUNTOS theme
+opciones_modificacion_formulario ::=    ID:para PUNTOS IDENTIFICADOR                            {: listaParametros.add(para.toString()); :}
+                                        | TITULO:para PUNTOS tipos_entrada_complete             {: listaParametros.add(para.toString()); :}
+                                        | NOMBRE:para PUNTOS tipos_entrada                      {: listaParametros.add(para.toString()); :}
+                                        | TEMA:para PUNTOS theme                                {: listaParametros.add(para.toString()); :}
                                         | error PUNTOS tipos_entrada_complete
                                         | error tipos_entrada_complete
                                         | ID PUNTOS error
@@ -389,8 +436,9 @@ instruccion_agregar_componente ::=  accion_agregar_componente COMA instruccion_a
 
 accion_agregar_componente ::=       LLAVE_A:llaA accion_agregar_componente_p LLAVE_C            {:
                                                                                                     linea = llaAleft;
+                                                                                                    columna = llaAright;
+                                                                                                    String[] listaObligatorios = {"\"ID\"", "\"NOMBRE_CAMPO\"", "\"FORMULARIO\"", "\"CLASE\"", "\"TEXTO_VISIBLE\""};
                                                                                                     verificacionClase(listaParametros, clase);
-                                                                                                    listaParametros.clear();
                                                                                                     listaParametrosClase.clear();
                                                                                                 :}
                                     | error accion_agregar_componente_p LLAVE_C
@@ -476,7 +524,12 @@ instruccion_eliminacion_componente ::=  accion_eliminacion_componente COMA instr
                                         | accion_eliminacion_componente
                                         ;
 
-accion_eliminacion_componente ::=       LLAVE_A accion_eliminacion_componente_p LLAVE_C
+accion_eliminacion_componente ::=       LLAVE_A:llaA accion_eliminacion_componente_p LLAVE_C        {:
+                                                                                                        linea = llaAleft;
+                                                                                                        columna = llaAright;
+                                                                                                        String[] listaObligatorios = {"\"ID\"", "\"FORMULARIO\""};
+                                                                                                        verificacionBloque(listaObligatorios, listaParametros);
+                                                                                                    :}
                                         | error accion_eliminacion_componente_p LLAVE_C
                                         | LLAVE_A accion_eliminacion_componente_p error
                                         ;
@@ -485,8 +538,8 @@ accion_eliminacion_componente_p ::=     opciones_eliminacion_componente COMA acc
                                         | opciones_eliminacion_componente
                                         ;
 
-opciones_eliminacion_componente ::=     ID PUNTOS IDENTIFICADOR
-                                        | FORMULARIO PUNTOS IDENTIFICADOR
+opciones_eliminacion_componente ::=     ID:para PUNTOS IDENTIFICADOR                    {: listaParametros.add(para.toString()); :}
+                                        | FORMULARIO:para PUNTOS IDENTIFICADOR          {: listaParametros.add(para.toString()); :}
                                         | error PUNTOS IDENTIFICADOR
                                         | error IDENTIFICADOR
                                         | ID PUNTOS error
@@ -503,7 +556,12 @@ instruccion_modificacion_componente ::= accion_modificacion_componente COMA inst
                                         | accion_modificacion_componente
                                         ;
 
-accion_modificacion_componente ::=      LLAVE_A accion_modificacion_componente_p LLAVE_C
+accion_modificacion_componente ::=      LLAVE_A:llaA accion_modificacion_componente_p LLAVE_C       {:
+                                                                                                        linea = llaAleft;
+                                                                                                        columna = llaAright;
+                                                                                                        String[] listaObligatorios = {"\"ID\"", "\"FORMULARIO\""};
+                                                                                                        verificacionBloque(listaObligatorios, listaParametros);
+                                                                                                    :}
                                         | error accion_modificacion_componente_p LLAVE_C
                                         | LLAVE_A accion_modificacion_componente_p error
                                         ;
@@ -512,7 +570,7 @@ accion_modificacion_componente_p ::=    opciones_modificacion_componente COMA ac
                                         | opciones_modificacion_componente
                                         ;
 
-opciones_modificacion_componente ::=    INDICE PUNTOS NUMERO
+opciones_modificacion_componente ::=    INDICE:para PUNTOS NUMERO               {: listaParametros.add(para.toString()); :}
                                         | opciones_agregar_componente
                                         | INDICE PUNTOS error
                                         | INDICE error NUMERO
@@ -520,9 +578,40 @@ opciones_modificacion_componente ::=    INDICE PUNTOS NUMERO
                                         ;
 
 /* INSTRUCCION PARA CONSULTAS */
-instruccion_consultar_datos ::=     
+instruccion_consultar_datos ::=     accion_consultar_datos COMA instruccion_consultar_datos
+                                    | accion_consultar_datos
                                     ;
 
+accion_consultar_datos ::=          LLAVE_A:llaA accion_consultar_datos_p LLAVE_C
+                                    | error accion_consultar_datos_p LLAVE_C
+                                    | LLAVE_A accion_consultar_datos_p error
+                                    ;
+
+accion_consultar_datos_p ::=        opciones_consultar_datos COMA accion_consultar_datos_p
+                                    | opciones_consultar_datos
+                                    ;
+
+opciones_consultar_datos ::=        CONSULTA PUNTOS COMILLAS consulta_datos COMILLAS
+                                    ;
+
+consulta_datos ::=                  SELECT TO FROM FLECHA IDENTIFCONSULTA CORCHETE_A campos_posibles CORCHETE_C condicion_principal
+                                    ;
+
+campos_posibles ::=                 CAMPOS
+                                    | CAMPO
+                                    |
+                                    ;
+
+condicion_principal ::=             WHERE CORCHETE_A condicion_interna
+                                    ;
+
+condicion_interna ::=               CAMPO operador valor_condicion condicion_secundaria
+                                    ;
+
+condicion_secundaria ::=    AND condicion_interna
+                            OR condicion_interna
+                            | CORCHETE_C
+                            ;
 /* ENTRADAS */
 tipos_entrada ::=   ALLCHARACTERSNOSPACE
                     | NUMERO
@@ -544,3 +633,14 @@ tipos_entrada_complete ::=  ALLCHARACTERSNOSPACE
                             | theme
                             ;
 
+operador ::=    MAYOR_QUE
+                | MENOR_QUE
+                | MAYOR_IGUAL
+                | MENOR_IGUAL
+                | DIFERENTE
+                | IGUAL
+                ;
+
+valor_condicion ::=     NUMERO_CONSULTA
+                        | CADENA_CONSULTA
+                        ;
