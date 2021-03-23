@@ -592,12 +592,12 @@ accion_consultar_datos_p ::=        opciones_consultar_datos COMA accion_consult
                                     | opciones_consultar_datos
                                     ;
 
-opciones_consultar_datos ::=        CONSULTA PUNTOS COMILLAS consulta_datos COMILLAS
-                                    | error PUNTOS COMILLAS consulta_datos COMILLAS     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba la palabra \"CONSULTA-N\""); :}
-                                    | CONSULTA error COMILLAS consulta_datos COMILLAS   {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+opciones_consultar_datos ::=        CONSULTA consulta_datos COMILLAS
+                                    | error consulta_datos COMILLAS     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba la expresion \"CONSULTA-N\" : \""); :}
+                                    /*| CONSULTA error COMILLAS consulta_datos COMILLAS   {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
                                     | CONSULTA PUNTOS error consulta_datos COMILLAS     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '\"' en la instrucción"); :}
-                                    | CONSULTA PUNTOS COMILLAS consulta_datos error     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '\"' en la instrucción"); :}
-                                    | error consulta_datos COMILLAS                     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"CONSULTA\" : \""); :}
+                                    */| CONSULTA consulta_datos error     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '\"' en la instrucción"); :}
+                                    //| error consulta_datos COMILLAS                     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"CONSULTA\" : \""); :}
                                     ;
 
 consulta_datos ::=                  SELECT TO FROM FLECHA IDENTIFCONSULTA CORCHETE_A campos_posibles CORCHETE_C condicion_principal         
@@ -611,7 +611,7 @@ consulta_datos ::=                  SELECT TO FROM FLECHA IDENTIFCONSULTA CORCHE
                                     | SELECT TO FROM FLECHA IDENTIFCONSULTA CORCHETE_A campos_posibles error condicion_principal            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un símbolo ']'"); :}
                                     ;
 
-campos_posibles ::=                 CAMPOS
+campos_posibles ::=                 CAMPO COMA campos_posibles
                                     | CAMPO
                                     |
                                     ;
