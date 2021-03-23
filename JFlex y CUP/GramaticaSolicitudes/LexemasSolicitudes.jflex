@@ -41,17 +41,18 @@ COMPLEMENTOB = ( (0?4)|(0?6)|(0?9)|(11) ) [-] {MESESB}
 COMPLEMENTOC = (0?2) [-] {MESESC}
 FECHA = [\"] {AÑO} [-] ( {COMPLEMENTOA} | {COMPLEMENTOB} | {COMPLEMENTOC} ) [\"] 
 
-ALLCHARACTERS = [\"]  [^"\"" "|"]+ [\"]
+//ALLCHARACTERS = [\"]  [^"\"" "|"]+ [\"]
+ALLCHARACTERS = [\42] ([\0-\41] | [\43-\173] | [\175-\255])* [\42]
 ALLCHARACTERSNOSPACE = [\"]  [^' ' "\"" "|"]+ [\"]
 NOCOMILLAS =([^\"])*
-OPTIONS = [\"] ([a-zA-Z0-9] | {Ignore})+ ("|" ([a-zA-Z0-9] | {Ignore}})+)* [\"]
+OPTIONS = [\"] ([a-zA-Z0-9] | {Ignore})+ ("|" ([a-zA-Z0-9] | {Ignore}})+)+ [\"]
 
 CONSULTA = [\"] "CONSULTA-" [0-9]+  [\"]
 IDENTIFCONSULTA = ("$" | "_" | "-") ( [a-zA-Z] | [0-9] | "$" | "_" | "-")*
 CAMPOS = [^"[" "]" "\"" "," "|" "<" ">" "!" "=" ":" "{" "}" "\’" "\'" [ \t\f] [\r|\n|\r\n]]+ ({WS}*","{WS}* [^"[" "]" "\"" "," "|" "<" ">" "!" "=" ":" "{" "}" "\’" "\'" "&" [ \t\f] [\r|\n|\r\n]]+)+ 
 CAMPO = [^"[" "]" "\"" "," "|" "<" ">" "!" "=" ":" "{" "}" "\’" "\'" [ \t\f] [\r|\n|\r\n]]+
 CADENACONSULTA = ("\’" | "\'") ([^ "\"" "|"] | [ \t\f])* ("\’" | "\'")
-NUMEROCONSULTA = [0-9]+
+NUMEROCONSULTA = (-)? [0-9]+ ( ['.'] [0-9]+ ) ?
 
 %%
 
@@ -145,27 +146,23 @@ NUMEROCONSULTA = [0-9]+
     "AND"                                       { return new Symbol(AND, yyline+1, yycolumn+1, yytext()); }
     "OR"                                        { return new Symbol(OR, yyline+1, yycolumn+1, yytext()); }
     "NOT"                                       { return new Symbol(NOT, yyline+1, yycolumn+1, yytext()); }
-    {NUMEROCONSULTA}                            { return new Symbol(NUMERO_CONSULTA, yyline+1, yycolumn+1, yytext()); }
-    {IDENTIFCONSULTA}                           { return new Symbol(IDENTIFCONSULTA, yyline+1, yycolumn+1, yytext()); }
+    {NUMEROCONSULTA}                            { System.out.println("NUMEROCONSULTA: " + yytext()); return new Symbol(NUMERO_CONSULTA, yyline+1, yycolumn+1, yytext()); }
+    //{IDENTIFCONSULTA}                           { System.out.println("IDENTIFCONSULTA: " + yytext()); return new Symbol(IDENTIFCONSULTA, yyline+1, yycolumn+1, yytext()); }
     {CADENACONSULTA}                            { System.out.println("CADENA en: " + yyline + " , " + yycolumn + " - " + yytext()); return new Symbol(CADENA_CONSULTA, yyline+1, yycolumn+1, yytext()); }
 
     //Cadenas Fundamentales
-    {IDENTIFICA}            { return new Symbol(IDENTIFICADOR, yyline+1, yycolumn+1, yytext()); }
-    {NUMERO}                { return new Symbol(NUMERO, yyline+1, yycolumn+1, yytext()); }
-    {FECHA}                 { return new Symbol(FECHA, yyline+1, yycolumn+1, yytext()); }
-    {CONSULTA}              { return new Symbol(CONSULTA, yyline+1, yycolumn+1, yytext()); }
-    {ALLCHARACTERSNOSPACE}  { return new Symbol(ALLCHARACTERSNOSPACE, yyline+1, yycolumn+1, yytext()); }
-    {ALLCHARACTERS}         { return new Symbol(ALLCHARACTERS, yyline+1, yycolumn+1, yytext()); }
-    {OPTIONS}               { return new Symbol(OPTIONS, yyline+1, yycolumn+1, yytext()); }
+    {IDENTIFICA}            { System.out.println("IDENTIFICA: " + yytext());return new Symbol(IDENTIFICADOR, yyline+1, yycolumn+1, yytext()); }
+    {NUMERO}                { System.out.println("NUMERO: " + yytext());return new Symbol(NUMERO, yyline+1, yycolumn+1, yytext()); }
+    {FECHA}                 { System.out.println("FECHA: " + yytext());return new Symbol(FECHA, yyline+1, yycolumn+1, yytext()); }
+    {CONSULTA}              { System.out.println("CONSULTA-N: " + yytext());return new Symbol(CONSULTA, yyline+1, yycolumn+1, yytext()); }
+    {ALLCHARACTERSNOSPACE}  { System.out.println("ALLCHARACTERSNOSPACE: " + yytext());return new Symbol(ALLCHARACTERSNOSPACE, yyline+1, yycolumn+1, yytext()); }
+    {ALLCHARACTERS}         { System.out.println("ALLCHARACTERS: " + yytext()); return new Symbol(ALLCHARACTERS, yyline+1, yycolumn+1, yytext()); }
+    {OPTIONS}               { System.out.println("OPTIONS: " + yytext());return new Symbol(OPTIONS, yyline+1, yycolumn+1, yytext()); }
     /*
     */
     {Ignore}                {/* IGNORAR */}
     {CAMPO}                                     { System.out.println("CAMPO en: " + yyline + " , " + yycolumn + " - " + yytext());return new Symbol(CAMPO, yyline+1, yycolumn+1, yytext()); }
-    {CAMPOS}                                    { return new Symbol(CAMPOS, yyline+1, yycolumn+1, yytext()); }
-    /*
-    "\’"                    { return new Symbol(COMILLAS_INCLINADAS, yyline+1, yycolumn+1, yytext()); }
-    */
-
+    {CAMPOS}                                    { System.out.println("CAMPOS: " + yytext()); return new Symbol(CAMPOS, yyline+1, yycolumn+1, yytext()); }
 }
 
 [^] {

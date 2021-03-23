@@ -111,7 +111,7 @@ non terminal opciones_crear_usuario, opciones_modificacion_usuario, opciones_eli
 //No terminales de reportes
 non terminal campos_posibles, condicion_principal, condicion_interna, operador, valor_condicion, condicion_secundaria;
 
-precedence left COMA;
+non terminal modificacion_usuario_prueba;
 
 start with inicio;
 
@@ -138,17 +138,17 @@ instruccion_solicitudes ::= solicitud instruccion_solicitudes
 
 
 solicitud ::=   MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE
-                | error EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE
-                | MENOR_QUE error INI_SOLICITUD PUNTOS tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE
-                | MENOR_QUE EXCLAMACION error PUNTOS tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE
-                | MENOR_QUE EXCLAMACION INI_SOLICITUD error tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE
-                | error tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE
-                | MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud error FIN_SOLICITUD EXCLAMACION MAYOR_QUE
-                | MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud MENOR_QUE error EXCLAMACION MAYOR_QUE
-                | MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud MENOR_QUE FIN_SOLICITUD error MAYOR_QUE
-                | MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION error
-                | MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud error
-                | MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS error MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE        {: listaErrores.get(punteroErrores).setDescripcion("Error general en la instruccion"); :}
+                | error EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE       {: listaErrores.get(punteroErrores).setDescripcion("Falta un simbolo'<' en la instrucción"); :}
+                | MENOR_QUE error INI_SOLICITUD PUNTOS tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE         {: listaErrores.get(punteroErrores).setDescripcion("Falta un simbolo'!' en la instrucción"); :}
+                | MENOR_QUE EXCLAMACION error PUNTOS tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE           {: listaErrores.get(punteroErrores).setDescripcion("Falta la palabra reservada \"INI_SOLICITUD\" en la instruccion");:}
+                | MENOR_QUE EXCLAMACION INI_SOLICITUD error tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE    {: listaErrores.get(punteroErrores).setDescripcion("Falta un simbolo':' en la instrucción"); :}
+                | error tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE                                        {: listaErrores.get(punteroErrores).setDescripcion("Se espeaba exáctamente la instruccion '< ! \"INI_SOLICITUD\" :', revise si la instrucción fue escrita correctamente"); :}
+                | MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud error FIN_SOLICITUD EXCLAMACION MAYOR_QUE       {: listaErrores.get(punteroErrores).setDescripcion("Falta un simbolo'<' en la instrucción"); :}
+                | MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud MENOR_QUE error EXCLAMACION MAYOR_QUE           {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba la palabra reservada \"FIN_SOLICITUD\" en la instrucción"); :}
+                | MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud MENOR_QUE FIN_SOLICITUD error MAYOR_QUE         {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '!' en la instrucción"); :}
+                | MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud MENOR_QUE FIN_SOLICITUD EXCLAMACION error       {: listaErrores.get(punteroErrores).setDescripcion("Falta un simbolo '>' en la instrucción"); :}
+                | MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS tipo_solicitud error                                           {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exáctamente la instrucción '< \"FIN_SOLICITUD\" ! >'"); :}
+                //| MENOR_QUE EXCLAMACION INI_SOLICITUD PUNTOS error MENOR_QUE FIN_SOLICITUD EXCLAMACION MAYOR_QUE        {: listaErrores.get(punteroErrores).setDescripcion("Error general en la instruccion"); :}
                 ;
 
 tipo_solicitud ::=  CREAR_USUARIO           apertura_instruccion_principal1 CREDENCIALES_USUARIO apertura_instruccion_principal2 instruccion_creacion_usuario cierre_instruccion_principal  {: System.out.println("CREACION DE USUARIO"); :}
@@ -381,7 +381,7 @@ accion_eliminacion_formulario_p ::=     opciones_eliminacion_formulario COMA acc
                                         | opciones_eliminacion_formulario
                                         ;
 
-opciones_eliminacion_formulario ::=     ID:para PUNTOS IDENTIFICADOR
+opciones_eliminacion_formulario ::=     ID:para PUNTOS IDENTIFICADOR            {: listaParametros.add(para.toString()); :}
                                         | error PUNTOS IDENTIFICADOR            {: listaErrores.get(punteroErrores).setDescripcion("No se reconoce el tipo de parametro al cual se le asignará valor"); :}
                                         | error IDENTIFICADOR                   {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un parametro válido para asignar valor, seguido del simbolo ':' en la instrucción"); :}
                                         | ID PUNTOS error                       {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un identificador, revse si el valor a asignar contiene caracteres inválidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :} 
@@ -593,7 +593,7 @@ accion_consultar_datos_p ::=        opciones_consultar_datos COMA accion_consult
                                     ;
 
 opciones_consultar_datos ::=        CONSULTA PUNTOS COMILLAS consulta_datos COMILLAS
-                                    | error PUNTOS COMILLAS consulta_datos COMILLAS     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba la palabra \"CONSULTA\""); :}
+                                    | error PUNTOS COMILLAS consulta_datos COMILLAS     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba la palabra \"CONSULTA-N\""); :}
                                     | CONSULTA error COMILLAS consulta_datos COMILLAS   {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
                                     | CONSULTA PUNTOS error consulta_datos COMILLAS     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '\"' en la instrucción"); :}
                                     | CONSULTA PUNTOS COMILLAS consulta_datos error     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '\"' en la instrucción"); :}
