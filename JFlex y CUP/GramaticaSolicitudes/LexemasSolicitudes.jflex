@@ -1,7 +1,7 @@
-package com.froi.editorcodigoindigo.gramaticas.codigoindigo;
+package com.froi.formulariosweb.analizadores.codigoindigo;
 
 import java_cup.runtime.*;
-import static com.froi.editorcodigoindigo.gramaticas.codigoindigo.ParserSolicitudesSym.*;
+import static com.froi.formulariosweb.analizadores.codigoindigo.ParserSolicitudesSym.*;
 %%
 
 %public

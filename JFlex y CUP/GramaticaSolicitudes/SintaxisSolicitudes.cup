@@ -1,6 +1,6 @@
-package com.froi.editorcodigoindigo.gramaticas.codigoindigo;
+package com.froi.formulariosweb.analizadores.codigoindigo;
 
-import com.froi.editorcodigoindigo.entidades.Advertencia;
+import com.froi.formulariosweb.entidades.Advertencia;
 import java_cup.runtime.*;
 import java.util.ArrayList;
 
