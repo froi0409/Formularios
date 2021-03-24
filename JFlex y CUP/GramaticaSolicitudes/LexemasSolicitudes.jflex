@@ -103,7 +103,7 @@ NUMEROCONSULTA = (-)? [0-9]+ ( ['.'] [0-9]+ ) ?
     "\""{WS}*"ELIMINAR_FORMULARIO"{WS}*"\""   { return new Symbol(ELIMINAR_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
     "\""{WS}*"MODIFICAR_FORMULARIO"{WS}*"\""  { return new Symbol(MODIFICAR_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
     "\""{WS}*"PARAMETROS_FORMULARIO"{WS}*"\"" { return new Symbol(PARAMETROS_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
-    "\""{WS}*"AGREGAR_COMPONENT"{WS}*"E\""    { return new Symbol(AGREGAR_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"AGREGAR_COMPONENTE"{WS}*"\""    { return new Symbol(AGREGAR_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
     "\""{WS}*"PARAMETROS_COMPONENTE"{WS}*"\"" { return new Symbol(PARAMETROS_COMPONENTE, yyline+1, yycolumn+1, yytext()); }
     "\""{WS}*"NOMBRE_CAMPO"{WS}*"\""          { return new Symbol(NOMBRE_CAMPO, yyline+1, yycolumn+1, yytext()); }
     "\""{WS}*"FORMULARIO"{WS}*"\""            { return new Symbol(FORMULARIO, yyline+1, yycolumn+1, yytext()); }

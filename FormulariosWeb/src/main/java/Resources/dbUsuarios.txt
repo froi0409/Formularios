@@ -1,0 +1,13 @@
+db.usuarios (
+{
+"USUARIO" : "juanito619",
+"PASSWORD" : "abc12345678",
+"FECHA_CREACION" : "2021-3-24"
+}
+,
+{
+"USUARIO" : "alcachofagg",
+"PASSWORD" : "123fda45678",
+"FECHA_CREACION" : "2020-11-21"
+}
+)

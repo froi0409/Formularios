@@ -1,6 +1,6 @@
 package com.froi.formulariosweb.analizadores.codigoindigo;
 
-import com.froi.formulariosweb.entidades.Advertencia;
+import com.froi.formulariosweb.entidades.*;
 import java_cup.runtime.*;
 import java.util.ArrayList;
 
@@ -9,15 +9,18 @@ class ParserSolicitudes;
 parser code  {:
 
     private ArrayList<Advertencia> listaErrores;
+    private ArrayList<Instruccion> listaInstrucciones;
     private ArrayList<String> listaParametros;
     private ArrayList<String> listaParametrosClase;
     private int punteroErrores;
     private int bloque = 0, linea, columna;
     private String clase = "";
+    private String p1, p2, p3, p4, p5, p6, p7;
 
-    public ParserSolicitudes(SolicitudesLexer lexer, ArrayList<Advertencia> listaErrores) {
+    public ParserSolicitudes(SolicitudesLexer lexer, ArrayList<Advertencia> listaErrores, ArrayList<Instruccion> listaInstrucciones) {
         super(lexer);
         this.listaErrores = listaErrores;
+        this.listaInstrucciones = listaInstrucciones;
         this.listaParametros = new ArrayList<>();
         this.listaParametrosClase = new ArrayList<>();
     }
@@ -193,6 +196,14 @@ accion_crear_usuario ::=    LLAVE_A:llaA accion_crear_usuario_p LLAVE_C         
                                                                                     columna = llaAright;
                                                                                     String[] listaObligatorios = {"\"USUARIO\"", "\"PASSWORD\""};
                                                                                     verificacionBloque(listaObligatorios, listaParametros);
+                                                                                    InstruccionCrearUsuario inst = new InstruccionCrearUsuario();
+                                                                                    inst.setUsuario(p1.substring(1, p1.length()-1)); 
+                                                                                    inst.setPassword(p2.substring(1, p2.length()-1));
+                                                                                    if (p3 != null) {
+                                                                                        inst.setFechaCreacion(p3.substring(1, p3.length()-1));
+                                                                                    }
+                                                                                    listaInstrucciones.add(inst);
+                                                                                    p1 = null; p2 = null; p3 = null;
                                                                                 :}
                             | error accion_crear_usuario_p LLAVE_C              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' en la instrucción"); :}
                             | LLAVE_A accion_crear_usuario_p error
@@ -202,9 +213,9 @@ accion_crear_usuario_p ::=  opciones_crear_usuario COMA accion_crear_usuario_p
                             | opciones_crear_usuario 
                             ;
 
-opciones_crear_usuario ::=  USUARIO:usr PUNTOS tipos_entrada                    {: listaParametros.add(usr.toString()); :}
-                            | PASSWORD:psw PUNTOS tipos_entrada                 {: listaParametros.add(psw.toString()); :}
-                            | FECHA_CREACION:fc PUNTOS FECHA                    {: listaParametros.add(fc.toString()); :}
+opciones_crear_usuario ::=  USUARIO:usr PUNTOS tipos_entrada:ent                {: listaParametros.add(usr.toString()); p1 = ent.toString(); :}
+                            | PASSWORD:psw PUNTOS tipos_entrada:ent             {: listaParametros.add(psw.toString()); p2 = ent.toString(); :}
+                            | FECHA_CREACION:fc PUNTOS FECHA:ent                {: listaParametros.add(fc.toString()); p3 = ent.toString(); :}
                             | error tipos_entrada                               {: listaErrores.get(punteroErrores).setDescripcion("No se reconoce el tipo de parámetro a asignar valor en la instrucción"); :}
                             | error PUNTOS tipos_entrada                        {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un parametro valido para asignar valor seguido del símbolo ':' "); :}
                             | USUARIO error tipos_entrada                       {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
@@ -358,8 +369,8 @@ opciones_nuevo_formulario ::=       ID:para PUNTOS IDENTIFICADOR                
                                     | error                                             {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); :}
                                     ;
 
-theme ::=   DARK
-            | WHITE
+theme ::=   DARK:para       {: RESULT = para; :}
+            | WHITE:para    {: RESULT = para; :}
             ;
 
 /* INSTRUCCIONES DE ELIMINAR FORMLARIO */
@@ -510,14 +521,14 @@ tipo_clase ::=                      CAMPO_TEXTO:val         {: RESULT=val; :}
                                     | BOTON:val             {: RESULT=val; :}
                                     ;
 
-tipo_alineacion ::=                 CENTRO
-                                    | IZQUIERDA
-                                    | DERECHA
-                                    | JUSTIFICAR
+tipo_alineacion ::=                 CENTRO:para             {: RESULT = para; :}
+                                    | IZQUIERDA:para        {: RESULT = para; :}
+                                    | DERECHA:para          {: RESULT = para; :}
+                                    | JUSTIFICAR:para       {: RESULT = para; :}
                                     ;
 
-required ::=                        SI
-                                    | NO
+required ::=                        SI:para                 {: RESULT = para; :}
+                                    | NO:para               {: RESULT = para; :}
                                     ;
 
 /* INSTRUCCIONES PARA ELIMINAR COMPONENTES DE UN FORMULARIO */
@@ -635,24 +646,24 @@ condicion_secundaria ::=    AND condicion_interna
                             | CORCHETE_C
                             ;
 /* ENTRADAS */
-tipos_entrada ::=   ALLCHARACTERSNOSPACE
-                    | NUMERO
-                    | FECHA
-                    | IDENTIFICADOR
-                    | tipo_alineacion
-                    | required
-                    | theme
+tipos_entrada ::=   ALLCHARACTERSNOSPACE:para       {: RESULT = para; :}
+                    | NUMERO:para                   {: RESULT = para; :}
+                    | FECHA:para                    {: RESULT = para; :}
+                    | IDENTIFICADOR:para            {: RESULT = para; :}
+                    | tipo_alineacion:para          {: RESULT = para; :}
+                    | required:para                 {: RESULT = para; :}
+                    | theme:para                    {: RESULT = para; :}
                     ;
 
-tipos_entrada_complete ::=  ALLCHARACTERSNOSPACE
-                            | ALLCHARACTERS
-                            | NUMERO
-                            | FECHA
-                            | IDENTIFICADOR
-                            | OPTIONS
-                            | tipo_alineacion
-                            | required
-                            | theme
+tipos_entrada_complete ::=  ALLCHARACTERSNOSPACE:para   {: RESULT = para; :}
+                            | ALLCHARACTERS:para        {: RESULT = para; :}
+                            | NUMERO:para               {: RESULT = para; :}
+                            | FECHA:para                {: RESULT = para; :}
+                            | IDENTIFICADOR:para        {: RESULT = para; :}
+                            | OPTIONS:para              {: RESULT = para; :}
+                            | tipo_alineacion:para      {: RESULT = para; :}
+                            | required:para             {: RESULT = para; :}
+                            | theme:para                {: RESULT = para; :}
                             ;
 
 operador ::=    MAYOR_QUE
