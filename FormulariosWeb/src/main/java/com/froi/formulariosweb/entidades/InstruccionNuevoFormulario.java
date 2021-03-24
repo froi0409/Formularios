@@ -11,4 +11,15 @@ package com.froi.formulariosweb.entidades;
  */
 public class InstruccionNuevoFormulario extends Instruccion {
     
+    private String id;
+    private String titulo;
+    private String nombre;
+    private String tema;
+    private String usuarioCreacion;
+    private String fechaCreacion;
+    
+    public InstruccionNuevoFormulario() {
+        
+    }
+    
 }

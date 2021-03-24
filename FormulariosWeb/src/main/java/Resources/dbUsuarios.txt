@@ -1,5 +1,11 @@
 db.usuarios (
 {
+"USUARIO" : "chofoGomez",
+"PASSWORD" : "123fda45678",
+"FECHA_CREACION" : "2021-3-24"
+}
+,
+{
 "USUARIO" : "juanito619",
 "PASSWORD" : "abc12345678",
 "FECHA_CREACION" : "2021-3-24"
@@ -9,5 +15,11 @@ db.usuarios (
 "USUARIO" : "alcachofagg",
 "PASSWORD" : "123fda45678",
 "FECHA_CREACION" : "2020-11-21"
+}
+,
+{
+"USUARIO" : "elBicho",
+"PASSWORD" : "123fsadfda45678",
+"FECHA_CREACION" : "2021-3-24"
 }
 )

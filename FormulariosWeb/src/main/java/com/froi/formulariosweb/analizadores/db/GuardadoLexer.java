@@ -4,8 +4,9 @@
 
 package com.froi.formulariosweb.analizadores.db;
 
-import static com.froi.formulariosweb.analizadores.db.ParserGuardadoSym.*;
 import java_cup.runtime.*;
+import static com.froi.formulariosweb.analizadores.db.ParserGuardadoSym.*;
+
 
 
 // See https://github.com/jflex-de/jflex/issues/222
@@ -588,6 +589,9 @@ public class GuardadoLexer implements java_cup.runtime.Scanner {
   /** Whether the user-EOF-code has already been executed. */
   private boolean zzEOFDone;
 
+  /* user code: */
+
+
 
   /**
    * Creates a new scanner
@@ -995,7 +999,7 @@ public class GuardadoLexer implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { System.out.println("Error: " + yytext());
+            { System.out.println("Errores : " + yytext());
             }
             // fall through
           case 37: break;
@@ -1005,32 +1009,32 @@ public class GuardadoLexer implements java_cup.runtime.Scanner {
             // fall through
           case 38: break;
           case 3:
-            { return new Symbol(PARENT_A, yyline+1, yycolumn+1, yytext());
+            { System.out.println("PARENT_A: " + yytext()); return new Symbol(PARENT_A, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 39: break;
           case 4:
-            { return new Symbol(PARENT_C, yyline+1, yycolumn+1, yytext());
+            { System.out.println("PARENT_C: " + yytext()); return new Symbol(PARENT_C, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 40: break;
           case 5:
-            { return new Symbol(COMA, yyline+1, yycolumn+1, yytext());
+            { System.out.println("COMA: " + yytext()); return new Symbol(COMA, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 41: break;
           case 6:
-            { return new Symbol(PUNTOS, yyline+1, yycolumn+1, yytext());
+            { System.out.println("PUNTOS: " + yytext()); return new Symbol(PUNTOS, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 42: break;
           case 7:
-            { return new Symbol(LLAVE_A, yyline+1, yycolumn+1, yytext());
+            { System.out.println("LLAVE_A: " + yytext()); return new Symbol(LLAVE_A, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 43: break;
           case 8:
-            { return new Symbol(LLAVE_C, yyline+1, yycolumn+1, yytext());
+            { System.out.println("LLAVE_C: " + yytext()); return new Symbol(LLAVE_C, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 44: break;
@@ -1040,137 +1044,137 @@ public class GuardadoLexer implements java_cup.runtime.Scanner {
             // fall through
           case 45: break;
           case 10:
-            { return new Symbol(ID, yyline+1, yycolumn+1, yytext());
+            { System.out.println("ID: " + yytext()); return new Symbol(ID, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 46: break;
           case 11:
-            { return new Symbol(URL, yyline+1, yycolumn+1, yytext());
+            { System.out.println("URL: " + yytext()); return new Symbol(URL, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 47: break;
           case 12:
-            { return new Symbol(TEMA, yyline+1, yycolumn+1, yytext());
+            { System.out.println("TEMA: " + yytext()); return new Symbol(TEMA, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 48: break;
           case 13:
-            { return new Symbol(CLASE, yyline+1, yycolumn+1, yytext());
+            { System.out.println("CLASE: " + yytext()); return new Symbol(CLASE, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 49: break;
           case 14:
-            { return new Symbol(FILAS, yyline+1, yycolumn+1, yytext());
+            { System.out.println("FILAS: " + yytext()); return new Symbol(FILAS, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 50: break;
           case 15:
-            { return new Symbol(INDICE, yyline+1, yycolumn+1, yytext());
+            { System.out.println("INDICE: " + yytext()); return new Symbol(INDICE, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 51: break;
           case 16:
-            { return new Symbol(NOMBRE, yyline+1, yycolumn+1, yytext());
+            { System.out.println("NOMBRE: " + yytext()); return new Symbol(NOMBRE, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 52: break;
           case 17:
-            { return new Symbol(TITULO, yyline+1, yycolumn+1, yytext());
+            { System.out.println("TITULO: " + yytext()); return new Symbol(TITULO, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 53: break;
           case 18:
-            { return new Symbol(USUARIO, yyline+1, yycolumn+1, yytext());
+            { System.out.println("USUARIO: " + yytext()); return new Symbol(USUARIO, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 54: break;
           case 19:
-            { return new Symbol(COLUMNAS, yyline+1, yycolumn+1, yytext());
+            { System.out.println("COLUMNAS: " + yytext()); return new Symbol(COLUMNAS, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 55: break;
           case 20:
-            { return new Symbol(OPCIONES, yyline+1, yycolumn+1, yytext());
+            { System.out.println("OPCIONES: " + yytext()); return new Symbol(OPCIONES, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 56: break;
           case 21:
-            { return new Symbol(PASSWORD, yyline+1, yycolumn+1, yytext());
+            { System.out.println("PASSWORD: " + yytext()); return new Symbol(PASSWORD, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 57: break;
           case 22:
-            { return new Symbol(REQUERIDO, yyline+1, yycolumn+1, yytext());
+            { System.out.println("REQUERIDO: " + yytext()); return new Symbol(REQUERIDO, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 58: break;
           case 23:
-            { System.out.println("dbusuarios: " + yytext()); return new Symbol(DB_USUARIOS, yyline+1, yycolumn+1, yytext());
+            { System.out.println("DB_USUARIOS: " + yytext()); return new Symbol(DB_USUARIOS, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 59: break;
           case 24:
-            { return new Symbol(ALINEACION, yyline+1, yycolumn+1, yytext());
+            { System.out.println("ALINEACION: " + yytext()); return new Symbol(ALINEACION, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 60: break;
           case 25:
-            { return new Symbol(ESTRUCTURA, yyline+1, yycolumn+1, yytext());
+            { System.out.println("ESTRUCTURA: " + yytext()); return new Symbol(ESTRUCTURA, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 61: break;
           case 26:
-            { return new Symbol(FORMULARIO, yyline+1, yycolumn+1, yytext());
+            { System.out.println("FORMULARIO: " + yytext()); return new Symbol(FORMULARIO, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 62: break;
           case 27:
-            { return new Symbol(REGISTRO_N, yyline+1, yycolumn+1, yytext());
+            { System.out.println("REGISTRON: " + yytext()); return new Symbol(REGISTRO_N, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 63: break;
           case 28:
-            { return new Symbol(ID_FORMULARIO, yyline+1, yycolumn+1, yytext());
+            { System.out.println("ID_FORMULARIO: " + yytext()); return new Symbol(ID_FORMULARIO, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 64: break;
           case 29:
-            { return new Symbol(NOMBRE_CAMPO, yyline+1, yycolumn+1, yytext());
+            { System.out.println("NOMBRECAMPO: " + yytext()); return new Symbol(NOMBRE_CAMPO, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 65: break;
           case 30:
-            { return new Symbol(DB_FORMULARIOS, yyline+1, yycolumn+1, yytext());
+            { System.out.println("DB_FORMULARIOS: " + yytext()); return new Symbol(DB_FORMULARIOS, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 66: break;
           case 31:
-            { return new Symbol(TEXTO_VISIBLE, yyline+1, yycolumn+1, yytext());
+            { System.out.println("TEXTOVISIBLE: " + yytext()); return new Symbol(TEXTO_VISIBLE, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 67: break;
           case 32:
-            { return new Symbol(FECHA_CREACION, yyline+1, yycolumn+1, yytext());
+            { System.out.println("FECHACREACION: " + yytext()); return new Symbol(FECHA_CREACION, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 68: break;
           case 33:
-            { return new Symbol(NOMBRE_CAMPO_N, yyline+1, yycolumn+1, yytext());
+            { System.out.println("NOMBRECAMPON: " + yytext()); return new Symbol(NOMBRE_CAMPO_N, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 69: break;
           case 34:
-            { return new Symbol(ID_COMPONENTE_N, yyline+1, yycolumn+1, yytext());
+            { System.out.println("IDCOMPONENTE: " + yytext()); return new Symbol(ID_COMPONENTE_N, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 70: break;
           case 35:
-            { return new Symbol(USUARIO_CREACION, yyline+1, yycolumn+1, yytext());
+            { System.out.println("USUARIOCREACION: " + yytext()); return new Symbol(USUARIO_CREACION, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 71: break;
           case 36:
-            { return new Symbol(DATOS_RECOPILADOS, yyline+1, yycolumn+1, yytext());
+            { System.out.println("DATOSRECOPILADOS: " + yytext()); return new Symbol(DATOS_RECOPILADOS, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 72: break;

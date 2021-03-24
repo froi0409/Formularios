@@ -5,10 +5,22 @@
  */
 package com.froi.formulariosweb.entidades;
 
+import com.froi.formulariosweb.entidadesfundamentales.Formulario;
+import com.froi.formulariosweb.entidadesfundamentales.Usuario;
+import java.util.ArrayList;
+
 /**
  *
  * @author froi-pc
  */
 public class InstruccionLoginUsuario extends Instruccion {
+    
+    private String usuario;
+    private String password;
+    
+    public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, ArrayList<String> codigoUsuario, ArrayList<String> codigoFormularios) {
+        String codigo = "";
+        return null;
+    }
     
 }

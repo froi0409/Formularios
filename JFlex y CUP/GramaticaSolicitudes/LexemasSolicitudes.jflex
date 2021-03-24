@@ -3,7 +3,6 @@ package com.froi.formulariosweb.analizadores.codigoindigo;
 import java_cup.runtime.*;
 import static com.froi.formulariosweb.analizadores.codigoindigo.ParserSolicitudesSym.*;
 %%
-
 %public
 %class SolicitudesLexer
 %cup

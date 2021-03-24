@@ -11,8 +11,9 @@ parser code {:
     private ArrayList<Usuario> listaUsuarios;
     private ArrayList<Formulario> listaFormularios;
     private String p1, p2, p3, p4, p5, p6, p7, p8;
-
+    
     public ParserGuardado(GuardadoLexer lexer, ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios) {
+        super(lexer);
         this.listaUsuarios = listaUsuarios;
         this.listaFormularios = listaFormularios;
     }
@@ -47,7 +48,7 @@ start with inicio;
 
 inicio ::=      DB_FORMULARIOS PARENT_A instruccion_formulariosdb PARENT_C
                 | DB_USUARIOS PARENT_A instruccion_usuariosdb PARENT_C
-                | error PARENT_A instruccion_usuariosdb PARENT_C
+                | DB_USUARIOS PARENT_A error PARENT_C
                 ;
 
 instruccion_formulariosdb ::=       valores_formulariosdb COMA instruccion_formulariosdb
@@ -75,6 +76,7 @@ estructura_forms_p ::=  estructura_forms COMA estructura_forms_p
                         ;
 
 estructura_forms ::=    LLAVE_A instruccion_estructura_forms LLAVE_C
+                        | LLAVE_A error LLAVE_C
                         ;
 
 instruccion_estructura_forms ::=    opciones_estructura_forms COMA instruccion_estructura_forms
@@ -120,13 +122,14 @@ valores_usuariosdb ::=      LLAVE_A valores_usuariosdb_p LLAVE_C            {:
                                                                                 p1 = null; p2 = null; p3 = null;
                                                                                 System.out.println("Si se registró el usuario");
                                                                             :}
+                            | LLAVE_A error LLAVE_C
                             ;
 
 valores_usuariosdb_p ::=    opciones_usuariosdb COMA valores_usuariosdb_p
                             | opciones_usuariosdb
                             ;
 
-opciones_usuariosdb ::=     USUARIO PUNTOS ALLCHARACTERS:para               {: System.out.println("chale"); p1 = para.toString(); :}
+opciones_usuariosdb ::=     USUARIO PUNTOS ALLCHARACTERS:para               {: p1 = para.toString(); :}
                             | PASSWORD PUNTOS ALLCHARACTERS:para            {: p2 = para.toString(); :}
                             | FECHA_CREACION PUNTOS ALLCHARACTERS:para      {: p3 = para.toString(); :}
                             ;

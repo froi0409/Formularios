@@ -84,15 +84,17 @@ public class AnalizadorEntrada {
         File dbFormularios = new File(rutaFormularios);
         if(dbUsuarios.exists()) {
             try {
+                //Leemos el archivo dbUsuarios
                 String lectura, userCode = "";
                 FileReader fr = new FileReader(dbUsuarios);
-                BufferedReader reader = new BufferedReader(fr);
+                BufferedReader readerArch = new BufferedReader(fr);
                 System.out.println("\n\n");
-                while((lectura = reader.readLine()) != null) {
+                while((lectura = readerArch.readLine()) != null) {
                     userCode += lectura + "\n";
                 }
-                System.out.println("\n\n");
-                System.out.println(userCode);
+                readerArch.close();
+                
+                //Inicializamos los analizadores
                 StringReader readerGuardado = new StringReader(userCode);
                 GuardadoLexer lexerGuardado = new GuardadoLexer(readerGuardado);
                 ParserGuardado parserGuardado = new ParserGuardado(lexerGuardado, listaUsuarios, listaFormularios);
@@ -118,13 +120,13 @@ public class AnalizadorEntrada {
         String codigo = "";
         int contador = 0;
         codigo += "db.usuarios (\n";
-        for(String element : codigoUsuarios) {
-            if(contador > 0) {
-                codigo += ",\n";
-            }
-            codigo += element;
-            contador++;
-        }
+//        for(String element : codigoUsuarios) {
+//            if(contador > 0) {
+//                codigo += ",\n";
+//            }
+//            codigo += element;
+//            contador++;
+//        }
         for(Usuario element: listaUsuarios) {
             if(contador > 0) {
                 codigo += ",\n";

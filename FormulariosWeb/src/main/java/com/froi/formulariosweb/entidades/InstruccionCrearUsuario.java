@@ -49,13 +49,15 @@ public class InstruccionCrearUsuario extends Instruccion {
         
         //Creamos el codigo del usuario que será aceptado
         if(aceptacion) {
-            String userCode = "";
-            userCode += "{\n" +
-                        "\"USUARIO\" : \"" + usuario + "\",\n" +
-                        "\"PASSWORD\" : \"" + password + "\",\n" +
-                        "\"FECHA_CREACION\" : \"" + fechaCreacion + "\"\n" +
-                        "}\n";
-            codigoUsuarios.add(userCode);
+//            String userCode = "";
+//            userCode += "{\n" +
+//                        "\"USUARIO\" : \"" + usuario + "\",\n" +
+//                        "\"PASSWORD\" : \"" + password + "\",\n" +
+//                        "\"FECHA_CREACION\" : \"" + fechaCreacion + "\"\n" +
+//                        "}\n";
+//            
+//            codigoUsuarios.add(userCode);
+            listaUsuarios.add(new Usuario(usuario, password, fechaCreacion));
         }
         
         //CODIGO DE PRUEBAS
