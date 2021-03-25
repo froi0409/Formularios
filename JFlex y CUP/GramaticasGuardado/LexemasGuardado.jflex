@@ -40,7 +40,7 @@ ALLCHARACTERS = [\42] ([\40-\41] | [\43-\255])* [\42]
     "db.usuarios"                               { System.out.println("DB_USUARIOS: " + yytext()); return new Symbol(DB_USUARIOS, yyline+1, yycolumn+1, yytext()); }
     "\""{WS}*"USUARIO"{WS}*"\""                 { System.out.println("USUARIO: " + yytext()); return new Symbol(USUARIO, yyline+1, yycolumn+1, yytext()); }
     "\""{WS}*"PASSWORD"{WS}*"\""                { System.out.println("PASSWORD: " + yytext()); return new Symbol(PASSWORD, yyline+1, yycolumn+1, yytext()); }
-    "\""{WS}*"ID_FORMULARO"{WS}*"\""            { System.out.println("ID_FORMULARIO: " + yytext()); return new Symbol(ID_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"ID_FORMULARIO"{WS}*"\""            { System.out.println("ID_FORMULARIO: " + yytext()); return new Symbol(ID_FORMULARIO, yyline+1, yycolumn+1, yytext()); }
     "\""{WS}*"TITULO"{WS}*"\""                  { System.out.println("TITULO: " + yytext()); return new Symbol(TITULO, yyline+1, yycolumn+1, yytext()); }
     "\""{WS}*"NOMBRE"{WS}*"\""                  { System.out.println("NOMBRE: " + yytext()); return new Symbol(NOMBRE, yyline+1, yycolumn+1, yytext()); }
     "\""{WS}*"TEMA"{WS}*"\""                    { System.out.println("TEMA: " + yytext()); return new Symbol(TEMA, yyline+1, yycolumn+1, yytext()); }

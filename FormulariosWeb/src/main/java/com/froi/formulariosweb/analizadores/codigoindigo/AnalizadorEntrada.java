@@ -112,7 +112,27 @@ public class AnalizadorEntrada {
         }
         
         if(dbFormularios.exists()) {
-            System.out.println("SE HA ENCONTRADO EL ARCHIVO dbFormularios");
+            try {
+                String lectura, userCode = "";
+                FileReader fr = new FileReader(dbFormularios);
+                BufferedReader readerArch = new BufferedReader(fr);
+                System.out.println("\n\n");
+                while((lectura = readerArch.readLine()) != null) {
+                    userCode += lectura + "\n";
+                }
+                readerArch.close();
+                
+                //Inicializamos los analizadores
+                StringReader readerGuardado = new StringReader(userCode);
+                GuardadoLexer lexerGuardado = new GuardadoLexer(readerGuardado);
+                ParserGuardado parserGuardado = new ParserGuardado(lexerGuardado, listaUsuarios, listaFormularios);
+                
+                parserGuardado.parse();
+                
+            } catch (Exception e) {
+                System.out.println("Error en la lectura del archivo dbFormularios: " + e.getMessage());
+            }
+                
         } else {
             System.out.println("No existe archivo que contenga los formlarios");
         }
@@ -158,7 +178,8 @@ public class AnalizadorEntrada {
             codigo += "\"TITULO\" : \"" + element.getTitulo() + "\",\n";
             codigo += "\"NOMBRE\" : \"" + element.getNombre() + "\",\n";
             codigo += "\"TEMA\" : \"" + element.getTema() + "\",\n";
-            codigo += "\"USUARIO_CREACION\" : \"" + element.getUsuarioCreacion() + "\"";
+            codigo += "\"USUARIO_CREACION\" : \"" + element.getUsuarioCreacion() + "\",\n";
+            codigo += "\"FECHA_CREACION\" : \"" + element.getFechaCreacion() + "\"";
             if(!element.getListaComponentes().isEmpty()) {
                 codigo += ",\n";
                 codigo += "\"ESTRUCTURA\" : (\n";              
@@ -168,7 +189,7 @@ public class AnalizadorEntrada {
                         codigo += ",\n";
                     }
                     codigo += "{\n";
-                    codigo += "ID_COMPONENTE_" + indice + "\" : \"" + elem.getId() + "\",\n";
+                    codigo += "\"ID_COMPONENTE_" + indice + "\" : \"" + elem.getId() + "\",\n";
                     codigo += "\"INDICE\" : \"" + indice + "\",\n";
                     codigo += "\"FORMULARIO\" : \"" + elem.getFormulario() + "\",\n";
                     codigo += "\"CLASE\" : \"" + elem.getClase() + "\",\n";

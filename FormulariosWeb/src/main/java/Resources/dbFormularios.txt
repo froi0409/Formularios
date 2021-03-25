@@ -5,9 +5,10 @@ db.formularios (
 "NOMBRE" : "formulario_encuesta_1",
 "TEMA" : "Dark",
 "USUARIO_CREACION" : "juanito619",
+"FECHA_CREACION" : "2021-3-25",
 "ESTRUCTURA" : (
 {
-ID_COMPONENTE_1" : "$_text_cliente",
+"ID_COMPONENTE_1" : "$_text_cliente",
 "INDICE" : "1",
 "FORMULARIO" : "$form1",
 "CLASE" : "CAMPO_TEXTO",
@@ -18,8 +19,19 @@ ID_COMPONENTE_1" : "$_text_cliente",
 }
 ,
 {
-ID_COMPONENTE_2" : "$_grupo_paises",
+"ID_COMPONENTE_2" : "$_text_cliente_2",
 "INDICE" : "2",
+"FORMULARIO" : "$form1",
+"CLASE" : "CAMPO_TEXTO",
+"TEXTO_VISIBLE" : "Nombre de cliente: ",
+"REQUERIDO" : "SI",
+"ALINEACION" : "CENTRO",
+"NOMBRE_CAMPO" : "Cliente",
+}
+,
+{
+"ID_COMPONENTE_3" : "$_grupo_paises",
+"INDICE" : "3",
 "FORMULARIO" : "$form1",
 "CLASE" : "COMBO",
 "TEXTO_VISIBLE" : "Pais de Origen: ",
@@ -33,23 +45,23 @@ ID_COMPONENTE_2" : "$_grupo_paises",
 }
 ,
 {
-"ID_FORMULARIO" : "$form2",
-"TITULO" : "Formulario para encuesta 2",
-"NOMBRE" : "formulario_encuesta_2",
-"TEMA" : "White",
-"USUARIO_CREACION" : "juanito619",
+"ID_FORMULARIO" : "$formdasd_1",
+"TITULO" : "Formulario para encuesta 1",
+"NOMBRE" : "formulario_encuesta_1",
+"TEMA" : "Dark",
+"USUARIO_CREACION" : "elBicho",
+"FECHA_CREACION" : "2021-3-25",
 "ESTRUCTURA" : (
 {
-ID_COMPONENTE_1" : "$_ARA",
+"ID_COMPONENTE_1" : "$_opcionesxD",
 "INDICE" : "1",
-"FORMULARIO" : "$form2",
-"CLASE" : "AREA_TEXTO",
-"TEXTO_VISIBLE" : "Ingrese texto: ",
+"FORMULARIO" : "$formdasd_1",
+"CLASE" : "RADIO",
+"TEXTO_VISIBLE" : "Seleccione su marca preferida",
 "REQUERIDO" : "SI",
 "ALINEACION" : "CENTRO",
-"FILAS" : "20",
-"COLUMNAS" : "20",
-"NOMBRE_CAMPO" : "Holad",
+"OPCIONES" : "Audi|Toyota|Chevrolet",
+"NOMBRE_CAMPO" : "MarcasDeAuto",
 }
 )
 

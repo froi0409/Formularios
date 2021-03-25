@@ -33,21 +33,22 @@ public class ParserGuardado extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\057\000\002\002\004\000\002\002\006\000\002\002" +
+    "\000\061\000\002\002\004\000\002\002\006\000\002\002" +
     "\006\000\002\002\006\000\002\003\005\000\002\003\003" +
     "\000\002\004\005\000\002\005\005\000\002\005\003\000" +
     "\002\006\005\000\002\006\005\000\002\006\005\000\002" +
-    "\006\005\000\002\006\005\000\002\006\007\000\002\006" +
-    "\007\000\002\020\005\000\002\020\003\000\002\007\005" +
-    "\000\002\007\005\000\002\011\005\000\002\011\003\000" +
-    "\002\012\005\000\002\012\005\000\002\012\005\000\002" +
+    "\006\005\000\002\006\005\000\002\006\005\000\002\006" +
+    "\007\000\002\006\007\000\002\020\005\000\002\020\003" +
+    "\000\002\007\005\000\002\007\005\000\002\011\005\000" +
+    "\002\011\002\000\002\012\005\000\002\012\005\000\002" +
     "\012\005\000\002\012\005\000\002\012\005\000\002\012" +
     "\005\000\002\012\005\000\002\012\005\000\002\012\005" +
-    "\000\002\012\005\000\002\010\005\000\002\013\005\000" +
-    "\002\013\003\000\002\014\005\000\002\014\005\000\002" +
-    "\015\005\000\002\015\003\000\002\016\005\000\002\016" +
-    "\005\000\002\017\005\000\002\017\003\000\002\021\005" +
-    "\000\002\021\005\000\002\021\005" });
+    "\000\002\012\005\000\002\012\005\000\002\012\005\000" +
+    "\002\010\005\000\002\013\005\000\002\013\003\000\002" +
+    "\014\005\000\002\014\005\000\002\015\005\000\002\015" +
+    "\003\000\002\016\005\000\002\016\005\000\002\017\005" +
+    "\000\002\017\003\000\002\021\005\000\002\021\005\000" +
+    "\002\021\005" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -55,75 +56,77 @@ public class ParserGuardado extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\173\000\006\006\004\007\005\001\002\000\004\027" +
+    "\000\201\000\006\006\004\007\005\001\002\000\004\027" +
     "\041\001\002\000\004\027\010\001\002\000\004\002\007" +
     "\001\002\000\004\002\001\001\002\000\006\003\011\004" +
-    "\014\001\002\000\004\030\040\001\002\000\006\030\uffda" +
-    "\031\036\001\002\000\004\030\035\001\002\000\012\003" +
-    "\015\010\016\011\021\017\017\001\002\000\004\005\034" +
-    "\001\002\000\004\032\032\001\002\000\004\032\030\001" +
-    "\002\000\006\005\uffd6\031\026\001\002\000\004\032\024" +
-    "\001\002\000\004\005\023\001\002\000\006\030\uffd9\031" +
-    "\uffd9\001\002\000\004\064\025\001\002\000\006\005\uffd4" +
-    "\031\uffd4\001\002\000\010\010\016\011\021\017\017\001" +
-    "\002\000\004\005\uffd7\001\002\000\004\064\031\001\002" +
-    "\000\006\005\uffd3\031\uffd3\001\002\000\004\064\033\001" +
-    "\002\000\006\005\uffd5\031\uffd5\001\002\000\006\030\uffd8" +
-    "\031\uffd8\001\002\000\004\002\uffff\001\002\000\004\004" +
-    "\014\001\002\000\004\030\uffdb\001\002\000\004\002\ufffe" +
-    "\001\002\000\004\004\043\001\002\000\004\030\175\001" +
-    "\002\000\020\012\050\013\052\014\056\015\054\016\047" +
-    "\020\053\021\051\001\002\000\010\005\ufffc\030\ufffc\031" +
-    "\045\001\002\000\004\004\043\001\002\000\006\005\ufffd" +
-    "\030\ufffd\001\002\000\004\032\173\001\002\000\004\032" +
-    "\171\001\002\000\004\032\151\001\002\000\004\032\147" +
-    "\001\002\000\004\032\067\001\002\000\004\032\065\001" +
-    "\002\000\004\005\064\001\002\000\004\032\062\001\002" +
-    "\000\006\005\ufff9\031\060\001\002\000\004\004\043\001" +
-    "\002\000\004\005\ufffa\001\002\000\004\064\063\001\002" +
-    "\000\006\005\ufff6\031\ufff6\001\002\000\010\005\ufffb\030" +
-    "\ufffb\031\ufffb\001\002\000\004\064\066\001\002\000\006" +
-    "\005\ufff5\031\ufff5\001\002\000\004\027\070\001\002\000" +
-    "\004\004\073\001\002\000\004\030\146\001\002\000\006" +
-    "\030\ufff0\031\144\001\002\000\032\003\106\023\074\025" +
-    "\104\026\103\033\102\034\107\035\100\036\076\037\075" +
-    "\040\101\041\105\065\077\001\002\000\004\032\142\001" +
+    "\013\001\002\000\004\030\040\001\002\000\006\030\uffd8" +
+    "\031\036\001\002\000\012\003\016\010\017\011\022\017" +
+    "\020\001\002\000\004\030\015\001\002\000\004\002\uffff" +
+    "\001\002\000\004\005\035\001\002\000\004\032\033\001" +
+    "\002\000\004\032\031\001\002\000\006\005\uffd4\031\027" +
+    "\001\002\000\004\032\025\001\002\000\004\005\024\001" +
+    "\002\000\006\030\uffd7\031\uffd7\001\002\000\004\064\026" +
+    "\001\002\000\006\005\uffd2\031\uffd2\001\002\000\010\010" +
+    "\017\011\022\017\020\001\002\000\004\005\uffd5\001\002" +
+    "\000\004\064\032\001\002\000\006\005\uffd1\031\uffd1\001" +
+    "\002\000\004\064\034\001\002\000\006\005\uffd3\031\uffd3" +
+    "\001\002\000\006\030\uffd6\031\uffd6\001\002\000\004\004" +
+    "\013\001\002\000\004\030\uffd9\001\002\000\004\002\ufffe" +
+    "\001\002\000\004\004\043\001\002\000\004\030\203\001" +
+    "\002\000\022\012\050\013\052\014\057\015\054\016\047" +
+    "\017\056\020\053\021\051\001\002\000\006\030\ufffc\031" +
+    "\045\001\002\000\004\004\043\001\002\000\004\030\ufffd" +
+    "\001\002\000\004\032\201\001\002\000\004\032\177\001" +
+    "\002\000\004\032\157\001\002\000\004\032\155\001\002" +
+    "\000\004\032\072\001\002\000\004\032\070\001\002\000" +
+    "\004\005\067\001\002\000\004\032\065\001\002\000\004" +
+    "\032\063\001\002\000\006\005\ufff9\031\061\001\002\000" +
+    "\022\012\050\013\052\014\057\015\054\016\047\017\056" +
+    "\020\053\021\051\001\002\000\004\005\ufffa\001\002\000" +
+    "\004\064\064\001\002\000\006\005\ufff6\031\ufff6\001\002" +
+    "\000\004\064\066\001\002\000\006\005\ufff3\031\ufff3\001" +
+    "\002\000\006\030\ufffb\031\ufffb\001\002\000\004\064\071" +
+    "\001\002\000\006\005\ufff5\031\ufff5\001\002\000\004\027" +
+    "\073\001\002\000\004\004\076\001\002\000\004\030\154" +
+    "\001\002\000\006\030\uffef\031\152\001\002\000\036\003" +
+    "\112\005\uffeb\023\077\024\103\025\110\026\106\033\107" +
+    "\034\113\035\104\036\101\037\100\040\105\041\111\065" +
+    "\102\001\002\000\004\032\150\001\002\000\004\032\146" +
+    "\001\002\000\004\032\144\001\002\000\004\032\142\001" +
     "\002\000\004\032\140\001\002\000\004\032\136\001\002" +
     "\000\004\032\134\001\002\000\004\032\132\001\002\000" +
     "\004\032\130\001\002\000\004\032\126\001\002\000\004" +
-    "\032\124\001\002\000\004\032\122\001\002\000\004\032" +
-    "\120\001\002\000\004\005\117\001\002\000\004\032\115" +
-    "\001\002\000\004\005\114\001\002\000\006\005\uffec\031" +
-    "\112\001\002\000\030\023\074\025\104\026\103\033\102" +
-    "\034\107\035\100\036\076\037\075\040\101\041\105\065" +
-    "\077\001\002\000\004\005\uffed\001\002\000\006\030\uffef" +
-    "\031\uffef\001\002\000\004\064\116\001\002\000\006\005" +
-    "\uffe6\031\uffe6\001\002\000\006\030\uffee\031\uffee\001\002" +
-    "\000\004\064\121\001\002\000\006\005\uffe1\031\uffe1\001" +
-    "\002\000\004\064\123\001\002\000\006\005\uffe9\031\uffe9" +
-    "\001\002\000\004\064\125\001\002\000\006\005\uffe8\031" +
-    "\uffe8\001\002\000\004\064\127\001\002\000\006\005\uffe7" +
-    "\031\uffe7\001\002\000\004\064\131\001\002\000\006\005" +
-    "\uffe2\031\uffe2\001\002\000\004\064\133\001\002\000\006" +
-    "\005\uffe5\031\uffe5\001\002\000\004\064\135\001\002\000" +
-    "\006\005\uffeb\031\uffeb\001\002\000\004\064\137\001\002" +
-    "\000\006\005\uffe4\031\uffe4\001\002\000\004\064\141\001" +
-    "\002\000\006\005\uffe3\031\uffe3\001\002\000\004\064\143" +
-    "\001\002\000\006\005\uffea\031\uffea\001\002\000\004\004" +
-    "\073\001\002\000\004\030\ufff1\001\002\000\006\005\ufff3" +
-    "\031\ufff3\001\002\000\004\064\150\001\002\000\006\005" +
-    "\ufff7\031\ufff7\001\002\000\004\027\152\001\002\000\004" +
-    "\004\154\001\002\000\004\030\170\001\002\000\006\062" +
-    "\156\063\160\001\002\000\004\005\167\001\002\000\004" +
-    "\032\165\001\002\000\006\005\uffde\031\163\001\002\000" +
-    "\004\032\161\001\002\000\004\064\162\001\002\000\006" +
-    "\005\uffdc\031\uffdc\001\002\000\006\062\156\063\160\001" +
-    "\002\000\004\005\uffdf\001\002\000\004\064\166\001\002" +
-    "\000\006\005\uffdd\031\uffdd\001\002\000\004\030\uffe0\001" +
-    "\002\000\006\005\ufff2\031\ufff2\001\002\000\004\064\172" +
-    "\001\002\000\006\005\ufff8\031\ufff8\001\002\000\004\064" +
-    "\174\001\002\000\006\005\ufff4\031\ufff4\001\002\000\004" +
-    "\002\000\001\002" });
+    "\032\124\001\002\000\004\005\123\001\002\000\004\032" +
+    "\121\001\002\000\004\005\120\001\002\000\004\031\116" +
+    "\001\002\000\034\005\uffeb\023\077\024\103\025\110\026" +
+    "\106\033\107\034\113\035\104\036\101\037\100\040\105" +
+    "\041\111\065\102\001\002\000\004\005\uffec\001\002\000" +
+    "\006\030\uffee\031\uffee\001\002\000\004\064\122\001\002" +
+    "\000\004\031\uffe4\001\002\000\006\030\uffed\031\uffed\001" +
+    "\002\000\004\064\125\001\002\000\004\031\uffdf\001\002" +
+    "\000\004\064\127\001\002\000\004\031\uffe7\001\002\000" +
+    "\004\064\131\001\002\000\004\031\uffe6\001\002\000\004" +
+    "\064\133\001\002\000\004\031\uffe5\001\002\000\004\064" +
+    "\135\001\002\000\004\031\uffe0\001\002\000\004\064\137" +
+    "\001\002\000\004\031\uffe3\001\002\000\004\064\141\001" +
+    "\002\000\004\031\uffe8\001\002\000\004\064\143\001\002" +
+    "\000\004\031\uffea\001\002\000\004\064\145\001\002\000" +
+    "\004\031\uffe2\001\002\000\004\064\147\001\002\000\004" +
+    "\031\uffe1\001\002\000\004\064\151\001\002\000\004\031" +
+    "\uffe9\001\002\000\004\004\076\001\002\000\004\030\ufff0" +
+    "\001\002\000\006\005\ufff2\031\ufff2\001\002\000\004\064" +
+    "\156\001\002\000\006\005\ufff7\031\ufff7\001\002\000\004" +
+    "\027\160\001\002\000\004\004\162\001\002\000\004\030" +
+    "\176\001\002\000\006\062\164\063\166\001\002\000\004" +
+    "\005\175\001\002\000\004\032\173\001\002\000\006\005" +
+    "\uffdc\031\171\001\002\000\004\032\167\001\002\000\004" +
+    "\064\170\001\002\000\006\005\uffda\031\uffda\001\002\000" +
+    "\006\062\164\063\166\001\002\000\004\005\uffdd\001\002" +
+    "\000\004\064\174\001\002\000\006\005\uffdb\031\uffdb\001" +
+    "\002\000\004\030\uffde\001\002\000\006\005\ufff1\031\ufff1" +
+    "\001\002\000\004\064\200\001\002\000\006\005\ufff8\031" +
+    "\ufff8\001\002\000\004\064\202\001\002\000\006\005\ufff4" +
+    "\031\ufff4\001\002\000\004\002\000\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -131,49 +134,51 @@ public class ParserGuardado extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\173\000\004\002\005\001\001\000\002\001\001\000" +
+    "\000\201\000\004\002\005\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\006" +
-    "\015\012\016\011\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\006\017\021\021\017\001\001" +
+    "\015\013\016\011\001\001\000\002\001\001\000\002\001" +
+    "\001\000\006\017\022\021\020\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\006\017" +
-    "\026\021\017\001\001\000\002\001\001\000\002\001\001" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\006\017\027\021\020\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\006\015\036\016\011" +
     "\001\001\000\002\001\001\000\002\001\001\000\006\003" +
     "\041\004\043\001\001\000\002\001\001\000\006\005\054" +
-    "\006\056\001\001\000\002\001\001\000\006\003\045\004" +
+    "\006\057\001\001\000\002\001\001\000\006\003\045\004" +
     "\043\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\006\003\060\004\043\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\006\007\071\020\070\001\001\000\002\001\001" +
-    "\000\002\001\001\000\006\011\107\012\110\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\000\002\001\001\000\002\001\001\000\006\005\061\006" +
+    "\057\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\006\011\112\012\110\001\001\000\002" +
+    "\000\006\007\074\020\073\001\001\000\002\001\001\000" +
+    "\002\001\001\000\006\011\113\012\114\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\006\011\116\012\114\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\006\007\071\020\144" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\004\010\152" +
-    "\001\001\000\002\001\001\000\006\013\154\014\156\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\001\000\002\001\001\000\006\007\074\020\152\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\006\013\163\014\156\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001" });
+    "\002\001\001\000\002\001\001\000\004\010\160\001\001" +
+    "\000\002\001\001\000\006\013\162\014\164\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\006\013" +
+    "\171\014\164\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -215,12 +220,16 @@ public class ParserGuardado extends java_cup.runtime.lr_parser {
 
     private ArrayList<Usuario> listaUsuarios;
     private ArrayList<Formulario> listaFormularios;
-    private String p1, p2, p3, p4, p5, p6, p7, p8;
+    private ArrayList<Componente> listaComponentes;
+    private String p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11;
+    private String c1, c2, c3, c4, c5, c6;
+    
     
     public ParserGuardado(GuardadoLexer lexer, ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios) {
         super(lexer);
         this.listaUsuarios = listaUsuarios;
         this.listaFormularios = listaFormularios;
+        this.listaComponentes = new ArrayList<>();
     }
     public void report_error(String message, Object info) {
         System.out.println("reporterror");
@@ -325,13 +334,32 @@ class CUP$ParserGuardado$actions {
           case 6: // valores_formulariosdb ::= LLAVE_A acciones_formulariosdb LLAVE_C 
             {
               Object RESULT =null;
-
+		
+                                                                                                System.out.println("aún no pasa");
+                                                                                                for(Componente element: listaComponentes) {
+                                                                                                    System.out.println(element.getClase());
+                                                                                                }
+                                                                                                System.out.println("ya pasó");
+                                                                                                
+                                                                                                c1 = (c1.substring(1, c1.length()-1));
+                                                                                                c2 = (c2.substring(1, c2.length()-1));
+                                                                                                c3 = (c3.substring(1, c3.length()-1));
+                                                                                                c4 = (c4.substring(1, c4.length()-1));
+                                                                                                c5 = (c5.substring(1, c5.length()-1));
+                                                                                                c6 = (c6.substring(1, c6.length()-1));
+                                                                                                System.out.println(c1+c2+c3+c4+c5+c6);
+                                                                                                Formulario form = new Formulario(c1, c2, c3, c4, c5, c6);
+                                                                                                form.setListaComponentes((ArrayList<Componente>) listaComponentes.clone());
+                                                                                                listaFormularios.add(form);
+                                                                                                listaComponentes.clear();
+                                                                                                c1 = null; c2 = null; c3 = null; c4 = null; c5 = null; c6 = null;
+                                                                                             
               CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("valores_formulariosdb",2, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
             }
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // acciones_formulariosdb ::= opciones_formulariosdb COMA instruccion_formulariosdb 
+          case 7: // acciones_formulariosdb ::= opciones_formulariosdb COMA acciones_formulariosdb 
             {
               Object RESULT =null;
 
@@ -352,7 +380,10 @@ class CUP$ParserGuardado$actions {
           case 9: // opciones_formulariosdb ::= ID_FORMULARIO PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
-
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
+		 c1 = ent.toString(); 
               CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_formulariosdb",4, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
             }
           return CUP$ParserGuardado$result;
@@ -361,7 +392,10 @@ class CUP$ParserGuardado$actions {
           case 10: // opciones_formulariosdb ::= TITULO PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
-
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
+		 c2 = ent.toString(); 
               CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_formulariosdb",4, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
             }
           return CUP$ParserGuardado$result;
@@ -370,7 +404,10 @@ class CUP$ParserGuardado$actions {
           case 11: // opciones_formulariosdb ::= NOMBRE PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
-
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
+		 c3 = ent.toString(); 
               CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_formulariosdb",4, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
             }
           return CUP$ParserGuardado$result;
@@ -379,7 +416,10 @@ class CUP$ParserGuardado$actions {
           case 12: // opciones_formulariosdb ::= TEMA PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
-
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
+		 c4 = ent.toString(); 
               CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_formulariosdb",4, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
             }
           return CUP$ParserGuardado$result;
@@ -388,13 +428,28 @@ class CUP$ParserGuardado$actions {
           case 13: // opciones_formulariosdb ::= USUARIO_CREACION PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
-
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
+		 c5 = ent.toString(); 
               CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_formulariosdb",4, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
             }
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 14: // opciones_formulariosdb ::= ESTRUCTURA PUNTOS PARENT_A estructura_forms_p PARENT_C 
+          case 14: // opciones_formulariosdb ::= FECHA_CREACION PUNTOS ALLCHARACTERS 
+            {
+              Object RESULT =null;
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
+		 c6 = ent.toString(); 
+              CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_formulariosdb",4, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
+            }
+          return CUP$ParserGuardado$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 15: // opciones_formulariosdb ::= ESTRUCTURA PUNTOS PARENT_A estructura_forms_p PARENT_C 
             {
               Object RESULT =null;
 
@@ -403,7 +458,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 15: // opciones_formulariosdb ::= DATOS_RECOPILADOS PUNTOS PARENT_A datos_forms PARENT_C 
+          case 16: // opciones_formulariosdb ::= DATOS_RECOPILADOS PUNTOS PARENT_A datos_forms PARENT_C 
             {
               Object RESULT =null;
 
@@ -412,7 +467,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 16: // estructura_forms_p ::= estructura_forms COMA estructura_forms_p 
+          case 17: // estructura_forms_p ::= estructura_forms COMA estructura_forms_p 
             {
               Object RESULT =null;
 
@@ -421,7 +476,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 17: // estructura_forms_p ::= estructura_forms 
+          case 18: // estructura_forms_p ::= estructura_forms 
             {
               Object RESULT =null;
 
@@ -430,7 +485,47 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 18: // estructura_forms ::= LLAVE_A instruccion_estructura_forms LLAVE_C 
+          case 19: // estructura_forms ::= LLAVE_A instruccion_estructura_forms LLAVE_C 
+            {
+              Object RESULT =null;
+		
+                                                                            p1 = (p1.substring(1, p1.length()-1));
+                                                                            p3 = (p3.substring(1, p3.length()-1));
+                                                                            p4 = (p4.substring(1, p4.length()-1));
+                                                                            p5 = (p5.substring(1, p5.length()-1));
+                                                                            System.out.println("Probando p1");
+                                                                            System.out.println(p1);
+                                                                            Componente compo = new Componente(p1, p3, p4, p5);
+                                                                            if(p2 != null) {
+                                                                                compo.setNombreCampo(p2.substring(1, p2.length()-1));
+                                                                            }
+                                                                            if(p6 != null) {
+                                                                                compo.setAlineacion(p6.substring(1, p6.length()-1));
+                                                                            }
+                                                                            if(p7 != null) {
+                                                                                compo.setRequerido(p7.substring(1, p7.length()-1));
+                                                                                }
+                                                                            if(p8 != null) {
+                                                                                compo.setOpciones(p8.substring(1, p8.length()-1));
+                                                                            }
+                                                                            if(p9 != null) {
+                                                                                compo.setFilas(Integer.parseInt(p9.substring(1, p9.length()-1)));
+                                                                            }
+                                                                            if(p10 != null) {
+                                                                                compo.setColumnas(Integer.parseInt(p10.substring(1, p10.length()-1)));
+                                                                            }
+                                                                            if(p11 != null) {
+                                                                                compo.setUrl(p11.substring(1, p11.length()-1));
+                                                                            }
+                                                                            listaComponentes.add(compo);
+                                                                            p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null;
+                                                                        
+              CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("estructura_forms",5, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
+            }
+          return CUP$ParserGuardado$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 20: // estructura_forms ::= LLAVE_A error LLAVE_C 
             {
               Object RESULT =null;
 
@@ -439,16 +534,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 19: // estructura_forms ::= LLAVE_A error LLAVE_C 
-            {
-              Object RESULT =null;
-
-              CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("estructura_forms",5, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
-            }
-          return CUP$ParserGuardado$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 20: // instruccion_estructura_forms ::= opciones_estructura_forms COMA instruccion_estructura_forms 
+          case 21: // instruccion_estructura_forms ::= opciones_estructura_forms COMA instruccion_estructura_forms 
             {
               Object RESULT =null;
 
@@ -457,115 +543,160 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 21: // instruccion_estructura_forms ::= opciones_estructura_forms 
+          case 22: // instruccion_estructura_forms ::= 
             {
               Object RESULT =null;
 
-              CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("instruccion_estructura_forms",7, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
+              CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("instruccion_estructura_forms",7, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
             }
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 22: // opciones_estructura_forms ::= ID_COMPONENTE_N PUNTOS ALLCHARACTERS 
+          case 23: // opciones_estructura_forms ::= ID_COMPONENTE_N PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
+		 p1 = ent.toString(); 
+              CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_estructura_forms",8, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
+            }
+          return CUP$ParserGuardado$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 24: // opciones_estructura_forms ::= NOMBRE_CAMPO PUNTOS ALLCHARACTERS 
+            {
+              Object RESULT =null;
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
+		 p2 = ent.toString(); 
+              CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_estructura_forms",8, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
+            }
+          return CUP$ParserGuardado$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 25: // opciones_estructura_forms ::= FORMULARIO PUNTOS ALLCHARACTERS 
+            {
+              Object RESULT =null;
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
+		 p3 = ent.toString(); 
+              CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_estructura_forms",8, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
+            }
+          return CUP$ParserGuardado$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 26: // opciones_estructura_forms ::= CLASE PUNTOS ALLCHARACTERS 
+            {
+              Object RESULT =null;
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
+		 p4 = ent.toString(); 
+              CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_estructura_forms",8, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
+            }
+          return CUP$ParserGuardado$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 27: // opciones_estructura_forms ::= TEXTO_VISIBLE PUNTOS ALLCHARACTERS 
+            {
+              Object RESULT =null;
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
+		 p5 = ent.toString(); 
+              CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_estructura_forms",8, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
+            }
+          return CUP$ParserGuardado$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 28: // opciones_estructura_forms ::= INDICE PUNTOS ALLCHARACTERS 
+            {
+              Object RESULT =null;
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
 
               CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_estructura_forms",8, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
             }
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 23: // opciones_estructura_forms ::= NOMBRE_CAMPO PUNTOS ALLCHARACTERS 
+          case 29: // opciones_estructura_forms ::= ALINEACION PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
-
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
+		 p6 = ent.toString(); 
               CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_estructura_forms",8, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
             }
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 24: // opciones_estructura_forms ::= CLASE PUNTOS ALLCHARACTERS 
+          case 30: // opciones_estructura_forms ::= REQUERIDO PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
-
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
+		 p7 = ent.toString(); 
               CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_estructura_forms",8, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
             }
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 25: // opciones_estructura_forms ::= INDICE PUNTOS ALLCHARACTERS 
+          case 31: // opciones_estructura_forms ::= OPCIONES PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
-
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
+		 p8 = ent.toString(); 
               CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_estructura_forms",8, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
             }
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 26: // opciones_estructura_forms ::= TEXTO_VISIBLE PUNTOS ALLCHARACTERS 
+          case 32: // opciones_estructura_forms ::= FILAS PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
-
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
+		 p9 = ent.toString(); 
               CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_estructura_forms",8, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
             }
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 27: // opciones_estructura_forms ::= ALINEACION PUNTOS ALLCHARACTERS 
+          case 33: // opciones_estructura_forms ::= COLUMNAS PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
-
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
+		 p10 = ent.toString(); 
               CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_estructura_forms",8, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
             }
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 28: // opciones_estructura_forms ::= REQUERIDO PUNTOS ALLCHARACTERS 
+          case 34: // opciones_estructura_forms ::= URL PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
-
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
+		 p11 = ent.toString(); 
               CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_estructura_forms",8, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
             }
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 29: // opciones_estructura_forms ::= OPCIONES PUNTOS ALLCHARACTERS 
-            {
-              Object RESULT =null;
-
-              CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_estructura_forms",8, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
-            }
-          return CUP$ParserGuardado$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 30: // opciones_estructura_forms ::= FILAS PUNTOS ALLCHARACTERS 
-            {
-              Object RESULT =null;
-
-              CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_estructura_forms",8, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
-            }
-          return CUP$ParserGuardado$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 31: // opciones_estructura_forms ::= COLUMNAS PUNTOS ALLCHARACTERS 
-            {
-              Object RESULT =null;
-
-              CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_estructura_forms",8, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
-            }
-          return CUP$ParserGuardado$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 32: // opciones_estructura_forms ::= URL PUNTOS ALLCHARACTERS 
-            {
-              Object RESULT =null;
-
-              CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_estructura_forms",8, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
-            }
-          return CUP$ParserGuardado$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 33: // datos_forms ::= LLAVE_A instruccion_datos_forms LLAVE_C 
+          case 35: // datos_forms ::= LLAVE_A instruccion_datos_forms LLAVE_C 
             {
               Object RESULT =null;
 
@@ -574,7 +705,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 34: // instruccion_datos_forms ::= opciones_datos_forms COMA instruccion_datos_forms 
+          case 36: // instruccion_datos_forms ::= opciones_datos_forms COMA instruccion_datos_forms 
             {
               Object RESULT =null;
 
@@ -583,7 +714,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 35: // instruccion_datos_forms ::= opciones_datos_forms 
+          case 37: // instruccion_datos_forms ::= opciones_datos_forms 
             {
               Object RESULT =null;
 
@@ -592,7 +723,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 36: // opciones_datos_forms ::= NOMBRE_CAMPO_N PUNTOS ALLCHARACTERS 
+          case 38: // opciones_datos_forms ::= NOMBRE_CAMPO_N PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
 
@@ -601,7 +732,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 37: // opciones_datos_forms ::= REGISTRO_N PUNTOS ALLCHARACTERS 
+          case 39: // opciones_datos_forms ::= REGISTRO_N PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
 
@@ -610,43 +741,41 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 38: // instruccion_usuariosdb ::= valores_usuariosdb COMA instruccion_usuariosdb 
+          case 40: // instruccion_usuariosdb ::= valores_usuariosdb COMA instruccion_usuariosdb 
             {
               Object RESULT =null;
-		 System.out.println("Instruccion1"); 
+
               CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("instruccion_usuariosdb",11, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
             }
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 39: // instruccion_usuariosdb ::= valores_usuariosdb 
+          case 41: // instruccion_usuariosdb ::= valores_usuariosdb 
             {
               Object RESULT =null;
-		 System.out.println("Instruccion2"); 
+
               CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("instruccion_usuariosdb",11, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
             }
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 40: // valores_usuariosdb ::= LLAVE_A valores_usuariosdb_p LLAVE_C 
+          case 42: // valores_usuariosdb ::= LLAVE_A valores_usuariosdb_p LLAVE_C 
             {
               Object RESULT =null;
 		
-                                                                                System.out.println("aqui aun funcionan las cosas");
                                                                                 p1 = p1.substring(1, p1.length()-1);
                                                                                 p2 = p2.substring(1, p2.length()-1);
                                                                                 p3 = p3.substring(1, p3.length()-1);
                                                                                 Usuario user = new Usuario(p1, p2, p3);
                                                                                 listaUsuarios.add(user);
                                                                                 p1 = null; p2 = null; p3 = null;
-                                                                                System.out.println("Si se registró el usuario");
                                                                             
               CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("valores_usuariosdb",12, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
             }
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 41: // valores_usuariosdb ::= LLAVE_A error LLAVE_C 
+          case 43: // valores_usuariosdb ::= LLAVE_A error LLAVE_C 
             {
               Object RESULT =null;
 
@@ -655,7 +784,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 42: // valores_usuariosdb_p ::= opciones_usuariosdb COMA valores_usuariosdb_p 
+          case 44: // valores_usuariosdb_p ::= opciones_usuariosdb COMA valores_usuariosdb_p 
             {
               Object RESULT =null;
 
@@ -664,7 +793,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 43: // valores_usuariosdb_p ::= opciones_usuariosdb 
+          case 45: // valores_usuariosdb_p ::= opciones_usuariosdb 
             {
               Object RESULT =null;
 
@@ -673,7 +802,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 44: // opciones_usuariosdb ::= USUARIO PUNTOS ALLCHARACTERS 
+          case 46: // opciones_usuariosdb ::= USUARIO PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
@@ -685,7 +814,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 45: // opciones_usuariosdb ::= PASSWORD PUNTOS ALLCHARACTERS 
+          case 47: // opciones_usuariosdb ::= PASSWORD PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
@@ -697,7 +826,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 46: // opciones_usuariosdb ::= FECHA_CREACION PUNTOS ALLCHARACTERS 
+          case 48: // opciones_usuariosdb ::= FECHA_CREACION PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;

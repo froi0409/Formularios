@@ -496,11 +496,8 @@ accion_agregar_componente ::=       LLAVE_A:llaA accion_agregar_componente_p LLA
                                                                                                     linea = llaAleft;
                                                                                                     columna = llaAright;
                                                                                                     String[] listaObligatorios = {"\"ID\"", "\"FORMULARIO\"", "\"CLASE\"", "\"TEXTO_VISIBLE\""};
-                                                                                                    System.out.println("paso 1 g");
                                                                                                     if(verificacionBloque(listaObligatorios, listaParametros)){
-                                                                                                        System.out.println("Paso 2 g");
                                                                                                         if(verificacionClase(listaParametros, clase)) {
-                                                                                                            System.out.println("Paso 3 g");
                                                                                                             InstruccionAgregarComponente inst = new InstruccionAgregarComponente();
                                                                                                             inst.setId(p1.substring(1, p1.length()-1));
                                                                                                             inst.setFormulario(p3.substring(1, p3.length()-1));
