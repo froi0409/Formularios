@@ -1,0 +1,57 @@
+db.formularios (
+{
+"ID_FORMULARIO" : "$form1",
+"TITULO" : "Formulario para encuesta 1",
+"NOMBRE" : "formulario_encuesta_1",
+"TEMA" : "Dark",
+"USUARIO_CREACION" : "juanito619",
+"ESTRUCTURA" : (
+{
+ID_COMPONENTE_1" : "$_text_cliente",
+"INDICE" : "1",
+"FORMULARIO" : "$form1",
+"CLASE" : "CAMPO_TEXTO",
+"TEXTO_VISIBLE" : "Nombre de cliente: ",
+"REQUERIDO" : "SI",
+"ALINEACION" : "CENTRO",
+"NOMBRE_CAMPO" : "Cliente",
+}
+,
+{
+ID_COMPONENTE_2" : "$_grupo_paises",
+"INDICE" : "2",
+"FORMULARIO" : "$form1",
+"CLASE" : "COMBO",
+"TEXTO_VISIBLE" : "Pais de Origen: ",
+"REQUERIDO" : "SI",
+"ALINEACION" : "CENTRO",
+"OPCIONES" : "Guatemala|El Salvador|Honduras|OTRO",
+"NOMBRE_CAMPO" : "Pais",
+}
+)
+
+}
+,
+{
+"ID_FORMULARIO" : "$form2",
+"TITULO" : "Formulario para encuesta 2",
+"NOMBRE" : "formulario_encuesta_2",
+"TEMA" : "White",
+"USUARIO_CREACION" : "juanito619",
+"ESTRUCTURA" : (
+{
+ID_COMPONENTE_1" : "$_ARA",
+"INDICE" : "1",
+"FORMULARIO" : "$form2",
+"CLASE" : "AREA_TEXTO",
+"TEXTO_VISIBLE" : "Ingrese texto: ",
+"REQUERIDO" : "SI",
+"ALINEACION" : "CENTRO",
+"FILAS" : "20",
+"COLUMNAS" : "20",
+"NOMBRE_CAMPO" : "Holad",
+}
+)
+
+}
+)

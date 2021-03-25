@@ -33,9 +33,9 @@ public class InstruccionCrearUsuario extends Instruccion {
     }
 
     @Override
-    public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, ArrayList<String> codigoUsuarios, ArrayList<String> codigoFormularios) {
+    public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
         String codigo = "";
-        String descripcion = "\"Se ha ingresado al usuario: " + usuario + ", con contraseña: " + password + ", con fecha de registro: " + fechaCreacion;
+        String descripcion = "Se ha ingresado al usuario: " + usuario + ", con contraseña: " + password + ", con fecha de registro: " + fechaCreacion;
         boolean aceptacion = true;
         //Verificamos si el usuario ya existe en el sistema
         for(Usuario element: listaUsuarios) {
@@ -49,14 +49,6 @@ public class InstruccionCrearUsuario extends Instruccion {
         
         //Creamos el codigo del usuario que será aceptado
         if(aceptacion) {
-//            String userCode = "";
-//            userCode += "{\n" +
-//                        "\"USUARIO\" : \"" + usuario + "\",\n" +
-//                        "\"PASSWORD\" : \"" + password + "\",\n" +
-//                        "\"FECHA_CREACION\" : \"" + fechaCreacion + "\"\n" +
-//                        "}\n";
-//            
-//            codigoUsuarios.add(userCode);
             listaUsuarios.add(new Usuario(usuario, password, fechaCreacion));
         }
         
@@ -64,7 +56,7 @@ public class InstruccionCrearUsuario extends Instruccion {
         codigo += "<!ini_respuesta:\"INSTRUCCIONES\">\n" +
                   "{ \"INSTRUCCION_EJECUTADA\" : [{\n";
         codigo += "\"TIPO\" : \"Creacion de Usuario\",\n";
-        codigo += "\"DETALLES\" : " + descripcion + "\"\n";
+        codigo += "\"DETALLES\" : \"" + descripcion + "\"\n";
         codigo += "}\n" +
                   "]\n" +
                   "}\n" +

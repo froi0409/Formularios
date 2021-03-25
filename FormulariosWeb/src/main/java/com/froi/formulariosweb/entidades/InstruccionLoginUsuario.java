@@ -18,9 +18,53 @@ public class InstruccionLoginUsuario extends Instruccion {
     private String usuario;
     private String password;
     
-    public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, ArrayList<String> codigoUsuario, ArrayList<String> codigoFormularios) {
+    public InstruccionLoginUsuario() {
+    }
+    
+    public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
         String codigo = "";
-        return null;
+        String descripcion;
+        boolean comprobante = false;
+        for(Usuario element : listaUsuarios) {
+            if(element.getUsuario().equals(usuario) && element.getPassword().equals(password)) {
+                comprobante = true;
+            }
+        }
+        
+        if(comprobante) {
+            descripcion = "El usuario " + usuario + " ha ingresado al sistema";
+            userOnline = usuario;
+            System.out.println(userOnline);
+        } else {
+            descripcion = "Usuario o contraseña inválidos, revise sus credenciales";
+        }
+        
+        codigo += "<!ini_respuesta:\"INSTRUCCIONES\">\n" +
+                  "{ \"INSTRUCCION_EJECUTADA\" : [{\n";
+        codigo += "\"TIPO\" : \"Login Usuario " + usuario + "\",\n";
+        codigo += "\"DETALLES\" : \"" + descripcion + "\"\n";
+        codigo += "}\n" +
+                  "]\n" +
+                  "}\n" +
+                  "<!fin_respuesta>\n";
+        
+        return codigo;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
     
 }

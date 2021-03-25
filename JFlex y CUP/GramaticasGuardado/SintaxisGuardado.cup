@@ -80,7 +80,7 @@ estructura_forms ::=    LLAVE_A instruccion_estructura_forms LLAVE_C
                         ;
 
 instruccion_estructura_forms ::=    opciones_estructura_forms COMA instruccion_estructura_forms
-                                    | opciones_estructura_forms
+                                    | 
                                     ;
 
 opciones_estructura_forms ::=       ID_COMPONENTE_N PUNTOS ALLCHARACTERS

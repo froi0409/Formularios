@@ -32,6 +32,7 @@ public class AnalizadorEntrada {
     private String entrada;
     private String rutaUsuarios;
     private String rutaFormularios;
+    private String userOnline;
     
     /**
      * Inicializa la clase, guarda la información necesaria para llevar a cabo el análisis
@@ -67,10 +68,11 @@ public class AnalizadorEntrada {
             if(listaErrores.isEmpty()) {
                 codigo += "<!ini_respuestas>\n";
                 for(Instruccion element : listaInstrucciones) {
-                    codigo += element.analizar(listaUsuarios, listaFormularios, codigoUsuarios, codigoFormularios);
+                    codigo += element.analizar(listaUsuarios, listaFormularios, userOnline);
                 }
                 codigo += "<!fin_respuestas>";
-                guardarUsuarios(codigoUsuarios);
+                guardarUsuarios();
+                guardarFormularios();
             }
             
         } catch (Exception e) {
@@ -116,17 +118,11 @@ public class AnalizadorEntrada {
         }
     }
     
-    private void guardarUsuarios(ArrayList<String> codigoUsuarios) {
+    private void guardarUsuarios() {
         String codigo = "";
         int contador = 0;
         codigo += "db.usuarios (\n";
-//        for(String element : codigoUsuarios) {
-//            if(contador > 0) {
-//                codigo += ",\n";
-//            }
-//            codigo += element;
-//            contador++;
-//        }
+
         for(Usuario element: listaUsuarios) {
             if(contador > 0) {
                 codigo += ",\n";
@@ -147,9 +143,69 @@ public class AnalizadorEntrada {
         } catch (Exception e) {
             System.out.println("Error en la ruta del archivo de usuarios: " + e.getMessage());
         }
-        
-        
-        
+    }
+    
+    private void guardarFormularios() {
+        String codigo = "";
+        int contador = 0;
+        codigo += "db.formularios (\n";
+        for(Formulario element : listaFormularios) {
+            if(contador > 0) {
+                codigo += ",\n";
+            }
+            codigo += "{\n";
+            codigo += "\"ID_FORMULARIO\" : \"" + element.getIdentificador() + "\",\n";
+            codigo += "\"TITULO\" : \"" + element.getTitulo() + "\",\n";
+            codigo += "\"NOMBRE\" : \"" + element.getNombre() + "\",\n";
+            codigo += "\"TEMA\" : \"" + element.getTema() + "\",\n";
+            codigo += "\"USUARIO_CREACION\" : \"" + element.getUsuarioCreacion() + "\"";
+            if(!element.getListaComponentes().isEmpty()) {
+                codigo += ",\n";
+                codigo += "\"ESTRUCTURA\" : (\n";              
+                int indice = 1;
+                for(Componente elem : element.getListaComponentes()) {
+                    if(indice > 1) {
+                        codigo += ",\n";
+                    }
+                    codigo += "{\n";
+                    codigo += "ID_COMPONENTE_" + indice + "\" : \"" + elem.getId() + "\",\n";
+                    codigo += "\"INDICE\" : \"" + indice + "\",\n";
+                    codigo += "\"FORMULARIO\" : \"" + elem.getFormulario() + "\",\n";
+                    codigo += "\"CLASE\" : \"" + elem.getClase() + "\",\n";
+                    codigo += "\"TEXTO_VISIBLE\" : \"" + elem.getTextoVisible() + "\",\n";
+                    codigo += "\"REQUERIDO\" : \"" + elem.getRequerido() + "\",\n";
+                    codigo += "\"ALINEACION\" : \"" + elem.getAlineacion() + "\",\n";
+                    if (elem.getClase().equals("AREA_TEXTO")) {
+                        codigo += "\"FILAS\" : \"" + elem.getFilas() + "\",\n";
+                        codigo += "\"COLUMNAS\" : \"" + elem.getColumnas() + "\",\n";
+                    } else if (elem.getClase().equals("CHECKBOX") || elem.getClase().equals("RADIO") || elem.getClase().equals("COMBO")) {
+                        codigo += "\"OPCIONES\" : \"" + elem.getOpciones() + "\",\n";
+                    } else if(elem.getClase().equals("IMAGEN")) {
+                        codigo += "\"URL\" : \"" + elem.getUrl() + "\",\n";
+                    }
+                    if (elem.getNombreCampo() != null) {
+                        codigo += "\"NOMBRE_CAMPO\" : \"" + elem.getNombreCampo() + "\",\n";
+                    }
+                    codigo += "}\n";
+                    indice++;
+                }
+                codigo += ")\n";
+            }
+            if(element.getDatosRecopilados() != null) {
+                
+            }
+            codigo += "\n}\n";
+            contador++;
+        }
+        codigo += ")";
+        try {
+            FileWriter fw = new FileWriter(new File(rutaFormularios));
+            BufferedWriter writer = new BufferedWriter(fw);
+            writer.write(codigo);
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("Error en la ruta del archivo de usuarios: " + e.getMessage());
+        }
     }
     
 }

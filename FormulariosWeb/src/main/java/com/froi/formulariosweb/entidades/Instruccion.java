@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author froi-pc
  */
 public class Instruccion {
-    public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, ArrayList<String> codigoUsuario, ArrayList<String> codigoFormularios) {
+    public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
         return null;
     }
 }
