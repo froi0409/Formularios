@@ -80,7 +80,7 @@ public class InstruccionNuevoFormulario extends Instruccion {
             }
         } else {
             
-            descripcion = "El formulario con id: " + id + " ya existe en el sistema, asigne otro identificador al formulario";
+            descripcion = "El formulario con id: " + id + " ya existe en el sistema, asigne otro identificador al formulario. Formulario no creado.";
         }
         
         codigo += "<!ini_respuesta:\"INSTRUCCIONES\">\n" +

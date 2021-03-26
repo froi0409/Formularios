@@ -54,10 +54,8 @@ public class AnalizadorEntrada {
      */
     public String codificar() {
         String codigo = "";
-        
-        ArrayList<String> codigoUsuarios = new ArrayList<>();
-        ArrayList<String> codigoFormularios = new ArrayList<>();
-        analisisDatosExistentes(codigoUsuarios, codigoFormularios); //Verificamos los datos almacenados
+
+        analisisDatosExistentes(); //Verificamos los datos almacenados
         
         StringReader reader = new StringReader(entrada);
         SolicitudesLexer lexer = new SolicitudesLexer(reader);
@@ -81,7 +79,10 @@ public class AnalizadorEntrada {
         return codigo;
     }
     
-    private void analisisDatosExistentes(ArrayList<String> codigoUsuarios, ArrayList<String> codigoFormularios) {
+    /**
+     * Sirve para analizar los datos que hay guardados en el sistema
+     */
+    public void analisisDatosExistentes() {
         File dbUsuarios = new File(rutaUsuarios);
         File dbFormularios = new File(rutaFormularios);
         if(dbUsuarios.exists()) {
@@ -138,6 +139,9 @@ public class AnalizadorEntrada {
         }
     }
     
+    /**
+     * Guarda a todos los ususarios encontrados
+     */
     private void guardarUsuarios() {
         String codigo = "";
         int contador = 0;
@@ -165,6 +169,9 @@ public class AnalizadorEntrada {
         }
     }
     
+    /**
+     * Guarda todos los formularios encontrados
+     */
     private void guardarFormularios() {
         String codigo = "";
         int contador = 0;
@@ -228,5 +235,23 @@ public class AnalizadorEntrada {
             System.out.println("Error en la ruta del archivo de usuarios: " + e.getMessage());
         }
     }
+
+    /**
+     * Obtiene a los usuarios que han sido encontrados en el sistema
+     * @return lista de usuarios que hay en el sistema
+     */
+    public ArrayList<Usuario> getListaUsuarios() {
+        return listaUsuarios;
+    }
+
+    /**
+     * Obtiene los formularios que han sido encontrados en el sistema
+     * @return lista de formularios que hay en el sistema
+     */
+    public ArrayList<Formulario> getListaFormularios() {
+        return listaFormularios;
+    }
+    
+    
     
 }

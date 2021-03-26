@@ -24,6 +24,7 @@ public class Canal {
                     .POST(HttpRequest.BodyPublishers.ofString(entrada))
                     .build();
             
+            System.out.println("hola");
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             
             return response.body();

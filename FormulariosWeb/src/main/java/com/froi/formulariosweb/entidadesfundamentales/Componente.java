@@ -30,7 +30,7 @@ public class Componente {
         this.requerido = "NO";
         this.alineacion = "IZQUIERDA";
         if(clase.equals("AREA_TEXTO")) {
-            this.filas = 20;
+            this.filas = 3;
             this.columnas = 20;
             this.nombreCampo = "";
         } 

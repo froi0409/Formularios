@@ -27,6 +27,11 @@
             <artifactId>java-cup-runtime</artifactId>
             <version>11b-20151001</version>
         </dependency>
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
     </dependencies>
 
     <build>
