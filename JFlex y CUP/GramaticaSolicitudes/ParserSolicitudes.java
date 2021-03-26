@@ -1872,9 +1872,17 @@ class CUP$ParserSolicitudes$actions {
                                                                                         columna = llaAright;
                                                                                         String[] listaObligatorios = {"\"USUARIO_ANTIGUO\"", "\"USUARIO_NUEVO\"", "\"NUEVO_PASSWORD\""};
                                                                                         if(verificacionBloque(listaObligatorios, listaParametros)){
-                                                                                            
+                                                                                            InstruccionModificarUsuario inst = new InstruccionModificarUsuario();
+                                                                                            inst.setUsuarioAntiguo(p1.substring(1, p1.length()-1));
+                                                                                            inst.setUsuarioNuevo(p2.substring(1, p2.length()-1));
+                                                                                            inst.setNuevoPassword(p3.substring(1, p3.length()-1));
+                                                                                            if(p4 != null) {
+                                                                                                inst.setFechaModificacion(p4.substring(1, p4.length()-1));
+                                                                                            }
+                                                                                            listaInstrucciones.add(inst);
                                                                                         }
                                                                                         listaParametros.clear();
+                                                                                        p1 = null; p2 = null; p3 = null; p4 = null;
                                                                                     
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("accion_modificacion_usuario",29, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
@@ -1926,7 +1934,7 @@ class CUP$ParserSolicitudes$actions {
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserSolicitudes$stack.peek()).value;
-		 listaParametros.add(para.toString()); 
+		 listaParametros.add(para.toString()); p1 = ent.toString(); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_modificacion_usuario",51, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;
@@ -1941,7 +1949,7 @@ class CUP$ParserSolicitudes$actions {
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserSolicitudes$stack.peek()).value;
-		 listaParametros.add(para.toString()); 
+		 listaParametros.add(para.toString()); p2 = ent.toString(); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_modificacion_usuario",51, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;
@@ -1956,7 +1964,7 @@ class CUP$ParserSolicitudes$actions {
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserSolicitudes$stack.peek()).value;
-		 listaParametros.add(para.toString()); 
+		 listaParametros.add(para.toString()); p3 = ent.toString(); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_modificacion_usuario",51, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;
@@ -1971,7 +1979,7 @@ class CUP$ParserSolicitudes$actions {
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserSolicitudes$stack.peek()).value;
-		 listaParametros.add(para.toString()); 
+		 listaParametros.add(para.toString()); p4 = ent.toString(); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_modificacion_usuario",51, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;
@@ -2792,11 +2800,11 @@ class CUP$ParserSolicitudes$actions {
                                                                                                     linea = llaAleft;
                                                                                                     columna = llaAright;
                                                                                                     String[] listaObligatorios = {"\"ID\""};
-                                                                                                    if(verificacionBloque(listaObligatorios, listaParametros) {
+                                                                                                    if(verificacionBloque(listaObligatorios, listaParametros)) {
                                                                                                         InstruccionEliminarFormulario inst = new InstruccionEliminarFormulario();
                                                                                                         inst.setIdFormulario(p1.substring(1, p1.length()-1));
                                                                                                         listaInstrucciones.add(inst);
-                                                                                                    })
+                                                                                                    }
                                                                                                     listaParametros.clear();
                                                                                                     p1 = null;
                                                                                                 

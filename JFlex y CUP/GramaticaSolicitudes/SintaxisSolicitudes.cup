@@ -265,9 +265,17 @@ accion_modificacion_usuario ::= LLAVE_A:llaA accion_modificacion_usuario_p LLAVE
                                                                                         columna = llaAright;
                                                                                         String[] listaObligatorios = {"\"USUARIO_ANTIGUO\"", "\"USUARIO_NUEVO\"", "\"NUEVO_PASSWORD\""};
                                                                                         if(verificacionBloque(listaObligatorios, listaParametros)){
-                                                                                            
+                                                                                            InstruccionModificarUsuario inst = new InstruccionModificarUsuario();
+                                                                                            inst.setUsuarioAntiguo(p1.substring(1, p1.length()-1));
+                                                                                            inst.setUsuarioNuevo(p2.substring(1, p2.length()-1));
+                                                                                            inst.setNuevoPassword(p3.substring(1, p3.length()-1));
+                                                                                            if(p4 != null) {
+                                                                                                inst.setFechaModificacion(p4.substring(1, p4.length()-1));
+                                                                                            }
+                                                                                            listaInstrucciones.add(inst);
                                                                                         }
                                                                                         listaParametros.clear();
+                                                                                        p1 = null; p2 = null; p3 = null; p4 = null;
                                                                                     :}            
                                 | error accion_modificacion_usuario_p LLAVE_C
                                 | LLAVE_A accion_modificacion_usuario_p error
@@ -278,10 +286,10 @@ accion_modificacion_usuario_p ::=   opciones_modificacion_usuario COMA accion_mo
                                     ;
 
 
-opciones_modificacion_usuario ::=   USUARIO_ANTIGUO:para PUNTOS tipos_entrada:ent   {: listaParametros.add(para.toString()); :}
-                                    | USUARIO_NUEVO:para PUNTOS tipos_entrada:ent   {: listaParametros.add(para.toString()); :}
-                                    | NUEVO_PASSWORD:para PUNTOS tipos_entrada:ent  {: listaParametros.add(para.toString()); :}
-                                    | FECHA_MODIFICACION:para PUNTOS FECHA:ent      {: listaParametros.add(para.toString()); :}
+opciones_modificacion_usuario ::=   USUARIO_ANTIGUO:para PUNTOS tipos_entrada:ent   {: listaParametros.add(para.toString()); p1 = ent.toString(); :}
+                                    | USUARIO_NUEVO:para PUNTOS tipos_entrada:ent   {: listaParametros.add(para.toString()); p2 = ent.toString(); :}
+                                    | NUEVO_PASSWORD:para PUNTOS tipos_entrada:ent  {: listaParametros.add(para.toString()); p3 = ent.toString(); :}
+                                    | FECHA_MODIFICACION:para PUNTOS FECHA:ent      {: listaParametros.add(para.toString()); p4 = ent.toString(); :}
                                     | error tipos_entrada                           {: listaErrores.get(punteroErrores).setDescripcion("No se reconoce el tipo de parámetro a asignar valor en la instrucción"); :}
                                     | error PUNTOS tipos_entrada                    {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un parametro valido para asignar valor seguido del símbolo ':' "); :}
                                     | USUARIO PUNTOS error                          {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un usuario, revise si el valor a asignar contiene caracteres invalidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
