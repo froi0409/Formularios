@@ -112,6 +112,16 @@ parser code  {:
         }*/
         return comprobante;
     }
+    public boolean verificacionModificacionFormulario() {
+        for(String element: listaParametros) {
+            if(element.equals("\"TITULO\"") || element.equals("\"NOMBRE\"") || element.equals("\"TEMA\"")) {
+                return true;
+            }
+        }
+        Advertencia advert = new Advertencia("Elemento Faltante", linea, columna, "que se desea modificar en el formulario (puede ser: \"TITULO\", \"NOMBRE\" o \"TEMA\"). ");
+        listaErrores.add(advert);
+        return false;
+    }
 
 :}
 
@@ -480,7 +490,21 @@ accion_modificacion_formulario ::=      LLAVE_A:llaA accion_modificacion_formula
                                                                                                     linea = llaAleft;
                                                                                                     columna = llaAright;
                                                                                                     String[] listaObligatorios = {"\"ID\""};
-                                                                                                    verificacionBloque(listaObligatorios, listaParametros);
+                                                                                                    if(verificacionBloque(listaObligatorios, listaParametros)) {
+                                                                                                        if(verificacionModificacionFormulario()) {
+                                                                                                            InstruccionModificarFormulario inst = new InstruccionModificarFormulario();
+                                                                                                            inst.setId(p1.substring(1, p1.length()-1));
+                                                                                                            if(p2 != null) {
+                                                                                                                inst.setTitulo(p2.substring(1, p2.length()-1));
+                                                                                                            }
+                                                                                                            if(p3 != null) {
+                                                                                                                inst.setNombre(p3.substring(1, p3.length()-1));
+                                                                                                            }
+                                                                                                            if(p4 != null) {
+                                                                                                                inst.setTema(p4.substring(1, p4.length()-1));
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
                                                                                                     listaParametros.clear();
                                                                                                 :}
                                         | error accion_modificacion_formulario_p LLAVE_C
@@ -491,10 +515,10 @@ accion_modificacion_formulario_p ::=    opciones_modificacion_formulario COMA ac
                                         | opciones_modificacion_formulario
                                         ;
 
-opciones_modificacion_formulario ::=    ID:para PUNTOS IDENTIFICADOR                            {: listaParametros.add(para.toString()); :}
-                                        | TITULO:para PUNTOS tipos_entrada_complete             {: listaParametros.add(para.toString()); :}
-                                        | NOMBRE:para PUNTOS tipos_entrada                      {: listaParametros.add(para.toString()); :}
-                                        | TEMA:para PUNTOS theme                                {: listaParametros.add(para.toString()); :}
+opciones_modificacion_formulario ::=    ID:para PUNTOS IDENTIFICADOR:ent                        {: listaParametros.add(para.toString()); p1 = ent.toString(); :}
+                                        | TITULO:para PUNTOS tipos_entrada_complete:ent         {: listaParametros.add(para.toString()); p2 = ent.toString(); :}
+                                        | NOMBRE:para PUNTOS tipos_entrada:ent                  {: listaParametros.add(para.toString()); p3 = ent.toString(); :}
+                                        | TEMA:para PUNTOS theme:ent                            {: listaParametros.add(para.toString()); p4 = ent.toString(); :}
                                         | error PUNTOS tipos_entrada_complete                   {: listaErrores.get(punteroErrores).setDescripcion("No se reconoce el tipo de parametro al cual se le asignará valor"); :}
                                         | error tipos_entrada_complete                          {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un parametro válido para asignar valor, seguido del símbolo ':' en la instrucción"); :}
                                         | ID PUNTOS error                                       {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un identificador, revise si el valor a asignar contiene caracteres inválidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
@@ -643,8 +667,14 @@ accion_eliminacion_componente ::=       LLAVE_A:llaA accion_eliminacion_componen
                                                                                                         linea = llaAleft;
                                                                                                         columna = llaAright;
                                                                                                         String[] listaObligatorios = {"\"ID\"", "\"FORMULARIO\""};
-                                                                                                        verificacionBloque(listaObligatorios, listaParametros);
+                                                                                                        if(verificacionBloque(listaObligatorios, listaParametros)) {
+                                                                                                            InstruccionElliminarComponente inst = new InstruccionElliminarComponente();
+                                                                                                            inst.setIdComponente(p1.substring(1, p1.length()-1));
+                                                                                                            inst.setIdFormulario(p2.substring(1, p2.length()-1));
+                                                                                                            listaInstrucciones.add(inst);
+                                                                                                        }
                                                                                                         listaParametros.clear();
+                                                                                                        p1 = null; p2 = null;
                                                                                                     :}
                                         | error accion_eliminacion_componente_p LLAVE_C
                                         | LLAVE_A accion_eliminacion_componente_p error
@@ -654,8 +684,8 @@ accion_eliminacion_componente_p ::=     opciones_eliminacion_componente COMA acc
                                         | opciones_eliminacion_componente
                                         ;
 
-opciones_eliminacion_componente ::=     ID:para PUNTOS IDENTIFICADOR                    {: listaParametros.add(para.toString()); :}
-                                        | FORMULARIO:para PUNTOS IDENTIFICADOR          {: listaParametros.add(para.toString()); :}
+opciones_eliminacion_componente ::=     ID:para PUNTOS IDENTIFICADOR:ent                {: listaParametros.add(para.toString()); p1 = ent.toString(); :}
+                                        | FORMULARIO:para PUNTOS IDENTIFICADOR:ent      {: listaParametros.add(para.toString()); p2 = ent.toString(); :}
                                         | error PUNTOS IDENTIFICADOR                    {: listaErrores.get(punteroErrores).setDescripcion("No se reconoce el tipo de parametro al cual se le asignará valor"); :}
                                         | error IDENTIFICADOR                           {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un parametro válido para asignar valor, seguido del símbolo ':' en la instrucción"); :}
                                         | ID PUNTOS error                               {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un identificador, revise si el valor a asignar contiene caracteres inválidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}

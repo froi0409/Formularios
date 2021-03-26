@@ -7,7 +7,7 @@ import static com.froi.formulariosweb.analizadores.codigoindigo.ParserSolicitude
 %public
 %class SolicitudesLexer
 %cup
-//%unicode
+%unicode
 %line
 %column
 
@@ -51,7 +51,7 @@ OPTIONS = [\"] ([a-zA-Z0-9] | {Ignore})+ ("|" ([a-zA-Z0-9] | {Ignore}})+)+ [\"]
 CONSULTA = [\"]{WS}* "CONSULTA"{WS}* "-"{WS}* [0-9]+{WS}*  [\"] {Ignore}* ":" {Ignore}* [\"]
 IDENTIFCONSULTA = ("$" | "_" | "-") ( [a-zA-Z] | [0-9] | "$" | "_" | "-")*
 //CAMPOS = ["$"  "_"  "-"] [^"[" "]" "\"" "," "|" "<" ">" "!" "=" ":" "{" "}" "\’" "\'" [ \t\f] [\r|\n|\r\n]]+ ({WS}*","{WS}* [^"[" "]" "\"" "," "|" "<" ">" "!" "=" ":" "{" "}" "\’" "\'" "&" [ \t\f] [\r|\n|\r\n]]+)+ 
-CAMPO = [^"[" "]" "\"" "," "|" "<" ">" "!" "=" ":" "{" "}" "\’" "\'" [ \t\f] [\r|\n|\r\n]]*
+CAMPO = [^"[" "]" "\"" "," "|" "<" ">" "!" "=" ":" "{" "}" "\’" "\'" [ \t\f] [\r|\n|\r\n]]+
 CADENACONSULTA = ("\’" | "\'") ([^ "\"" "|"] | [ \t\f])* ("\’" | "\'")
 NUMEROCONSULTA = (-)? [0-9]+ ( ['.'] [0-9]+ ) ?
 

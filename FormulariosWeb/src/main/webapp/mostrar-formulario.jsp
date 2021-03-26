@@ -18,7 +18,7 @@
         letra = "#FFFFFF";
     } else {
         tema = "#FFFFFF";
-        letra = "#FFFFFF";
+        letra = "#000000";
     }
     
 %>

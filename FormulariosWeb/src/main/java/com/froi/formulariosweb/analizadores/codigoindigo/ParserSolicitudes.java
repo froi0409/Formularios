@@ -3962,8 +3962,14 @@ class CUP$ParserSolicitudes$actions {
                                                                                                         linea = llaAleft;
                                                                                                         columna = llaAright;
                                                                                                         String[] listaObligatorios = {"\"ID\"", "\"FORMULARIO\""};
-                                                                                                        verificacionBloque(listaObligatorios, listaParametros);
+                                                                                                        if(verificacionBloque(listaObligatorios, listaParametros)) {
+                                                                                                            InstruccionElliminarComponente inst = new InstruccionElliminarComponente();
+                                                                                                            inst.setIdComponente(p1.substring(1, p1.length()-1));
+                                                                                                            inst.setIdFormulario(p2.substring(1, p2.length()-1));
+                                                                                                            listaInstrucciones.add(inst);
+                                                                                                        }
                                                                                                         listaParametros.clear();
+                                                                                                        p1 = null; p2 = null;
                                                                                                     
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("accion_eliminacion_componente",36, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
@@ -4012,7 +4018,10 @@ class CUP$ParserSolicitudes$actions {
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)).left;
 		int pararight = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)).right;
 		Object para = (Object)((java_cup.runtime.Symbol) CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)).value;
-		 listaParametros.add(para.toString()); 
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserSolicitudes$stack.peek()).value;
+		 listaParametros.add(para.toString()); p1 = ent.toString(); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_eliminacion_componente",58, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;
@@ -4024,7 +4033,10 @@ class CUP$ParserSolicitudes$actions {
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)).left;
 		int pararight = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)).right;
 		Object para = (Object)((java_cup.runtime.Symbol) CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)).value;
-		 listaParametros.add(para.toString()); 
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserSolicitudes$stack.peek()).value;
+		 listaParametros.add(para.toString()); p2 = ent.toString(); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_eliminacion_componente",58, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;

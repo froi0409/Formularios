@@ -8,7 +8,7 @@ import static com.froi.editorcodigoindigo.gramaticas.respuestas.ParserRespuestas
 %public
 %class RespuestasLexer
 %cup
-//%unicode
+%unicode
 %line
 %column
 

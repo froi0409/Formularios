@@ -17,4 +17,17 @@ public class Instruccion {
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
         return null;
     }
+    
+    public String generarCodigoRespuesta(String tipoRespuesta, String descripcion) {
+        String indigoCode = "";
+        indigoCode += "<!ini_respuesta:\"INSTRUCCIONES\">\n" +
+                      "{ \"INSTRUCCION_EJECUTADA\" : [{\n";
+        indigoCode += "\"TIPO\" : \"" + tipoRespuesta + "\",\n";
+        indigoCode += "\"DETALLES\" : \"" + descripcion + "\"\n";
+        indigoCode += "}\n" +
+                      "]\n" +
+                      "}\n" +
+                      "<!fin_respuesta>\n";
+        return indigoCode;
+    }
 }
