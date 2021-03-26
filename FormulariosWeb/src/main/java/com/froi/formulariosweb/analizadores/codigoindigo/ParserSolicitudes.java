@@ -1074,7 +1074,7 @@ public class ParserSolicitudes extends java_cup.runtime.lr_parser {
                 comprobante = false;
             }
         }
-        listaParametros.clear();
+        
         return comprobante;
     }
 
@@ -1646,6 +1646,7 @@ class CUP$ParserSolicitudes$actions {
                                                                                         }
                                                                                         listaInstrucciones.add(inst);
                                                                                     }
+                                                                                    listaParametros.clear();
                                                                                     p1 = null; p2 = null; p3 = null;
                                                                                 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("accion_crear_usuario",28, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
@@ -1871,8 +1872,17 @@ class CUP$ParserSolicitudes$actions {
                                                                                         columna = llaAright;
                                                                                         String[] listaObligatorios = {"\"USUARIO_ANTIGUO\"", "\"USUARIO_NUEVO\"", "\"NUEVO_PASSWORD\""};
                                                                                         if(verificacionBloque(listaObligatorios, listaParametros)){
-                                                                                            
+                                                                                            InstruccionModificarUsuario inst = new InstruccionModificarUsuario();
+                                                                                            inst.setUsuarioAntiguo(p1.substring(1, p1.length()-1));
+                                                                                            inst.setUsuarioNuevo(p2.substring(1, p2.length()-1));
+                                                                                            inst.setNuevoPassword(p3.substring(1, p3.length()-1));
+                                                                                            if(p4 != null) {
+                                                                                                inst.setFechaModificacion(p4.substring(1, p4.length()-1));
+                                                                                            }
+                                                                                            listaInstrucciones.add(inst);
                                                                                         }
+                                                                                        listaParametros.clear();
+                                                                                        p1 = null; p2 = null; p3 = null; p4 = null;
                                                                                     
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("accion_modificacion_usuario",29, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
@@ -1924,7 +1934,7 @@ class CUP$ParserSolicitudes$actions {
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserSolicitudes$stack.peek()).value;
-		 listaParametros.add(para.toString()); 
+		 listaParametros.add(para.toString()); p1 = ent.toString(); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_modificacion_usuario",51, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;
@@ -1939,7 +1949,7 @@ class CUP$ParserSolicitudes$actions {
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserSolicitudes$stack.peek()).value;
-		 listaParametros.add(para.toString()); 
+		 listaParametros.add(para.toString()); p2 = ent.toString(); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_modificacion_usuario",51, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;
@@ -1954,7 +1964,7 @@ class CUP$ParserSolicitudes$actions {
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserSolicitudes$stack.peek()).value;
-		 listaParametros.add(para.toString()); 
+		 listaParametros.add(para.toString()); p3 = ent.toString(); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_modificacion_usuario",51, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;
@@ -1969,7 +1979,7 @@ class CUP$ParserSolicitudes$actions {
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserSolicitudes$stack.peek()).value;
-		 listaParametros.add(para.toString()); 
+		 listaParametros.add(para.toString()); p4 = ent.toString(); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_modificacion_usuario",51, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;
@@ -2084,7 +2094,13 @@ class CUP$ParserSolicitudes$actions {
                                                                                                     linea = llaAleft;
                                                                                                     columna = llaAright;
                                                                                                     String[] listaObligatorios = {"\"USUARIO\""};
-                                                                                                    verificacionBloque(listaObligatorios, listaParametros);
+                                                                                                    if(verificacionBloque(listaObligatorios, listaParametros)) {
+                                                                                                        InstruccionEliminarUsuario inst = new InstruccionEliminarUsuario();
+                                                                                                        inst.setUsuario(p1.substring(1, p1.length()-1));
+                                                                                                        listaInstrucciones.add(inst);
+                                                                                                    }
+                                                                                                    listaParametros.clear();
+                                                                                                    p1 = null;
                                                                                                 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("accion_eliminacion_usuario",30, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
@@ -2115,7 +2131,10 @@ class CUP$ParserSolicitudes$actions {
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)).left;
 		int pararight = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)).right;
 		Object para = (Object)((java_cup.runtime.Symbol) CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)).value;
-		 listaParametros.add(para.toString()); 
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserSolicitudes$stack.peek()).value;
+		 listaParametros.add(para.toString()); p1 = ent.toString(); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_eliminacion_usuario",52, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;
@@ -2209,6 +2228,7 @@ class CUP$ParserSolicitudes$actions {
                                                                                                     inst.setPassword(p2.substring(1, p2.length()-1));
                                                                                                     listaInstrucciones.add(inst);
                                                                                                 }
+                                                                                                listaParametros.clear();
                                                                                                 p1 = null; p2 = null;
                                                                                             
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("accion_login_usuario",31, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
@@ -2404,6 +2424,7 @@ class CUP$ParserSolicitudes$actions {
                                                                                                         inst.setFechaCreacion(p6.substring(1, p6.length()-1));
                                                                                                     }
                                                                                                     listaInstrucciones.add(inst);
+                                                                                                    listaParametros.clear();
                                                                                                     p1 = null; p2 =null; p3 = null; p4 =null; p5 = null; p6 =null;
                                                                                                 }
                                                                                             
@@ -2779,7 +2800,13 @@ class CUP$ParserSolicitudes$actions {
                                                                                                     linea = llaAleft;
                                                                                                     columna = llaAright;
                                                                                                     String[] listaObligatorios = {"\"ID\""};
-                                                                                                    verificacionBloque(listaObligatorios, listaParametros);
+                                                                                                    if(verificacionBloque(listaObligatorios, listaParametros)) {
+                                                                                                        InstruccionEliminarFormulario inst = new InstruccionEliminarFormulario();
+                                                                                                        inst.setIdFormulario(p1.substring(1, p1.length()-1));
+                                                                                                        listaInstrucciones.add(inst);
+                                                                                                    }
+                                                                                                    listaParametros.clear();
+                                                                                                    p1 = null;
                                                                                                 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("accion_eliminacion_formulario",33, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
@@ -2828,7 +2855,10 @@ class CUP$ParserSolicitudes$actions {
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)).left;
 		int pararight = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)).right;
 		Object para = (Object)((java_cup.runtime.Symbol) CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)).value;
-		 listaParametros.add(para.toString()); 
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserSolicitudes$stack.peek()).value;
+		 listaParametros.add(para.toString()); p1 = ent.toString(); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_eliminacion_formulario",55, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;
@@ -2917,6 +2947,7 @@ class CUP$ParserSolicitudes$actions {
                                                                                                     columna = llaAright;
                                                                                                     String[] listaObligatorios = {"\"ID\""};
                                                                                                     verificacionBloque(listaObligatorios, listaParametros);
+                                                                                                    listaParametros.clear();
                                                                                                 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("accion_modificacion_formulario",34, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
@@ -3170,11 +3201,8 @@ class CUP$ParserSolicitudes$actions {
                                                                                                     linea = llaAleft;
                                                                                                     columna = llaAright;
                                                                                                     String[] listaObligatorios = {"\"ID\"", "\"FORMULARIO\"", "\"CLASE\"", "\"TEXTO_VISIBLE\""};
-                                                                                                    System.out.println("paso 1 g");
                                                                                                     if(verificacionBloque(listaObligatorios, listaParametros)){
-                                                                                                        System.out.println("Paso 2 g");
                                                                                                         if(verificacionClase(listaParametros, clase)) {
-                                                                                                            System.out.println("Paso 3 g");
                                                                                                             InstruccionAgregarComponente inst = new InstruccionAgregarComponente();
                                                                                                             inst.setId(p1.substring(1, p1.length()-1));
                                                                                                             inst.setFormulario(p3.substring(1, p3.length()-1));
@@ -3203,9 +3231,9 @@ class CUP$ParserSolicitudes$actions {
                                                                                                             }
                                                                                                             listaInstrucciones.add(inst);
                                                                                                         }
-                                                                                                        p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null; 
                                                                                                     }
-                                                                                                    
+                                                                                                    p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null; 
+                                                                                                    listaParametros.clear();
                                                                                                     listaParametrosClase.clear();
                                                                                                 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("accion_agregar_componente",35, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
@@ -3935,6 +3963,7 @@ class CUP$ParserSolicitudes$actions {
                                                                                                         columna = llaAright;
                                                                                                         String[] listaObligatorios = {"\"ID\"", "\"FORMULARIO\""};
                                                                                                         verificacionBloque(listaObligatorios, listaParametros);
+                                                                                                        listaParametros.clear();
                                                                                                     
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("accion_eliminacion_componente",36, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
@@ -4111,6 +4140,7 @@ class CUP$ParserSolicitudes$actions {
                                                                                                         columna = llaAright;
                                                                                                         String[] listaObligatorios = {"\"ID\"", "\"FORMULARIO\""};
                                                                                                         verificacionBloque(listaObligatorios, listaParametros);
+                                                                                                        listaParametros.clear();
                                                                                                     
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("accion_modificacion_componente",37, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }

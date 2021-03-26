@@ -44,8 +44,8 @@ public class AnalizadorEntrada {
         this.listaUsuarios = new ArrayList<>();
         this.listaFormularios = new ArrayList<>();
         this.entrada = entrada;
-        this.rutaUsuarios = "/home/froi-pc/Documentos/CUNOC/Quinto Semestre/Compiladores 1/Proyectos/Formularios/FormulariosWeb/src/main/java/Resources/dbUsuarios.txt";
-        this.rutaFormularios = "/home/froi-pc/Documentos/CUNOC/Quinto Semestre/Compiladores 1/Proyectos/Formularios/FormulariosWeb/src/main/java/Resources/dbFormularios.txt";
+        this.rutaUsuarios = "Recursos/dbUsuarios.txt";
+        this.rutaFormularios = "Recursos/dbFormularios.txt";
     }
     
     /**

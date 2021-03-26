@@ -65,26 +65,26 @@
             if(element.getAlineacion().equals("CENTRO")) {
                 alineacion = "center";
             } else if(element.getAlineacion().equals("IZQUIERDA")) {
-                alineacion = "start";
+                alineacion = "left";
             } else if(element.getAlineacion().equals("DERECHA")) {
-                alineacion = "endt";
+                alineacion = "right";
             } else if(element.getAlineacion().equals("JUSTIFICAR")) {
-                alineacion = "between";
+                alineacion = "justify";
             } else {
-                alineacion = "LEFT";
+                alineacion = "left";
             }
             if(element.getRequerido().equals("SI")){
                 requerido = "required";
             }
         %>
             <div class="container formulario pt-2 px-4"> 
-                <div class="row justify-content-<% out.print(alineacion); %>  pt-1 mt-2 mr-1 px-4">
+                <div class="justify-content-<% out.print(alineacion); %>  pt-1 mt-2 mr-1 px-4">
                     <%if(!element.getClase().equals("BOTON")) {%>
-                    <div class="form-group">
+                    <div class="form-group" style="text-align:<% out.print(alineacion); %>;">
                         <h5><% out.print(element.getTextoVisible()); %></h5>
                     </div>
                     <%}%>
-                    <div class="form-group">
+                    <div class="form-group" align="<% out.print(alineacion); %>">
                     <%
                         if(element.getClase().equals("COMBO")) {
                             //Manejo de boton
@@ -96,7 +96,7 @@
                             out.println("</select>");
                         } else if (element.getClase().equals("AREA_TEXTO")) {
                             out.println("<div class=\"form-floating\">");
-                            out.println("<textarea class=\"form-control\" rows=\"" + element.getFilas() + "\" cols=\"" + element.getColumnas() + "\"></textarea>");
+                            out.println("<textarea rows=\"" + element.getFilas() + "\" cols=\"" + element.getColumnas() + "\"></textarea>");
                             out.println("</div>");
                         } else if(element.getClase().equals("CAMPO_TEXTO")) {
                             out.println("<input tyoe=\"text\" name=\"" + element.getNombreCampo() + " id=\"" + element.getId() + "\"\"/>");
@@ -113,8 +113,8 @@
                         } else if(element.getClase().equals("FICHERO")) {
                             out.println("<input type=\"file\" name=\"" + element.getNombreCampo() + "\"/>");
                         } else if(element.getClase().equals("BOTON")) {
-                            out.println("<input type\"submit\" value=\"" + element.getTextoVisible() + "\">");
-                        } else if(element.getClase().equals("")) {
+                            out.println("<input type=\"button\" value=\"" + element.getTextoVisible() + "\"/>");
+                        } else if(element.getClase().equals("IMAGEN")) {
                             out.print("<input type=\"image\" src=\"" + element.getUrl() + "\" />");
                         }
                     %>
