@@ -60,7 +60,7 @@ parser code  {:
                 comprobante = false;
             }
         }
-        listaParametros.clear();
+        
         return comprobante;
     }
 
@@ -227,6 +227,7 @@ accion_crear_usuario ::=    LLAVE_A:llaA accion_crear_usuario_p LLAVE_C         
                                                                                         }
                                                                                         listaInstrucciones.add(inst);
                                                                                     }
+                                                                                    listaParametros.clear();
                                                                                     p1 = null; p2 = null; p3 = null;
                                                                                 :}
                             | error accion_crear_usuario_p LLAVE_C              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' en la instrucción"); :}
@@ -266,6 +267,7 @@ accion_modificacion_usuario ::= LLAVE_A:llaA accion_modificacion_usuario_p LLAVE
                                                                                         if(verificacionBloque(listaObligatorios, listaParametros)){
                                                                                             
                                                                                         }
+                                                                                        listaParametros.clear();
                                                                                     :}            
                                 | error accion_modificacion_usuario_p LLAVE_C
                                 | LLAVE_A accion_modificacion_usuario_p error
@@ -300,13 +302,19 @@ accion_eliminacion_usuario ::=          LLAVE_A:llaA opciones_eliminacion_usuari
                                                                                                     linea = llaAleft;
                                                                                                     columna = llaAright;
                                                                                                     String[] listaObligatorios = {"\"USUARIO\""};
-                                                                                                    verificacionBloque(listaObligatorios, listaParametros);
+                                                                                                    if(verificacionBloque(listaObligatorios, listaParametros)) {
+                                                                                                        InstruccionEliminarUsuario inst = new InstruccionEliminarUsuario();
+                                                                                                        inst.setUsuario(p1.substring(1, p1.length()-1));
+                                                                                                        listaInstrucciones.add(inst);
+                                                                                                    }
+                                                                                                    listaParametros.clear();
+                                                                                                    p1 = null;
                                                                                                 :}
                                         | error opciones_eliminacion_usuario LLAVE_C
                                         | LLAVE_A opciones_eliminacion_usuario error
                                         ;
 
-opciones_eliminacion_usuario ::=        USUARIO:para PUNTOS tipos_entrada       {: listaParametros.add(para.toString()); :}
+opciones_eliminacion_usuario ::=        USUARIO:para PUNTOS tipos_entrada:ent   {: listaParametros.add(para.toString()); p1 = ent.toString(); :}
                                         | error tipos_entrada                   {: listaErrores.get(punteroErrores).setDescripcion("No se reconoce el tipo de parametro al cual se le asignará valor"); :}
                                         | error PUNTOS tipos_entrada            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un parametro valido para asignar valor seguido del símbolo ':' "); :}
                                         | USUARIO PUNTOS error                  {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un usuario, revise si el valor a asignar contiene caracteres invalidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
@@ -330,6 +338,7 @@ accion_login_usuario ::=            LLAVE_A:llaA accion_login_usuario_p LLAVE_C 
                                                                                                     inst.setPassword(p2.substring(1, p2.length()-1));
                                                                                                     listaInstrucciones.add(inst);
                                                                                                 }
+                                                                                                listaParametros.clear();
                                                                                                 p1 = null; p2 = null;
                                                                                             :}
                                     | error accion_login_usuario_p LLAVE_C
@@ -375,6 +384,7 @@ accion_nuevo_formulario ::=         LLAVE_A:llaA accion_nuevo_formulario_p LLAVE
                                                                                                         inst.setFechaCreacion(p6.substring(1, p6.length()-1));
                                                                                                     }
                                                                                                     listaInstrucciones.add(inst);
+                                                                                                    listaParametros.clear();
                                                                                                     p1 = null; p2 =null; p3 = null; p4 =null; p5 = null; p6 =null;
                                                                                                 }
                                                                                             :}
@@ -428,7 +438,13 @@ accion_eliminacion_formulario ::=       LLAVE_A:llaA accion_eliminacion_formular
                                                                                                     linea = llaAleft;
                                                                                                     columna = llaAright;
                                                                                                     String[] listaObligatorios = {"\"ID\""};
-                                                                                                    verificacionBloque(listaObligatorios, listaParametros);
+                                                                                                    if(verificacionBloque(listaObligatorios, listaParametros)) {
+                                                                                                        InstruccionEliminarFormulario inst = new InstruccionEliminarFormulario();
+                                                                                                        inst.setIdFormulario(p1.substring(1, p1.length()-1));
+                                                                                                        listaInstrucciones.add(inst);
+                                                                                                    }
+                                                                                                    listaParametros.clear();
+                                                                                                    p1 = null;
                                                                                                 :}
                                         | error accion_eliminacion_formulario_p LLAVE_C
                                         | LLAVE_A accion_eliminacion_formulario_p error
@@ -438,7 +454,7 @@ accion_eliminacion_formulario_p ::=     opciones_eliminacion_formulario COMA acc
                                         | opciones_eliminacion_formulario
                                         ;
 
-opciones_eliminacion_formulario ::=     ID:para PUNTOS IDENTIFICADOR            {: listaParametros.add(para.toString()); :}
+opciones_eliminacion_formulario ::=     ID:para PUNTOS IDENTIFICADOR:ent        {: listaParametros.add(para.toString()); p1 = ent.toString(); :}
                                         | error PUNTOS IDENTIFICADOR            {: listaErrores.get(punteroErrores).setDescripcion("No se reconoce el tipo de parametro al cual se le asignará valor"); :}
                                         | error IDENTIFICADOR                   {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un parametro válido para asignar valor, seguido del simbolo ':' en la instrucción"); :}
                                         | ID PUNTOS error                       {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un identificador, revse si el valor a asignar contiene caracteres inválidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :} 
@@ -457,6 +473,7 @@ accion_modificacion_formulario ::=      LLAVE_A:llaA accion_modificacion_formula
                                                                                                     columna = llaAright;
                                                                                                     String[] listaObligatorios = {"\"ID\""};
                                                                                                     verificacionBloque(listaObligatorios, listaParametros);
+                                                                                                    listaParametros.clear();
                                                                                                 :}
                                         | error accion_modificacion_formulario_p LLAVE_C
                                         | LLAVE_A accion_modificacion_formulario_p error
@@ -526,9 +543,9 @@ accion_agregar_componente ::=       LLAVE_A:llaA accion_agregar_componente_p LLA
                                                                                                             }
                                                                                                             listaInstrucciones.add(inst);
                                                                                                         }
-                                                                                                        p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null; 
                                                                                                     }
-                                                                                                    
+                                                                                                    p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null; 
+                                                                                                    listaParametros.clear();
                                                                                                     listaParametrosClase.clear();
                                                                                                 :}
                                     | error accion_agregar_componente_p LLAVE_C
@@ -619,6 +636,7 @@ accion_eliminacion_componente ::=       LLAVE_A:llaA accion_eliminacion_componen
                                                                                                         columna = llaAright;
                                                                                                         String[] listaObligatorios = {"\"ID\"", "\"FORMULARIO\""};
                                                                                                         verificacionBloque(listaObligatorios, listaParametros);
+                                                                                                        listaParametros.clear();
                                                                                                     :}
                                         | error accion_eliminacion_componente_p LLAVE_C
                                         | LLAVE_A accion_eliminacion_componente_p error
@@ -651,6 +669,7 @@ accion_modificacion_componente ::=      LLAVE_A:llaA accion_modificacion_compone
                                                                                                         columna = llaAright;
                                                                                                         String[] listaObligatorios = {"\"ID\"", "\"FORMULARIO\""};
                                                                                                         verificacionBloque(listaObligatorios, listaParametros);
+                                                                                                        listaParametros.clear();
                                                                                                     :}
                                         | error accion_modificacion_componente_p LLAVE_C
                                         | LLAVE_A accion_modificacion_componente_p error
