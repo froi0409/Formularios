@@ -1,0 +1,101 @@
+db.formularios (
+{
+"ID_FORMULARIO" : "$form1",
+"TITULO" : "Formulario para encuesta 1",
+"NOMBRE" : "formulario_encuesta_1",
+"TEMA" : "Dark",
+"USUARIO_CREACION" : "chofoGomez",
+"FECHA_CREACION" : "2021-3-26",
+"ESTRUCTURA" : (
+{
+"ID_COMPONENTE_1" : "$_text_cliente",
+"INDICE" : "1",
+"FORMULARIO" : "$form1",
+"CLASE" : "CAMPO_TEXTO",
+"TEXTO_VISIBLE" : "Nombre de cliente: ",
+"REQUERIDO" : "SI",
+"ALINEACION" : "CENTRO",
+"NOMBRE_CAMPO" : "Cliente",
+}
+,
+{
+"ID_COMPONENTE_2" : "$carros",
+"INDICE" : "2",
+"FORMULARIO" : "$form1",
+"CLASE" : "COMBO",
+"TEXTO_VISIBLE" : "Seleccione su marca de autos preferida: ",
+"REQUERIDO" : "SI",
+"ALINEACION" : "CENTRO",
+"OPCIONES" : "Audi|Toyota|Mazda|Chevrolet|OTRO",
+"NOMBRE_CAMPO" : "Carros",
+}
+,
+{
+"ID_COMPONENTE_3" : "_botonsadf",
+"INDICE" : "3",
+"FORMULARIO" : "$form1",
+"CLASE" : "BOTON",
+"TEXTO_VISIBLE" : "Boton de Prueba ",
+"REQUERIDO" : "NO",
+"ALINEACION" : "CENTRO",
+"NOMBRE_CAMPO" : "BotonPrueba",
+}
+,
+{
+"ID_COMPONENTE_4" : "-campoasfsd",
+"INDICE" : "4",
+"FORMULARIO" : "$form1",
+"CLASE" : "CAMPO_TEXTO",
+"TEXTO_VISIBLE" : "Agregueeferido",
+"REQUERIDO" : "NO",
+"ALINEACION" : "IZQUIERDA",
+"NOMBRE_CAMPO" : "CampoTexto",
+}
+,
+{
+"ID_COMPONENTE_5" : "-campoasDfsd",
+"INDICE" : "5",
+"FORMULARIO" : "$form1",
+"CLASE" : "AREA_TEXTO",
+"TEXTO_VISIBLE" : "Agregu eeferid   o: ",
+"REQUERIDO" : "NO",
+"ALINEACION" : "CENTRO",
+"FILAS" : "10",
+"COLUMNAS" : "30",
+"NOMBRE_CAMPO" : "CampoDTexto",
+}
+,
+{
+"ID_COMPONENTE_6" : "-campouasDfsd",
+"INDICE" : "6",
+"FORMULARIO" : "$form1",
+"CLASE" : "BOTON",
+"TEXTO_VISIBLE" : "Agregu eeferid   o: ",
+"REQUERIDO" : "NO",
+"ALINEACION" : "IZQUIERDA",
+"NOMBRE_CAMPO" : "CampiuoDTexto",
+}
+,
+{
+"ID_COMPONENTE_7" : "-campouaSADFsDfsd",
+"INDICE" : "7",
+"FORMULARIO" : "$form1",
+"CLASE" : "FICHERO",
+"TEXTO_VISIBLE" : "Agregu eeferiSADF o:",
+"REQUERIDO" : "NO",
+"ALINEACION" : "CENTRO",
+"NOMBRE_CAMPO" : "CampiuoASDFDTexto",
+}
+)
+
+}
+,
+{
+"ID_FORMULARIO" : "$form3",
+"TITULO" : "Formulario para encuesta 3",
+"NOMBRE" : "formulario_encuesta_3",
+"TEMA" : "Dark",
+"USUARIO_CREACION" : "alcachofagg",
+"FECHA_CREACION" : "2021-3-26"
+}
+)

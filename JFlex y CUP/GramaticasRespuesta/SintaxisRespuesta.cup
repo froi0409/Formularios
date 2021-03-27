@@ -1,0 +1,76 @@
+package com.froi.editorcodigoindigo.gramaticas.respuestas;
+
+import java_cup.runtime.*;
+
+class ParserRespuestas;
+
+parser code {:
+
+
+:}
+
+//declaración de terminales
+terminal MENOR_QUE, MAYOR_QUE, EXCLAMACION, PUNTOS, CORCHETE_A, CORCHETE_C, LLAVE_A, LLAVE_C, COMA, ERROR_DETECTADO, DESCRIPCION, INSTRUCCION_EJECUTADA, INSTRUCCIONES, TIPO, DETALLES, INI_RESPUESTA, FIN_RESPUESTA, INI_RESPUESTAS, FIN_RESPUESTAS, ALLCHARACTERS, DESCRIPCION_ERROR;
+
+//Declaración de no terminales
+non terminal inicio, instruccion_respuestas, respuesta, tipo_respuesta;
+non terminal apertura_instruccion_principal1, apertura_instruccion_principal2, cierre_instruccion_principal;
+
+non terminal instruccion_error_detectado, instruccion_instruccion_ejecutada;
+non terminal accion_error_detectado, accion_instruccion_ejecutada;
+non terminal accion_error_detectado_p, accion_instruccion_ejecutada_p;
+non terminal opciones_error_detectado, opciones_instruccion_ejecutada;
+
+inicio ::=  MENOR_QUE EXCLAMACION INI_RESPUESTAS MAYOR_QUE instruccion_respuestas 
+            ;
+
+instruccion_respuestas ::=  respuesta  instruccion_respuestas
+                            | MENOR_QUE EXCLAMACION FIN_RESPUESTAS MAYOR_QUE
+                            ;
+
+respuesta ::=   MENOR_QUE EXCLAMACION INI_RESPUESTA tipo_respuesta MENOR_QUE EXCLAMACION FIN_RESPUESTA MAYOR_QUE
+                ;
+
+tipo_respuesta ::=  ERROR_DETECTADO             apertura_instruccion_principal1 DESCRIPCION_ERROR apertura_instruccion_principal2 instruccion_error_detectado cierre_instruccion_principal
+                    | INSTRUCCIONES             apertura_instruccion_principal1 INSTRUCCION_EJECUTADA apertura_instruccion_principal2 instruccion_instruccion_ejecutada cierre_instruccion_principal
+                    ;
+
+apertura_instruccion_principal1 ::= MAYOR_QUE LLAVE_A
+                                    ;
+
+apertura_instruccion_principal2 ::= PUNTOS CORCHETE_A
+                                    ;
+
+cierre_instruccion_principal ::=    CORCHETE_C LLAVE_C
+                                    ;
+
+/* INSTRUCCIONES DE DETECCION DE ERRORES */
+instruccion_error_detectado ::= accion_error_detectado COMA instruccion_error_detectado
+                                | accion_error_detectado
+                                ;
+
+accion_error_detectado ::=      LLAVE_A accion_error_detectado_p LLAVE_C
+                                ;
+
+accion_error_detectado_p ::=    opciones_error_detectado COMA accion_error_detectado_p
+                                | opciones_error_detectado
+                                ;
+
+opciones_error_detectado ::=    DESCRIPCION PUNTOS ALLCHARACTERS
+                                ;
+
+/* INSTRUCCIONES DE INSTRUCCIONES EJECUTADAS */
+instruccion_instruccion_ejecutada ::=   accion_instruccion_ejecutada COMA instruccion_instruccion_ejecutada
+                                        | accion_instruccion_ejecutada
+                                        ;
+
+accion_instruccion_ejecutada ::=        LLAVE_A accion_instruccion_ejecutada_p LLAVE_C
+                                        ;
+
+accion_instruccion_ejecutada_p ::=      opciones_instruccion_ejecutada COMA accion_instruccion_ejecutada_p 
+                                        | opciones_instruccion_ejecutada
+                                        ;
+
+opciones_instruccion_ejecutada ::=      TIPO PUNTOS ALLCHARACTERS
+                                        DETALLES PUNTOS ALLCHARACTERS
+                                        ;

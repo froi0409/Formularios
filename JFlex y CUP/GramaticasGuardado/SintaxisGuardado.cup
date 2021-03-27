@@ -1,0 +1,190 @@
+package com.froi.formulariosweb.analizadores.db;
+
+import com.froi.formulariosweb.entidadesfundamentales.*;
+import java.util.ArrayList;
+import java_cup.runtime.*;
+
+class ParserGuardado;
+
+parser code {:
+
+    private ArrayList<Usuario> listaUsuarios;
+    private ArrayList<Formulario> listaFormularios;
+    private ArrayList<Componente> listaComponentes;
+    private String p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11;
+    private String c1, c2, c3, c4, c5, c6;
+    
+    
+    public ParserGuardado(GuardadoLexer lexer, ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios) {
+        super(lexer);
+        this.listaUsuarios = listaUsuarios;
+        this.listaFormularios = listaFormularios;
+        this.listaComponentes = new ArrayList<>();
+    }
+    public void report_error(String message, Object info) {
+        System.out.println("reporterror");
+    }
+    public void report_fatal_error(String message, Object info) {
+        System.out.println("reportfatal " + info);
+    }
+    @Override
+    public void syntax_error(Symbol s) {
+        System.out.println("linea: " + s.left + "   columna: " + s.right);
+    }
+    protected int error_sync_size() {
+        return 1;
+    }
+
+:}
+
+//Declaración de Terminales
+terminal LLAVE_A, LLAVE_C, DB_FORMULARIOS, DB_USUARIOS, USUARIO, PASSWORD, ID_FORMULARIO, TITULO, NOMBRE, TEMA, USUARIO_CREACION, FECHA_CREACION, ESTRUCTURA, DATOS_RECOPILADOS, ID, NOMBRE_CAMPO, FORMULARIO, CLASE, INDICE, PARENT_A, PARENT_C, COMA, PUNTOS;
+terminal TEXTO_VISIBLE, ALINEACION, REQUERIDO, OPCIONES, FILAS, COLUMNAS, URL, CAMPO_TEXTO, AREA_TEXTO, CHECKBOX, RADIO, FICHERO, IMAGEN , COMBO, BOTON, SI, NO, CENTRO, IZQUIERDA, DERECHA, JUSTIFICAR, DARK, WHITE, NOMBRE_CAMPO_N, REGISTRO_N, ALLCHARACTERS, ID_COMPONENTE_N;
+
+//No Terminales
+non terminal inicio;
+
+//Intrucciones
+non terminal instruccion_formulariosdb, valores_formulariosdb, acciones_formulariosdb, opciones_formulariosdb, estructura_forms, datos_forms, instruccion_estructura_forms, opciones_estructura_forms, instruccion_datos_forms, opciones_datos_forms;
+non terminal instruccion_usuariosdb, valores_usuariosdb, valores_usuariosdb_p, estructura_forms_p, opciones_usuariosdb;
+
+start with inicio;
+
+inicio ::=      DB_FORMULARIOS PARENT_A instruccion_formulariosdb PARENT_C
+                | DB_USUARIOS PARENT_A instruccion_usuariosdb PARENT_C
+                | DB_USUARIOS PARENT_A error PARENT_C
+                ;
+
+instruccion_formulariosdb ::=       valores_formulariosdb COMA instruccion_formulariosdb
+                                    | valores_formulariosdb
+                                    ;
+
+valores_formulariosdb ::=           LLAVE_A acciones_formulariosdb LLAVE_C                  {:
+                                                                                                System.out.println("aún no pasa");
+                                                                                                for(Componente element: listaComponentes) {
+                                                                                                    System.out.println(element.getClase());
+                                                                                                }
+                                                                                                System.out.println("ya pasó");
+                                                                                                
+                                                                                                c1 = (c1.substring(1, c1.length()-1));
+                                                                                                c2 = (c2.substring(1, c2.length()-1));
+                                                                                                c3 = (c3.substring(1, c3.length()-1));
+                                                                                                c4 = (c4.substring(1, c4.length()-1));
+                                                                                                c5 = (c5.substring(1, c5.length()-1));
+                                                                                                c6 = (c6.substring(1, c6.length()-1));
+                                                                                                System.out.println(c1+c2+c3+c4+c5+c6);
+                                                                                                Formulario form = new Formulario(c1, c2, c3, c4, c5, c6);
+                                                                                                form.setListaComponentes((ArrayList<Componente>) listaComponentes.clone());
+                                                                                                listaFormularios.add(form);
+                                                                                                listaComponentes.clear();
+                                                                                                c1 = null; c2 = null; c3 = null; c4 = null; c5 = null; c6 = null;
+                                                                                             :}
+                                    ;
+
+acciones_formulariosdb ::=          opciones_formulariosdb COMA acciones_formulariosdb
+                                    | opciones_formulariosdb
+                                    ;
+
+opciones_formulariosdb ::=      ID_FORMULARIO PUNTOS ALLCHARACTERS:ent                      {: c1 = ent.toString(); :}
+                                | TITULO PUNTOS ALLCHARACTERS:ent                           {: c2 = ent.toString(); :}
+                                | NOMBRE PUNTOS ALLCHARACTERS:ent                           {: c3 = ent.toString(); :}
+                                | TEMA PUNTOS ALLCHARACTERS:ent                             {: c4 = ent.toString(); :}
+                                | USUARIO_CREACION PUNTOS ALLCHARACTERS:ent                 {: c5 = ent.toString(); :}
+                                | FECHA_CREACION PUNTOS ALLCHARACTERS:ent                   {: c6 = ent.toString(); :}
+                                | ESTRUCTURA PUNTOS PARENT_A estructura_forms_p PARENT_C
+                                | DATOS_RECOPILADOS PUNTOS PARENT_A datos_forms PARENT_C
+                                ;
+
+estructura_forms_p ::=  estructura_forms COMA estructura_forms_p
+                        | estructura_forms
+                        ;
+
+estructura_forms ::=    LLAVE_A instruccion_estructura_forms LLAVE_C    {:
+                                                                            p1 = (p1.substring(1, p1.length()-1));
+                                                                            p3 = (p3.substring(1, p3.length()-1));
+                                                                            p4 = (p4.substring(1, p4.length()-1));
+                                                                            p5 = (p5.substring(1, p5.length()-1));
+                                                                            System.out.println("Probando p1");
+                                                                            System.out.println(p1);
+                                                                            Componente compo = new Componente(p1, p3, p4, p5);
+                                                                            if(p2 != null) {
+                                                                                compo.setNombreCampo(p2.substring(1, p2.length()-1));
+                                                                            }
+                                                                            if(p6 != null) {
+                                                                                compo.setAlineacion(p6.substring(1, p6.length()-1));
+                                                                            }
+                                                                            if(p7 != null) {
+                                                                                compo.setRequerido(p7.substring(1, p7.length()-1));
+                                                                                }
+                                                                            if(p8 != null) {
+                                                                                compo.setOpciones(p8.substring(1, p8.length()-1));
+                                                                            }
+                                                                            if(p9 != null) {
+                                                                                compo.setFilas(Integer.parseInt(p9.substring(1, p9.length()-1)));
+                                                                            }
+                                                                            if(p10 != null) {
+                                                                                compo.setColumnas(Integer.parseInt(p10.substring(1, p10.length()-1)));
+                                                                            }
+                                                                            if(p11 != null) {
+                                                                                compo.setUrl(p11.substring(1, p11.length()-1));
+                                                                            }
+                                                                            listaComponentes.add(compo);
+                                                                            p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null;
+                                                                        :}
+                        | LLAVE_A error LLAVE_C
+                        ;
+
+instruccion_estructura_forms ::=    opciones_estructura_forms COMA instruccion_estructura_forms
+                                    | 
+                                    ;
+
+opciones_estructura_forms ::=       ID_COMPONENTE_N PUNTOS ALLCHARACTERS:ent    {: p1 = ent.toString(); :}
+                                    | NOMBRE_CAMPO PUNTOS ALLCHARACTERS:ent     {: p2 = ent.toString(); :}
+                                    | FORMULARIO PUNTOS ALLCHARACTERS:ent       {: p3 = ent.toString(); :}
+                                    | CLASE PUNTOS ALLCHARACTERS:ent            {: p4 = ent.toString(); :}
+                                    | TEXTO_VISIBLE PUNTOS ALLCHARACTERS:ent    {: p5 = ent.toString(); :}
+                                    | INDICE PUNTOS ALLCHARACTERS:ent           
+                                    | ALINEACION PUNTOS ALLCHARACTERS:ent       {: p6 = ent.toString(); :}
+                                    | REQUERIDO PUNTOS ALLCHARACTERS:ent        {: p7 = ent.toString(); :}
+                                    | OPCIONES PUNTOS ALLCHARACTERS:ent         {: p8 = ent.toString(); :}
+                                    | FILAS PUNTOS ALLCHARACTERS:ent            {: p9 = ent.toString(); :}
+                                    | COLUMNAS PUNTOS ALLCHARACTERS:ent         {: p10 = ent.toString(); :}
+                                    | URL PUNTOS ALLCHARACTERS:ent              {: p11 = ent.toString(); :}
+                                    ;
+
+datos_forms ::=     LLAVE_A instruccion_datos_forms LLAVE_C
+                    ;
+
+instruccion_datos_forms ::=     opciones_datos_forms COMA instruccion_datos_forms
+                                | opciones_datos_forms
+                                ;
+
+opciones_datos_forms ::=        NOMBRE_CAMPO_N PUNTOS ALLCHARACTERS
+                                | REGISTRO_N PUNTOS ALLCHARACTERS
+                                ;
+
+/* INSTRUCCION PARA GUARDAR USUARIOS */
+instruccion_usuariosdb ::=  valores_usuariosdb COMA instruccion_usuariosdb
+                            | valores_usuariosdb
+                            ;
+
+valores_usuariosdb ::=      LLAVE_A valores_usuariosdb_p LLAVE_C            {:
+                                                                                p1 = p1.substring(1, p1.length()-1);
+                                                                                p2 = p2.substring(1, p2.length()-1);
+                                                                                p3 = p3.substring(1, p3.length()-1);
+                                                                                Usuario user = new Usuario(p1, p2, p3);
+                                                                                listaUsuarios.add(user);
+                                                                                p1 = null; p2 = null; p3 = null;
+                                                                            :}
+                            | LLAVE_A error LLAVE_C
+                            ;
+
+valores_usuariosdb_p ::=    opciones_usuariosdb COMA valores_usuariosdb_p
+                            | opciones_usuariosdb
+                            ;
+
+opciones_usuariosdb ::=     USUARIO PUNTOS ALLCHARACTERS:para               {: p1 = para.toString(); :}
+                            | PASSWORD PUNTOS ALLCHARACTERS:para            {: p2 = para.toString(); :}
+                            | FECHA_CREACION PUNTOS ALLCHARACTERS:para      {: p3 = para.toString(); :}
+                            ;
+    
