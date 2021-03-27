@@ -71,6 +71,11 @@ public class AnalizadorEntrada {
                 codigo += "<!fin_respuestas>";
                 guardarUsuarios();
                 guardarFormularios();
+            } else {
+                System.out.println("\n\n\nERRORES: ");
+                for(Advertencia element: listaErrores) {
+                    System.out.println(element);
+                }
             }
             
         } catch (Exception e) {
@@ -142,7 +147,7 @@ public class AnalizadorEntrada {
     /**
      * Guarda a todos los ususarios encontrados
      */
-    private void guardarUsuarios() {
+    public void guardarUsuarios() {
         String codigo = "";
         int contador = 0;
         codigo += "db.usuarios (\n";
@@ -172,9 +177,9 @@ public class AnalizadorEntrada {
     /**
      * Guarda todos los formularios encontrados
      */
-    private void guardarFormularios() {
+    public void guardarFormularios() {
         String codigo = "";
-        int contador = 0;
+        int contador = 0, datosRecopilados = 0;
         codigo += "db.formularios (\n";
         for(Formulario element : listaFormularios) {
             if(contador > 0) {
@@ -214,12 +219,17 @@ public class AnalizadorEntrada {
                     if (elem.getNombreCampo() != null) {
                         codigo += "\"NOMBRE_CAMPO\" : \"" + elem.getNombreCampo() + "\",\n";
                     }
+                    int registros = 0;
+                    for(String dato : elem.getDatosRecopilados()) {
+                        registros++;
+                        codigo += "\"REGISTRO_" + registros + "\" : \"" + dato + "\",\n";
+                    }
                     codigo += "}\n";
                     indice++;
                 }
                 codigo += ")\n";
             }
-            if(element.getDatosRecopilados() != null) {
+            if(datosRecopilados > 0) {
                 
             }
             codigo += "\n}\n";

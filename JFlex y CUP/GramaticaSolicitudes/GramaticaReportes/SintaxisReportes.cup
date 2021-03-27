@@ -1,0 +1,62 @@
+import java_cup_runtime.*;
+
+class ParserReportes;
+
+parser code {:
+    public void report_error(String message, Object info) {
+        System.out.println("reporterror");
+    }
+    public void report_fatal_error(String message, Object info) {
+        System.out.println("reportfatal " + info);
+    }
+    @Override
+    public void syntax_error(Symbol s) {
+        System.out.println("linea: " + s.left + "   columna: " + s.right);
+    }
+    protected int error_sync_size() {
+        return 1;
+    }
+:}
+
+terminal SELECT, TO, FORM, FLECHA, WHERE, AND, OR, NOT, MENOR_QUE, MAYOR_QUE, IGUAL, MENOR_IGUAL, MAYOR_IGUAL, DIFERENTE, CORCHETE_A, CORCHETE_C, IDENTIFICADOR, ALLCHARACTERSNOSPACE, COMA, NUMERO_CONSULTA, CADENA_CONSULTA;
+
+non terminal inicio, campos_posibles, campos_posibles_p, condicion_principal, condicion_interna, condicion_secundaria, operador, valor_condicion;
+start with inicio;
+
+inicio ::=  SELECT TO FORM FLECHA ALLCHARACTERSNOSPACE CORCHETE_A  campos_posibles CORCHETE_C condicion_principal
+            | SELECT TO FORM FLECHA ALLCHARACTERSNOSPACE CORCHETE_A error CORCHETE_C condicion_principal
+            ;
+
+
+campos_posibles ::=     campos_posibles_p
+                        |
+                        ;
+
+campos_posibles_p ::=   ALLCHARACTERSNOSPACE COMA campos_posibles_p
+                        | ALLCHARACTERSNOSPACE
+                        ;
+
+condicion_principal ::= WHERE CORCHETE_A condicion_interna CORCHETE_C
+                        |
+                        ;
+
+condicion_interna ::=   NOT ALLCHARACTERSNOSPACE operador valor_condicion condicion_secundaria
+                        | ALLCHARACTERSNOSPACE operador valor_condicion condicion_secundaria
+                        ;
+
+condicion_secundaria ::=    AND condicion_interna
+                            | OR condicion_interna
+                            |
+                            ;
+
+operador ::=    MAYOR_QUE
+                | MENOR_QUE
+                | MAYOR_IGUAL
+                | MENOR_IGUAL
+                | DIFERENTE
+                | IGUAL
+                ;
+
+valor_condicion ::=     NUMERO_CONSULTA
+                        | CADENA_CONSULTA
+                        ;

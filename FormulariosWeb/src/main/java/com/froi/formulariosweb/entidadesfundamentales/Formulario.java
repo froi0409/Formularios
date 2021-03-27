@@ -19,7 +19,6 @@ public class Formulario {
     private String usuarioCreacion;
     private String fechaCreacion;
     private ArrayList<Componente> listaComponentes;
-    private DatosRecopilados datosRecopilados;
 
     public Formulario(String identificador, String titulo, String nombre, String tema, String usuarioCreacion, String fechaCreacion) {
         this.identificador = identificador;
@@ -77,14 +76,6 @@ public class Formulario {
 
     public void setFechaCreacion(String fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
-    }
-
-    public DatosRecopilados getDatosRecopilados() {
-        return datosRecopilados;
-    }
-
-    public void setDatosRecopilados(DatosRecopilados datosRecopilados) {
-        this.datosRecopilados = datosRecopilados;
     }
 
     public ArrayList<Componente> getListaComponentes() {

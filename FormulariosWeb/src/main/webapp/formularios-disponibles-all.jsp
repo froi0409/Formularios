@@ -1,39 +1,45 @@
 <%-- 
-    Document   : formularios-disponibles
-    Created on : 25/03/2021, 18:27:13
+    Document   : formularios-disponibles-all
+    Created on : 26/03/2021, 21:08:20
     Author     : froi-pc
 --%>
 
 <%@page import="com.froi.formulariosweb.entidadesfundamentales.Formulario"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.froi.formulariosweb.analizadores.codigoindigo.AnalizadorEntrada"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@include file = "links.html"%>
-        <title>Formularios Diponibles</title>
+        <title>JSP Page</title>
     </head>
     <body>
-        <%@include file = "cabecera.jsp" %>
+        <div class="row fondoInicio align-items-center">
 
-        <c:choose>
-            <c:when test = "${mensaje != null}">
-                <div class="alert alert-secondary container mt-5" align="center" role="alert">
-                    ${mensaje}
-                </div>
-            </c:when>
-        </c:choose>
+        <div class="col-3" align="left">
+        </div>
+        <div class="col-6" align="center">
+            <h2>FORMULARIOS WEB</h2>
+        </div>
+        <div class="col-3" align="right">
+            <form action="inicio-sesion.jsp" method="GET" class="form">
+                <button type="submit" class="btn btn-outline-light form">Volver a Inicio</button>
+            </form>
+        </div>
+
+    </div>
         
         <div align="center" style="padding-top: 100px;">
-            <h1>Formularios Propios:</h1><br>
+            <h1>Formularios Disponibles:</h1><br>
         </div>
         <div class="container" align="center" style="margin-top: 100px; margin-bottom: 50px;">
             <table class="table table-bordered">
                 <thead>
                     <tr class="table-secondary">
+                        <th scope="col">Propietario</th>
                         <th scope="col">Id</th>
                         <th scope="col">Titulo</th>
                         <th scope="col">Seleccionar</th>
@@ -44,23 +50,19 @@
                     AnalizadorEntrada analizador = new AnalizadorEntrada(null);
                     analizador.analisisDatosExistentes();
                     ArrayList<Formulario> listaFormularios = analizador.getListaFormularios();
-                    String usuario = (String) request.getSession().getAttribute("USER");
                     out.println("<tr>");
                     for(Formulario element: listaFormularios){
-                        if(element.getUsuarioCreacion().equals(usuario)) {
-                            out.println("<td>" + element.getIdentificador() + "</td>");
-                            out.println("<td>" + element.getTitulo() + "</td>");
-                            out.println("<td> <form method=\"GET\" action=\"RenderizarFormulario\" target=\"_blank\"><button type = \"submit\" class=\"btn btn-info\" value=\"" + element.getIdentificador() + "\" name=\"identificador\">Visualizar</button></td></form>");
-                        }
-                    out.println("</tr>");
+                        out.println("<td>" + element.getUsuarioCreacion() + "</td>");
+                        out.println("<td>" + element.getIdentificador() + "</td>");
+                        out.println("<td>" + element.getTitulo() + "</td>");
+                        out.println("<td> <form method=\"GET\" action=\"RenderizarFormulario\" target=\"_blank\"><button type = \"submit\" class=\"btn btn-info\" value=\"" + element.getIdentificador() + "\" name=\"identificador\">Visualizar</button></td></form>");
+                        out.println("</tr>");
                     }
                     %>
                 </tbody>
             </table>
 
         </div>
-        
-        
         <%@include file = "scripts.html"%>
     </body>
 </html>

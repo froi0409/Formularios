@@ -38,9 +38,9 @@ public class ParserGuardado extends java_cup.runtime.lr_parser {
     "\000\002\004\005\000\002\005\005\000\002\005\003\000" +
     "\002\006\005\000\002\006\005\000\002\006\005\000\002" +
     "\006\005\000\002\006\005\000\002\006\005\000\002\006" +
-    "\007\000\002\006\007\000\002\020\005\000\002\020\003" +
-    "\000\002\007\005\000\002\007\005\000\002\011\005\000" +
-    "\002\011\002\000\002\012\005\000\002\012\005\000\002" +
+    "\007\000\002\020\005\000\002\020\003\000\002\007\005" +
+    "\000\002\007\005\000\002\011\005\000\002\011\002\000" +
+    "\002\012\005\000\002\012\005\000\002\012\005\000\002" +
     "\012\005\000\002\012\005\000\002\012\005\000\002\012" +
     "\005\000\002\012\005\000\002\012\005\000\002\012\005" +
     "\000\002\012\005\000\002\012\005\000\002\012\005\000" +
@@ -56,7 +56,7 @@ public class ParserGuardado extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\201\000\006\006\004\007\005\001\002\000\004\027" +
+    "\000\163\000\006\006\004\007\005\001\002\000\004\027" +
     "\041\001\002\000\004\027\010\001\002\000\004\002\007" +
     "\001\002\000\004\002\001\001\002\000\006\003\011\004" +
     "\013\001\002\000\004\030\040\001\002\000\006\030\uffd8" +
@@ -72,61 +72,54 @@ public class ParserGuardado extends java_cup.runtime.lr_parser {
     "\002\000\004\064\034\001\002\000\006\005\uffd3\031\uffd3" +
     "\001\002\000\006\030\uffd6\031\uffd6\001\002\000\004\004" +
     "\013\001\002\000\004\030\uffd9\001\002\000\004\002\ufffe" +
-    "\001\002\000\004\004\043\001\002\000\004\030\203\001" +
-    "\002\000\022\012\050\013\052\014\057\015\054\016\047" +
-    "\017\056\020\053\021\051\001\002\000\006\030\ufffc\031" +
-    "\045\001\002\000\004\004\043\001\002\000\004\030\ufffd" +
-    "\001\002\000\004\032\201\001\002\000\004\032\177\001" +
-    "\002\000\004\032\157\001\002\000\004\032\155\001\002" +
-    "\000\004\032\072\001\002\000\004\032\070\001\002\000" +
-    "\004\005\067\001\002\000\004\032\065\001\002\000\004" +
-    "\032\063\001\002\000\006\005\ufff9\031\061\001\002\000" +
-    "\022\012\050\013\052\014\057\015\054\016\047\017\056" +
-    "\020\053\021\051\001\002\000\004\005\ufffa\001\002\000" +
-    "\004\064\064\001\002\000\006\005\ufff6\031\ufff6\001\002" +
-    "\000\004\064\066\001\002\000\006\005\ufff3\031\ufff3\001" +
-    "\002\000\006\030\ufffb\031\ufffb\001\002\000\004\064\071" +
-    "\001\002\000\006\005\ufff5\031\ufff5\001\002\000\004\027" +
-    "\073\001\002\000\004\004\076\001\002\000\004\030\154" +
-    "\001\002\000\006\030\uffef\031\152\001\002\000\036\003" +
-    "\112\005\uffeb\023\077\024\103\025\110\026\106\033\107" +
-    "\034\113\035\104\036\101\037\100\040\105\041\111\065" +
-    "\102\001\002\000\004\032\150\001\002\000\004\032\146" +
-    "\001\002\000\004\032\144\001\002\000\004\032\142\001" +
-    "\002\000\004\032\140\001\002\000\004\032\136\001\002" +
-    "\000\004\032\134\001\002\000\004\032\132\001\002\000" +
-    "\004\032\130\001\002\000\004\032\126\001\002\000\004" +
-    "\032\124\001\002\000\004\005\123\001\002\000\004\032" +
-    "\121\001\002\000\004\005\120\001\002\000\004\031\116" +
-    "\001\002\000\034\005\uffeb\023\077\024\103\025\110\026" +
-    "\106\033\107\034\113\035\104\036\101\037\100\040\105" +
-    "\041\111\065\102\001\002\000\004\005\uffec\001\002\000" +
-    "\006\030\uffee\031\uffee\001\002\000\004\064\122\001\002" +
-    "\000\004\031\uffe4\001\002\000\006\030\uffed\031\uffed\001" +
-    "\002\000\004\064\125\001\002\000\004\031\uffdf\001\002" +
-    "\000\004\064\127\001\002\000\004\031\uffe7\001\002\000" +
-    "\004\064\131\001\002\000\004\031\uffe6\001\002\000\004" +
-    "\064\133\001\002\000\004\031\uffe5\001\002\000\004\064" +
-    "\135\001\002\000\004\031\uffe0\001\002\000\004\064\137" +
-    "\001\002\000\004\031\uffe3\001\002\000\004\064\141\001" +
-    "\002\000\004\031\uffe8\001\002\000\004\064\143\001\002" +
-    "\000\004\031\uffea\001\002\000\004\064\145\001\002\000" +
-    "\004\031\uffe2\001\002\000\004\064\147\001\002\000\004" +
-    "\031\uffe1\001\002\000\004\064\151\001\002\000\004\031" +
-    "\uffe9\001\002\000\004\004\076\001\002\000\004\030\ufff0" +
-    "\001\002\000\006\005\ufff2\031\ufff2\001\002\000\004\064" +
-    "\156\001\002\000\006\005\ufff7\031\ufff7\001\002\000\004" +
-    "\027\160\001\002\000\004\004\162\001\002\000\004\030" +
-    "\176\001\002\000\006\062\164\063\166\001\002\000\004" +
-    "\005\175\001\002\000\004\032\173\001\002\000\006\005" +
-    "\uffdc\031\171\001\002\000\004\032\167\001\002\000\004" +
-    "\064\170\001\002\000\006\005\uffda\031\uffda\001\002\000" +
-    "\006\062\164\063\166\001\002\000\004\005\uffdd\001\002" +
-    "\000\004\064\174\001\002\000\006\005\uffdb\031\uffdb\001" +
-    "\002\000\004\030\uffde\001\002\000\006\005\ufff1\031\ufff1" +
-    "\001\002\000\004\064\200\001\002\000\006\005\ufff8\031" +
-    "\ufff8\001\002\000\004\064\202\001\002\000\006\005\ufff4" +
-    "\031\ufff4\001\002\000\004\002\000\001\002" });
+    "\001\002\000\004\004\043\001\002\000\004\030\165\001" +
+    "\002\000\020\012\050\013\051\014\056\015\053\016\047" +
+    "\017\055\020\052\001\002\000\006\030\ufffc\031\045\001" +
+    "\002\000\004\004\043\001\002\000\004\030\ufffd\001\002" +
+    "\000\004\032\163\001\002\000\004\032\161\001\002\000" +
+    "\004\032\157\001\002\000\004\032\071\001\002\000\004" +
+    "\032\067\001\002\000\004\005\066\001\002\000\004\032" +
+    "\064\001\002\000\004\032\062\001\002\000\006\005\ufff9" +
+    "\031\060\001\002\000\020\012\050\013\051\014\056\015" +
+    "\053\016\047\017\055\020\052\001\002\000\004\005\ufffa" +
+    "\001\002\000\004\064\063\001\002\000\006\005\ufff6\031" +
+    "\ufff6\001\002\000\004\064\065\001\002\000\006\005\ufff3" +
+    "\031\ufff3\001\002\000\006\030\ufffb\031\ufffb\001\002\000" +
+    "\004\064\070\001\002\000\006\005\ufff5\031\ufff5\001\002" +
+    "\000\004\027\072\001\002\000\004\004\075\001\002\000" +
+    "\004\030\156\001\002\000\006\030\ufff0\031\154\001\002" +
+    "\000\040\003\111\005\uffec\023\076\024\103\025\107\026" +
+    "\106\033\105\034\112\035\102\036\100\037\077\040\104" +
+    "\041\110\063\114\065\101\001\002\000\004\032\152\001" +
+    "\002\000\004\032\150\001\002\000\004\032\146\001\002" +
+    "\000\004\032\144\001\002\000\004\032\142\001\002\000" +
+    "\004\032\140\001\002\000\004\032\136\001\002\000\004" +
+    "\032\134\001\002\000\004\032\132\001\002\000\004\032" +
+    "\130\001\002\000\004\032\126\001\002\000\004\005\125" +
+    "\001\002\000\004\032\123\001\002\000\004\005\122\001" +
+    "\002\000\004\032\120\001\002\000\004\031\116\001\002" +
+    "\000\036\005\uffec\023\076\024\103\025\107\026\106\033" +
+    "\105\034\112\035\102\036\100\037\077\040\104\041\110" +
+    "\063\114\065\101\001\002\000\004\005\uffed\001\002\000" +
+    "\004\064\121\001\002\000\004\031\uffdf\001\002\000\006" +
+    "\030\uffef\031\uffef\001\002\000\004\064\124\001\002\000" +
+    "\004\031\uffe5\001\002\000\006\030\uffee\031\uffee\001\002" +
+    "\000\004\064\127\001\002\000\004\031\uffe0\001\002\000" +
+    "\004\064\131\001\002\000\004\031\uffe8\001\002\000\004" +
+    "\064\133\001\002\000\004\031\uffe6\001\002\000\004\064" +
+    "\135\001\002\000\004\031\uffe7\001\002\000\004\064\137" +
+    "\001\002\000\004\031\uffe1\001\002\000\004\064\141\001" +
+    "\002\000\004\031\uffe9\001\002\000\004\064\143\001\002" +
+    "\000\004\031\uffe4\001\002\000\004\064\145\001\002\000" +
+    "\004\031\uffeb\001\002\000\004\064\147\001\002\000\004" +
+    "\031\uffe3\001\002\000\004\064\151\001\002\000\004\031" +
+    "\uffe2\001\002\000\004\064\153\001\002\000\004\031\uffea" +
+    "\001\002\000\004\004\075\001\002\000\004\030\ufff1\001" +
+    "\002\000\006\005\ufff2\031\ufff2\001\002\000\004\064\160" +
+    "\001\002\000\006\005\ufff7\031\ufff7\001\002\000\004\064" +
+    "\162\001\002\000\006\005\ufff8\031\ufff8\001\002\000\004" +
+    "\064\164\001\002\000\006\005\ufff4\031\ufff4\001\002\000" +
+    "\004\002\000\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -134,7 +127,7 @@ public class ParserGuardado extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\201\000\004\002\005\001\001\000\002\001\001\000" +
+    "\000\163\000\004\002\005\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\006" +
     "\015\013\016\011\001\001\000\002\001\001\000\002\001" +
     "\001\000\006\017\022\021\020\001\001\000\002\001\001" +
@@ -145,17 +138,17 @@ public class ParserGuardado extends java_cup.runtime.lr_parser {
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\006\015\036\016\011" +
     "\001\001\000\002\001\001\000\002\001\001\000\006\003" +
-    "\041\004\043\001\001\000\002\001\001\000\006\005\054" +
-    "\006\057\001\001\000\002\001\001\000\006\003\045\004" +
+    "\041\004\043\001\001\000\002\001\001\000\006\005\053" +
+    "\006\056\001\001\000\002\001\001\000\006\003\045\004" +
     "\043\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\006\005\061\006" +
-    "\057\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\000\002\001\001\000\006\005\060\006\056\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\006\007\074\020\073\001\001\000\002\001\001\000" +
-    "\002\001\001\000\006\011\113\012\114\001\001\000\002" +
+    "\001\000\002\001\001\000\002\001\001\000\006\007\073" +
+    "\020\072\001\001\000\002\001\001\000\002\001\001\000" +
+    "\006\011\112\012\114\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
@@ -169,16 +162,11 @@ public class ParserGuardado extends java_cup.runtime.lr_parser {
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\006\007\074\020\152\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\010\160\001\001" +
-    "\000\002\001\001\000\006\013\162\014\164\001\001\000" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\006\007\073\020\154\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\006\013" +
-    "\171\014\164\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001" });
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -223,6 +211,7 @@ public class ParserGuardado extends java_cup.runtime.lr_parser {
     private ArrayList<Componente> listaComponentes;
     private String p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11;
     private String c1, c2, c3, c4, c5, c6;
+    private ArrayList<String> registros;
     
     
     public ParserGuardado(GuardadoLexer lexer, ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios) {
@@ -230,6 +219,7 @@ public class ParserGuardado extends java_cup.runtime.lr_parser {
         this.listaUsuarios = listaUsuarios;
         this.listaFormularios = listaFormularios;
         this.listaComponentes = new ArrayList<>();
+        this.registros = new ArrayList<>();
     }
     public void report_error(String message, Object info) {
         System.out.println("reporterror");
@@ -458,16 +448,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 16: // opciones_formulariosdb ::= DATOS_RECOPILADOS PUNTOS PARENT_A datos_forms PARENT_C 
-            {
-              Object RESULT =null;
-
-              CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_formulariosdb",4, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-4)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
-            }
-          return CUP$ParserGuardado$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 17: // estructura_forms_p ::= estructura_forms COMA estructura_forms_p 
+          case 16: // estructura_forms_p ::= estructura_forms COMA estructura_forms_p 
             {
               Object RESULT =null;
 
@@ -476,7 +457,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 18: // estructura_forms_p ::= estructura_forms 
+          case 17: // estructura_forms_p ::= estructura_forms 
             {
               Object RESULT =null;
 
@@ -485,7 +466,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 19: // estructura_forms ::= LLAVE_A instruccion_estructura_forms LLAVE_C 
+          case 18: // estructura_forms ::= LLAVE_A instruccion_estructura_forms LLAVE_C 
             {
               Object RESULT =null;
 		
@@ -517,15 +498,19 @@ class CUP$ParserGuardado$actions {
                                                                             if(p11 != null) {
                                                                                 compo.setUrl(p11.substring(1, p11.length()-1));
                                                                             }
+                                                                            for(String element: registros) {
+                                                                                compo.getDatosRecopilados().add(element);
+                                                                            }
                                                                             listaComponentes.add(compo);
                                                                             p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null;
+                                                                            registros.clear();
                                                                         
               CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("estructura_forms",5, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
             }
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 20: // estructura_forms ::= LLAVE_A error LLAVE_C 
+          case 19: // estructura_forms ::= LLAVE_A error LLAVE_C 
             {
               Object RESULT =null;
 
@@ -534,7 +519,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 21: // instruccion_estructura_forms ::= opciones_estructura_forms COMA instruccion_estructura_forms 
+          case 20: // instruccion_estructura_forms ::= opciones_estructura_forms COMA instruccion_estructura_forms 
             {
               Object RESULT =null;
 
@@ -543,7 +528,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 22: // instruccion_estructura_forms ::= 
+          case 21: // instruccion_estructura_forms ::= 
             {
               Object RESULT =null;
 
@@ -552,7 +537,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 23: // opciones_estructura_forms ::= ID_COMPONENTE_N PUNTOS ALLCHARACTERS 
+          case 22: // opciones_estructura_forms ::= ID_COMPONENTE_N PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
@@ -564,7 +549,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 24: // opciones_estructura_forms ::= NOMBRE_CAMPO PUNTOS ALLCHARACTERS 
+          case 23: // opciones_estructura_forms ::= NOMBRE_CAMPO PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
@@ -576,7 +561,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 25: // opciones_estructura_forms ::= FORMULARIO PUNTOS ALLCHARACTERS 
+          case 24: // opciones_estructura_forms ::= FORMULARIO PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
@@ -588,7 +573,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 26: // opciones_estructura_forms ::= CLASE PUNTOS ALLCHARACTERS 
+          case 25: // opciones_estructura_forms ::= CLASE PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
@@ -600,7 +585,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 27: // opciones_estructura_forms ::= TEXTO_VISIBLE PUNTOS ALLCHARACTERS 
+          case 26: // opciones_estructura_forms ::= TEXTO_VISIBLE PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
@@ -612,7 +597,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 28: // opciones_estructura_forms ::= INDICE PUNTOS ALLCHARACTERS 
+          case 27: // opciones_estructura_forms ::= INDICE PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
@@ -624,7 +609,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 29: // opciones_estructura_forms ::= ALINEACION PUNTOS ALLCHARACTERS 
+          case 28: // opciones_estructura_forms ::= ALINEACION PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
@@ -636,7 +621,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 30: // opciones_estructura_forms ::= REQUERIDO PUNTOS ALLCHARACTERS 
+          case 29: // opciones_estructura_forms ::= REQUERIDO PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
@@ -648,7 +633,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 31: // opciones_estructura_forms ::= OPCIONES PUNTOS ALLCHARACTERS 
+          case 30: // opciones_estructura_forms ::= OPCIONES PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
@@ -660,7 +645,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 32: // opciones_estructura_forms ::= FILAS PUNTOS ALLCHARACTERS 
+          case 31: // opciones_estructura_forms ::= FILAS PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
@@ -672,7 +657,7 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 33: // opciones_estructura_forms ::= COLUMNAS PUNTOS ALLCHARACTERS 
+          case 32: // opciones_estructura_forms ::= COLUMNAS PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
@@ -684,13 +669,25 @@ class CUP$ParserGuardado$actions {
           return CUP$ParserGuardado$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 34: // opciones_estructura_forms ::= URL PUNTOS ALLCHARACTERS 
+          case 33: // opciones_estructura_forms ::= URL PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
 		 p11 = ent.toString(); 
+              CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_estructura_forms",8, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
+            }
+          return CUP$ParserGuardado$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 34: // opciones_estructura_forms ::= REGISTRO_N PUNTOS ALLCHARACTERS 
+            {
+              Object RESULT =null;
+		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
+		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
+		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
+		 String dato = ent.toString(); registros.add(dato.substring(1, dato.length()-1)); 
               CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_estructura_forms",8, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
             }
           return CUP$ParserGuardado$result;

@@ -1,3 +1,5 @@
+
+
 package com.froi.formulariosweb.analizadores.codigoindigo;
 
 import com.froi.formulariosweb.entidades.*;
@@ -758,8 +760,8 @@ consulta_datos ::=                  SELECT TO FROM FLECHA IDENTIFCONSULTA CORCHE
                                     | SELECT TO FROM FLECHA IDENTIFCONSULTA CORCHETE_A campos_posibles error condicion_principal            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un símbolo ']'"); :}
                                     ;
 
-campos_posibles ::=                 CAMPO COMA campos_posibles
-                                    | CAMPO
+campos_posibles ::=                 CAMPOS COMA campos_posibles
+                                    | CAMPOS
                                     |
                                     ;
 
@@ -769,7 +771,7 @@ condicion_principal ::=             WHERE CORCHETE_A condicion_interna
                                     | WHERE CORCHETE_A error                {: listaErrores.get(punteroErrores).setDescripcion("Hubo problemas al revisar la condición de la consulta, revise los parametros"); :}
                                     ;
 
-condicion_interna ::=               CAMPO operador valor_condicion condicion_secundaria
+condicion_interna ::=               CAMPOS operador valor_condicion condicion_secundaria
                                     /*| error operador valor_condicion condicion_secundaria
                                     | CAMPO error valor_condicion condicion_secundaria
                                     | CAMPO operador error condicion_secundaria

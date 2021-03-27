@@ -23,6 +23,10 @@
             <h2>FORMULARIOS WEB</h2>
         </div>
         <div class="col-3" align="right">
+            &nbsp;&nbsp;
+            <form action="formularios-disponibles-all.jsp" method="GET" class="form">
+                <button type="submit" class="btn btn-outline-light form">Ver Todos Los Formularios</button>
+            </form>
         </div>
 
     </div>
