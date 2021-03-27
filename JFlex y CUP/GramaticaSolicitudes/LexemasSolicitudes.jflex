@@ -48,7 +48,7 @@ ALLCHARACTERSNOSPACE = [\"]  [^' ' "\"" "|"]+ [\"]
 NOCOMILLAS =([^\"])*
 OPTIONS = [\"] ([a-zA-Z0-9] | {Ignore})+ ("|" ([a-zA-Z0-9] | {Ignore}})+)+ [\"]
 
-CONSULTA = [\"]{WS}* "CONSULTA"{WS}* "-"{WS}* [0-9]+{WS}*  [\"] {Ignore}* ":" {Ignore}* [\"]
+CONSULTA = [\"]{WS}* "CONSULTA"{WS}* "-"{WS}* [0-9]+{WS}*  [\"]
 IDENTIFCONSULTA = ("$" | "_" | "-") ( [a-zA-Z] | [0-9] | "$" | "_" | "-")*
 CAMPOS = [\[]  ([^"\"" "|" "[" "]"] | {WS})* [\]]
 CADENACONSULTA = ("\’" | "\'") ([^ "\"" "|"] | [ \t\f])* ("\’" | "\'")

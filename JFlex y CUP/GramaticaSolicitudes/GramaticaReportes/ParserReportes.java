@@ -4,6 +4,7 @@
 //----------------------------------------------------
 
 import java_cup_runtime.*;
+import java.util.ArrayList;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -29,13 +30,14 @@ public class ParserReportes extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\026\000\002\002\004\000\002\002\013\000\002\002" +
+    "\000\030\000\002\002\004\000\002\002\013\000\002\002" +
     "\013\000\002\003\003\000\002\003\002\000\002\004\005" +
     "\000\002\004\003\000\002\005\006\000\002\005\002\000" +
-    "\002\006\007\000\002\006\006\000\002\007\004\000\002" +
-    "\007\004\000\002\007\002\000\002\010\003\000\002\010" +
-    "\003\000\002\010\003\000\002\010\003\000\002\010\003" +
-    "\000\002\010\003\000\002\011\003\000\002\011\003" });
+    "\002\006\007\000\002\006\006\000\002\007\007\000\002" +
+    "\007\007\000\002\007\010\000\002\007\010\000\002\007" +
+    "\002\000\002\010\003\000\002\010\003\000\002\010\003" +
+    "\000\002\010\003\000\002\010\003\000\002\010\003\000" +
+    "\002\011\003\000\002\011\003" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -43,32 +45,45 @@ public class ParserReportes extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\054\000\004\004\005\001\002\000\004\002\056\001" +
+    "\000\074\000\004\004\005\001\002\000\004\002\076\001" +
     "\002\000\004\005\006\001\002\000\004\006\007\001\002" +
     "\000\004\007\010\001\002\000\004\025\011\001\002\000" +
     "\004\022\012\001\002\000\010\003\014\023\ufffd\025\013" +
-    "\001\002\000\006\023\ufffb\026\054\001\002\000\004\023" +
-    "\052\001\002\000\004\023\017\001\002\000\004\023\ufffe" +
+    "\001\002\000\006\023\ufffb\026\074\001\002\000\004\023" +
+    "\072\001\002\000\004\023\017\001\002\000\004\023\ufffe" +
     "\001\002\000\006\002\ufff9\010\021\001\002\000\004\002" +
     "\000\001\002\000\004\022\022\001\002\000\006\013\024" +
     "\025\023\001\002\000\016\014\032\015\031\016\033\017" +
     "\035\020\036\021\034\001\002\000\004\025\027\001\002" +
     "\000\004\023\026\001\002\000\004\002\ufffa\001\002\000" +
     "\016\014\032\015\031\016\033\017\035\020\036\021\034" +
-    "\001\002\000\006\027\041\030\040\001\002\000\006\027" +
-    "\ufff3\030\ufff3\001\002\000\006\027\ufff2\030\ufff2\001\002" +
-    "\000\006\027\uffee\030\uffee\001\002\000\006\027\uffef\030" +
-    "\uffef\001\002\000\006\027\ufff0\030\ufff0\001\002\000\006" +
-    "\027\ufff1\030\ufff1\001\002\000\010\011\042\012\044\023" +
-    "\ufff4\001\002\000\010\011\uffec\012\uffec\023\uffec\001\002" +
-    "\000\010\011\uffed\012\uffed\023\uffed\001\002\000\006\013" +
-    "\024\025\023\001\002\000\004\023\ufff8\001\002\000\006" +
-    "\013\024\025\023\001\002\000\004\023\ufff5\001\002\000" +
-    "\004\023\ufff6\001\002\000\006\027\041\030\040\001\002" +
-    "\000\010\011\042\012\044\023\ufff4\001\002\000\004\023" +
-    "\ufff7\001\002\000\006\002\ufff9\010\021\001\002\000\004" +
-    "\002\uffff\001\002\000\004\025\013\001\002\000\004\023" +
-    "\ufffc\001\002\000\004\002\001\001\002" });
+    "\001\002\000\006\027\041\030\037\001\002\000\006\027" +
+    "\ufff1\030\ufff1\001\002\000\006\027\ufff0\030\ufff0\001\002" +
+    "\000\006\027\uffec\030\uffec\001\002\000\006\027\uffed\030" +
+    "\uffed\001\002\000\006\027\uffee\030\uffee\001\002\000\006" +
+    "\027\uffef\030\uffef\001\002\000\010\011\uffea\012\uffea\023" +
+    "\uffea\001\002\000\010\011\042\012\044\023\ufff2\001\002" +
+    "\000\010\011\uffeb\012\uffeb\023\uffeb\001\002\000\006\013" +
+    "\057\025\056\001\002\000\004\023\ufff8\001\002\000\006" +
+    "\013\046\025\045\001\002\000\016\014\032\015\031\016" +
+    "\033\017\035\020\036\021\034\001\002\000\004\025\047" +
+    "\001\002\000\016\014\032\015\031\016\033\017\035\020" +
+    "\036\021\034\001\002\000\006\027\041\030\037\001\002" +
+    "\000\010\011\042\012\044\023\ufff2\001\002\000\004\023" +
+    "\ufff3\001\002\000\006\027\041\030\037\001\002\000\010" +
+    "\011\042\012\044\023\ufff2\001\002\000\004\023\ufff5\001" +
+    "\002\000\016\014\032\015\031\016\033\017\035\020\036" +
+    "\021\034\001\002\000\004\025\060\001\002\000\016\014" +
+    "\032\015\031\016\033\017\035\020\036\021\034\001\002" +
+    "\000\006\027\041\030\037\001\002\000\010\011\042\012" +
+    "\044\023\ufff2\001\002\000\004\023\ufff4\001\002\000\006" +
+    "\027\041\030\037\001\002\000\010\011\042\012\044\023" +
+    "\ufff2\001\002\000\004\023\ufff6\001\002\000\006\027\041" +
+    "\030\037\001\002\000\010\011\042\012\044\023\ufff2\001" +
+    "\002\000\004\023\ufff7\001\002\000\006\002\ufff9\010\021" +
+    "\001\002\000\004\002\uffff\001\002\000\004\025\013\001" +
+    "\002\000\004\023\ufffc\001\002\000\004\002\001\001\002" +
+    "" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -76,23 +91,29 @@ public class ParserReportes extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\054\000\004\002\003\001\001\000\002\001\001\000" +
+    "\000\074\000\004\002\003\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\006\003\014\004\015\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\004\005\017\001\001\000\002\001" +
     "\001\000\002\001\001\000\004\006\024\001\001\000\004" +
-    "\010\046\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\004\010\027\001\001\000\004\011\036" +
+    "\010\066\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\004\010\027\001\001\000\004\011\037" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\004\007\042\001\001\000\002\001\001\000\002\001" +
-    "\001\000\004\006\045\001\001\000\002\001\001\000\004" +
-    "\006\044\001\001\000\002\001\001\000\002\001\001\000" +
-    "\004\011\047\001\001\000\004\007\050\001\001\000\002" +
-    "\001\001\000\004\005\052\001\001\000\002\001\001\000" +
-    "\004\004\054\001\001\000\002\001\001\000\002\001\001" +
-    "" });
+    "\000\002\001\001\000\004\007\042\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\004\010\052\001\001\000\002\001\001\000\004\010" +
+    "\047\001\001\000\004\011\050\001\001\000\004\007\051" +
+    "\001\001\000\002\001\001\000\004\011\053\001\001\000" +
+    "\004\007\054\001\001\000\002\001\001\000\004\010\063" +
+    "\001\001\000\002\001\001\000\004\010\060\001\001\000" +
+    "\004\011\061\001\001\000\004\007\062\001\001\000\002" +
+    "\001\001\000\004\011\064\001\001\000\004\007\065\001" +
+    "\001\000\002\001\001\000\004\011\067\001\001\000\004" +
+    "\007\070\001\001\000\002\001\001\000\004\005\072\001" +
+    "\001\000\002\001\001\000\004\004\074\001\001\000\002" +
+    "\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -131,6 +152,21 @@ public class ParserReportes extends java_cup.runtime.lr_parser {
 
 
 
+    
+    private ArrayList<Advertencia> listaErrores;
+    private ArrayList<Instruccion> listaInstrucciones;
+    private ArrayList<Condicion> condiciones;
+    private int fila;
+    private int columna;
+
+    public ParserReportes(ReportesLexer lexer, ArrayList<Advertencia> listaErrores, ArrayList<Instruccion> listaInstrucciones, int fila, int columna) {
+        super(lexer);
+        this.listaErrores = listaErrores;
+        this.listaInstrucciones = listaInstrucciones;
+        this.ArrayList = new ArrayList<>();
+        this.fila = fila;
+        this.columna = columna;
+    }
     public void report_error(String message, Object info) {
         System.out.println("reporterror");
     }
@@ -188,7 +224,15 @@ class CUP$ParserReportes$actions {
           case 1: // inicio ::= SELECT TO FORM FLECHA ALLCHARACTERSNOSPACE CORCHETE_A campos_posibles CORCHETE_C condicion_principal 
             {
               Object RESULT =null;
-
+		int formularioleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-4)).left;
+		int formularioright = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-4)).right;
+		Object formulario = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-4)).value;
+		
+                                                                                                                                    System.out.println("\"n\n\nCondiciones");
+                                                                                                                                    for(Condicion element : condiciones) {
+                                                                                                                                        System.out.println(elemebt);
+                                                                                                                                    }
+                                                                                                                                
               CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("inicio",0, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-8)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
             }
           return CUP$ParserReportes$result;
@@ -224,6 +268,9 @@ class CUP$ParserReportes$actions {
           case 5: // campos_posibles_p ::= ALLCHARACTERSNOSPACE COMA campos_posibles_p 
             {
               Object RESULT =null;
+		int campoleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).left;
+		int camporight = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).right;
+		Object campo = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).value;
 
               CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("campos_posibles_p",2, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
             }
@@ -233,6 +280,9 @@ class CUP$ParserReportes$actions {
           case 6: // campos_posibles_p ::= ALLCHARACTERSNOSPACE 
             {
               Object RESULT =null;
+		int campoleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).left;
+		int camporight = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).right;
+		Object campo = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.peek()).value;
 
               CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("campos_posibles_p",2, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
             }
@@ -260,7 +310,16 @@ class CUP$ParserReportes$actions {
           case 9: // condicion_interna ::= NOT ALLCHARACTERSNOSPACE operador valor_condicion condicion_secundaria 
             {
               Object RESULT =null;
-
+		int nombreCampoleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-3)).left;
+		int nombreCamporight = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-3)).right;
+		Object nombreCampo = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-3)).value;
+		int opleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).left;
+		int opright = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).right;
+		Object op = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).value;
+		int valleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)).left;
+		int valright = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)).right;
+		Object val = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)).value;
+		 condiciones.add(new Condicion(null, true, nombreCampo.toString(), op.toString(), val.toString())); 
               CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("condicion_interna",4, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-4)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
             }
           return CUP$ParserReportes$result;
@@ -269,31 +328,94 @@ class CUP$ParserReportes$actions {
           case 10: // condicion_interna ::= ALLCHARACTERSNOSPACE operador valor_condicion condicion_secundaria 
             {
               Object RESULT =null;
-
+		int nombreCampoleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-3)).left;
+		int nombreCamporight = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-3)).right;
+		Object nombreCampo = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-3)).value;
+		int opleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).left;
+		int opright = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).right;
+		Object op = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).value;
+		int valleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)).left;
+		int valright = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)).right;
+		Object val = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)).value;
+		 condiciones.add(new Condicion(null, false, nombreCampo.toString(), op.toString(), val.toString())); 
               CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("condicion_interna",4, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-3)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
             }
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 11: // condicion_secundaria ::= AND condicion_interna 
+          case 11: // condicion_secundaria ::= AND ALLCHARACTERSNOSPACE operador valor_condicion condicion_secundaria 
             {
               Object RESULT =null;
-
-              CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("condicion_secundaria",5, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
+		int nombreCampoleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-3)).left;
+		int nombreCamporight = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-3)).right;
+		Object nombreCampo = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-3)).value;
+		int opleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).left;
+		int opright = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).right;
+		Object op = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).value;
+		int valleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)).left;
+		int valright = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)).right;
+		Object val = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)).value;
+		 condiciones.add(new Condicion(null, false, nombreCampo.toString(), op.toString(), val.toString())); 
+              CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("condicion_secundaria",5, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-4)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
             }
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 12: // condicion_secundaria ::= OR condicion_interna 
+          case 12: // condicion_secundaria ::= OR ALLCHARACTERSNOSPACE operador valor_condicion condicion_secundaria 
             {
               Object RESULT =null;
-
-              CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("condicion_secundaria",5, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
+		int nombreCampoleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-3)).left;
+		int nombreCamporight = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-3)).right;
+		Object nombreCampo = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-3)).value;
+		int opleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).left;
+		int opright = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).right;
+		Object op = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).value;
+		int valleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)).left;
+		int valright = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)).right;
+		Object val = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)).value;
+		 condiciones.add(new Condicion(null, false, nombreCampo.toString(), op.toString(), val.toString())); 
+              CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("condicion_secundaria",5, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-4)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
             }
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 13: // condicion_secundaria ::= 
+          case 13: // condicion_secundaria ::= AND NOT ALLCHARACTERSNOSPACE operador valor_condicion condicion_secundaria 
+            {
+              Object RESULT =null;
+		int nombreCampoleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-3)).left;
+		int nombreCamporight = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-3)).right;
+		Object nombreCampo = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-3)).value;
+		int opleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).left;
+		int opright = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).right;
+		Object op = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).value;
+		int valleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)).left;
+		int valright = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)).right;
+		Object val = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)).value;
+		 condiciones.add(new Condicion(null, true, nombreCampo.toString(), op.toString(), val.toString())); 
+              CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("condicion_secundaria",5, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-5)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
+            }
+          return CUP$ParserReportes$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 14: // condicion_secundaria ::= OR NOT ALLCHARACTERSNOSPACE operador valor_condicion condicion_secundaria 
+            {
+              Object RESULT =null;
+		int nombreCampoleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-3)).left;
+		int nombreCamporight = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-3)).right;
+		Object nombreCampo = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-3)).value;
+		int opleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).left;
+		int opright = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).right;
+		Object op = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).value;
+		int valleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)).left;
+		int valright = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)).right;
+		Object val = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)).value;
+		 condiciones.add(new Condicion(null, true, nombreCampo.toString(), op.toString(), val.toString())); 
+              CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("condicion_secundaria",5, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-5)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
+            }
+          return CUP$ParserReportes$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 15: // condicion_secundaria ::= 
             {
               Object RESULT =null;
 
@@ -302,72 +424,96 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 14: // operador ::= MAYOR_QUE 
+          case 16: // operador ::= MAYOR_QUE 
             {
               Object RESULT =null;
+		int opeleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).left;
+		int operight = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).right;
+		Object ope = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.peek()).value;
 
               CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("operador",6, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
             }
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 15: // operador ::= MENOR_QUE 
+          case 17: // operador ::= MENOR_QUE 
             {
               Object RESULT =null;
+		int opeleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).left;
+		int operight = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).right;
+		Object ope = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.peek()).value;
 
               CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("operador",6, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
             }
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 16: // operador ::= MAYOR_IGUAL 
+          case 18: // operador ::= MAYOR_IGUAL 
             {
               Object RESULT =null;
+		int opeleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).left;
+		int operight = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).right;
+		Object ope = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.peek()).value;
 
               CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("operador",6, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
             }
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 17: // operador ::= MENOR_IGUAL 
+          case 19: // operador ::= MENOR_IGUAL 
             {
               Object RESULT =null;
+		int opeleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).left;
+		int operight = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).right;
+		Object ope = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.peek()).value;
 
               CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("operador",6, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
             }
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 18: // operador ::= DIFERENTE 
+          case 20: // operador ::= DIFERENTE 
             {
               Object RESULT =null;
+		int opeleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).left;
+		int operight = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).right;
+		Object ope = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.peek()).value;
 
               CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("operador",6, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
             }
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 19: // operador ::= IGUAL 
+          case 21: // operador ::= IGUAL 
             {
               Object RESULT =null;
+		int opeleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).left;
+		int operight = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).right;
+		Object ope = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.peek()).value;
 
               CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("operador",6, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
             }
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 20: // valor_condicion ::= NUMERO_CONSULTA 
+          case 22: // valor_condicion ::= NUMERO_CONSULTA 
             {
               Object RESULT =null;
+		int valCondleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).left;
+		int valCondright = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).right;
+		Object valCond = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.peek()).value;
 
               CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("valor_condicion",7, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
             }
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 21: // valor_condicion ::= CADENA_CONSULTA 
+          case 23: // valor_condicion ::= CADENA_CONSULTA 
             {
               Object RESULT =null;
+		int valCondleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).left;
+		int valCondright = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).right;
+		Object valCond = (Object)((java_cup.runtime.Symbol) CUP$ParserReportes$stack.peek()).value;
 
               CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("valor_condicion",7, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
             }
