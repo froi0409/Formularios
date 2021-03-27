@@ -24,7 +24,7 @@ Ignore = {TerminacionLinea} | [ \t\f]
 IDCOMPONENTE = "\""{WS}*"ID_COMPONENTE_" [0-9]+ {WS}* "\""
 NOMBRECAMPON = "\""{WS}*"NOMBRE_CAMPO_" [0-9]+ {WS}* "\""
 REGISTRON = "\""{WS}*"REGISTRO_" [0-9]+ {WS}* "\""
-ALLCHARACTERS = [\42] ([\40-\41] | [\43-\255])* [\42]
+ALLCHARACTERS = [\42] ([\40-\41] | [\43-\255] | [^"\""])* [\42]
 
 %%
 
