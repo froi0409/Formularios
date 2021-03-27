@@ -2969,6 +2969,7 @@ class CUP$ParserSolicitudes$actions {
                                                                                                             if(p4 != null) {
                                                                                                                 inst.setTema(p4.substring(1, p4.length()-1));
                                                                                                             }
+                                                                                                            listaInstrucciones.add(inst);
                                                                                                         }
                                                                                                     }
                                                                                                     listaParametros.clear();

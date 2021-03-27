@@ -20,7 +20,7 @@ INIRESPUESTAS = [iI][nN][iI][_][rR][eE][sS][pP][uU][eE][sS][tT][aA][sS]
 INIRESPUESTA = [iI][nN][iI][_][rR][eE][sS][pP][uU][eE][sS][tT][aA]
 FINRESPUESTAS = [fF][iI][nN][_][rR][eE][sS][pP][uU][eE][sS][tT][aA][sS]
 FINRESPUESTA = [fF][iI][nN][_][rR][eE][sS][pP][uU][eE][sS][tT][aA]
-ALLCHARACTERS = [\42] ([\40-\41] | [\43-\255])* [\42]
+ALLCHARACTERS = [\42] ([\40-\41] | [\43-\255] | [^"\"" "|"])* [\42]
 %%
 <YYINITIAL> {
 

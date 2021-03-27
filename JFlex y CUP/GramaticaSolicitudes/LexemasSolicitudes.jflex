@@ -42,7 +42,7 @@ COMPLEMENTOC = (0?2) [-] {MESESC}
 FECHA = [\"] {AÑO} [-] ( {COMPLEMENTOA} | {COMPLEMENTOB} | {COMPLEMENTOC} ) [\"] 
 
 //ALLCHARACTERS = [\"]  [^"\"" "|"]+ [\"]
-ALLCHARACTERS = [\42] ([\40-\41] | [\43-\173] | [\175-\255])* [\42]
+ALLCHARACTERS = [\42] ([\0-\41] | [\43-\173] | [\175-\255] | [^"\"" "|"])* [\42]
 //ALLCHARACTERS = \" [\40]*  ([\41] | [\43-\176]) ([\40-\41] | [\43-\176])*  [\40]* \"
 ALLCHARACTERSNOSPACE = [\"]  [^' ' "\"" "|"]+ [\"]
 NOCOMILLAS =([^\"])*
@@ -162,7 +162,7 @@ NUMEROCONSULTA = (-)? [0-9]+ ( ['.'] [0-9]+ ) ?
     /*
     */
     {Ignore}                {/* IGNORAR */}
-    {CAMPO}                                     { System.out.println("CAMPO en: " + yyline + " , " + yycolumn + " - " + yytext());return new Symbol(CAMPO, yyline+1, yycolumn+1, yytext()); }
+    //{CAMPO}                                     { System.out.println("CAMPO en: " + yyline + " , " + yycolumn + " - " + yytext());return new Symbol(CAMPO, yyline+1, yycolumn+1, yytext()); }
     //{CAMPOS}                                    { System.out.println("CAMPOS: " + yytext()); return new Symbol(CAMPOS, yyline+1, yycolumn+1, yytext()); }
 }
 
