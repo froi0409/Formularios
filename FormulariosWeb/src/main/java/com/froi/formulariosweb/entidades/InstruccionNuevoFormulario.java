@@ -82,16 +82,7 @@ public class InstruccionNuevoFormulario extends Instruccion {
             
             descripcion = "El formulario con id: " + id + " ya existe en el sistema, asigne otro identificador al formulario. Formulario no creado.";
         }
-        
-        codigo += "<!ini_respuesta:\"INSTRUCCIONES\">\n" +
-                  "{ \"INSTRUCCION_EJECUTADA\" : [{\n";
-        codigo += "\"TIPO\" : \"Nuevo Formulario\",\n";
-        codigo += "\"DETALLES\" : \"" + descripcion + "\"\n";
-        codigo += "}\n" +
-                  "]\n" +
-                  "}\n" +
-                  "<!fin_respuesta>\n";
-        return codigo;
+        return generarCodigoRespuesta("Nuevo Formulario", descripcion);
     }
 
     public void setId(String id) {

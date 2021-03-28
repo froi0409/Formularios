@@ -46,7 +46,7 @@ public class InstruccionEliminarUsuario extends Instruccion {
                   "]\n" +
                   "}\n" +
                   "<!fin_respuesta>\n";
-        return codigo;
+        return generarCodigoRespuesta("Eliminacion de Usuario", descripcion);
     }
     
     public String getUsuario() {

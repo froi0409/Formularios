@@ -80,7 +80,7 @@ public class AnalizadorCodigoIndigo extends HttpServlet {
         String comprobador;
         String codigoEntrada = "";
         while ((comprobador = reader.readLine()) != null) {
-            codigoEntrada += comprobador;
+            codigoEntrada += comprobador + "\n";
             System.out.println(comprobador);
         }
         

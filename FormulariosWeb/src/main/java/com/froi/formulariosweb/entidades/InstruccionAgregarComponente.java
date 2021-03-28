@@ -80,14 +80,6 @@ public class InstruccionAgregarComponente extends Instruccion {
         } else {
             descripcion = "No se pudo agregar componente " + id + ", debido a que no existe el formulario: " + formulario + " indicado";
         }
-        codigo += "<!ini_respuesta:\"INSTRUCCIONES\">\n" +
-                  "{ \"INSTRUCCION_EJECUTADA\" : [{\n";
-        codigo += "\"TIPO\" : \"Añadir Componente\",\n";
-        codigo += "\"DETALLES\" : \"" + descripcion + "\"\n";
-        codigo += "}\n" +
-                  "]\n" +
-                  "}\n" +
-                  "<!fin_respuesta>\n";
         return generarCodigoRespuesta("Agregar Componente", descripcion);
     }
     

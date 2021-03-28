@@ -33,20 +33,31 @@ public class Advertencia {
         this.tipo = tipo;
         this.linea += linea;
         this.columna += columna;
-        this.descripcion = descripcion;
+        this.descripcion = descripcion.replace("\"", "");
     }
     
     public String toString(){
+        String mensaje;
         if(tipo.equals("Sintáctico") || tipo.equals("Léxico")) {
-            return "Cerca del Lexema: " + lexema + ".  fila: " + linea + "    Columna: " + columna + "    Tipo: " + tipo + ".  Descripcion: " + descripcion;
+            mensaje = "Cerca del Lexema: " + lexema + ".  fila: " + linea + "    Columna: " + columna + "    Tipo: " + tipo + ".  Descripcion: " + descripcion;
+            mensaje = mensaje.replace("\"", "");
+            return mensaje;
         } else if(tipo.equals("Elemento Faltante")) {
-            return "Advertencia: Hace falta el parámetro " + descripcion + " en el bloque que inicia en la fila " + linea + " y columna " + columna;
+            mensaje = "Advertencia: Hace falta el parámetro " + descripcion + " en el bloque que inicia en la fila " + linea + " y columna " + columna;
+            mensaje = mensaje.replace("\"", "");
+            return mensaje;
         } else if(tipo.equals("Clase Invalida")) {
-            return "Advertencia: " + descripcion + ". Conflicto en el bloque que inicia en la fila " + linea + " y columna " + columna;
+            mensaje = "Advertencia: " + descripcion + ". Conflicto en el bloque que inicia en la fila " + linea + " y columna " + columna;
+            mensaje = mensaje.replace("\"", "");
+            return mensaje;
         } else if(tipo.equals("Elemento Repetido")) {
-            return "Advertencia: Se ha repetido el parametro " + descripcion + ". Conflicto en el bloque que inicia en la fila " + linea + " y columna " + columna;
+            mensaje = "Advertencia: Se ha repetido el parametro " + descripcion + ". Conflicto en el bloque que inicia en la fila " + linea + " y columna " + columna;
+            mensaje = mensaje.replace("\"", "");
+            return mensaje;
         } else {
-            return "Advertencia: " + descripcion;
+            mensaje = "Advertencia: " + descripcion;
+            mensaje = mensaje.replace("\"", "");
+            return mensaje;
         }
     }
 
@@ -71,7 +82,7 @@ public class Advertencia {
     }
     
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+        this.descripcion = descripcion.replace("\"", "");
     }
     
 }

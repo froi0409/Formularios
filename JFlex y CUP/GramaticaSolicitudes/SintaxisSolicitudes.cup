@@ -265,7 +265,7 @@ opciones_crear_usuario ::=  USUARIO:usr PUNTOS tipos_entrada:ent                
                             | FECHA_CREACION PUNTOS error                       {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
                             | FECHA_CREACION error FECHA                        {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
                             | FECHA_CREACION error                              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción y una fecha válda a asignar a la fecha de creación"); :}
-                            | error                                             {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instucción: \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); :}
+                            | error                                             {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instucción: PARAMETRO ':' VALOR_A_ASIGNAR"); :}
                             ;
 
 /* INSTRUCCIONES DE MODIFICACION DE USUARIO */
@@ -311,7 +311,7 @@ opciones_modificacion_usuario ::=   USUARIO_ANTIGUO:para PUNTOS tipos_entrada:en
                                     | PASSWORD PUNTOS error                         {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una contraseña, revise si el valor a asignar contiene caracteres invalidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
                                     | PASSWORD error tipos_entrada                  {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
                                     | PASSWORD error                                {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a una contraseña"); :}
-                                    | error                                         {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); :}
+                                    | error                                         {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción PARAMETRO ':' VALOR_A_ASIGNAR"); :}
                                     ;
 
 /* INSTRUCCIONES DE ELIMINACIÓN DE USUARIO */
@@ -341,7 +341,7 @@ opciones_eliminacion_usuario ::=        USUARIO:para PUNTOS tipos_entrada:ent   
                                         | USUARIO PUNTOS error                  {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un usuario, revise si el valor a asignar contiene caracteres invalidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
                                         | USUARIO error tipos_entrada           {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
                                         | USUARIO error                         {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un usuario"); :}
-                                        | error                                 {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"PARAMETRO\" ':' \"VALOR_A_ASOGNAR\""); :}
+                                        | error                                 {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción PARAMETRO ':' VALOR_A_ASOGNAR"); :}
                                         ;
 
 /* INSTRUCCIONES DEL LOGIN */
@@ -379,7 +379,7 @@ opciones_login_usuario ::=          USUARIO:para PUNTOS tipos_entrada:ent       
                                     | USUARIO error                             {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un usuario"); :}
                                     | PASSWORD PUNTOS error                     {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una contraseña, revise si el valor a asignar contiene caracteres inválidos o si hace falta el símbolo ',' p '}' de fin de instrucción"); :}
                                     | PASSWORD error tipos_entrada              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
-                                    | PASSWORD error                            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); :}
+                                    | PASSWORD error                            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción PARAMETRO ':' VALOR_A_ASIGNAR"); :}
                                     | error
                                     ;
 
@@ -443,7 +443,7 @@ opciones_nuevo_formulario ::=       ID:para PUNTOS IDENTIFICADOR:ent            
                                     | FECHA_CREACION PUNTOS error                       {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una fecha, revise si el valor a asignar contiene caracteres inválidos o si hace falta el síbolo ',' o '}' de fin de instrucción"); :}
                                     | FECHA_CREACION error FECHA                        {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
                                     | FECHA_CREACION error                              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a una fecha"); :}
-                                    | error                                             {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); :}
+                                    | error                                             {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción PARAMETRO ':' VALOR_A_ASIGNAR"); :}
                                     ;
 
 theme ::=   DARK:para       {: RESULT = para; :}
@@ -481,7 +481,7 @@ opciones_eliminacion_formulario ::=     ID:para PUNTOS IDENTIFICADOR:ent        
                                         | ID PUNTOS error                       {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un identificador, revse si el valor a asignar contiene caracteres inválidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :} 
                                         | ID error IDENTIFICADOR                {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
                                         | ID error                              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' seguido de un valor válido para ser asignado a un identificador"); :}
-                                        | error                                 {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); :}
+                                        | error                                 {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción PARAMETRO ':' VALOR_A_ASIGNAR"); :}
                                         ;
 
 /* INSTRUCCIONES MODIFICAR FORMULARIO */
@@ -537,7 +537,7 @@ opciones_modificacion_formulario ::=    ID:para PUNTOS IDENTIFICADOR:ent        
                                         | TEMA PUNTOS error                                     {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un tema, revise si el valor a asignar contiene caracteres inválido o si hace falta el simbolo ',' o '}' de fin de instrucción"); :}
                                         | TEMA error theme                                      {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
                                         | TEMA error                                            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' seguido de un valor válido para ser asignado a un tema"); :}
-                                        | error                                                 {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); :}
+                                        | error                                                 {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción PARAMETRO ':' VALOR_A_ASIGNAR"); :}
                                         ;
 
 /* INSTRUCCIONES PARA AGREGAR COMPONENTE */
@@ -639,7 +639,7 @@ opciones_agregar_componente ::=     ID:par PUNTOS IDENTIFICADOR:entr            
                                     | URL PUNTOS error                                          {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un parametro URL, revise si el valor a asignar contiene caracteres inválidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
                                     | URL error tipos_entrada_complete                          {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
                                     | URL error                                                 {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' seguido de un valor válido para ser asignado a URL"); :}
-                                    | error                                                     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); :}
+                                    | error                                                     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción PARAMETRO ':' VALOR_A_ASIGNAR"); :}
                                     ;
 
 tipo_clase ::=                      CAMPO_TEXTO:val         {: RESULT=val; :}
@@ -698,7 +698,7 @@ opciones_eliminacion_componente ::=     ID:para PUNTOS IDENTIFICADOR:ent        
                                         | FORMULARIO PUNTOS error                       {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un formulario, revise si el valor a asignar contiene caracteres inválidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
                                         | FORMULARIO error IDENTIFICADOR                {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
                                         | FORMULARIO error                              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' seguido de un valor válido para ser asignado a un formulario"); :}
-                                        | error                                         {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); :}
+                                        | error                                         {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción PARAMETRO ':' VALOR_A_ASIGNAR"); :}
                                         ;
 
 /* INSTRUCCIONES PARA MODIFICACION DE UN COMPONENTE */

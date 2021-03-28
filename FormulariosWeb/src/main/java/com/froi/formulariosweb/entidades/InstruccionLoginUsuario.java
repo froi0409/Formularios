@@ -39,16 +39,7 @@ public class InstruccionLoginUsuario extends Instruccion {
             descripcion = "Usuario o contraseña inválidos, revise sus credenciales";
         }
         
-        codigo += "<!ini_respuesta:\"INSTRUCCIONES\">\n" +
-                  "{ \"INSTRUCCION_EJECUTADA\" : [{\n";
-        codigo += "\"TIPO\" : \"Login Usuario " + usuario + "\",\n";
-        codigo += "\"DETALLES\" : \"" + descripcion + "\"\n";
-        codigo += "}\n" +
-                  "]\n" +
-                  "}\n" +
-                  "<!fin_respuesta>\n";
-        
-        return codigo;
+        return generarCodigoRespuesta("Login Usuario", descripcion);
     }
 
     public String getUsuario() {

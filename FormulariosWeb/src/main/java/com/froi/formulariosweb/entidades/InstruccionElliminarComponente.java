@@ -41,15 +41,7 @@ public class InstruccionElliminarComponente extends Instruccion {
         } else {
             descripcion = "Se ha eliminado el componente " + idComponente + " del formulario " + idFormulario;
         }
-        codigo += "<!ini_respuesta:\"INSTRUCCIONES\">\n" +
-                  "{ \"INSTRUCCION_EJECUTADA\" : [{\n";
-        codigo += "\"TIPO\" : \"Creacion de Usuario\",\n";
-        codigo += "\"DETALLES\" : \"" + descripcion + "\"\n";
-        codigo += "}\n" +
-                  "]\n" +
-                  "}\n" +
-                  "<!fin_respuesta>\n";
-        return codigo;
+        return generarCodigoRespuesta("Eliminacion de Componente", descripcion);
     }
     
     public String getIdComponente() {

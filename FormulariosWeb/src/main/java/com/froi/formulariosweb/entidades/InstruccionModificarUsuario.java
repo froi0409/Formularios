@@ -74,15 +74,7 @@ public class InstruccionModificarUsuario extends Instruccion {
                 descripcion += ". El nombre de usuario " + usuarioNuevo + " ya existe en el sistema";
             }
         }
-        codigo += "<!ini_respuesta:\"INSTRUCCIONES\">\n" +
-                  "{ \"INSTRUCCION_EJECUTADA\" : [{\n";
-        codigo += "\"TIPO\" : \"Modificacion de Usuario\",\n";
-        codigo += "\"DETALLES\" : \"" + descripcion + "\"\n";
-        codigo += "}\n" +
-                  "]\n" +
-                  "}\n" +
-                  "<!fin_respuesta>\n";
-        return codigo;
+        return generarCodigoRespuesta("Modificacion de Usuario", descripcion);
     }
     
     public String getUsuarioAntiguo() {

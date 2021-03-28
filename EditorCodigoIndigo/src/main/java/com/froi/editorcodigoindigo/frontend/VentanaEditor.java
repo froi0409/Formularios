@@ -93,23 +93,17 @@ public class VentanaEditor extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,7 +137,9 @@ public class VentanaEditor extends javax.swing.JFrame {
 
     private void btnCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompilarActionPerformed
         // TODO add your handling code here:
+        String saltoLinea = System.getProperty("line.separator");
         String entrada = txtEntrada.getText();
+        System.out.println(entrada);
         AnalizadorCodigoIndigo analizador = new AnalizadorCodigoIndigo(entrada);
         analizador.analizar(txtSalida);
     }//GEN-LAST:event_btnCompilarActionPerformed

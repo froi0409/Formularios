@@ -34,41 +34,22 @@ public class AnalizadorCodigoIndigo {
      * @param salida JTextArea en el que se imprimirá la salida del análisis de la respuesta
      */
     public void analizar(JTextArea salida) {
+        salida.setText("");
+        salida.append("----------Enviando Solicitudes al servidor----------" + "\n");
         Canal canal = new Canal();
-//        salida.setText(""); //limpiamos la salida
-//        salida.append("Analizando Código...\n");
-//        StringReader reader = new StringReader(entrada);
-//        SolicitudesLexer lexer = new SolicitudesLexer(reader);
-//        ParserSolicitudes parser = new ParserSolicitudes(lexer, listaErrores);
-//        try {
-//            parser.parse();
-//            
-//            if(listaErrores.size() > 0) {
-//            salida.append("\nErrores:\n");
-//            for(Advertencia element: listaErrores) {
-//                
-//                salida.append(element + "\n");
-//                System.out.println(element);
-//            }
-//            listaErrores.clear();
-//        }
-//            
-//        } catch (Exception e) {
-//            salida.append("ERROR IRRECUPERABLE\n");
-//        }
-//        salida.append("\n-----Análisis Terminado-----");
-
         String respuesta = canal.repuesta(entrada);
+        
         StringReader reader = new StringReader(respuesta);
         RespuestasLexer respuestasLexer = new RespuestasLexer(reader);
         ParserRespuestas parserRespuestas = new ParserRespuestas(respuestasLexer, listaRespuestas, listaErrores);
         try {
             parserRespuestas.parse();
+            salida.append("----------Conexión con el servidor establecida----------" + "\n" );
             for(String element : listaRespuestas) {
-                salida.append("\n" + element);
+                salida.append(element + "\n\n");
             }
         } catch (Exception e) {
-            salida.append("\n\nHa ocurrido un error al leer la respuesta del servidor: " + e.getMessage());
+            salida.append("\n\n......Ha ocurrido un error al leer la respuesta del servidor: " + e.getMessage() + "......");
         }
     }
     

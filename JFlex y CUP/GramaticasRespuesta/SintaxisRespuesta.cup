@@ -10,6 +10,7 @@ parser code {:
 
     private ArrayList<String> listaRespuestas;
     private ArrayList<Advertencia> listaErrores;
+    private String p1, p2;
 
     public ParserRespuestas(RespuestasLexer lexer, ArrayList<String> listaRespuestas, ArrayList<Advertencia> listaErrores) {
         super(lexer);
@@ -49,6 +50,7 @@ non terminal opciones_error_detectado, opciones_instruccion_ejecutada;
 start with inicio;
 
 inicio ::=  MENOR_QUE EXCLAMACION INI_RESPUESTAS MAYOR_QUE instruccion_respuestas MENOR_QUE EXCLAMACION FIN_RESPUESTAS MAYOR_QUE
+            |   MENOR_QUE EXCLAMACION INI_RESPUESTAS MAYOR_QUE instruccion_respuestas MENOR_QUE EXCLAMACION FIN_RESPUESTAS MAYOR_QUE error
             ;
 
 instruccion_respuestas ::=  respuesta  instruccion_respuestas
@@ -60,6 +62,7 @@ respuesta ::=   MENOR_QUE EXCLAMACION INI_RESPUESTA PUNTOS tipo_respuesta MENOR_
 tipo_respuesta ::=  ERROR_DETECTADO             apertura_instruccion_principal1 DESCRIPCION_ERROR apertura_instruccion_principal2 instruccion_error_detectado cierre_instruccion_principal
                     | INSTRUCCIONES             apertura_instruccion_principal1 INSTRUCCION_EJECUTADA apertura_instruccion_principal2 instruccion_instruccion_ejecutada cierre_instruccion_principal
                     | error INSTRUCCION_EJECUTADA apertura_instruccion_principal2 instruccion_instruccion_ejecutada cierre_instruccion_principal
+                    | error DESCRIPCION_ERROR apertura_instruccion_principal2 instruccion_error_detectado cierre_instruccion_principal
                     ;
 
 apertura_instruccion_principal1 ::= MAYOR_QUE LLAVE_A
@@ -91,13 +94,15 @@ instruccion_instruccion_ejecutada ::=   accion_instruccion_ejecutada COMA instru
                                         | accion_instruccion_ejecutada
                                         ;
 
-accion_instruccion_ejecutada ::=        LLAVE_A accion_instruccion_ejecutada_p LLAVE_C
+accion_instruccion_ejecutada ::=        LLAVE_A accion_instruccion_ejecutada_p LLAVE_C      {: 
+                                                                                                listaRespuestas.add(p1 + "\n" + p2);
+                                                                                            :}
                                         ;
 
 accion_instruccion_ejecutada_p ::=      opciones_instruccion_ejecutada COMA accion_instruccion_ejecutada_p 
                                         | opciones_instruccion_ejecutada
                                         ;
 
-opciones_instruccion_ejecutada ::=      TIPO PUNTOS ALLCHARACTERS:desc           {: String descripcion = desc.toString(); descripcion = descripcion.substring(1, descripcion.length()-1); listaRespuestas.add(descripcion); :}
-                                        | DETALLES PUNTOS ALLCHARACTERS:desc     {: String descripcion = desc.toString(); descripcion = descripcion.substring(1, descripcion.length()-1); listaRespuestas.add(descripcion); :}
+opciones_instruccion_ejecutada ::=      TIPO PUNTOS ALLCHARACTERS:desc           {: String descripcion = desc.toString(); p1 = descripcion.substring(1, descripcion.length()-1); :}
+                                        | DETALLES PUNTOS ALLCHARACTERS:desc     {: String descripcion = desc.toString(); p2 = descripcion.substring(1, descripcion.length()-1); :}
                                         ;

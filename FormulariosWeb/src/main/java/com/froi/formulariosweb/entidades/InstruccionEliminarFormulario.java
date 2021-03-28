@@ -41,7 +41,7 @@ public class InstruccionEliminarFormulario extends Instruccion {
                   "]\n" +
                   "}\n" +
                   "<!fin_respuesta>\n";
-        return codigo;
+        return generarCodigoRespuesta("Eliminacion de Formulario", descripcion);
     }
     
     public String getIdFormulario() {

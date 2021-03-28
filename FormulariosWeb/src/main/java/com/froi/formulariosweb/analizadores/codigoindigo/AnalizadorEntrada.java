@@ -73,9 +73,17 @@ public class AnalizadorEntrada {
                 guardarFormularios();
             } else {
                 System.out.println("\n\n\nERRORES: ");
+                codigo += "<!ini_respuestas>\n";
                 for(Advertencia element: listaErrores) {
-                    System.out.println(element);
+                    codigo += "<!ini_respuesta:\"ERROR_DETECTADO\">\n" +
+                              "{ \"DESCRIPCION_ERROR\" : [{\n";
+                    codigo += "\"DESCRIPCION\" : \"" + element + "\"\n";
+                    codigo += "}\n" +
+                              "]\n" +
+                              "}\n" +
+                              "<!fin_respuesta>\n";
                 }
+                codigo += "<!fin_respuestas>";
             }
             
         } catch (Exception e) {
