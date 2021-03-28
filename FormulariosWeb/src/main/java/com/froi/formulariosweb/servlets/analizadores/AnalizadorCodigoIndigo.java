@@ -85,10 +85,13 @@ public class AnalizadorCodigoIndigo extends HttpServlet {
         }
         
         AnalizadorEntrada analizadorEntrada = new AnalizadorEntrada(codigoEntrada);
-        System.out.println(analizadorEntrada.codificar());
+        String codigoRespuesta = analizadorEntrada.codificar();
+        System.out.println(codigoRespuesta);
         
-        
-        
+        PrintWriter printWriter = response.getWriter();
+        printWriter.print(codigoRespuesta);
+        printWriter.close();
+
         processRequest(request, response);
     }
 

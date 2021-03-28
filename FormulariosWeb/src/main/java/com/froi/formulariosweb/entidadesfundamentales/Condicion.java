@@ -17,17 +17,16 @@ public class Condicion {
     private String valorCondicion;
     private String tipoValorCondicion;
 
-    public Condicion(String operadorLogico, boolean not, String campo, String operadorRelacional, String valorCondicion, String tipoValorCondicion) {
+    public Condicion(String operadorLogico, boolean not, String campo, String operadorRelacional, String valorCondicion) {
         this.operadorLogico = operadorLogico;
         this.not = not;
         this.campo = campo;
         this.operadorRelacional = operadorRelacional;
         this.valorCondicion = valorCondicion;
-        this.tipoValorCondicion = tipoValorCondicion;
     }
     
     public String toString() {
-        return operadorLogico + " " + not + " " + campo + " " + operadorRelacional + " " + tipoValorCondicion;
+        return operadorLogico + " " + not + " " + campo + " " + operadorRelacional + " " + valorCondicion;
     }
     
 }

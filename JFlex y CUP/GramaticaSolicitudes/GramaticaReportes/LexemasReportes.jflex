@@ -1,4 +1,8 @@
+package com.froi.formulariosweb.analizadores.codigoindigo;
+
 import java_cup.runtime.*;
+import static com.froi.formulariosweb.analizadores.codigoindigo.ParserReportesSym.*;
+
 %%
 %public
 %class ReportesLexer

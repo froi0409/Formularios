@@ -7,6 +7,7 @@ package com.froi.formulariosweb.analizadores.codigoindigo;
 
 import com.froi.formulariosweb.entidades.Advertencia;
 import com.froi.formulariosweb.entidades.Instruccion;
+import com.froi.formulariosweb.entidades.InstruccionConsulta;
 import com.froi.formulariosweb.entidadesfundamentales.Condicion;
 import java_cup.runtime.*;
 import java.util.ArrayList;
@@ -245,8 +246,8 @@ public class ParserReportes extends java_cup.runtime.lr_parser {
     public void syntax_error(Symbol s) {
         int line = fila + s.left;
         int column = columna + s.right;
-        System.out.println("linea: " + fila + "   columna: " + columna);
-        Advertencia advert = new Advertencia((String)s.value, fila, columna, "Sintáctico", "error sintáctico");
+        System.out.println("linea: " + line + "   columna: " + column);
+        Advertencia advert = new Advertencia((String)s.value, line, column, "Sintáctico", "error sintáctico");
         listaErrores.add(advert);
         punteroErrores = listaErrores.size()-1;
     }

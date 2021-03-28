@@ -5,6 +5,7 @@ package com.froi.formulariosweb.analizadores.codigoindigo;
 import com.froi.formulariosweb.entidades.*;
 import java_cup.runtime.*;
 import java.util.ArrayList;
+import java.io.StringReader;
 
 class ParserSolicitudes;
 
@@ -741,15 +742,16 @@ accion_consultar_datos_p ::=        opciones_consultar_datos COMA accion_consult
                                     | opciones_consultar_datos
                                     ;
 
-opciones_consultar_datos ::=        CONSULTA PUNTOS ALLCHARACTERSNOSPACE:ent                {:
-                                                                                                Strigng entrada = ent.substring(1, ent.length()-1);
-                                                                                                StringReader lector = new StringReader(entada);
-                                                                                                ReportesLexer reportesLexer = new ReportesLexer(entrada);
+opciones_consultar_datos ::=        CONSULTA PUNTOS ALLCHARACTERS:ent                {:
+                                                                                                String cadenaConsulta = ent.toString();
+                                                                                                String entrada = cadenaConsulta.substring(1, cadenaConsulta.length()-1);
+                                                                                                StringReader lector = new StringReader(entrada);
+                                                                                                ReportesLexer reportesLexer = new ReportesLexer(lector);
                                                                                                 ParserReportes parserReportes = new ParserReportes(reportesLexer, listaErrores, listaInstrucciones, entleft, entright);
                                                                                                 try {
                                                                                                     parserReportes.parse();
                                                                                                 } catch(Exception e) {
-                                                                                                    System.out.println("Error en la consulta de la fila " + entleft + ", columna " + entright);
+                                                                                                    System.out.println("Error en la consulta de la fila " + entleft + ", columna " + entright +": " + e.getMessage());
                                                                                                 }
                                                                                             :}
                                     //| error consulta_datos COMILLAS     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba la expresion \"CONSULTA-N\" : \""); :}

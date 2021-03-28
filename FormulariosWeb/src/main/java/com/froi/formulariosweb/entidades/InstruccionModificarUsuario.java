@@ -53,6 +53,11 @@ public class InstruccionModificarUsuario extends Instruccion {
         if(comprobante && comprobante2) {
             listaUsuarios.get(cont).setUsuario(usuarioNuevo);
             listaUsuarios.get(cont).setPassword(nuevoPassword);
+            for(Formulario element : listaFormularios) {
+                if(element.getUsuarioCreacion().equals(usuarioAntiguo)) {
+                    element.setUsuarioCreacion(usuarioNuevo);
+                }
+            }
             descripcion = "se ha realizado el cambio de usuario " + usuarioAntiguo + " por " + usuarioNuevo;
             descripcion += ". Se ha actualizado la contraseña a " + nuevoPassword;
 

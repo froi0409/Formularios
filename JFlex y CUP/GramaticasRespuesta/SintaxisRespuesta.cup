@@ -1,12 +1,37 @@
-package com.froi.editorcodigoindigo.gramaticas.respuestas;
+package com.froi.editorcodigoindigo.analizadorrespuesta;
 
+import com.froi.editorcodigoindigo.entidades.Advertencia;
+import java.util.ArrayList;
 import java_cup.runtime.*;
 
 class ParserRespuestas;
 
 parser code {:
 
+    private ArrayList<String> listaRespuestas;
+    private ArrayList<Advertencia> listaErrores;
 
+    public ParserRespuestas(RespuestasLexer lexer, ArrayList<String> listaRespuestas, ArrayList<Advertencia> listaErrores) {
+        super(lexer);
+        this.listaRespuestas = listaRespuestas;
+        this.listaErrores = listaErrores;
+    }
+    public void report_error(String message, Object info) {
+        System.out.println("reporterror");
+    }
+    public void report_fatal_error(String message, Object info) {
+        System.out.println("reportfatal " + info);
+    }
+    @Override
+    public void syntax_error(Symbol s) {
+        System.out.println("linea: " + s.left + "   columna: " + s.right);
+        //Advertencia advert = new Advertencia((String)s.value, s.left, s.right, "Sintáctico", "error sintáctico");
+        //listaErrores.add(advert);
+        //punteroErrores = listaErrores.size()-1;
+    }
+    protected int error_sync_size() {
+        return 1;
+    }
 :}
 
 //declaración de terminales
@@ -21,18 +46,20 @@ non terminal accion_error_detectado, accion_instruccion_ejecutada;
 non terminal accion_error_detectado_p, accion_instruccion_ejecutada_p;
 non terminal opciones_error_detectado, opciones_instruccion_ejecutada;
 
-inicio ::=  MENOR_QUE EXCLAMACION INI_RESPUESTAS MAYOR_QUE instruccion_respuestas 
+start with inicio;
+
+inicio ::=  MENOR_QUE EXCLAMACION INI_RESPUESTAS MAYOR_QUE instruccion_respuestas MENOR_QUE EXCLAMACION FIN_RESPUESTAS MAYOR_QUE
             ;
 
 instruccion_respuestas ::=  respuesta  instruccion_respuestas
-                            | MENOR_QUE EXCLAMACION FIN_RESPUESTAS MAYOR_QUE
                             ;
 
-respuesta ::=   MENOR_QUE EXCLAMACION INI_RESPUESTA tipo_respuesta MENOR_QUE EXCLAMACION FIN_RESPUESTA MAYOR_QUE
+respuesta ::=   MENOR_QUE EXCLAMACION INI_RESPUESTA PUNTOS tipo_respuesta MENOR_QUE EXCLAMACION FIN_RESPUESTA MAYOR_QUE
                 ;
 
 tipo_respuesta ::=  ERROR_DETECTADO             apertura_instruccion_principal1 DESCRIPCION_ERROR apertura_instruccion_principal2 instruccion_error_detectado cierre_instruccion_principal
                     | INSTRUCCIONES             apertura_instruccion_principal1 INSTRUCCION_EJECUTADA apertura_instruccion_principal2 instruccion_instruccion_ejecutada cierre_instruccion_principal
+                    | error INSTRUCCION_EJECUTADA apertura_instruccion_principal2 instruccion_instruccion_ejecutada cierre_instruccion_principal
                     ;
 
 apertura_instruccion_principal1 ::= MAYOR_QUE LLAVE_A
@@ -56,7 +83,7 @@ accion_error_detectado_p ::=    opciones_error_detectado COMA accion_error_detec
                                 | opciones_error_detectado
                                 ;
 
-opciones_error_detectado ::=    DESCRIPCION PUNTOS ALLCHARACTERS
+opciones_error_detectado ::=    DESCRIPCION PUNTOS ALLCHARACTERS:desc    {: String descripcion = desc.toString(); descripcion = descripcion.substring(1, descripcion.length()-1); listaRespuestas.add(descripcion); :}
                                 ;
 
 /* INSTRUCCIONES DE INSTRUCCIONES EJECUTADAS */
@@ -71,6 +98,6 @@ accion_instruccion_ejecutada_p ::=      opciones_instruccion_ejecutada COMA acci
                                         | opciones_instruccion_ejecutada
                                         ;
 
-opciones_instruccion_ejecutada ::=      TIPO PUNTOS ALLCHARACTERS
-                                        DETALLES PUNTOS ALLCHARACTERS
+opciones_instruccion_ejecutada ::=      TIPO PUNTOS ALLCHARACTERS:desc           {: String descripcion = desc.toString(); descripcion = descripcion.substring(1, descripcion.length()-1); listaRespuestas.add(descripcion); :}
+                                        | DETALLES PUNTOS ALLCHARACTERS:desc     {: String descripcion = desc.toString(); descripcion = descripcion.substring(1, descripcion.length()-1); listaRespuestas.add(descripcion); :}
                                         ;

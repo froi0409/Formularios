@@ -1,6 +1,10 @@
-import java_cup_runtime.*;
-import java.util.ArrayList;
+package com.froi.formulariosweb.analizadores.codigoindigo;
 
+import com.froi.formulariosweb.entidades.Advertencia;
+import com.froi.formulariosweb.entidades.Instruccion;
+import com.froi.formulariosweb.entidadesfundamentales.Condicion;
+import java_cup.runtime.*;
+import java.util.ArrayList;
 class ParserReportes;
 
 parser code {:
@@ -8,16 +12,22 @@ parser code {:
     private ArrayList<Advertencia> listaErrores;
     private ArrayList<Instruccion> listaInstrucciones;
     private ArrayList<Condicion> condiciones;
+    private ArrayList<String> campos;
+    private String identificador;
     private int fila;
     private int columna;
+    private int punteroErrores = 0;
 
     public ParserReportes(ReportesLexer lexer, ArrayList<Advertencia> listaErrores, ArrayList<Instruccion> listaInstrucciones, int fila, int columna) {
         super(lexer);
+        System.out.println("Inicio del constructor");
         this.listaErrores = listaErrores;
         this.listaInstrucciones = listaInstrucciones;
-        this.ArrayList = new ArrayList<>();
+        this.condiciones = new ArrayList<>();
+        this.campos = new ArrayList<>();
         this.fila = fila;
         this.columna = columna;
+        System.out.println("Fin del Constructor");
     }
     public void report_error(String message, Object info) {
         System.out.println("reporterror");
@@ -27,7 +37,12 @@ parser code {:
     }
     @Override
     public void syntax_error(Symbol s) {
-        System.out.println("linea: " + s.left + "   columna: " + s.right);
+        int line = fila + s.left;
+        int column = columna + s.right;
+        System.out.println("linea: " + fila + "   columna: " + columna);
+        Advertencia advert = new Advertencia((String)s.value, fila, columna, "Sintáctico", "error sintáctico");
+        listaErrores.add(advert);
+        punteroErrores = listaErrores.size()-1;
     }
     protected int error_sync_size() {
         return 1;
@@ -40,12 +55,28 @@ non terminal inicio, campos_posibles, campos_posibles_p, condicion_principal, co
 start with inicio;
 
 inicio ::=  SELECT TO FORM FLECHA ALLCHARACTERSNOSPACE:formulario CORCHETE_A  campos_posibles CORCHETE_C condicion_principal    {:
-                                                                                                                                    System.out.println("\"n\n\nCondiciones");
-                                                                                                                                    for(Condicion element : condiciones) {
-                                                                                                                                        System.out.println(elemebt);
+                                                                                                                                    identificador = formulario.toString();
+                                                                                                                                    System.out.println("\n\n\nCampos");
+                                                                                                                                    for(String element: campos) {
+                                                                                                                                        System.out.println(element);
                                                                                                                                     }
+                                                                                                                                    System.out.println("\n\n\nCondiciones");
+                                                                                                                                    for(Condicion element : condiciones) {
+                                                                                                                                        System.out.println(element);
+                                                                                                                                    }
+                                                                                                                                    InstruccionConsulta inst = new InstruccionConsulta();
+                                                                                                                                    inst.setIdFormulario(identificador);
+                                                                                                                                    inst.setListaCampos(campos);
+                                                                                                                                    inst.setListaCondiciones(condiciones);
+                                                                                                                                    listaInstrucciones.add(inst);
                                                                                                                                 :}
-            | SELECT TO FORM FLECHA ALLCHARACTERSNOSPACE CORCHETE_A error CORCHETE_C condicion_principal
+            | SELECT TO FORM FLECHA ALLCHARACTERSNOSPACE CORCHETE_A error CORCHETE_C condicion_principal                        {: listaErrores.get(punteroErrores).setDescripcion("Error en los campos a consultar, verifique que no contengan caracteres invalidos"); :}
+            | error TO FORM FLECHA ALLCHARACTERSNOSPACE CORCHETE_A campos_posibles CORCHETE_C condicion_principal               {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instruccion"); :}
+            | error FORM FLECHA ALLCHARACTERSNOSPACE CORCHETE_A error CORCHETE_C condicion_principal                            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instruccion"); :}
+            | error ALLCHARACTERSNOSPACE CORCHETE_A error CORCHETE_C condicion_principal                                        {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instruccion"); :}
+            | error CORCHETE_A error CORCHETE_C condicion_principal                                                             {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instruccion"); :}
+            | error CORCHETE_C condicion_principal                                                                              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instruccion"); :}
+            SELECT TO FORM FLECHA ALLCHARACTERSNOSPACE CORCHETE_A campos_posibles error condicion_principal                     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instruccion"); :}
             ;
 
 
@@ -53,33 +84,43 @@ campos_posibles ::=     campos_posibles_p
                         |
                         ;
 
-campos_posibles_p ::=   ALLCHARACTERSNOSPACE:campo COMA campos_posibles_p
-                        | ALLCHARACTERSNOSPACE:campo
+campos_posibles_p ::=   ALLCHARACTERSNOSPACE:campo COMA campos_posibles_p       {: campos.add(campo.toString()); :}
+                        | ALLCHARACTERSNOSPACE:campo                            {: campos.add(campo.toString()); :}
                         ;
 
 condicion_principal ::= WHERE CORCHETE_A condicion_interna CORCHETE_C
                         |
+                        | error CORCHETE_A condicion_interna CORCHETE_C         {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba la palabra 'WHERE' en la instruccion"); :}
+                        | error condicion_interna CORCHETE_C                    {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba la instruccion 'WHERE [' en la instruccion"); :}
+                        | error CORCHETE_A condicion_interna error              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ']' para finalizar la isntruccion"); :}
                         ;
 
 condicion_interna ::=   NOT ALLCHARACTERSNOSPACE:nombreCampo operador:op valor_condicion:val condicion_secundaria   {: condiciones.add(new Condicion(null, true, nombreCampo.toString(), op.toString(), val.toString())); :}
                         | ALLCHARACTERSNOSPACE:nombreCampo operador:op valor_condicion:val condicion_secundaria     {: condiciones.add(new Condicion(null, false, nombreCampo.toString(), op.toString(), val.toString())); :}
+                        | error operador valor_condicion condicion_secundaria                                       {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un id o campo para realizar la condicion"); :}
+                        | error valor_condicion condicion_secundaria                                                {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un id o campo seguido de un operador relacional antes del valor consultado"); :}
+                        | error condicion_secundaria                                                                {: listaErrores.get(punteroErrores).setDescripcion("Hace falta una condicion antes de usar un operador logico"); :}
                         ;
 
-condicion_secundaria ::=    AND ALLCHARACTERSNOSPACE:nombreCampo operador:op valor_condicion:val condicion_secundaria   {: condiciones.add(new Condicion(null, false, nombreCampo.toString(), op.toString(), val.toString())); :}
-                            | OR ALLCHARACTERSNOSPACE:nombreCampo operador:op valor_condicion:val condicion_secundaria  {: condiciones.add(new Condicion(null, false, nombreCampo.toString(), op.toString(), val.toString())); :}
-                            | AND NOT ALLCHARACTERSNOSPACE:nombreCampo operador:op valor_condicion:val condicion_secundaria   {: condiciones.add(new Condicion(null, true, nombreCampo.toString(), op.toString(), val.toString())); :}
-                            | OR NOT ALLCHARACTERSNOSPACE:nombreCampo operador:op valor_condicion:val condicion_secundaria  {: condiciones.add(new Condicion(null, true, nombreCampo.toString(), op.toString(), val.toString())); :}
+condicion_secundaria ::=    AND ALLCHARACTERSNOSPACE:nombreCampo operador:op valor_condicion:val condicion_secundaria   {: condiciones.add(new Condicion("AND", false, nombreCampo.toString(), op.toString(), val.toString())); :}
+                            | OR ALLCHARACTERSNOSPACE:nombreCampo operador:op valor_condicion:val condicion_secundaria  {: condiciones.add(new Condicion("OR", false, nombreCampo.toString(), op.toString(), val.toString())); :}
+                            | AND NOT ALLCHARACTERSNOSPACE:nombreCampo operador:op valor_condicion:val condicion_secundaria   {: condiciones.add(new Condicion("AND", true, nombreCampo.toString(), op.toString(), val.toString())); :}
+                            | OR NOT ALLCHARACTERSNOSPACE:nombreCampo operador:op valor_condicion:val condicion_secundaria  {: condiciones.add(new Condicion("OR", true, nombreCampo.toString(), op.toString(), val.toString())); :}
                             |
-                            ;
+                            /*| error ALLCHARACTERSNOSPACE operador valor_condicion condicion_secundaria  {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un operador logico para poder realizar una condicion nueva"); :}
+                            | error operador valor_condicion condicion_secundaria                       {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un operador logico seguide de un id o campo para realizar una condicion nueva"); :}
+                            | error valor_condicion  condicion_secundaria                               {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un operador logico seguido de un id o campo y de un operador relacional para realizar una condicion nueva"); :}
+                            | error condicion_secundaria                                                {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un valor válido para ser comparado por un campo en la condicion"); :}
+                            */;
 
-operador ::=    MAYOR_QUE:ope
-                | MENOR_QUE:ope
-                | MAYOR_IGUAL:ope
-                | MENOR_IGUAL:ope
-                | DIFERENTE:ope
-                | IGUAL:ope
+operador ::=    MAYOR_QUE:ope       {: RESULT=ope; :}
+                | MENOR_QUE:ope     {: RESULT=ope; :}
+                | MAYOR_IGUAL:ope   {: RESULT=ope; :}
+                | MENOR_IGUAL:ope   {: RESULT=ope; :}
+                | DIFERENTE:ope     {: RESULT=ope; :}
+                | IGUAL:ope         {: RESULT=ope; :}
                 ;
 
-valor_condicion ::=     NUMERO_CONSULTA:valCond
-                        | CADENA_CONSULTA:valCond
+valor_condicion ::=     NUMERO_CONSULTA:valCond     {: RESULT=valCond; :}
+                        | CADENA_CONSULTA:valCond   {: RESULT=valCond; :}
                         ;

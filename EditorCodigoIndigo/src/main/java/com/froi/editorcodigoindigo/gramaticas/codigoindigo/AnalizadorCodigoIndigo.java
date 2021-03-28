@@ -5,6 +5,8 @@
  */
 package com.froi.editorcodigoindigo.gramaticas.codigoindigo;
 
+import com.froi.editorcodigoindigo.analizadorrespuesta.ParserRespuestas;
+import com.froi.editorcodigoindigo.analizadorrespuesta.RespuestasLexer;
 import com.froi.editorcodigoindigo.entidades.Advertencia;
 import com.froi.editorcodigoindigo.servidor.Canal;
 import java.io.StringReader;
@@ -19,10 +21,12 @@ public class AnalizadorCodigoIndigo {
     
     private String entrada;
     private ArrayList<Advertencia> listaErrores;
+    private ArrayList<String> listaRespuestas;
     
     public AnalizadorCodigoIndigo(String entrada) {
         this.entrada = entrada;
         listaErrores = new ArrayList<>();
+        this.listaRespuestas = new ArrayList<>();
     }
     
     /**
@@ -55,6 +59,17 @@ public class AnalizadorCodigoIndigo {
 //        salida.append("\n-----Análisis Terminado-----");
 
         String respuesta = canal.repuesta(entrada);
+        StringReader reader = new StringReader(respuesta);
+        RespuestasLexer respuestasLexer = new RespuestasLexer(reader);
+        ParserRespuestas parserRespuestas = new ParserRespuestas(respuestasLexer, listaRespuestas, listaErrores);
+        try {
+            parserRespuestas.parse();
+            for(String element : listaRespuestas) {
+                salida.append("\n" + element);
+            }
+        } catch (Exception e) {
+            salida.append("\n\nHa ocurrido un error al leer la respuesta del servidor: " + e.getMessage());
+        }
     }
     
 }

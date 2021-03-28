@@ -88,7 +88,7 @@ public class InstruccionAgregarComponente extends Instruccion {
                   "]\n" +
                   "}\n" +
                   "<!fin_respuesta>\n";
-        return codigo;
+        return generarCodigoRespuesta("Agregar Componente", descripcion);
     }
     
     public String getId() {

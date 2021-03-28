@@ -8,6 +8,7 @@ package com.froi.formulariosweb.analizadores.codigoindigo;
 import com.froi.formulariosweb.entidades.*;
 import java_cup.runtime.*;
 import java.util.ArrayList;
+import java.io.StringReader;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -391,7 +392,7 @@ public class ParserSolicitudes extends java_cup.runtime.lr_parser {
     "\003\ufed8\013\ufed8\014\u0119\001\002\000\004\144\u0112\001" +
     "\002\000\006\003\u0117\021\u0118\001\002\000\010\003\ufed3" +
     "\014\u0115\021\ufed3\001\002\000\004\010\u0113\001\002\000" +
-    "\004\026\u0114\001\002\000\010\003\ufed2\014\ufed2\021\ufed2" +
+    "\004\025\u0114\001\002\000\010\003\ufed2\014\ufed2\021\ufed2" +
     "\001\002\000\004\144\u0112\001\002\000\006\003\ufed4\021" +
     "\ufed4\001\002\000\010\003\ufed5\013\ufed5\014\ufed5\001\002" +
     "\000\010\003\ufed7\013\ufed7\014\ufed7\001\002\000\006\003" +
@@ -4287,21 +4288,22 @@ class CUP$ParserSolicitudes$actions {
           return CUP$ParserSolicitudes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 303: // opciones_consultar_datos ::= CONSULTA PUNTOS ALLCHARACTERSNOSPACE 
+          case 303: // opciones_consultar_datos ::= CONSULTA PUNTOS ALLCHARACTERS 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserSolicitudes$stack.peek()).value;
 		
-                                                                                                Strigng entrada = ent.substring(1, ent.length()-1);
-                                                                                                StringReader lector = new StringReader(entada);
-                                                                                                ReportesLexer reportesLexer = new ReportesLexer(entrada);
+                                                                                                String cadenaConsulta = ent.toString();
+                                                                                                String entrada = cadenaConsulta.substring(1, cadenaConsulta.length()-1);
+                                                                                                StringReader lector = new StringReader(entrada);
+                                                                                                ReportesLexer reportesLexer = new ReportesLexer(lector);
                                                                                                 ParserReportes parserReportes = new ParserReportes(reportesLexer, listaErrores, listaInstrucciones, entleft, entright);
                                                                                                 try {
                                                                                                     parserReportes.parse();
                                                                                                 } catch(Exception e) {
-                                                                                                    System.out.println("Error en la consulta de la fila " + entleft + ", columna " + entright);
+                                                                                                    System.out.println("Error en la consulta de la fila " + entleft + ", columna " + entright +": " + e.getMessage());
                                                                                                 }
                                                                                             
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_consultar_datos",60, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
