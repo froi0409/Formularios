@@ -70,6 +70,7 @@ parser code  {:
     public boolean verificacionClase(ArrayList<String> listaParametros, String clase) {
         boolean comprobante = true;
         for(String element: listaParametros) {
+            //String elemento = element.replace(" ","").replace("\n","").replace("\t","")
             if(element.equals("\"OPCIONES\"")) {
                 if(!clase.equals("\"CHECKBOX\"") && !clase.equals("\"RADIO\"") && !clase.equals("\"COMBO\"")) {
                     System.out.println("La instrucción \"OPCIONES\" del bloque de la linea "  + linea +  " no es valida para " + clase);
@@ -548,7 +549,7 @@ instruccion_agregar_componente ::=  accion_agregar_componente COMA instruccion_a
 accion_agregar_componente ::=       LLAVE_A:llaA accion_agregar_componente_p LLAVE_C            {:
                                                                                                     linea = llaAleft;
                                                                                                     columna = llaAright;
-                                                                                                    String[] listaObligatorios = {"\"ID\"", "\"FORMULARIO\"", "\"CLASE\"", "\"TEXTO_VISIBLE\""};
+                                                                                                    String[] listaObligatorios = {"\"ID\"", "\"NOMBRE_CAMPO\"", "\"FORMULARIO\"", "\"CLASE\"", "\"TEXTO_VISIBLE\""};
                                                                                                     if(verificacionBloque(listaObligatorios, listaParametros)){
                                                                                                         if(verificacionClase(listaParametros, clase)) {
                                                                                                             InstruccionAgregarComponente inst = new InstruccionAgregarComponente();

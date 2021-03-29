@@ -63,7 +63,7 @@ public class Condicion {
                         break;
                 }
             } else {
-                String cadena = valorCondicion.replace("'", "");
+                String cadena = valorCondicion.replace("'", "").replace("’", "");
                 switch(operadorRelacional) {
                     case "=":
                         aceptador = cadena.equals(dato);

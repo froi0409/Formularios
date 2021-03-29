@@ -75,7 +75,7 @@ public class AnalizadorCodigoIndigo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.setContentType("text/html;charset=UTF-8");
         BufferedReader reader = request.getReader();
         String comprobador;
         String codigoEntrada = "";
@@ -83,8 +83,8 @@ public class AnalizadorCodigoIndigo extends HttpServlet {
             codigoEntrada += comprobador + "\n";
             System.out.println(comprobador);
         }
-        
-        AnalizadorEntrada analizadorEntrada = new AnalizadorEntrada(codigoEntrada);
+        String codigo = new String(codigoEntrada.getBytes("ISO-8859-1"), "UTF-8");
+        AnalizadorEntrada analizadorEntrada = new AnalizadorEntrada(codigo);
         String codigoRespuesta = analizadorEntrada.codificar();
         System.out.println(codigoRespuesta);
         

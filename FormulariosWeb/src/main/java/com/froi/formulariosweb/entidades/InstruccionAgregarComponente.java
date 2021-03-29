@@ -29,9 +29,10 @@ public class InstruccionAgregarComponente extends Instruccion {
 
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
         String codigo = "";
-        String descripcion;
+        String descripcion = "";
         boolean comprobante = false;
         boolean comprobanteSecundario = true;
+        boolean comprobanteTerciario = true;
         int cont = 0;
         for(Formulario element : listaFormularios) {
             if(element.getIdentificador().equals(formulario)) {
@@ -48,7 +49,13 @@ public class InstruccionAgregarComponente extends Instruccion {
                     break;
                 }
             }
-            if (comprobanteSecundario) {
+            for(Componente elem: listaFormularios.get(cont).getListaComponentes()) {
+                if(elem.getNombreCampo().equals(nombreCampo)) {
+                    comprobanteTerciario = false;
+                    break;
+                }
+            }
+            if (comprobanteSecundario && comprobanteTerciario) {
                 Componente compo = new Componente(id, formulario, clase, textoVisible);
                 if (nombreCampo != null) {
                     compo.setNombreCampo(nombreCampo);
@@ -72,13 +79,33 @@ public class InstruccionAgregarComponente extends Instruccion {
                     compo.setUrl(url);
                 }
                 Formulario formUse = listaFormularios.get(cont);
+                if(clase.equals("AREA_TEXTO") || clase.equals("CAMPO_TEXTO") || clase.equals("COMBO") || clase.equals("RADIO")) {
+                    //Añadimos la cantidad de datos recopilados que ya han sido agregados en otros formularios
+                    //Esto con el fin de que no afecte a los resultados en los reportes
+                    for(Componente element : formUse.getListaComponentes()) {
+                        if(element.getClase().equals("AREA_TEXTO") || element.getClase().equals("CAMPO_TEXTO") || element.getClase().equals("COMBO") || element.getClase().equals("RADIO")) {
+                            for(int i = 0; i < element.getDatosRecopilados().size(); i++) {
+                                compo.getDatosRecopilados().add("");
+                            }
+                            break;
+                        }
+                    }
+                }
                 formUse.getListaComponentes().add(compo);
-                descripcion = "Se añadió al formulario " + formUse.getIdentificador() + " el componente " + clase;
+                descripcion += "Se añadió al formulario " + formUse.getIdentificador() + " el componente " + clase;
             } else {
-                descripcion = "No se pudo agregar el componente, ya que el identificador: " + id + " ya está asociado a otro componente en el formulario";
+                descripcion += "No se pudo agregar el componente: ";
+                if(!comprobanteSecundario) {
+                    descripcion += "El identificador: " + id + " ya está asociado a otro componente en el formulario. ";
+                }
+                if(!comprobanteTerciario) {
+                    descripcion += "El nombre de campo " + nombreCampo + " ya se encuentra asociado a otro componente del formulario. ";
+            
+                }
             }
+            
         } else {
-            descripcion = "No se pudo agregar componente " + id + ", debido a que no existe el formulario: " + formulario + " indicado";
+            descripcion += "No se pudo agregar componente " + id + ", debido a que no existe el formulario: " + formulario + " indicado";
         }
         return generarCodigoRespuesta("Agregar Componente", descripcion);
     }

@@ -1002,6 +1002,7 @@ public class ParserSolicitudes extends java_cup.runtime.lr_parser {
     public boolean verificacionClase(ArrayList<String> listaParametros, String clase) {
         boolean comprobante = true;
         for(String element: listaParametros) {
+            //String elemento = element.replace(" ","").replace("\n","").replace("\t","")
             if(element.equals("\"OPCIONES\"")) {
                 if(!clase.equals("\"CHECKBOX\"") && !clase.equals("\"RADIO\"") && !clase.equals("\"COMBO\"")) {
                     System.out.println("La instrucción \"OPCIONES\" del bloque de la linea "  + linea +  " no es valida para " + clase);
@@ -1768,7 +1769,7 @@ class CUP$ParserSolicitudes$actions {
           case 71: // opciones_crear_usuario ::= error 
             {
               Object RESULT =null;
-		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instucción: \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); 
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instucción: PARAMETRO ':' VALOR_A_ASIGNAR"); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_crear_usuario",50, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;
@@ -1991,7 +1992,7 @@ class CUP$ParserSolicitudes$actions {
           case 91: // opciones_modificacion_usuario ::= error 
             {
               Object RESULT =null;
-		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); 
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción PARAMETRO ':' VALOR_A_ASIGNAR"); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_modificacion_usuario",51, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;
@@ -2119,7 +2120,7 @@ class CUP$ParserSolicitudes$actions {
           case 103: // opciones_eliminacion_usuario ::= error 
             {
               Object RESULT =null;
-		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"PARAMETRO\" ':' \"VALOR_A_ASOGNAR\""); 
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción PARAMETRO ':' VALOR_A_ASOGNAR"); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_eliminacion_usuario",52, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;
@@ -2299,7 +2300,7 @@ class CUP$ParserSolicitudes$actions {
           case 120: // opciones_login_usuario ::= PASSWORD error 
             {
               Object RESULT =null;
-		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); 
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción PARAMETRO ':' VALOR_A_ASIGNAR"); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_login_usuario",53, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-1)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;
@@ -2673,7 +2674,7 @@ class CUP$ParserSolicitudes$actions {
           case 155: // opciones_nuevo_formulario ::= error 
             {
               Object RESULT =null;
-		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); 
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción PARAMETRO ':' VALOR_A_ASIGNAR"); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_nuevo_formulario",54, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;
@@ -2843,7 +2844,7 @@ class CUP$ParserSolicitudes$actions {
           case 171: // opciones_eliminacion_formulario ::= error 
             {
               Object RESULT =null;
-		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); 
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción PARAMETRO ':' VALOR_A_ASIGNAR"); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_eliminacion_formulario",55, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;
@@ -3125,7 +3126,7 @@ class CUP$ParserSolicitudes$actions {
           case 197: // opciones_modificacion_formulario ::= error 
             {
               Object RESULT =null;
-		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); 
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción PARAMETRO ':' VALOR_A_ASIGNAR"); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_modificacion_formulario",56, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;
@@ -3158,7 +3159,7 @@ class CUP$ParserSolicitudes$actions {
 		
                                                                                                     linea = llaAleft;
                                                                                                     columna = llaAright;
-                                                                                                    String[] listaObligatorios = {"\"ID\"", "\"FORMULARIO\"", "\"CLASE\"", "\"TEXTO_VISIBLE\""};
+                                                                                                    String[] listaObligatorios = {"\"ID\"", "\"NOMBRE_CAMPO\"", "\"FORMULARIO\"", "\"CLASE\"", "\"TEXTO_VISIBLE\""};
                                                                                                     if(verificacionBloque(listaObligatorios, listaParametros)){
                                                                                                         if(verificacionClase(listaParametros, clase)) {
                                                                                                             InstruccionAgregarComponente inst = new InstruccionAgregarComponente();
@@ -3718,7 +3719,7 @@ class CUP$ParserSolicitudes$actions {
           case 251: // opciones_agregar_componente ::= error 
             {
               Object RESULT =null;
-		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); 
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción PARAMETRO ':' VALOR_A_ASIGNAR"); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_agregar_componente",57, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;
@@ -4075,7 +4076,7 @@ class CUP$ParserSolicitudes$actions {
           case 283: // opciones_eliminacion_componente ::= error 
             {
               Object RESULT =null;
-		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"PARAMETRO\" ':' \"VALOR_A_ASIGNAR\""); 
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción PARAMETRO ':' VALOR_A_ASIGNAR"); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_eliminacion_componente",58, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;

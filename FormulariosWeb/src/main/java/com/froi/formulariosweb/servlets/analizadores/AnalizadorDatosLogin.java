@@ -34,11 +34,17 @@ public class AnalizadorDatosLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String usuario;
-        String password;
+        String usuarioEntrada;
+        String passwordEntrada;
         ArrayList<Usuario> listaUsuarios;
-        usuario = request.getParameter("usuario");
-        password = request.getParameter("password");
+        usuarioEntrada = request.getParameter("usuario");
+        passwordEntrada = request.getParameter("password");
+        
+        String usuario = new String(usuarioEntrada.getBytes("ISO-8859-1"), "UTF-8");
+        String password = new String(passwordEntrada.getBytes("ISO-8859-1"), "UTF-8");
+        
+        System.out.println("\n\nusuario");
+        System.out.println(usuario);
         
         AnalizadorEntrada analizador = new AnalizadorEntrada(null);
         analizador.analisisDatosExistentes(); //Buscamos a los usuarios que hay en el sistema

@@ -137,7 +137,7 @@ public class InstruccionConsulta extends Instruccion {
                     datosVerificados += ",\n";
                 }
                 datosVerificados += "{\n";
-                datosVerificados += "\"CAMPO\" : \"" + campoMostrar.getId() + "\"";
+                datosVerificados += "\"CAMPO\" : \"" + campoMostrar.getNombreCampo() + "\"";
                 /* AQUÍ DEBEMOS COLOCAR LOS DATOS A MOSTRAR */
                 int contadorValidos = 0;
                 for(String dato : campoMostrar.getDatosRecopilados()) {
@@ -159,7 +159,7 @@ public class InstruccionConsulta extends Instruccion {
         if(listaCondiciones.isEmpty()) {
             for(Componente componente : listaComponentes) {
                 //Establecemos las posiciones validas que tendrá la condición
-                if(componente.getId().equals(camposMostrar.get(0))) {
+                if(componente.getId().equals(camposMostrar.get(0).getId())) {
                     for(int i = 0; i < componente.getDatosRecopilados().size(); i++) {
                         posicionesDatosValidos.add(i);
                     }
