@@ -84,7 +84,7 @@ inicio ::=  SELECT TO FORM FLECHA ALLCHARACTERSNOSPACE:formulario CORCHETE_A  ca
             | error ALLCHARACTERSNOSPACE CORCHETE_A error CORCHETE_C condicion_principal                                        {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instruccion"); :}
             | error CORCHETE_A error CORCHETE_C condicion_principal                                                             {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instruccion"); :}
             | error CORCHETE_C condicion_principal                                                                              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instruccion"); :}
-            | SELECT TO FORM FLECHA ALLCHARACTERSNOSPACE CORCHETE_A campos_posibles error condicion_principal                     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instruccion"); :}
+            | SELECT TO FORM FLECHA ALLCHARACTERSNOSPACE CORCHETE_A campos_posibles error condicion_principal                   {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instruccion"); :}
             ;
 
 

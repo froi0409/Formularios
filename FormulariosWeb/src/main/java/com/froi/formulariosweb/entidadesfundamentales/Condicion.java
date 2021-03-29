@@ -5,6 +5,8 @@
  */
 package com.froi.formulariosweb.entidadesfundamentales;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author froi-pc
@@ -25,8 +27,133 @@ public class Condicion {
         this.valorCondicion = valorCondicion;
     }
     
+    /**
+     * Sirve para obtener la lista de las posiciones de los componentes que cumplen la condición especificada
+     * @param componente Componente a analizar
+     * @return Lista que contiene la posición de los componentes que cumplen la condición
+     */
+    public ArrayList<Integer> getListaValidacion(Componente componente) {
+        ArrayList<Integer> listaValida = new ArrayList<>();
+        int cont = 0;
+        for(String dato : componente.getDatosRecopilados()) {
+            boolean aceptador;
+            //Ejecutamos la condicion
+            if(isNumber(valorCondicion)) {
+                switch(operadorRelacional) {
+                    case "=":
+                        aceptador = Double.parseDouble(dato) == Double.parseDouble(valorCondicion);
+                        break;
+                    case "<":
+                        aceptador = Double.parseDouble(dato) < Double.parseDouble(valorCondicion);
+                        break;
+                    case ">":
+                        aceptador = Double.parseDouble(dato) > Double.parseDouble(valorCondicion);
+                        break;
+                    case "<=":
+                        aceptador = Double.parseDouble(dato) <= Double.parseDouble(valorCondicion);
+                        break;
+                    case ">=":
+                        aceptador = Double.parseDouble(dato) >= Double.parseDouble(valorCondicion);
+                        break;
+                    case "<>":
+                        aceptador = Double.parseDouble(dato) != Double.parseDouble(valorCondicion);
+                        break;
+                    default:
+                        aceptador = false;
+                        break;
+                }
+            } else {
+                String cadena = valorCondicion.replace("'", "");
+                switch(operadorRelacional) {
+                    case "=":
+                        aceptador = cadena.equals(dato);
+                        break;
+                    case "<>":
+                        aceptador = !cadena.equals(dato);
+                        break;
+                    default:
+                        aceptador = false;
+                        break;
+                }
+            }
+            
+            if(not) {
+                aceptador = !aceptador;
+            }
+            
+            if(aceptador){
+                listaValida.add(cont);
+            }
+            
+            cont++;
+        }
+        return listaValida;
+    }
+    
+    /**
+     * Método que nos ayuda a comprobar si una cadena es un numero
+     * @param cadena cadena consultada
+     * @return true si la cadena es un número, false si no lo es
+     */
+    private boolean isNumber(String cadena) {
+        try {
+            Double.parseDouble(cadena);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
     public String toString() {
         return operadorLogico + " " + not + " " + campo + " " + operadorRelacional + " " + valorCondicion;
+    }
+
+    public String getOperadorLogico() {
+        return operadorLogico;
+    }
+
+    public void setOperadorLogico(String operadorLogico) {
+        this.operadorLogico = operadorLogico;
+    }
+
+    public boolean isNot() {
+        return not;
+    }
+
+    public void setNot(boolean not) {
+        this.not = not;
+    }
+
+    public String getCampo() {
+        return campo;
+    }
+
+    public void setCampo(String campo) {
+        this.campo = campo;
+    }
+
+    public String getOperadorRelacional() {
+        return operadorRelacional;
+    }
+
+    public void setOperadorRelacional(String operadorRelacional) {
+        this.operadorRelacional = operadorRelacional;
+    }
+
+    public String getValorCondicion() {
+        return valorCondicion;
+    }
+
+    public void setValorCondicion(String valorCondicion) {
+        this.valorCondicion = valorCondicion;
+    }
+
+    public String getTipoValorCondicion() {
+        return tipoValorCondicion;
+    }
+
+    public void setTipoValorCondicion(String tipoValorCondicion) {
+        this.tipoValorCondicion = tipoValorCondicion;
     }
     
 }
