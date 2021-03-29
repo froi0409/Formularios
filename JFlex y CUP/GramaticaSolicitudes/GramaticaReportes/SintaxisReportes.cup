@@ -4,6 +4,7 @@ import com.froi.formulariosweb.entidades.Advertencia;
 import com.froi.formulariosweb.entidades.Instruccion;
 import com.froi.formulariosweb.entidades.InstruccionConsulta;
 import com.froi.formulariosweb.entidadesfundamentales.Condicion;
+import com.froi.formulariosweb.entidadesfundamentales.Comparacion;
 import java_cup.runtime.*;
 import java.util.ArrayList;
 class ParserReportes;
@@ -43,7 +44,7 @@ parser code {:
         int line = fila + s.left;
         int column;
         if(s.left == 0) {
-            column = columna + s.right
+            column = columna + s.right;
         } else {
             column = s.right;
         }
@@ -59,7 +60,9 @@ parser code {:
 
 terminal SELECT, TO, FORM, FLECHA, WHERE, AND, OR, NOT, MENOR_QUE, MAYOR_QUE, IGUAL, MENOR_IGUAL, MAYOR_IGUAL, DIFERENTE, CORCHETE_A, CORCHETE_C, IDENTIFICADOR, ALLCHARACTERSNOSPACE, COMA, NUMERO_CONSULTA, CADENA_CONSULTA;
 
-non terminal inicio, campos_posibles, campos_posibles_p, condicion_principal, condicion_interna, condicion_secundaria, operador_numero, operador_cadena, operador, valor_condicion, comparacion;
+non terminal inicio, campos_posibles, campos_posibles_p, condicion_principal, condicion_interna, condicion_secundaria, operador_numero, operador_cadena, operador, valor_condicion;
+non terminal Comparacion comparacion;
+
 start with inicio;
 
 inicio ::=  SELECT TO FORM FLECHA ALLCHARACTERSNOSPACE:formulario CORCHETE_A  campos_posibles CORCHETE_C condicion_principal    {:
@@ -78,7 +81,7 @@ inicio ::=  SELECT TO FORM FLECHA ALLCHARACTERSNOSPACE:formulario CORCHETE_A  ca
                                                                                                                                     inst.setListaCondiciones(condiciones);
                                                                                                                                     listaInstrucciones.add(inst);
                                                                                                                                 :}
-            | SELECT TO FORM FLECHA ALLCHARACTERSNOSPACE CORCHETE_A error CORCHETE_C condicion_principal                        {: listaErrores.get(punteroErrores).setDescripcion("Error en los campos a consultar, verifique que no contengan caracteres invalidos"); :}
+            //| SELECT TO FORM FLECHA ALLCHARACTERSNOSPACE CORCHETE_A error CORCHETE_C condicion_principal                        {: listaErrores.get(punteroErrores).setDescripcion("Error en los campos a consultar, verifique que no contengan caracteres invalidos"); :}
             | error TO FORM FLECHA ALLCHARACTERSNOSPACE CORCHETE_A campos_posibles CORCHETE_C condicion_principal               {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instruccion"); :}
             | error FORM FLECHA ALLCHARACTERSNOSPACE CORCHETE_A error CORCHETE_C condicion_principal                            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instruccion"); :}
             | error ALLCHARACTERSNOSPACE CORCHETE_A error CORCHETE_C condicion_principal                                        {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instruccion"); :}
@@ -103,18 +106,18 @@ condicion_principal ::= WHERE CORCHETE_A condicion_interna CORCHETE_C
                         | error CORCHETE_A condicion_interna error              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ']' para finalizar la isntruccion"); :}
                         ;
 
-condicion_interna ::=   NOT ALLCHARACTERSNOSPACE:nombreCampo comparacion condicion_secundaria   {: condiciones.add(new Condicion(null, true, nombreCampo.toString(), operadorRelacional, valorCondicion)); :}
-                        | ALLCHARACTERSNOSPACE:nombreCampo comparacion condicion_secundaria     {: condiciones.add(new Condicion(null, false, nombreCampo.toString(), operadorRelacional, valorCondicion)); :}
+condicion_interna ::=   NOT ALLCHARACTERSNOSPACE:nombreCampo comparacion:comp condicion_secundaria   {: condiciones.add(new Condicion(null, true, nombreCampo.toString(), comp.getOperador(), comp.getValor())); :}
+                        | ALLCHARACTERSNOSPACE:nombreCampo comparacion:comp condicion_secundaria     {: condiciones.add(new Condicion(null, false, nombreCampo.toString(), comp.getOperador(), comp.getValor())); :}
                         | error comparacion condicion_secundaria                                {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un id o campo para realizar la condicion"); :}
                         | error condicion_secundaria                                            {: listaErrores.get(punteroErrores).setDescripcion("Hace falta una condicion antes de usar un operador logico"); :}
                         | NOT ALLCHARACTERSNOSPACE error condicion_secundaria                   {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un operador relacional seguido de un valor de comparacion valido. Recuerde que una cadena solo pede ser comparada por los operadores '=' y '<>'."); :}
                         | ALLCHARACTERSNOSPACE error condicion_secundaria                       {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un operador relacional seguido de un valor de comparacion valido. Recuerde que una cadena solo pede ser comparada por los operadores '=' y '<>'."); :}
                         ;
 
-condicion_secundaria ::=    AND ALLCHARACTERSNOSPACE:nombreCampo comparacion condicion_secundaria           {: condiciones.add(new Condicion("AND", false, nombreCampo.toString(), operadorRelacional, valorCondicion)); :}
-                            | OR ALLCHARACTERSNOSPACE:nombreCampo comparacion condicion_secundaria          {: condiciones.add(new Condicion("OR", false, nombreCampo.toString(), operadorRelacional, valorCondicion)); :}
-                            | AND NOT ALLCHARACTERSNOSPACE:nombreCampo comparacion condicion_secundaria     {: condiciones.add(new Condicion("AND", true, nombreCampo.toString(), operadorRelacional, valorCondicion)); :}
-                            | OR NOT ALLCHARACTERSNOSPACE:nombreCampo comparacion condicion_secundaria      {: condiciones.add(new Condicion("OR", true, nombreCampo.toString(), operadorRelacional, valorCondicion)); :}
+condicion_secundaria ::=    AND ALLCHARACTERSNOSPACE:nombreCampo comparacion:comp condicion_secundaria           {: condiciones.add(new Condicion("AND", false, nombreCampo.toString(), comp.getOperador(), comp.getValor())); :}
+                            | OR ALLCHARACTERSNOSPACE:nombreCampo comparacion:comp condicion_secundaria          {: condiciones.add(new Condicion("OR", false, nombreCampo.toString(), comp.getOperador(), comp.getValor())); :}
+                            | AND NOT ALLCHARACTERSNOSPACE:nombreCampo comparacion:comp condicion_secundaria     {: condiciones.add(new Condicion("AND", true, nombreCampo.toString(), comp.getOperador(), comp.getValor())); :}
+                            | OR NOT ALLCHARACTERSNOSPACE:nombreCampo comparacion:comp condicion_secundaria      {: condiciones.add(new Condicion("OR", true, nombreCampo.toString(), comp.getOperador(), comp.getValor())); :}
                             |
                             | AND ALLCHARACTERSNOSPACE error condicion_secundaria                           {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un operador relacional seguido de un valor de comparacion valido. Recuerde que una cadena solo pede ser comparada por los operadores '=' y '<>'."); :}
                             | OR ALLCHARACTERSNOSPACE error condicion_secundaria                            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un operador relacional seguido de un valor de comparacion valido. Recuerde que una cadena solo pede ser comparada por los operadores '=' y '<>'."); :}
@@ -127,8 +130,8 @@ condicion_secundaria ::=    AND ALLCHARACTERSNOSPACE:nombreCampo comparacion con
                             */
                             ;
 
-comparacion ::=     operador_numero:op NUMERO_CONSULTA:val      {: operadorRelacional = op.toString(); valorCondicion = val.toString(); :}
-                    | operador_cadena:op CADENA_CONSULTA:val    {: operadorRelacional = op.toString(); valorCondicion = val.toString(); :}
+comparacion ::=     operador_numero:op NUMERO_CONSULTA:val      {: RESULT = new Comparacion(op.toString(), val.toString()); :}
+                    | operador_cadena:op CADENA_CONSULTA:val    {: RESULT = new Comparacion(op.toString(), val.toString()); :}
                     ;
 
 operador_numero ::=     MAYOR_QUE:ope       {: RESULT=ope; :}

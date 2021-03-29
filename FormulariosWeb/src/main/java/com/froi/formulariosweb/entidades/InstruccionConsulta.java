@@ -152,6 +152,54 @@ public class InstruccionConsulta extends Instruccion {
             System.out.println("filtro2Empty");
         } else {
             ArrayList<Integer> listaAuxiliar = new ArrayList<>();
+            for(int i = listaCondiciones.size()-1; i >= 0; i--) {
+                for(Componente componente : listaComponentes) {
+                    System.out.println("Id componente: " + componente.getId());
+                    if(componente.getId().equals(listaCondiciones.get(i).getCampo()) || componente.getNombreCampo().equals(listaCondiciones.get(i).getCampo())) {
+                        listaAuxiliar = listaCondiciones.get(i).getListaValidacion(componente);
+                        System.out.println("Antes de los operadores relacionales");
+                        for(Integer integer : listaAuxiliar) {
+                            System.out.println(integer);
+                        }
+                    break;
+                    }
+                }
+                if(listaCondiciones.get(i).getOperadorLogico() != null && listaCondiciones.get(i).getOperadorLogico().equals("AND")) {
+                    System.out.println("\n\nfiltro1AND");
+                    System.out.println("Lista Principal");
+                    for(Integer entero : posicionesDatosValidos) {
+                        System.out.println("Dato " + entero);
+                    }
+                    System.out.println("Lista Auxiliar");
+                    for(Integer entero : listaAuxiliar) {
+                        System.out.println("Dato " + entero);
+                    }
+                    posicionesDatosValidos = interseccion(posicionesDatosValidos, listaAuxiliar);
+                } else if(listaCondiciones.get(i).getOperadorLogico() != null && listaCondiciones.get(i).getOperadorLogico().equals("OR")) {
+                    System.out.println("\n\nfiltro1OR");
+                    System.out.println("Lista Principal");
+                    for(Integer entero : posicionesDatosValidos) {
+                        System.out.println("Dato " + entero);
+                    }
+                    System.out.println("Lista Auxiliar");
+                    for(Integer entero : listaAuxiliar) {
+                        System.out.println("Dato " + entero);
+                    }
+                    posicionesDatosValidos = union(posicionesDatosValidos, listaAuxiliar);
+                } else if(listaCondiciones.get(i).getOperadorLogico() == null) {
+                    System.out.println("\n\nfiltro1NULL");
+                    System.out.println("Lista Principal");
+                    for(Integer entero : posicionesDatosValidos) {
+                        System.out.println("Dato " + entero);
+                    }
+                    System.out.println("Lista Auxiliar");
+                    for(Integer entero : listaAuxiliar) {
+                        System.out.println("Dato " + entero);
+                    }
+                    posicionesDatosValidos = (ArrayList<Integer>) listaAuxiliar.clone();
+                }
+            }
+            /*
             for(Condicion condicion : listaCondiciones) {
                 for(Componente componente : listaComponentes) {
                     if(componente.getId().equals(condicion.getCampo()) || componente.getNombreCampo().equals(condicion.getCampo())) {
@@ -170,6 +218,7 @@ public class InstruccionConsulta extends Instruccion {
                     posicionesDatosValidos = (ArrayList<Integer>) listaAuxiliar.clone();
                 }
             }
+            */
         }
     }
     

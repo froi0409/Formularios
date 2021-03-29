@@ -17,7 +17,7 @@ Ignore = {TerminacionLinea} | [ \t\f]
 IDENTIFICADOR = ("$" | "_" | "-") ( [a-zA-Z] | [0-9] | "$" | "_" | "-")*;
 ALLCHARACTERSNOSPACE = [^' ' "," "\"" "|" "[" "]"]+
 NUMEROCONSULTA = [-]?[0-9]+ ([.][0-9]+)?
-CADENACONSULTA = ("\’" | "\'") ([^ "\"" "|"] | [ \t\f])* ("\’" | "\'")
+CADENACONSULTA = ("\’" | "\'") ([^ "\"" "\'" "\’" "|"] | [ \t\f])* ("\’" | "\'")
 %%
 <YYINITIAL> {
     "SELECT"                { System.out.println("SELECT: " + yytext()); return new Symbol(SELECT, yyline, yycolumn, yytext()); }
