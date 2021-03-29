@@ -43,6 +43,10 @@ ALLCHARACTERS = [\42] ([\40-\41] | [\43-\255] | [^"\"" "|"])* [\42]
     "\""{WS}*"TIPO"{WS}*"\""                            { System.out.println("TIPO: " + yytext()); return new Symbol(TIPO, yyline+1, yycolumn+1, yytext()); }
     "\""{WS}*"DETALLES"{WS}*"\""                        { System.out.println("DETALLES: " + yytext()); return new Symbol(DETALLES, yyline+1, yycolumn+1, yytext()); }
     "\""{WS}*"DESCRIPCION_ERROR"{WS}*"\""               { System.out.println("DESCRIPCION_ERROR: " + yytext()); return new Symbol(DESCRIPCION_ERROR, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"CONSULTA"{WS}*"\""                        { System.out.println("CONSULTA: " + yytext()); return new Symbol(CONSULTA, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"DATOS_CONSULTA"{WS}*"\""                  { System.out.println("DATOS_CONSULTA: " + yytext()); return new Symbol(DATOS_CONSULTA, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"CAMPO"{WS}*"\""                           { System.out.println("CAMPO: " + yytext()); return new Symbol(CAMPO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"DATO"{WS}*"\""                            { System.out.println("DATO: " + yytext()); return new Symbol(DATO, yyline+1, yycolumn+1, yytext()); }
 
     {INIRESPUESTA}          { System.out.println("INI_RESPUESTA: " + yytext()); return new Symbol(INI_RESPUESTA, yyline+1, yycolumn+1, yytext()); }
     {FINRESPUESTA}          { System.out.println("FIN_RESPUESTA: " + yytext()); return new Symbol(FIN_RESPUESTA, yyline+1, yycolumn+1, yytext()); }

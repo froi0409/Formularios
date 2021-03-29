@@ -11,7 +11,9 @@ import com.froi.editorcodigoindigo.entidades.Advertencia;
 import com.froi.editorcodigoindigo.servidor.Canal;
 import java.io.StringReader;
 import java.util.ArrayList;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -32,8 +34,10 @@ public class AnalizadorCodigoIndigo {
     /**
      * Método que nos sirve para enviar el codigo índigo al servidor y recibir la respuesta del mismo
      * @param salida JTextArea en el que se imprimirá la salida del análisis de la respuesta
+     * @param tablaReportes JTable donde se visualizan los reportes
+     * @param listaTablas ArrayList<DefaultTableModel> que contendrá las diferentes tablas que se obtengan de las consultas
      */
-    public void analizar(JTextArea salida) {
+    public void analizar(JTextArea salida, JTable tablaReportes, ArrayList<DefaultTableModel> listaTablas) {
         salida.setText("");
         salida.append("----------Enviando Solicitudes al servidor----------" + "\n");
         Canal canal = new Canal();
@@ -41,12 +45,15 @@ public class AnalizadorCodigoIndigo {
         
         StringReader reader = new StringReader(respuesta);
         RespuestasLexer respuestasLexer = new RespuestasLexer(reader);
-        ParserRespuestas parserRespuestas = new ParserRespuestas(respuestasLexer, listaRespuestas, listaErrores);
+        ParserRespuestas parserRespuestas = new ParserRespuestas(respuestasLexer, listaRespuestas, listaErrores, listaTablas);
         try {
             parserRespuestas.parse();
             salida.append("----------Conexión con el servidor establecida----------" + "\n" );
             for(String element : listaRespuestas) {
                 salida.append(element + "\n\n");
+            }
+            for(DefaultTableModel dtm : listaTablas) {
+                tablaReportes.setModel(dtm);
             }
         } catch (Exception e) {
             salida.append("\n\n......Ha ocurrido un error al leer la respuesta del servidor: " + e.getMessage() + "......");

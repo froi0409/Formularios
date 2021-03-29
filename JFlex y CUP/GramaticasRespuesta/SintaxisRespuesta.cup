@@ -2,7 +2,9 @@ package com.froi.editorcodigoindigo.analizadorrespuesta;
 
 import com.froi.editorcodigoindigo.entidades.Advertencia;
 import java.util.ArrayList;
+import java.util.List;
 import java_cup.runtime.*;
+import javax.swing.table.DefaultTableModel;
 
 class ParserRespuestas;
 
@@ -10,12 +12,20 @@ parser code {:
 
     private ArrayList<String> listaRespuestas;
     private ArrayList<Advertencia> listaErrores;
+    private ArrayList<DefaultTableModel> listaTablas;
+    private List<ArrayList<String>> datosRecopilados;
+    private ArrayList<String> listaAuxiliar;
+
     private String p1, p2;
 
-    public ParserRespuestas(RespuestasLexer lexer, ArrayList<String> listaRespuestas, ArrayList<Advertencia> listaErrores) {
+    public ParserRespuestas(RespuestasLexer lexer, ArrayList<String> listaRespuestas, ArrayList<Advertencia> listaErrores, ArrayList<DefaultTableModel> listaTablas) {
         super(lexer);
         this.listaRespuestas = listaRespuestas;
         this.listaErrores = listaErrores;
+        this.listaErrores = new ArrayList<>();
+        this.datosRecopilados = new ArrayList<>();
+        this.listaAuxiliar = new ArrayList<>();
+        this.listaTablas = listaTablas;
     }
     public void report_error(String message, Object info) {
         System.out.println("reporterror");
@@ -33,19 +43,35 @@ parser code {:
     protected int error_sync_size() {
         return 1;
     }
+
+    public void agregarTableModel() {
+        DefaultTableModel dtm = new DefaultTableModel();
+        for(int i = 0; i < datosRecopilados.size(); i++) {
+            dtm.addColumn(datosRecopilados.get(i).get(0));
+        }
+        for(int i = 1; i < datosRecopilados.get(0).size(); i++) {
+            String[] cadena = new String[datosRecopilados.size()];
+            for(int j = 0; j < datosRecopilados.size(); j++) {
+                cadena[j] = datosRecopilados.get(j).get(i);
+            }
+            dtm.addRow(cadena);
+        }
+        listaTablas.add(dtm);
+        datosRecopilados.clear();
+    }
 :}
 
 //declaración de terminales
-terminal MENOR_QUE, MAYOR_QUE, EXCLAMACION, PUNTOS, CORCHETE_A, CORCHETE_C, LLAVE_A, LLAVE_C, COMA, ERROR_DETECTADO, DESCRIPCION, INSTRUCCION_EJECUTADA, INSTRUCCIONES, TIPO, DETALLES, INI_RESPUESTA, FIN_RESPUESTA, INI_RESPUESTAS, FIN_RESPUESTAS, ALLCHARACTERS, DESCRIPCION_ERROR;
+terminal MENOR_QUE, MAYOR_QUE, EXCLAMACION, PUNTOS, CORCHETE_A, CORCHETE_C, LLAVE_A, LLAVE_C, COMA, ERROR_DETECTADO, DESCRIPCION, INSTRUCCION_EJECUTADA, INSTRUCCIONES, CONSULTA, DATOS_CONSULTA, TIPO, DETALLES, CAMPO, DATO, INI_RESPUESTA, FIN_RESPUESTA, INI_RESPUESTAS, FIN_RESPUESTAS, ALLCHARACTERS, DESCRIPCION_ERROR;
 
 //Declaración de no terminales
 non terminal inicio, instruccion_respuestas, respuesta, tipo_respuesta;
 non terminal apertura_instruccion_principal1, apertura_instruccion_principal2, cierre_instruccion_principal;
 
-non terminal instruccion_error_detectado, instruccion_instruccion_ejecutada;
-non terminal accion_error_detectado, accion_instruccion_ejecutada;
-non terminal accion_error_detectado_p, accion_instruccion_ejecutada_p;
-non terminal opciones_error_detectado, opciones_instruccion_ejecutada;
+non terminal instruccion_error_detectado, instruccion_instruccion_ejecutada, instruccion_consulta_realizada;
+non terminal accion_error_detectado, accion_instruccion_ejecutada, accion_consulta_realizada;
+non terminal accion_error_detectado_p, accion_instruccion_ejecutada_p, accion_consulta_realizada_p;
+non terminal opciones_error_detectado, opciones_instruccion_ejecutada, opciones_consulta_realizada;
 
 start with inicio;
 
@@ -61,6 +87,7 @@ respuesta ::=   MENOR_QUE EXCLAMACION INI_RESPUESTA PUNTOS tipo_respuesta MENOR_
 
 tipo_respuesta ::=  ERROR_DETECTADO             apertura_instruccion_principal1 DESCRIPCION_ERROR apertura_instruccion_principal2 instruccion_error_detectado cierre_instruccion_principal
                     | INSTRUCCIONES             apertura_instruccion_principal1 INSTRUCCION_EJECUTADA apertura_instruccion_principal2 instruccion_instruccion_ejecutada cierre_instruccion_principal
+                    | CONSULTA                  apertura_instruccion_principal1 DATOS_CONSULTA apertura_instruccion_principal2 instruccion_consulta_realizada cierre_instruccion_principal                  {: agregarTableModel(); :}
                     | error INSTRUCCION_EJECUTADA apertura_instruccion_principal2 instruccion_instruccion_ejecutada cierre_instruccion_principal
                     | error DESCRIPCION_ERROR apertura_instruccion_principal2 instruccion_error_detectado cierre_instruccion_principal
                     ;
@@ -105,4 +132,24 @@ accion_instruccion_ejecutada_p ::=      opciones_instruccion_ejecutada COMA acci
 
 opciones_instruccion_ejecutada ::=      TIPO PUNTOS ALLCHARACTERS:desc           {: String descripcion = desc.toString(); p1 = descripcion.substring(1, descripcion.length()-1); :}
                                         | DETALLES PUNTOS ALLCHARACTERS:desc     {: String descripcion = desc.toString(); p2 = descripcion.substring(1, descripcion.length()-1); :}
+                                        ;
+
+/* INSTRUCCIONES REPORTE ENCONTRADO */
+instruccion_consulta_realizada ::=      accion_consulta_realizada COMA instruccion_consulta_realizada
+                                        | accion_consulta_realizada
+                                        ;
+
+accion_consulta_realizada ::=           LLAVE_A accion_consulta_realizada_p LLAVE_C     {:
+                                                                                            ArrayList<String> datos = (ArrayList<String>) listaAuxiliar.clone();
+                                                                                            datosRecopilados.add(datos);
+                                                                                            listaAuxiliar.clear();
+                                                                                        :}
+                                        ;
+
+accion_consulta_realizada_p ::=         opciones_consulta_realizada COMA accion_consulta_realizada_p
+                                        | opciones_consulta_realizada
+                                        ;
+
+opciones_consulta_realizada ::=         CAMPO PUNTOS ALLCHARACTERS:valor        {: String valorCampo = valor.toString(); valorCampo = valorCampo.substring(1, valorCampo.length()-1); listaAuxiliar.add(valorCampo); :}
+                                        | DATO PUNTOS ALLCHARACTERS:valor       {: String valorCampo = valor.toString(); valorCampo = valorCampo.substring(1, valorCampo.length()-1); listaAuxiliar.add(valorCampo); :}
                                         ;

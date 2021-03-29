@@ -34,8 +34,8 @@ public class InstruccionConsulta extends Instruccion {
     
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
         
-        boolean comprobadorExistenciaForm = false, comprobadorExistenciaCampos = true;
-        String descripcionCamposInexistentes = "Los siguientes campos no existen: ";
+        boolean comprobadorExistenciaForm = false, comprobadorExistenciaCampos = true, comprobadorCamposConInfo = true;
+        String descripcionCamposInexistentes = "Los siguientes campos no existen: ", descripcionCamposSinInfo = "Los siguientes campos no almacenan informacion: ";
         for(Formulario formulario : listaFormularios) {
             //Verificamos si el formulario existe
             if(formulario.getIdentificador().equals(idFormulario) || formulario.getNombre().equals(idFormulario)) {
@@ -52,6 +52,11 @@ public class InstruccionConsulta extends Instruccion {
                             //Comprobamos si el campo existe en el formulario
                             if(componente.getId().equals(campo) || componente.getNombreCampo().equals(campo)) {
                                 camposMostrar.add(componente);
+                                //Verificamos si el campo puede mostrar información
+                                if(!componente.getClase().equals("AREA_TEXTO") && !componente.getClase().equals("CAMPO_TEXTO") && !componente.getClase().equals("RADIO") && !componente.getClase().equals("COMBO")) {
+                                    comprobadorCamposConInfo = false;
+                                    descripcionCamposSinInfo += componente.getId() + ". ";
+                                }
                                 comprobadorCampo = true;
                             }
                             
@@ -69,6 +74,10 @@ public class InstruccionConsulta extends Instruccion {
                             //Comprobamos si el campo de la condicion existe en el formulario
                             if(condicion.getCampo().equals(componente.getId()) || condicion.getCampo().equals(componente.getNombreCampo())) {
                                 comprobadorCampo = true;
+                                if(!componente.getClase().equals("AREA_TEXTO") && !componente.getClase().equals("CAMPO_TEXTO") && !componente.getClase().equals("RADIO") && !componente.getClase().equals("COMBO")) {
+                                    comprobadorCamposConInfo = false;
+                                    descripcionCamposSinInfo += componente.getId() + ". ";
+                                }
                             }
                         }
                         if(!comprobadorCampo) {
@@ -79,7 +88,13 @@ public class InstruccionConsulta extends Instruccion {
                 }
                 //Si alguno de los campos especificados no existe en el formulario, se retona el mensaje que lo indica
                 if(!comprobadorExistenciaCampos) {
+                    if(!comprobadorCamposConInfo) {
+                        descripcionCamposInexistentes += descripcionCamposSinInfo;
+                    }
                     return generarCodigoRespuesta("Conflicto de Consulta", descripcionCamposInexistentes);
+                }
+                if(!comprobadorCamposConInfo) {
+                    return generarCodigoRespuesta("Conflicto de Consulta", descripcionCamposSinInfo);
                 }
                 comprobadorExistenciaForm = true;
                 formularioUtilizado = formulario;
@@ -117,22 +132,24 @@ public class InstruccionConsulta extends Instruccion {
         int cont = 0;
         setPosicionesValidas();
         for(Componente campoMostrar : camposMostrar) {
-            if(cont > 0) {
-                datosVerificados += ",\n";
-            }
-            datosVerificados += "{\n";
-            datosVerificados += "\"CAMPO\" : \"" + campoMostrar.getId() + "\"";
-            /* AQUÍ DEBEMOS COLOCAR LOS DATOS A MOSTRAR */
-            int contadorValidos = 0;
-            for(String dato : campoMostrar.getDatosRecopilados()) {
-                if(posicionesDatosValidos.contains(contadorValidos)) {
+            if(campoMostrar.getClase().equals("AREA_TEXTO") || campoMostrar.getClase().equals("CAMPO_TEXTO") || campoMostrar.getClase().equals("COMBO") || campoMostrar.getClase().equals("RADIO")) {
+                if(cont > 0) {
                     datosVerificados += ",\n";
-                    datosVerificados += "\"DATO\" : \"" + dato + "\"";
                 }
-                contadorValidos++;
+                datosVerificados += "{\n";
+                datosVerificados += "\"CAMPO\" : \"" + campoMostrar.getId() + "\"";
+                /* AQUÍ DEBEMOS COLOCAR LOS DATOS A MOSTRAR */
+                int contadorValidos = 0;
+                for(String dato : campoMostrar.getDatosRecopilados()) {
+                    if(posicionesDatosValidos.contains(contadorValidos)) {
+                        datosVerificados += ",\n";
+                        datosVerificados += "\"DATO\" : \"" + dato + "\"";
+                    }
+                    contadorValidos++;
+                }
+                datosVerificados += "\n}\n";
+                cont++;
             }
-            datosVerificados += "}\n";
-            cont++;
         }
         return datosVerificados;
     }
@@ -140,7 +157,6 @@ public class InstruccionConsulta extends Instruccion {
     private void setPosicionesValidas() {
         ArrayList<Componente> listaComponentes = formularioUtilizado.getListaComponentes();
         if(listaCondiciones.isEmpty()) {
-            System.out.println("filtro1Empty");
             for(Componente componente : listaComponentes) {
                 //Establecemos las posiciones validas que tendrá la condición
                 if(componente.getId().equals(camposMostrar.get(0))) {
@@ -149,15 +165,12 @@ public class InstruccionConsulta extends Instruccion {
                     }
                 }
             }
-            System.out.println("filtro2Empty");
         } else {
             ArrayList<Integer> listaAuxiliar = new ArrayList<>();
             for(int i = listaCondiciones.size()-1; i >= 0; i--) {
                 for(Componente componente : listaComponentes) {
-                    System.out.println("Id componente: " + componente.getId());
                     if(componente.getId().equals(listaCondiciones.get(i).getCampo()) || componente.getNombreCampo().equals(listaCondiciones.get(i).getCampo())) {
                         listaAuxiliar = listaCondiciones.get(i).getListaValidacion(componente);
-                        System.out.println("Antes de los operadores relacionales");
                         for(Integer integer : listaAuxiliar) {
                             System.out.println(integer);
                         }
@@ -165,37 +178,10 @@ public class InstruccionConsulta extends Instruccion {
                     }
                 }
                 if(listaCondiciones.get(i).getOperadorLogico() != null && listaCondiciones.get(i).getOperadorLogico().equals("AND")) {
-                    System.out.println("\n\nfiltro1AND");
-                    System.out.println("Lista Principal");
-                    for(Integer entero : posicionesDatosValidos) {
-                        System.out.println("Dato " + entero);
-                    }
-                    System.out.println("Lista Auxiliar");
-                    for(Integer entero : listaAuxiliar) {
-                        System.out.println("Dato " + entero);
-                    }
                     posicionesDatosValidos = interseccion(posicionesDatosValidos, listaAuxiliar);
                 } else if(listaCondiciones.get(i).getOperadorLogico() != null && listaCondiciones.get(i).getOperadorLogico().equals("OR")) {
-                    System.out.println("\n\nfiltro1OR");
-                    System.out.println("Lista Principal");
-                    for(Integer entero : posicionesDatosValidos) {
-                        System.out.println("Dato " + entero);
-                    }
-                    System.out.println("Lista Auxiliar");
-                    for(Integer entero : listaAuxiliar) {
-                        System.out.println("Dato " + entero);
-                    }
                     posicionesDatosValidos = union(posicionesDatosValidos, listaAuxiliar);
                 } else if(listaCondiciones.get(i).getOperadorLogico() == null) {
-                    System.out.println("\n\nfiltro1NULL");
-                    System.out.println("Lista Principal");
-                    for(Integer entero : posicionesDatosValidos) {
-                        System.out.println("Dato " + entero);
-                    }
-                    System.out.println("Lista Auxiliar");
-                    for(Integer entero : listaAuxiliar) {
-                        System.out.println("Dato " + entero);
-                    }
                     posicionesDatosValidos = (ArrayList<Integer>) listaAuxiliar.clone();
                 }
             }
