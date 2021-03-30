@@ -21,7 +21,6 @@
         tema = "#FFFFFF";
         letra = "#000000";
     }
-    
 %>
 <html>
     <head>
@@ -42,6 +41,9 @@
                 </div>
                 <div class="col-3" align="right">
                     &nbsp;&nbsp;
+                    <%if(request.getSession().getAttribute("USER") != null) {%>
+                        <a href="javascript:obtenerLink();" class="btn btn-outline-light form">Obtener Enlace</a>
+                    <%}%>
                 </div>
             </div>
         </div>
@@ -130,6 +132,7 @@
                 <input type="submit" class="btn btn-info btn-block ingresar" value="Enviar Datos"/>
             </div><br><br><br><br>
         </form>
+        <script src="estilos/funciones.js" type="text/javascript"></script>
         <%@include file = "scripts.html"%>
     </body>
 </html>
