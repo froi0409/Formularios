@@ -37,8 +37,9 @@ public class AnalizadorEntrada {
     /**
      * Inicializa la clase, guarda la información necesaria para llevar a cabo el análisis
      * @param entrada Código índigo que se analizará
+     * @param userOnline usuario que se encuentra loggeado
      */
-    public AnalizadorEntrada(String entrada) {
+    public AnalizadorEntrada(String entrada, String userOnline) {
         this.listaErrores = new ArrayList<>();
         this.listaInstrucciones = new ArrayList<>();
         this.listaUsuarios = new ArrayList<>();
@@ -46,10 +47,12 @@ public class AnalizadorEntrada {
         this.entrada = entrada;
         this.rutaUsuarios = "Recursos/dbUsuarios.txt";
         this.rutaFormularios = "Recursos/dbFormularios.txt";
+        this.userOnline = userOnline;
     }
     
     /**
      * Método que sirve para analizar el código índigo que el cliente enviará desde la aplicación cliente
+     * @param userOnline Usuario loggeado que envió las solicitudes
      * @return Código índigo que contiene el formato de respuestas que el cliente analizará
      */
     public String codificar() {
@@ -83,7 +86,7 @@ public class AnalizadorEntrada {
                               "}\n" +
                               "<!fin_respuesta>\n";
                 }
-                codigo += "<!fin_respuestas>";
+                codigo += "<!fin_respuestas> ";
             }
             
         } catch (Exception e) {

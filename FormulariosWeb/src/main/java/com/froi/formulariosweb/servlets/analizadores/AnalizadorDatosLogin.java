@@ -46,7 +46,7 @@ public class AnalizadorDatosLogin extends HttpServlet {
         System.out.println("\n\nusuario");
         System.out.println(usuario);
         
-        AnalizadorEntrada analizador = new AnalizadorEntrada(null);
+        AnalizadorEntrada analizador = new AnalizadorEntrada(null, null);
         analizador.analisisDatosExistentes(); //Buscamos a los usuarios que hay en el sistema
         listaUsuarios = analizador.getListaUsuarios();
         

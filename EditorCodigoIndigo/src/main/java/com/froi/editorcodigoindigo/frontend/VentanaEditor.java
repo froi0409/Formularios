@@ -19,6 +19,7 @@ public class VentanaEditor extends javax.swing.JFrame {
 
     private JTable tablaReportes = new JTable();
     private ArrayList<DefaultTableModel> listaTablas;
+    private AnalizadorCodigoIndigo analizador;
     
     /**
      * Creates new form VentanaEditor
@@ -27,6 +28,7 @@ public class VentanaEditor extends javax.swing.JFrame {
         initComponents();
         this.listaTablas = new ArrayList<>();
         paneReportes.getViewport().add(tablaReportes);
+        this.analizador = new AnalizadorCodigoIndigo();
     }
 
     /**
@@ -48,6 +50,7 @@ public class VentanaEditor extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         btnCompilar = new javax.swing.JButton();
         lblCursor = new javax.swing.JLabel();
+        btnCerrarSesion = new javax.swing.JButton();
         paneReportes = new javax.swing.JScrollPane();
         jLabel3 = new javax.swing.JLabel();
         comboReportes = new javax.swing.JComboBox<>();
@@ -80,12 +83,21 @@ public class VentanaEditor extends javax.swing.JFrame {
 
         lblCursor.setText("Fila: 0, Columna: 0");
 
+        btnCerrarSesion.setText("Cerrar Sesion");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(btnCompilar)
+                .addGap(18, 18, 18)
+                .addComponent(btnCerrarSesion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblCursor, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -95,7 +107,8 @@ public class VentanaEditor extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCompilar)
-                    .addComponent(lblCursor)))
+                    .addComponent(lblCursor)
+                    .addComponent(btnCerrarSesion)))
         );
 
         btnCompilar.getAccessibleContext().setAccessibleName("btnCompilar");
@@ -179,9 +192,8 @@ public class VentanaEditor extends javax.swing.JFrame {
         // TODO add your handling code here:
         String entrada = txtEntrada.getText();
         System.out.println(entrada);
-        AnalizadorCodigoIndigo analizador = new AnalizadorCodigoIndigo(entrada);
         listaTablas.clear();
-        analizador.analizar(txtSalida, tablaReportes, listaTablas);
+        analizador.analizar(entrada, txtSalida, tablaReportes, listaTablas);
         comboReportes.removeAllItems();
         for(int i = 1; i <= listaTablas.size(); i++) {
             comboReportes.addItem(i + "°  Consulta generada");
@@ -207,6 +219,16 @@ public class VentanaEditor extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_comboReportesActionPerformed
+
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        // TODO add your handling code here:
+        if(analizador.getUserOnline().equals("")) {
+            txtSalida.setText("NO HAY NINGÚN USUARIO CON SESIÓN INICIADA\n");
+        } else {
+            analizador.setUserOnline("");
+            txtSalida.setText("Se ha cerrado la sesión\n");
+        }
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -244,6 +266,7 @@ public class VentanaEditor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnCompilar;
     private javax.swing.JComboBox<String> comboReportes;
     private javax.swing.JLabel jLabel1;

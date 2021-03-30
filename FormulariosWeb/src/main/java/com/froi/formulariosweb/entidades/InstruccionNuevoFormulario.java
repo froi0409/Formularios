@@ -41,7 +41,11 @@ public class InstruccionNuevoFormulario extends Instruccion {
      * @param userOnline Usuario que está loggeado en el servidor
      * @return Código índifo de respuesta del servidor
      */
+    @Override
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
+        if(userOnline.equals("")) {
+            return generarCodigoRespuesta("Conflicto en Creación de Formulario", "Para crear un nuevo formulario, primero inicie sesión en el sistema");
+        }
         String codigo = "";
         String descripcion = "";
         boolean comprobante = true, comprobanteSecundario = true;
@@ -56,11 +60,11 @@ public class InstruccionNuevoFormulario extends Instruccion {
                 comprobanteSecundario = false;
             }
         }
-        
         if(comprobante && comprobanteSecundario) {
             //Verificamos si hay un usuario específico para que se le sea asignado el formulario
             if(usuarioCreacion == null) {
-                if(userOnline == null) { //Verificamos si existe un usuraio conectado
+                System.out.println(userOnline + " -> user");
+                if(userOnline.equals("")) { //Verificamos si existe un usuraio conectado
                     descripcion = "No de pudo crear el formulario: " + id + ", porque no se especificó ningún usuario a ingresar, y no hay un usuario loggeado en el sistema";
                 } else {
                     usuarioCreacion = userOnline;

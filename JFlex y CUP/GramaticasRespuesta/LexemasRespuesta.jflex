@@ -47,6 +47,11 @@ ALLCHARACTERS = [\42] ([\40-\41] | [\43-\255] | [^"\"" "|"])* [\42]
     "\""{WS}*"DATOS_CONSULTA"{WS}*"\""                  { System.out.println("DATOS_CONSULTA: " + yytext()); return new Symbol(DATOS_CONSULTA, yyline+1, yycolumn+1, yytext()); }
     "\""{WS}*"CAMPO"{WS}*"\""                           { System.out.println("CAMPO: " + yytext()); return new Symbol(CAMPO, yyline+1, yycolumn+1, yytext()); }
     "\""{WS}*"DATO"{WS}*"\""                            { System.out.println("DATO: " + yytext()); return new Symbol(DATO, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"LOGIN_DETECTED"{WS}*"\""                           { System.out.println("LOGIN: " + yytext()); return new Symbol(LOGIN_DETECTED, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"USUARIO_LOGIN"{WS}*"\""                   { System.out.println("USUARIO_LOGIN: " + yytext()); return new Symbol(USUARIO_LOGIN, yyline+1, yycolumn+1, yytext()); }
+    "\""{WS}*"USER_LOGGED"{WS}*"\""                     { System.out.println("USER_LOGGED: " + yytext()); return new Symbol(USER_LOGGED, yyline+1, yycolumn+1, yytext()); }
+    
+
 
     {INIRESPUESTA}          { System.out.println("INI_RESPUESTA: " + yytext()); return new Symbol(INI_RESPUESTA, yyline+1, yycolumn+1, yytext()); }
     {FINRESPUESTA}          { System.out.println("FIN_RESPUESTA: " + yytext()); return new Symbol(FIN_RESPUESTA, yyline+1, yycolumn+1, yytext()); }

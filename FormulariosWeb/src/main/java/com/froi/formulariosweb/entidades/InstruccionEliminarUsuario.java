@@ -16,7 +16,11 @@ import java.util.ArrayList;
 public class InstruccionEliminarUsuario extends Instruccion {
     private String usuario;
 
+    @Override
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
+        if(usuario.equals(userOnline)) {
+            return generarCodigoRespuesta("Conflicto en Eliminacion", "No se puede eliminar a un usuario que actualmente esté con le sesion iniciada");
+        }
         String codigo = "", descripcion;
         boolean comprobador = false;
         int cont = 0;
@@ -38,14 +42,6 @@ public class InstruccionEliminarUsuario extends Instruccion {
         } else {
             descripcion = "El usuario " + usuario + " no existe en el sistema";
         }
-        codigo += "<!ini_respuesta:\"INSTRUCCIONES\">\n" +
-                  "{ \"INSTRUCCION_EJECUTADA\" : [{\n";
-        codigo += "\"TIPO\" : \"Eliminar Usuario\",\n";
-        codigo += "\"DETALLES\" : \"" + descripcion + "\"\n";
-        codigo += "}\n" +
-                  "]\n" +
-                  "}\n" +
-                  "<!fin_respuesta>\n";
         return generarCodigoRespuesta("Eliminacion de Usuario", descripcion);
     }
     

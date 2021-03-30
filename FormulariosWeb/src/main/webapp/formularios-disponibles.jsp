@@ -41,7 +41,7 @@
                 </thead>
                 <tbody>
                     <%
-                    AnalizadorEntrada analizador = new AnalizadorEntrada(null);
+                    AnalizadorEntrada analizador = new AnalizadorEntrada(null, null);
                     analizador.analisisDatosExistentes();
                     ArrayList<Formulario> listaFormularios = analizador.getListaFormularios();
                     String usuario = (String) request.getSession().getAttribute("USER");

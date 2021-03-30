@@ -37,8 +37,8 @@ public class RenderizarFormulario extends HttpServlet {
         String usuarioFormulario = request.getParameter("user");
         String idFormulario = request.getParameter("identificador");
         
-        AnalizadorEntrada analizador = new AnalizadorEntrada(null);
-        analizador.analisisDatosExistentes();;
+        AnalizadorEntrada analizador = new AnalizadorEntrada(null, null);
+        analizador.analisisDatosExistentes();
         
         for(Formulario element : analizador.getListaFormularios()) {
             if(element.getIdentificador().equals(idFormulario)) {

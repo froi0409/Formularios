@@ -32,13 +32,18 @@ public class InstruccionConsulta extends Instruccion {
         this.posicionesDatosValidos = new ArrayList<>();
     }
     
+    @Override
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
+        
+        if(userOnline.equals("")) {
+            return generarCodigoRespuesta("Conflicto en Consulta", "Para realizar una consulta, primero inicie sesión en el sistema");
+        }
         
         boolean comprobadorExistenciaForm = false, comprobadorExistenciaCampos = true, comprobadorCamposConInfo = true;
         String descripcionCamposInexistentes = "Los siguientes campos no existen: ", descripcionCamposSinInfo = "Los siguientes campos no almacenan informacion: ";
         for(Formulario formulario : listaFormularios) {
             //Verificamos si el formulario existe
-            if(formulario.getIdentificador().equals(idFormulario) || formulario.getNombre().equals(idFormulario)) {
+            if((formulario.getIdentificador().equals(idFormulario) || formulario.getNombre().equals(idFormulario)) && formulario.getUsuarioCreacion().equals(userOnline)) {
                 //Verificamos si el usuario no indicó campos a mostrar. Si no los indicó, mostramos todos los campos
                 if(listaCampos.isEmpty()) {
                     for(Componente componente : formulario.getListaComponentes()) {
@@ -102,7 +107,7 @@ public class InstruccionConsulta extends Instruccion {
             }
         }
         if(!comprobadorExistenciaForm) {
-            String problema = "El formulario " + idFormulario + ", no existe en el sistema";
+            String problema = "Usted no posee un formulario con el id o nombre: " + idFormulario;
             return generarCodigoRespuesta("Conflicto de Consulta", problema);
         }
         return generarCodigoConsulta();

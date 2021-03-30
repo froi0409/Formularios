@@ -31,6 +31,7 @@ public class InstruccionModificarUsuario extends Instruccion {
         this.fechaModificacion = año + "-" + mes + "-" + dia;   
     }
 
+    @Override
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
         String codigo = "", descripcion = "";
         boolean comprobante = false, comprobante2 = true;

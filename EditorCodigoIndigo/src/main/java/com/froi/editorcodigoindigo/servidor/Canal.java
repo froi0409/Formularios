@@ -16,13 +16,15 @@ import java.net.http.HttpResponse;
  */
 public class Canal {
     
-    public String repuesta(String entrada) {
+    public String repuesta(String entrada, String userOnline) {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("http://localhost:8080/FormulariosWeb/AnalizadorCodigoIndigo"))
                     .POST(HttpRequest.BodyPublishers.ofString(entrada))
+                    .setHeader("userOnline", userOnline)
                     .build();
+            
             
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             

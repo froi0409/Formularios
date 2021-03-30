@@ -51,13 +51,15 @@ public class ObtenerDatos extends HttpServlet {
             throws ServletException, IOException {
         String idFormulario = (String) request.getSession().getAttribute("formularioUsario");
         
-        AnalizadorEntrada analizador = new AnalizadorEntrada(null);
+        AnalizadorEntrada analizador = new AnalizadorEntrada(null, null);
         analizador.analisisDatosExistentes();
         for(Formulario element: analizador.getListaFormularios()) {
             if(element.getIdentificador().equals(idFormulario)) {
                 for(Componente componente: element.getListaComponentes()) {
                     if(request.getParameter(componente.getNombreCampo()) != null) {
                         componente.getDatosRecopilados().add(request.getParameter(componente.getNombreCampo()));
+                    } else if(!componente.getClase().equals("IMAGEN") || !componente.getClase().equals("BOTON")) {
+                        componente.getDatosRecopilados().add("");
                     }
                 }
             }

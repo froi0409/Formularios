@@ -17,11 +17,15 @@ public class InstruccionEliminarFormulario extends Instruccion {
     private String idFormulario;
 
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
+        if(userOnline.equals("")) {
+            return generarCodigoRespuesta("Conflicto en Eliminacion de Formulario", "Para realizar una eliminacion, primero inicie sesión en el sistema");
+        }
+        
         String codigo = "", descripcion;
         boolean comprobador = false;
         System.out.println("se ejecuta");
         for(Formulario element : listaFormularios) {
-            if(element.getIdentificador().equals(idFormulario)) {
+            if(element.getIdentificador().equals(idFormulario) && element.getUsuarioCreacion().equals(userOnline)) {
                 listaFormularios.remove(element);
                 comprobador = true;
                 break;
@@ -31,16 +35,8 @@ public class InstruccionEliminarFormulario extends Instruccion {
         if(comprobador) {
             descripcion = "Se ha eliminado el formulario " + idFormulario + " con éxito";
         } else {
-            descripcion = "No se ha podido eliminar el formulario " + idFormulario + " porque no éxiste ningún formulario con ese id";
+            descripcion = "No se ha podido eliminar el formulario " + idFormulario + " porque usted no posee ningún formulario con ese id";
         }
-        codigo += "<!ini_respuesta:\"INSTRUCCIONES\">\n" +
-                  "{ \"INSTRUCCION_EJECUTADA\" : [{\n";
-        codigo += "\"TIPO\" : \"Eliminación de Formulario\",\n";
-        codigo += "\"DETALLES\" : \"" + descripcion + "\"\n";
-        codigo += "}\n" +
-                  "]\n" +
-                  "}\n" +
-                  "<!fin_respuesta>\n";
         return generarCodigoRespuesta("Eliminacion de Formulario", descripcion);
     }
     

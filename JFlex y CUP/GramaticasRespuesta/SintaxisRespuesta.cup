@@ -15,17 +15,19 @@ parser code {:
     private ArrayList<DefaultTableModel> listaTablas;
     private List<ArrayList<String>> datosRecopilados;
     private ArrayList<String> listaAuxiliar;
+    private String userLogged;
+    private AnalizadorCodigoIndigo analizador;
 
     private String p1, p2;
 
-    public ParserRespuestas(RespuestasLexer lexer, ArrayList<String> listaRespuestas, ArrayList<Advertencia> listaErrores, ArrayList<DefaultTableModel> listaTablas) {
+    public ParserRespuestas(RespuestasLexer lexer, ArrayList<String> listaRespuestas, ArrayList<Advertencia> listaErrores, ArrayList<DefaultTableModel> listaTablas, AnalizadorCodigoIndigo analizador) {
         super(lexer);
         this.listaRespuestas = listaRespuestas;
         this.listaErrores = listaErrores;
-        this.listaErrores = new ArrayList<>();
         this.datosRecopilados = new ArrayList<>();
         this.listaAuxiliar = new ArrayList<>();
         this.listaTablas = listaTablas;
+        this.analizador = analizador;
     }
     public void report_error(String message, Object info) {
         System.out.println("reporterror");
@@ -63,20 +65,21 @@ parser code {:
 
 //declaración de terminales
 terminal MENOR_QUE, MAYOR_QUE, EXCLAMACION, PUNTOS, CORCHETE_A, CORCHETE_C, LLAVE_A, LLAVE_C, COMA, ERROR_DETECTADO, DESCRIPCION, INSTRUCCION_EJECUTADA, INSTRUCCIONES, CONSULTA, DATOS_CONSULTA, TIPO, DETALLES, CAMPO, DATO, INI_RESPUESTA, FIN_RESPUESTA, INI_RESPUESTAS, FIN_RESPUESTAS, ALLCHARACTERS, DESCRIPCION_ERROR;
+terminal LOGIN_DETECTED, USUARIO_LOGIN, USER_LOGGED;
 
 //Declaración de no terminales
 non terminal inicio, instruccion_respuestas, respuesta, tipo_respuesta;
 non terminal apertura_instruccion_principal1, apertura_instruccion_principal2, cierre_instruccion_principal;
 
-non terminal instruccion_error_detectado, instruccion_instruccion_ejecutada, instruccion_consulta_realizada;
-non terminal accion_error_detectado, accion_instruccion_ejecutada, accion_consulta_realizada;
-non terminal accion_error_detectado_p, accion_instruccion_ejecutada_p, accion_consulta_realizada_p;
-non terminal opciones_error_detectado, opciones_instruccion_ejecutada, opciones_consulta_realizada;
+non terminal instruccion_error_detectado, instruccion_instruccion_ejecutada, instruccion_consulta_realizada, instruccion_login_realizado;
+non terminal accion_error_detectado, accion_instruccion_ejecutada, accion_consulta_realizada, accion_login_realizado;
+non terminal accion_error_detectado_p, accion_instruccion_ejecutada_p, accion_consulta_realizada_p, accion_login_realizado_p;
+non terminal opciones_error_detectado, opciones_instruccion_ejecutada, opciones_consulta_realizada, opciones_login_realizado;
 
 start with inicio;
 
 inicio ::=  MENOR_QUE EXCLAMACION INI_RESPUESTAS MAYOR_QUE instruccion_respuestas MENOR_QUE EXCLAMACION FIN_RESPUESTAS MAYOR_QUE
-            |   MENOR_QUE EXCLAMACION INI_RESPUESTAS MAYOR_QUE instruccion_respuestas MENOR_QUE EXCLAMACION FIN_RESPUESTAS MAYOR_QUE error
+            | MENOR_QUE EXCLAMACION INI_RESPUESTAS MAYOR_QUE instruccion_respuestas MENOR_QUE EXCLAMACION FIN_RESPUESTAS MAYOR_QUE error
             ;
 
 instruccion_respuestas ::=  respuesta  instruccion_respuestas
@@ -88,6 +91,7 @@ respuesta ::=   MENOR_QUE EXCLAMACION INI_RESPUESTA PUNTOS tipo_respuesta MENOR_
 tipo_respuesta ::=  ERROR_DETECTADO             apertura_instruccion_principal1 DESCRIPCION_ERROR apertura_instruccion_principal2 instruccion_error_detectado cierre_instruccion_principal
                     | INSTRUCCIONES             apertura_instruccion_principal1 INSTRUCCION_EJECUTADA apertura_instruccion_principal2 instruccion_instruccion_ejecutada cierre_instruccion_principal
                     | CONSULTA                  apertura_instruccion_principal1 DATOS_CONSULTA apertura_instruccion_principal2 instruccion_consulta_realizada cierre_instruccion_principal                  {: agregarTableModel(); :}
+                    | LOGIN_DETECTED            apertura_instruccion_principal1 USUARIO_LOGIN apertura_instruccion_principal2 instruccion_login_realizado cierre_instruccion_principal
                     | error INSTRUCCION_EJECUTADA apertura_instruccion_principal2 instruccion_instruccion_ejecutada cierre_instruccion_principal
                     | error DESCRIPCION_ERROR apertura_instruccion_principal2 instruccion_error_detectado cierre_instruccion_principal
                     ;
@@ -153,3 +157,22 @@ accion_consulta_realizada_p ::=         opciones_consulta_realizada COMA accion_
 opciones_consulta_realizada ::=         CAMPO PUNTOS ALLCHARACTERS:valor        {: String valorCampo = valor.toString(); valorCampo = valorCampo.substring(1, valorCampo.length()-1); listaAuxiliar.add(valorCampo); :}
                                         | DATO PUNTOS ALLCHARACTERS:valor       {: String valorCampo = valor.toString(); valorCampo = valorCampo.substring(1, valorCampo.length()-1); listaAuxiliar.add(valorCampo); :}
                                         ;
+
+/* Instrucciones de Login Realizado */
+instruccion_login_realizado ::=     accion_login_realizado COMA instruccion_login_realizado
+                                    | accion_login_realizado
+                                    ;
+
+accion_login_realizado ::=          LLAVE_A accion_login_realizado_p LLAVE_C    {: 
+                                                                                    listaRespuestas.add(p1 + "\n" + p2);
+                                                                                :}
+                                    ;
+
+accion_login_realizado_p ::=        opciones_login_realizado COMA accion_login_realizado_p
+                                    | opciones_login_realizado
+                                    ;
+
+opciones_login_realizado ::=        TIPO PUNTOS ALLCHARACTERS:desc              {: String descripcion = desc.toString(); p1 = descripcion.substring(1, descripcion.length()-1); :}
+                                    | DETALLES PUNTOS ALLCHARACTERS:desc        {: String descripcion = desc.toString(); p2 = descripcion.substring(1, descripcion.length()-1); :}
+                                    | USER_LOGGED PUNTOS ALLCHARACTERS:desc     {: String descripcion = desc.toString(); userLogged = descripcion.substring(1, descripcion.length()-1); analizador.setUserOnline(userLogged); System.out.println("El usuario loggeado es: " + analizador.getUserOnline()); :}
+                                    ;

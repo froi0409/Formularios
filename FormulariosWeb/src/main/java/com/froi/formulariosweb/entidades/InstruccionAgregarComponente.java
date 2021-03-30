@@ -27,7 +27,11 @@ public class InstruccionAgregarComponente extends Instruccion {
     private String columnas;
     private String url;
 
+    @Override
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
+        if(userOnline.equals("")) {
+            return generarCodigoRespuesta("Conflicto en Agregar Componente", "Para agregar un componente a un formulario, primero inicie sesión en el sistema");
+        }
         String codigo = "";
         String descripcion = "";
         boolean comprobante = false;
@@ -35,7 +39,7 @@ public class InstruccionAgregarComponente extends Instruccion {
         boolean comprobanteTerciario = true;
         int cont = 0;
         for(Formulario element : listaFormularios) {
-            if(element.getIdentificador().equals(formulario)) {
+            if(element.getIdentificador().equals(formulario) && element.getUsuarioCreacion().equals(userOnline)) {
                 comprobante = true;
                 break;
             }
@@ -105,7 +109,7 @@ public class InstruccionAgregarComponente extends Instruccion {
             }
             
         } else {
-            descripcion += "No se pudo agregar componente " + id + ", debido a que no existe el formulario: " + formulario + " indicado";
+            descripcion += "No se pudo agregar componente " + id + ", debido a que usted no posee un formulario: " + formulario;
         }
         return generarCodigoRespuesta("Agregar Componente", descripcion);
     }
