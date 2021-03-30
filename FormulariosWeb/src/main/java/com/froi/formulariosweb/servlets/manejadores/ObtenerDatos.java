@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.froi.formulariosweb.servlets.analizadores;
+package com.froi.formulariosweb.servlets.manejadores;
 
 import com.froi.formulariosweb.analizadores.codigoindigo.AnalizadorEntrada;
-import java.io.BufferedReader;
-import java.io.File;
+import com.froi.formulariosweb.entidadesfundamentales.Componente;
+import com.froi.formulariosweb.entidadesfundamentales.Formulario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -20,9 +20,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author froi-pc
  */
-@WebServlet(name = "AnalizadorCodigoIndigo", urlPatterns = {"/AnalizadorCodigoIndigo"})
-public class AnalizadorCodigoIndigo extends HttpServlet {
+@WebServlet(name = "ObtenerDatos", urlPatterns = {"/ObtenerDatos"})
+public class ObtenerDatos extends HttpServlet {
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -48,26 +49,24 @@ public class AnalizadorCodigoIndigo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        System.out.println("\n\nUsuario en linea desde el Servlet: " + request.getHeader("userOnline"));
-        BufferedReader reader = request.getReader();
-        String comprobador;
-        String codigoEntrada = "";
-        while ((comprobador = reader.readLine()) != null) {
-            codigoEntrada += comprobador + "\n";
-            System.out.println(comprobador);
+        String idFormulario = (String) request.getSession().getAttribute("formularioUsario");
+        
+        AnalizadorEntrada analizador = new AnalizadorEntrada(null, null);
+        analizador.analisisDatosExistentes();
+        for(Formulario element: analizador.getListaFormularios()) {
+            if(element.getIdentificador().equals(idFormulario)) {
+                for(Componente componente: element.getListaComponentes()) {
+                    if(request.getParameter(componente.getNombreCampo()) != null) {
+                        componente.getDatosRecopilados().add(request.getParameter(componente.getNombreCampo()));
+                    } else if(!componente.getClase().equals("IMAGEN") || !componente.getClase().equals("BOTON")) {
+                        componente.getDatosRecopilados().add("");
+                    }
+                }
+            }
         }
-        String codigo = new String(codigoEntrada.getBytes("ISO-8859-1"), "UTF-8");
-        String userOnline = new String(request.getHeader("userOnline").getBytes("ISO-8859-1"), "UTF-8");
-        AnalizadorEntrada analizadorEntrada = new AnalizadorEntrada(codigo, userOnline);
-        String codigoRespuesta = analizadorEntrada.codificar();
-        System.out.println(codigoRespuesta);
-        
-        try(PrintWriter out = response.getWriter()) {
-            out.print(codigoRespuesta);
-        }
-        
-        
+        analizador.guardarFormularios();
+        request.getSession().removeAttribute("formularioUsario");
+        request.getRequestDispatcher("respuesta-final.jsp").forward(request, response);
     }
 
     /**

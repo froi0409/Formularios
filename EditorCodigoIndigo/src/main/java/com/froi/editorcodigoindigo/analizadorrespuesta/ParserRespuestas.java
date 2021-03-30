@@ -6,6 +6,7 @@
 package com.froi.editorcodigoindigo.analizadorrespuesta;
 
 import com.froi.editorcodigoindigo.entidades.Advertencia;
+import com.froi.editorcodigoindigo.gramaticas.codigoindigo.AnalizadorCodigoIndigo;
 import java.util.ArrayList;
 import java.util.List;
 import java_cup.runtime.*;

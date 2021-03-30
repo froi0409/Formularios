@@ -61,7 +61,7 @@ public class InstruccionCrearUsuario extends Instruccion {
                   "]\n" +
                   "}\n" +
                   "<!fin_respuesta>\n";
-        return codigo;
+        return generarCodigoRespuesta("Creacion de Usuario", descripcion);
     }
     
     public void setUsuario(String usuario) {

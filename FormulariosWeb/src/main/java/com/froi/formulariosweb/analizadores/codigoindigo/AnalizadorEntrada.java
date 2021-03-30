@@ -37,8 +37,9 @@ public class AnalizadorEntrada {
     /**
      * Inicializa la clase, guarda la información necesaria para llevar a cabo el análisis
      * @param entrada Código índigo que se analizará
+     * @param userOnline usuario que se encuentra loggeado
      */
-    public AnalizadorEntrada(String entrada) {
+    public AnalizadorEntrada(String entrada, String userOnline) {
         this.listaErrores = new ArrayList<>();
         this.listaInstrucciones = new ArrayList<>();
         this.listaUsuarios = new ArrayList<>();
@@ -46,10 +47,12 @@ public class AnalizadorEntrada {
         this.entrada = entrada;
         this.rutaUsuarios = "Recursos/dbUsuarios.txt";
         this.rutaFormularios = "Recursos/dbFormularios.txt";
+        this.userOnline = userOnline;
     }
     
     /**
      * Método que sirve para analizar el código índigo que el cliente enviará desde la aplicación cliente
+     * @param userOnline Usuario loggeado que envió las solicitudes
      * @return Código índigo que contiene el formato de respuestas que el cliente analizará
      */
     public String codificar() {
@@ -71,6 +74,19 @@ public class AnalizadorEntrada {
                 codigo += "<!fin_respuestas>";
                 guardarUsuarios();
                 guardarFormularios();
+            } else {
+                System.out.println("\n\n\nERRORES: ");
+                codigo += "<!ini_respuestas>\n";
+                for(Advertencia element: listaErrores) {
+                    codigo += "<!ini_respuesta:\"ERROR_DETECTADO\">\n" +
+                              "{ \"DESCRIPCION_ERROR\" : [{\n";
+                    codigo += "\"DESCRIPCION\" : \"" + element + "\"\n";
+                    codigo += "}\n" +
+                              "]\n" +
+                              "}\n" +
+                              "<!fin_respuesta>\n";
+                }
+                codigo += "<!fin_respuestas> ";
             }
             
         } catch (Exception e) {
@@ -142,7 +158,7 @@ public class AnalizadorEntrada {
     /**
      * Guarda a todos los ususarios encontrados
      */
-    private void guardarUsuarios() {
+    public void guardarUsuarios() {
         String codigo = "";
         int contador = 0;
         codigo += "db.usuarios (\n";
@@ -172,9 +188,9 @@ public class AnalizadorEntrada {
     /**
      * Guarda todos los formularios encontrados
      */
-    private void guardarFormularios() {
+    public void guardarFormularios() {
         String codigo = "";
-        int contador = 0;
+        int contador = 0, datosRecopilados = 0;
         codigo += "db.formularios (\n";
         for(Formulario element : listaFormularios) {
             if(contador > 0) {
@@ -214,12 +230,17 @@ public class AnalizadorEntrada {
                     if (elem.getNombreCampo() != null) {
                         codigo += "\"NOMBRE_CAMPO\" : \"" + elem.getNombreCampo() + "\",\n";
                     }
+                    int registros = 0;
+                    for(String dato : elem.getDatosRecopilados()) {
+                        registros++;
+                        codigo += "\"REGISTRO_" + registros + "\" : \"" + dato + "\",\n";
+                    }
                     codigo += "}\n";
                     indice++;
                 }
                 codigo += ")\n";
             }
-            if(element.getDatosRecopilados() != null) {
+            if(datosRecopilados > 0) {
                 
             }
             codigo += "\n}\n";

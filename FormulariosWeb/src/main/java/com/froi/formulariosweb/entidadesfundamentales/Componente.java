@@ -5,6 +5,8 @@
  */
 package com.froi.formulariosweb.entidadesfundamentales;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author froi-pc
@@ -21,6 +23,7 @@ public class Componente {
     private int filas;
     private int columnas;
     private String url;
+    private ArrayList<String> datosRecopilados;
 
     public Componente(String id, String formulario, String clase, String textoVisible) {
         this.id = id;
@@ -34,6 +37,7 @@ public class Componente {
             this.columnas = 20;
             this.nombreCampo = "";
         } 
+        this.datosRecopilados = new ArrayList<>();
     }
 
     public String getId() {
@@ -123,5 +127,13 @@ public class Componente {
     public void setUrl(String url) {
         this.url = url;
     }
-    
+
+    public ArrayList<String> getDatosRecopilados() {
+        return datosRecopilados;
+    }
+
+    public void setDatosRecopilados(ArrayList<String> datosRecopilados) {
+        this.datosRecopilados = datosRecopilados;
+    }
+
 }

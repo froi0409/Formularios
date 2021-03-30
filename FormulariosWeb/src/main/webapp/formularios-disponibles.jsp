@@ -41,7 +41,7 @@
                 </thead>
                 <tbody>
                     <%
-                    AnalizadorEntrada analizador = new AnalizadorEntrada(null);
+                    AnalizadorEntrada analizador = new AnalizadorEntrada(null, null);
                     analizador.analisisDatosExistentes();
                     ArrayList<Formulario> listaFormularios = analizador.getListaFormularios();
                     String usuario = (String) request.getSession().getAttribute("USER");
@@ -50,7 +50,7 @@
                         if(element.getUsuarioCreacion().equals(usuario)) {
                             out.println("<td>" + element.getIdentificador() + "</td>");
                             out.println("<td>" + element.getTitulo() + "</td>");
-                            out.println("<td> <form method=\"GET\" action=\"RenderizarFormulario?user=" + usuario + "\" target=\"_blank\"><button type = \"submit\" class=\"btn btn-info\" value=\"" + element.getIdentificador() + "\" name=\"identificador\">Visualizar</button></td></form>");
+                            out.println("<td> <form method=\"GET\" action=\"RenderizarFormulario\" target=\"_blank\"><button type = \"submit\" class=\"btn btn-info\" value=\"" + element.getIdentificador() + "\" name=\"identificador\">Visualizar</button></td></form>");
                         }
                     out.println("</tr>");
                     }
@@ -64,3 +64,8 @@
         <%@include file = "scripts.html"%>
     </body>
 </html>
+<%
+/*if(request.getSession().getAttribute("USER") == null) {
+    response.sendRedirect("inicio-sesion.jsp");
+}*/
+%>

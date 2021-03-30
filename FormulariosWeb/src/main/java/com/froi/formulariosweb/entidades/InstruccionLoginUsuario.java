@@ -21,34 +21,39 @@ public class InstruccionLoginUsuario extends Instruccion {
     public InstruccionLoginUsuario() {
     }
     
+    @Override
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
         String codigo = "";
         String descripcion;
         boolean comprobante = false;
+        if(!userOnline.equals("")) {
+            return generarCodigoRespuesta("Conflicto login usuario", "No pudes iniciar otra sesion, ya que actualmente se encuentra loggeado el usuario: " + userOnline);
+        }
         for(Usuario element : listaUsuarios) {
             if(element.getUsuario().equals(usuario) && element.getPassword().equals(password)) {
                 comprobante = true;
+                break;
             }
         }
         
         if(comprobante) {
             descripcion = "El usuario " + usuario + " ha ingresado al sistema";
-            userOnline = usuario;
-            System.out.println(userOnline);
+            String indigoCode = "";
+            indigoCode += "<!ini_respuesta:\"LOGIN_DETECTED\">\n" +
+                          "{ \"USUARIO_LOGIN\" : [{\n";
+            indigoCode += "\"TIPO\" : \"Login Efectuado\",\n";
+            indigoCode += "\"DETALLES\" : \"" + descripcion + "\",\n";
+            indigoCode += "\"USER_LOGGED\" : \"" + usuario + "\"\n";
+            indigoCode += "}\n" +
+                          "]\n" +
+                          "}\n" +
+                          "<!fin_respuesta>\n";
+            return indigoCode;
         } else {
             descripcion = "Usuario o contraseña inválidos, revise sus credenciales";
         }
         
-        codigo += "<!ini_respuesta:\"INSTRUCCIONES\">\n" +
-                  "{ \"INSTRUCCION_EJECUTADA\" : [{\n";
-        codigo += "\"TIPO\" : \"Login Usuario " + usuario + "\",\n";
-        codigo += "\"DETALLES\" : \"" + descripcion + "\"\n";
-        codigo += "}\n" +
-                  "]\n" +
-                  "}\n" +
-                  "<!fin_respuesta>\n";
-        
-        return codigo;
+        return generarCodigoRespuesta("Login Usuario", descripcion);
     }
 
     public String getUsuario() {

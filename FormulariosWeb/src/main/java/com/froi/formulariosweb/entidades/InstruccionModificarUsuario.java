@@ -31,6 +31,7 @@ public class InstruccionModificarUsuario extends Instruccion {
         this.fechaModificacion = año + "-" + mes + "-" + dia;   
     }
 
+    @Override
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
         String codigo = "", descripcion = "";
         boolean comprobante = false, comprobante2 = true;
@@ -53,6 +54,11 @@ public class InstruccionModificarUsuario extends Instruccion {
         if(comprobante && comprobante2) {
             listaUsuarios.get(cont).setUsuario(usuarioNuevo);
             listaUsuarios.get(cont).setPassword(nuevoPassword);
+            for(Formulario element : listaFormularios) {
+                if(element.getUsuarioCreacion().equals(usuarioAntiguo)) {
+                    element.setUsuarioCreacion(usuarioNuevo);
+                }
+            }
             descripcion = "se ha realizado el cambio de usuario " + usuarioAntiguo + " por " + usuarioNuevo;
             descripcion += ". Se ha actualizado la contraseña a " + nuevoPassword;
 
@@ -69,15 +75,7 @@ public class InstruccionModificarUsuario extends Instruccion {
                 descripcion += ". El nombre de usuario " + usuarioNuevo + " ya existe en el sistema";
             }
         }
-        codigo += "<!ini_respuesta:\"INSTRUCCIONES\">\n" +
-                  "{ \"INSTRUCCION_EJECUTADA\" : [{\n";
-        codigo += "\"TIPO\" : \"Modificacion de Usuario\",\n";
-        codigo += "\"DETALLES\" : \"" + descripcion + "\"\n";
-        codigo += "}\n" +
-                  "]\n" +
-                  "}\n" +
-                  "<!fin_respuesta>\n";
-        return codigo;
+        return generarCodigoRespuesta("Modificacion de Usuario", descripcion);
     }
     
     public String getUsuarioAntiguo() {

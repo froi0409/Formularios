@@ -12,6 +12,7 @@
 <%
     Formulario formulario = (Formulario) request.getAttribute("formulario");
     String tema, letra;
+    request.getSession().setAttribute("formularioUsario", formulario.getIdentificador());
     String usuario = (String) request.getAttribute("usuario");
     if(formulario.getTema().equals("Dark")) {
         tema = "#4F576A";
@@ -20,7 +21,6 @@
         tema = "#FFFFFF";
         letra = "#000000";
     }
-    
 %>
 <html>
     <head>
@@ -41,6 +41,9 @@
                 </div>
                 <div class="col-3" align="right">
                     &nbsp;&nbsp;
+                    <%if(request.getSession().getAttribute("USER") != null) {%>
+                        <a href="javascript:obtenerLink();" class="btn btn-outline-light form">Obtener Enlace</a>
+                    <%}%>
                 </div>
             </div>
         </div>
@@ -57,7 +60,7 @@
             <h1><% out.print(formulario.getTitulo()); %></h1><br>
             <h4>Formulario perteneciente a: <% out.print(usuario); %></h4><br><br>
         </div>
-        
+        <form action="ObtenerDatos" method ="POST">
         <%
         for(Componente element : formulario.getListaComponentes()) {
             String alineacion;
@@ -89,17 +92,17 @@
                         if(element.getClase().equals("COMBO")) {
                             //Manejo de boton
                             String[] opciones = element.getOpciones().split("\\|");
-                            out.println("<br><select class=\"form-select\">");
+                            out.println("<br><select id=\"" + element.getId() + "\" name=\"" + element.getNombreCampo() + "\" class=\"form-select\" " + requerido + ">");
                             for(String op : opciones) {
                                 out.println("<option value=\"" + op + "\">" + op + "</option>");
                             }
                             out.println("</select>");
                         } else if (element.getClase().equals("AREA_TEXTO")) {
                             out.println("<div class=\"form-floating\">");
-                            out.println("<textarea rows=\"" + element.getFilas() + "\" cols=\"" + element.getColumnas() + "\"></textarea>");
+                            out.println("<textarea id=\"" + element.getId() + "\" name=\"" + element.getNombreCampo() + "\" rows=\"" + element.getFilas() + "\" cols=\"" + element.getColumnas() + "\" " + requerido + "></textarea>");
                             out.println("</div>");
                         } else if(element.getClase().equals("CAMPO_TEXTO")) {
-                            out.println("<input tyoe=\"text\" name=\"" + element.getNombreCampo() + " id=\"" + element.getId() + "\"\"/>");
+                            out.println("<input tyoe=\"text\" name=\"" + element.getNombreCampo() + "\" id=\"" + element.getId() + "\" " + requerido + "/>");
                         } else if(element.getClase().equals("CHECKBOX")) {
                             String[] opciones = element.getOpciones().split("\\|");
                             for(String op: opciones){
@@ -111,11 +114,11 @@
                                 out.println("<input type=\"radio\" id=\"" + element.getId() + "\" value=\"" + op + "\" name=\"" + element.getNombreCampo() + "\">" + op + "</input>");
                             }
                         } else if(element.getClase().equals("FICHERO")) {
-                            out.println("<input type=\"file\" name=\"" + element.getNombreCampo() + "\"/>");
+                            out.println("<input type=\"file\" name=\"" + element.getNombreCampo() + "\"" + requerido + "/>");
                         } else if(element.getClase().equals("BOTON")) {
                             out.println("<input type=\"button\" value=\"" + element.getTextoVisible() + "\"/>");
                         } else if(element.getClase().equals("IMAGEN")) {
-                            out.print("<input type=\"image\" src=\"" + element.getUrl() + "\" />");
+                            out.print("<input style=\"max-width: 500px; max-height: 500px\" type=\"image\" src=\"" + element.getUrl() + "\"/>");
                         }
                     %>
                     </div>
@@ -125,7 +128,11 @@
         <%
         }
         %>
-        
+            <div class="container justify-content-center pt-2 px-4">
+                <input type="submit" class="btn btn-info btn-block ingresar" value="Enviar Datos"/>
+            </div><br><br><br><br>
+        </form>
+        <script src="estilos/funciones.js" type="text/javascript"></script>
         <%@include file = "scripts.html"%>
     </body>
 </html>

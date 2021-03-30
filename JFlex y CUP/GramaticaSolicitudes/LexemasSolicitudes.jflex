@@ -42,16 +42,15 @@ COMPLEMENTOC = (0?2) [-] {MESESC}
 FECHA = [\"] {AÑO} [-] ( {COMPLEMENTOA} | {COMPLEMENTOB} | {COMPLEMENTOC} ) [\"] 
 
 //ALLCHARACTERS = [\"]  [^"\"" "|"]+ [\"]
-ALLCHARACTERS = [\42] ([\0-\41] | [\43-\173] | [\175-\255] | [^"\"" "|"])* [\42]
+ALLCHARACTERS = [\42] ([\0-\41] | [\43-\173] | [\175-\255] | [^"\"" "|"] | ("\’" | "\'"))* [\42]
 //ALLCHARACTERS = \" [\40]*  ([\41] | [\43-\176]) ([\40-\41] | [\43-\176])*  [\40]* \"
 ALLCHARACTERSNOSPACE = [\"]  [^' ' "\"" "|"]+ [\"]
 NOCOMILLAS =([^\"])*
 OPTIONS = [\"] ([a-zA-Z0-9] | {Ignore})+ ("|" ([a-zA-Z0-9] | {Ignore}})+)+ [\"]
 
-CONSULTA = [\"]{WS}* "CONSULTA"{WS}* "-"{WS}* [0-9]+{WS}*  [\"] {Ignore}* ":" {Ignore}* [\"]
+CONSULTA = [\"]{WS}* "CONSULTA"{WS}* "-"{WS}* [0-9]+{WS}*  [\"]
 IDENTIFCONSULTA = ("$" | "_" | "-") ( [a-zA-Z] | [0-9] | "$" | "_" | "-")*
-//CAMPOS = ["$"  "_"  "-"] [^"[" "]" "\"" "," "|" "<" ">" "!" "=" ":" "{" "}" "\’" "\'" [ \t\f] [\r|\n|\r\n]]+ ({WS}*","{WS}* [^"[" "]" "\"" "," "|" "<" ">" "!" "=" ":" "{" "}" "\’" "\'" "&" [ \t\f] [\r|\n|\r\n]]+)+ 
-CAMPO = [^"[" "]" "\"" "," "|" "<" ">" "!" "=" ":" "{" "}" "\’" "\'" [ \t\f] [\r|\n|\r\n]]+
+CAMPOS = [\[]  ([^"\"" "|" "[" "]"] | {WS})* [\]]
 CADENACONSULTA = ("\’" | "\'") ([^ "\"" "|"] | [ \t\f])* ("\’" | "\'")
 NUMEROCONSULTA = (-)? [0-9]+ ( ['.'] [0-9]+ ) ?
 
@@ -73,8 +72,8 @@ NUMEROCONSULTA = (-)? [0-9]+ ( ['.'] [0-9]+ ) ?
     "{"                     { return new Symbol(LLAVE_A, yyline+1, yycolumn+1, yytext()); }
     "}"                     { return new Symbol(LLAVE_C, yyline+1, yycolumn+1, yytext()); }
     ","                     { return new Symbol(COMA, yyline+1, yycolumn+1, yytext()); }
-    "->"                    { return new Symbol(FLECHA, yyline+1, yycolumn+1, yytext()); }
-    "\""                    { return new Symbol(COMILLAS, yyline+1, yycolumn+1, yytext()); }
+    //"->"                    { return new Symbol(FLECHA, yyline+1, yycolumn+1, yytext()); }
+    //"\""                    { return new Symbol(COMILLAS, yyline+1, yycolumn+1, yytext()); }
 
     //Instrucciones
     {INISOLICITUDES}        { return new Symbol(INI_SOLICITUDES, yyline+1, yycolumn+1, yytext()); }
@@ -140,7 +139,7 @@ NUMEROCONSULTA = (-)? [0-9]+ ( ['.'] [0-9]+ ) ?
     "\""{WS}*"White"{WS}*"\""                 { return new Symbol(WHITE, yyline+1, yycolumn+1, yytext()); }
     //Lenguaje de reportería
     "\""{WS}*"CONSULTAS"{WS}*"\""               { return new Symbol(CONSULTAS, yyline+1, yycolumn+1, yytext()); }
-    "SELECT"                                    { return new Symbol(SELECT, yyline+1, yycolumn+1, yytext()); }
+    /*"SELECT"                                    { return new Symbol(SELECT, yyline+1, yycolumn+1, yytext()); }
     "TO"                                        { return new Symbol(TO, yyline+1, yycolumn+1, yytext()); }
     "FORM"                                      { return new Symbol(FROM, yyline+1, yycolumn+1, yytext()); }
     "WHERE"                                     { return new Symbol(WHERE, yyline+1, yycolumn+1, yytext()); }
@@ -150,7 +149,7 @@ NUMEROCONSULTA = (-)? [0-9]+ ( ['.'] [0-9]+ ) ?
     {NUMEROCONSULTA}                            { System.out.println("NUMEROCONSULTA: " + yytext()); return new Symbol(NUMERO_CONSULTA, yyline+1, yycolumn+1, yytext()); }
     //{IDENTIFCONSULTA}                           { System.out.println("IDENTIFCONSULTA: " + yytext()); return new Symbol(IDENTIFCONSULTA, yyline+1, yycolumn+1, yytext()); }
     {CADENACONSULTA}                            { System.out.println("CADENA en: " + yyline + " , " + yycolumn + " - " + yytext()); return new Symbol(CADENA_CONSULTA, yyline+1, yycolumn+1, yytext()); }
-
+    */
     //Cadenas Fundamentales
     {IDENTIFICA}            { System.out.println("IDENTIFICA: " + yytext());return new Symbol(IDENTIFICADOR, yyline+1, yycolumn+1, yytext()); }
     {NUMERO}                { System.out.println("NUMERO: " + yytext());return new Symbol(NUMERO, yyline+1, yycolumn+1, yytext()); }

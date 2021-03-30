@@ -41,21 +41,30 @@ public class InstruccionNuevoFormulario extends Instruccion {
      * @param userOnline Usuario que está loggeado en el servidor
      * @return Código índifo de respuesta del servidor
      */
+    @Override
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
+        if(userOnline.equals("")) {
+            return generarCodigoRespuesta("Conflicto en Creación de Formulario", "Para crear un nuevo formulario, primero inicie sesión en el sistema");
+        }
         String codigo = "";
-        String descripcion;
-        boolean comprobante = true;
+        String descripcion = "";
+        boolean comprobante = true, comprobanteSecundario = true;
         for(Formulario element : listaFormularios) {
             if(element.getIdentificador().equals(id)) {
                 comprobante = false;
                 break;
             }
         }
-        
-        if(comprobante) {
+        for(Formulario element : listaFormularios) {
+            if(element.getNombre().equals(nombre)) {
+                comprobanteSecundario = false;
+            }
+        }
+        if(comprobante && comprobanteSecundario) {
             //Verificamos si hay un usuario específico para que se le sea asignado el formulario
             if(usuarioCreacion == null) {
-                if(userOnline == null) { //Verificamos si existe un usuraio conectado
+                System.out.println(userOnline + " -> user");
+                if(userOnline.equals("")) { //Verificamos si existe un usuraio conectado
                     descripcion = "No de pudo crear el formulario: " + id + ", porque no se especificó ningún usuario a ingresar, y no hay un usuario loggeado en el sistema";
                 } else {
                     usuarioCreacion = userOnline;
@@ -79,19 +88,16 @@ public class InstruccionNuevoFormulario extends Instruccion {
                 }
             }
         } else {
+            descripcion = "No se pudo crear el formulario: ";
+            if(!comprobante) {
+                descripcion += "El id: " + id + " ya se encuentra asociado a otro formulario del sistema. ";
+            }
+            if(!comprobanteSecundario) {
+                descripcion += "El nombre " + nombre + " ya se encuentra asociado a otro formulario del sistema. ";
+            }
             
-            descripcion = "El formulario con id: " + id + " ya existe en el sistema, asigne otro identificador al formulario. Formulario no creado.";
         }
-        
-        codigo += "<!ini_respuesta:\"INSTRUCCIONES\">\n" +
-                  "{ \"INSTRUCCION_EJECUTADA\" : [{\n";
-        codigo += "\"TIPO\" : \"Nuevo Formulario\",\n";
-        codigo += "\"DETALLES\" : \"" + descripcion + "\"\n";
-        codigo += "}\n" +
-                  "]\n" +
-                  "}\n" +
-                  "<!fin_respuesta>\n";
-        return codigo;
+        return generarCodigoRespuesta("Nuevo Formulario", descripcion);
     }
 
     public void setId(String id) {

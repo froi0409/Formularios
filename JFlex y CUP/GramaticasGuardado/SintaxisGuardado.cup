@@ -13,6 +13,7 @@ parser code {:
     private ArrayList<Componente> listaComponentes;
     private String p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11;
     private String c1, c2, c3, c4, c5, c6;
+    private ArrayList<String> registros;
     
     
     public ParserGuardado(GuardadoLexer lexer, ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios) {
@@ -20,6 +21,7 @@ parser code {:
         this.listaUsuarios = listaUsuarios;
         this.listaFormularios = listaFormularios;
         this.listaComponentes = new ArrayList<>();
+        this.registros = new ArrayList<>();
     }
     public void report_error(String message, Object info) {
         System.out.println("reporterror");
@@ -92,7 +94,7 @@ opciones_formulariosdb ::=      ID_FORMULARIO PUNTOS ALLCHARACTERS:ent          
                                 | USUARIO_CREACION PUNTOS ALLCHARACTERS:ent                 {: c5 = ent.toString(); :}
                                 | FECHA_CREACION PUNTOS ALLCHARACTERS:ent                   {: c6 = ent.toString(); :}
                                 | ESTRUCTURA PUNTOS PARENT_A estructura_forms_p PARENT_C
-                                | DATOS_RECOPILADOS PUNTOS PARENT_A datos_forms PARENT_C
+                                //| DATOS_RECOPILADOS PUNTOS PARENT_A datos_forms PARENT_C
                                 ;
 
 estructura_forms_p ::=  estructura_forms COMA estructura_forms_p
@@ -128,8 +130,12 @@ estructura_forms ::=    LLAVE_A instruccion_estructura_forms LLAVE_C    {:
                                                                             if(p11 != null) {
                                                                                 compo.setUrl(p11.substring(1, p11.length()-1));
                                                                             }
+                                                                            for(String element: registros) {
+                                                                                compo.getDatosRecopilados().add(element);
+                                                                            }
                                                                             listaComponentes.add(compo);
                                                                             p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null;
+                                                                            registros.clear();
                                                                         :}
                         | LLAVE_A error LLAVE_C
                         ;
@@ -150,6 +156,7 @@ opciones_estructura_forms ::=       ID_COMPONENTE_N PUNTOS ALLCHARACTERS:ent    
                                     | FILAS PUNTOS ALLCHARACTERS:ent            {: p9 = ent.toString(); :}
                                     | COLUMNAS PUNTOS ALLCHARACTERS:ent         {: p10 = ent.toString(); :}
                                     | URL PUNTOS ALLCHARACTERS:ent              {: p11 = ent.toString(); :}
+                                    | REGISTRO_N PUNTOS ALLCHARACTERS:ent       {: String dato = ent.toString(); registros.add(dato.substring(1, dato.length()-1)); :}
                                     ;
 
 datos_forms ::=     LLAVE_A instruccion_datos_forms LLAVE_C

@@ -18,11 +18,15 @@ public class InstruccionElliminarComponente extends Instruccion {
     private String idComponente;
     private String idFormulario;
 
+    @Override
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
+        if(userOnline.equals("")) {
+            return generarCodigoRespuesta("Conflicto en Eliminacion de ]Componente", "Para realizar una eliminacion, primero inicie sesión en el sistema");
+        }
         String codigo = "", descripcion;
         boolean comprobanteForm = false, comprobanteComp = false;
         for(Formulario element : listaFormularios) {
-            if(element.getIdentificador().equals(idFormulario)) {
+            if(element.getIdentificador().equals(idFormulario) && element.getUsuarioCreacion().equals(userOnline)) {
                 comprobanteForm = true;
                 for(Componente elem : element.getListaComponentes()) {
                     if(elem.getId().equals(idComponente)) {
@@ -35,21 +39,13 @@ public class InstruccionElliminarComponente extends Instruccion {
             }
         }
         if(!comprobanteForm) {
-            descripcion = "No se ha podido eliminar el componente " + idComponente + " porque el formulario " + idFormulario + "  no existe en el sistema";
+            descripcion = "No se ha podido eliminar el componente " + idComponente + " porque usted no posee un fomulario: " + idFormulario;
         } else if(!comprobanteComp) {
             descripcion = "El componente " + idComponente + " no existe en eL formulario " + idFormulario;
         } else {
             descripcion = "Se ha eliminado el componente " + idComponente + " del formulario " + idFormulario;
         }
-        codigo += "<!ini_respuesta:\"INSTRUCCIONES\">\n" +
-                  "{ \"INSTRUCCION_EJECUTADA\" : [{\n";
-        codigo += "\"TIPO\" : \"Creacion de Usuario\",\n";
-        codigo += "\"DETALLES\" : \"" + descripcion + "\"\n";
-        codigo += "}\n" +
-                  "]\n" +
-                  "}\n" +
-                  "<!fin_respuesta>\n";
-        return codigo;
+        return generarCodigoRespuesta("Eliminacion de Componente", descripcion);
     }
     
     public String getIdComponente() {
