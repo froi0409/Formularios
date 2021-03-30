@@ -116,7 +116,7 @@
                         } else if(element.getClase().equals("BOTON")) {
                             out.println("<input type=\"button\" value=\"" + element.getTextoVisible() + "\"/>");
                         } else if(element.getClase().equals("IMAGEN")) {
-                            out.print("<input type=\"image\" src=\"" + element.getUrl() + "\"/>");
+                            out.print("<input style=\"max-width: 500px; max-height: 500px\" type=\"image\" src=\"" + element.getUrl() + "\"/>");
                         }
                     %>
                     </div>

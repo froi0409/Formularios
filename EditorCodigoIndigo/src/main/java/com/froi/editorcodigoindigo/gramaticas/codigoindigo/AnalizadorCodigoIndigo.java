@@ -52,9 +52,6 @@ public class AnalizadorCodigoIndigo {
             for(String element : listaRespuestas) {
                 salida.append(element + "\n\n");
             }
-            for(DefaultTableModel dtm : listaTablas) {
-                tablaReportes.setModel(dtm);
-            }
         } catch (Exception e) {
             salida.append("\n\n......Ha ocurrido un error al leer la respuesta del servidor: " + e.getMessage() + "......");
         }

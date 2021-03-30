@@ -6,6 +6,9 @@ import com.froi.formulariosweb.entidades.*;
 import java_cup.runtime.*;
 import java.util.ArrayList;
 import java.io.StringReader;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 class ParserSolicitudes;
 
@@ -29,9 +32,11 @@ parser code  {:
     }
     public void report_error(String message, Object info) {
         System.out.println("reporterror");
+        listaParametros.clear();
     }
     public void report_fatal_error(String message, Object info) {
         System.out.println("reportfatal " + info);
+        listaParametros.clear();
     }
     @Override
     public void syntax_error(Symbol s) {
@@ -39,6 +44,7 @@ parser code  {:
         Advertencia advert = new Advertencia((String)s.value, s.left, s.right, "Sintáctico", "error sintáctico");
         listaErrores.add(advert);
         punteroErrores = listaErrores.size()-1;
+        listaParametros.clear();
     }
     protected int error_sync_size() {
         return 1;
@@ -46,6 +52,10 @@ parser code  {:
 
     public boolean verificacionBloque(String[] listaObligatorios, ArrayList<String> listaParametros) {
         boolean comprobante = true;
+        for(int i = 0; i < listaParametros.size(); i++) {
+            String parametro = listaParametros.get(i).replace(" ","").replace("\n","").replace("\t","");
+            listaParametros.set(i, parametro);
+        }
         for (String element: listaObligatorios) {
             if(!listaParametros.contains(element)) {
                 Advertencia advert = new Advertencia("Elemento Faltante", linea, columna, element);
@@ -53,24 +63,26 @@ parser code  {:
                 listaErrores.add(advert);
                 comprobante = false;
             }
+            
         }
-        ArrayList<String> auxiliar = new ArrayList<>();
-        for(String element: listaParametros) {
-            if(listaParametros.indexOf(element) != listaParametros.lastIndexOf(element)) {
-                System.out.println("Se ha repetido el parametro " + element + " en el bloque de la linea " + linea);
-                Advertencia advert = new Advertencia("Elemento Repetido", linea, columna, element);
+        Set<String> datosSinDuplicar = new HashSet<String>(listaParametros); //Creamos un Set de la lista de parametros clonada
+        for(String datoRevisado : datosSinDuplicar) {
+            int repeticion = Collections.frequency(listaParametros, datoRevisado); //Contamos las veces que se repite un parametro
+            System.out.println("Dato Revisado: " + datoRevisado + ", repeticion: " + repeticion);
+            if(repeticion > 1) {
+                Advertencia advert = new Advertencia("Elemento Repetido", linea, columna, datoRevisado + " " + repeticion + " " + "veces");
                 listaErrores.add(advert);
                 comprobante = false;
             }
         }
-        
         return comprobante;
     }
 
     public boolean verificacionClase(ArrayList<String> listaParametros, String clase) {
         boolean comprobante = true;
+        clase = clase.replace(" ","").replace("\n","").replace("\t","");
         for(String element: listaParametros) {
-            //String elemento = element.replace(" ","").replace("\n","").replace("\t","")
+            element = element.replace(" ","").replace("\n","").replace("\t","");
             if(element.equals("\"OPCIONES\"")) {
                 if(!clase.equals("\"CHECKBOX\"") && !clase.equals("\"RADIO\"") && !clase.equals("\"COMBO\"")) {
                     System.out.println("La instrucción \"OPCIONES\" del bloque de la linea "  + linea +  " no es valida para " + clase);
@@ -101,24 +113,25 @@ parser code  {:
                 }
             }
         }
-        /*if(clase.equals("IMAGEN")) {
-            if(!listaParametros.contains("URL")) {
-                Advertencia advert = new Advertencia("Elemento Faltante", linea, columna, "\"URL\"");
+        if(clase.equals("\"IMAGEN\"")) {
+            if(!listaParametros.contains("\"URL\"")) {
+                Advertencia advert = new Advertencia("Elemento Faltante", linea, columna, "URL");
                 listaErrores.add(advert);
                 comprobante = false;
             }
-        } else if (!clase.equals("BOTON")) {
-            if(!listaParametros.contains("NOMBRE_CAMPO")) {
-                Advertencia advert = new Advertencia("Elemento Faltante", linea, columna, "\"NOMBRE_CAMPO\"");
+        } else if (!clase.equals("\"BOTON\"")) {
+            if(!listaParametros.contains("\"NOMBRE_CAMPO\"")) {
+                Advertencia advert = new Advertencia("Elemento Faltante", linea, columna, "NOMBRE_CAMPO");
                 listaErrores.add(advert);
                 comprobante = false;
             }
-        }*/
+        }
         return comprobante;
     }
     public boolean verificacionModificacionFormulario() {
         for(String element: listaParametros) {
-            if(element.equals("\"TITULO\"") || element.equals("\"NOMBRE\"") || element.equals("\"TEMA\"")) {
+            String elemento = element.replace(" ","").replace("\n","").replace("\t","");
+            if(elemento.equals("\"TITULO\"") || elemento.equals("\"NOMBRE\"") || elemento.equals("\"TEMA\"")) {
                 return true;
             }
         }
@@ -406,9 +419,9 @@ accion_nuevo_formulario ::=         LLAVE_A:llaA accion_nuevo_formulario_p LLAVE
                                                                                                         inst.setFechaCreacion(p6.substring(1, p6.length()-1));
                                                                                                     }
                                                                                                     listaInstrucciones.add(inst);
-                                                                                                    listaParametros.clear();
-                                                                                                    p1 = null; p2 =null; p3 = null; p4 =null; p5 = null; p6 =null;
                                                                                                 }
+                                                                                                listaParametros.clear();
+                                                                                                p1 = null; p2 =null; p3 = null; p4 =null; p5 = null; p6 =null;
                                                                                             :}
                                     | error accion_nuevo_formulario_p LLAVE_C
                                     | LLAVE_A accion_nuevo_formulario_p error
@@ -423,7 +436,6 @@ opciones_nuevo_formulario ::=       ID:para PUNTOS IDENTIFICADOR:ent            
                                     | NOMBRE:para PUNTOS tipos_entrada:ent              {: listaParametros.add(para.toString()); p3 = ent.toString(); :}
                                     | TEMA:para PUNTOS theme:ent                        {: listaParametros.add(para.toString()); p4 = ent.toString(); :}
                                     | USUARIO_CREACION:para PUNTOS tipos_entrada:ent    {: listaParametros.add(para.toString()); p5 = ent.toString(); :}
-                                    | FECHA_CREACION:para PUNTOS FECHA:ent              {: listaParametros.add(para.toString()); p6 = ent.toString(); :}
                                     | error tipos_entrada_complete                      {: listaErrores.get(punteroErrores).setDescripcion("No se reconoce el tipo de parametro al cual se le asignará valor"); :}
                                     | error PUNTOS tipos_entrada_complete               {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un parametro válido para asignar valor, seguido del símbolo ':'"); :}
                                     | ID PUNTOS error                                   {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un identificador, revise si el valor a asignar contiene caracteres inválidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
@@ -444,6 +456,7 @@ opciones_nuevo_formulario ::=       ID:para PUNTOS IDENTIFICADOR:ent            
                                     | FECHA_CREACION PUNTOS error                       {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una fecha, revise si el valor a asignar contiene caracteres inválidos o si hace falta el síbolo ',' o '}' de fin de instrucción"); :}
                                     | FECHA_CREACION error FECHA                        {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
                                     | FECHA_CREACION error                              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a una fecha"); :}
+                                    | error TEMA                                        {: listaErrores.get(punteroErrores).setDescripcion("falta ',"); :}
                                     | error                                             {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción PARAMETRO ':' VALOR_A_ASIGNAR"); :}
                                     ;
 
@@ -713,6 +726,7 @@ accion_modificacion_componente ::=      LLAVE_A:llaA accion_modificacion_compone
                                                                                                         String[] listaObligatorios = {"\"ID\"", "\"FORMULARIO\""};
                                                                                                         verificacionBloque(listaObligatorios, listaParametros);
                                                                                                         listaParametros.clear();
+                                                                                                        p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null; //p12 = null;
                                                                                                     :}
                                         | error accion_modificacion_componente_p LLAVE_C
                                         | LLAVE_A accion_modificacion_componente_p error

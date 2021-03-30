@@ -64,3 +64,8 @@
         <%@include file = "scripts.html"%>
     </body>
 </html>
+<%
+/*if(request.getSession().getAttribute("USER") == null) {
+    response.sendRedirect("inicio-sesion.jsp");
+}*/
+%>

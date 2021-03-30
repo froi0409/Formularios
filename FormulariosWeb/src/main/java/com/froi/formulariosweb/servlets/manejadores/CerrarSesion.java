@@ -31,7 +31,7 @@ public class CerrarSesion extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getSession().invalidate();
+        request.getSession().removeAttribute("USER");
         request.getRequestDispatcher("inicio-sesion.jsp").forward(request, response);
     }
 

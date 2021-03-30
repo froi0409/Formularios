@@ -102,6 +102,12 @@ public class VentanaEditor extends javax.swing.JFrame {
 
         jLabel3.setText("Area de Reportes");
 
+        comboReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboReportesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -171,11 +177,15 @@ public class VentanaEditor extends javax.swing.JFrame {
 
     private void btnCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompilarActionPerformed
         // TODO add your handling code here:
-        String saltoLinea = System.getProperty("line.separator");
         String entrada = txtEntrada.getText();
         System.out.println(entrada);
         AnalizadorCodigoIndigo analizador = new AnalizadorCodigoIndigo(entrada);
+        listaTablas.clear();
         analizador.analizar(txtSalida, tablaReportes, listaTablas);
+        comboReportes.removeAllItems();
+        for(int i = 1; i <= listaTablas.size(); i++) {
+            comboReportes.addItem(i + "°  Consulta generada");
+        }
     }//GEN-LAST:event_btnCompilarActionPerformed
 
     private void caretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_caretUpdate
@@ -189,6 +199,14 @@ public class VentanaEditor extends javax.swing.JFrame {
             System.out.println("Error: " + e.getMessage());
         }
     }//GEN-LAST:event_caretUpdate
+
+    private void comboReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboReportesActionPerformed
+        // TODO add your handling code here:
+        if(comboReportes.getItemCount() > 0) {
+            tablaReportes.setModel(listaTablas.get(comboReportes.getSelectedIndex()));
+        }
+        
+    }//GEN-LAST:event_comboReportesActionPerformed
 
     /**
      * @param args the command line arguments
