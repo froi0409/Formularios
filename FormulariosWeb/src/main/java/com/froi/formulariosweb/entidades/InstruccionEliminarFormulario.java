@@ -16,6 +16,14 @@ import java.util.ArrayList;
 public class InstruccionEliminarFormulario extends Instruccion {
     private String idFormulario;
 
+    /**
+     * Permite eliminar un formulario del sistema
+     * @param listaUsuarios Lista de los usuarios que hay en el sistema
+     * @param listaFormularios Lista de los formularios que hay en el sistema
+     * @param userOnline Usuario loggeado en el sistema
+     * @return Código índigo de respuesta del servidor al cliente
+     */
+    @Override
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
         if(userOnline.equals("")) {
             return generarCodigoRespuesta("Conflicto en Eliminacion de Formulario", "Para realizar una eliminacion, primero inicie sesión en el sistema");

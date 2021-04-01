@@ -119,9 +119,16 @@ parser code  {:
                 listaErrores.add(advert);
                 comprobante = false;
             }
-        } else if (!clase.equals("\"BOTON\"")) {
+        } else if (!clase.equals("\"BOTON\"") && !clase.equals("\"IMAGEN\"")) {
             if(!listaParametros.contains("\"NOMBRE_CAMPO\"")) {
                 Advertencia advert = new Advertencia("Elemento Faltante", linea, columna, "NOMBRE_CAMPO");
+                listaErrores.add(advert);
+                comprobante = false;
+            }
+        }
+        if(clase.equals("\"COMBO\"") || clase.equals("\"RADIO\"") || clase.equals("\"CHECKBOX\"")) {
+            if(!listaParametros.contains("\"OPCIONES\"")) {
+                Advertencia advert = new Advertencia("Elemento Faltante", linea, columna, "OPCIONES");
                 listaErrores.add(advert);
                 comprobante = false;
             }
@@ -531,6 +538,7 @@ accion_modificacion_formulario ::=      LLAVE_A:llaA accion_modificacion_formula
                                                                                                         }
                                                                                                     }
                                                                                                     listaParametros.clear();
+                                                                                                    p1 = null; p2 = null; p3 = null; p4 = null;
                                                                                                 :}
                                         | error accion_modificacion_formulario_p LLAVE_C        {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}                       
                                         | LLAVE_A accion_modificacion_formulario_p error
@@ -569,7 +577,7 @@ instruccion_agregar_componente ::=  accion_agregar_componente COMA instruccion_a
 accion_agregar_componente ::=       LLAVE_A:llaA accion_agregar_componente_p LLAVE_C            {:
                                                                                                     linea = llaAleft;
                                                                                                     columna = llaAright;
-                                                                                                    String[] listaObligatorios = {"\"ID\"", "\"NOMBRE_CAMPO\"", "\"FORMULARIO\"", "\"CLASE\"", "\"TEXTO_VISIBLE\""};
+                                                                                                    String[] listaObligatorios = {"\"ID\"", "\"FORMULARIO\"", "\"CLASE\"", "\"TEXTO_VISIBLE\""};
                                                                                                     if(verificacionBloque(listaObligatorios, listaParametros)){
                                                                                                         if(verificacionClase(listaParametros, clase)) {
                                                                                                             InstruccionAgregarComponente inst = new InstruccionAgregarComponente();

@@ -28,11 +28,11 @@ public class InstruccionAgregarComponente extends Instruccion {
     private String url;
 
     /**
-     * 
-     * @param listaUsuarios
-     * @param listaFormularios
-     * @param userOnline
-     * @return 
+     * Permite agregar un componente de un formulario en específico
+     * @param listaUsuarios Lista de los usuarios que hay en el sistema
+     * @param listaFormularios Lista de los formularios que hay en el sistema
+     * @param userOnline Usuario loggeado en el sistema
+     * @return Código índigo de respuesta del servidor al cliente
      */
     @Override
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
@@ -67,7 +67,7 @@ public class InstruccionAgregarComponente extends Instruccion {
                 }
             }
             if (comprobanteSecundario && comprobanteTerciario) {
-                int indice = listaFormularios.get(cont).getListaComponentes().size();
+                int indice = listaFormularios.get(cont).getListaComponentes().size()+1;
                 Componente compo = new Componente(indice, id, formulario, clase, textoVisible);
                 if (nombreCampo != null) {
                     compo.setNombreCampo(nombreCampo);

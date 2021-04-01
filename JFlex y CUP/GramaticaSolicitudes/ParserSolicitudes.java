@@ -1054,9 +1054,16 @@ public class ParserSolicitudes extends java_cup.runtime.lr_parser {
                 listaErrores.add(advert);
                 comprobante = false;
             }
-        } else if (!clase.equals("\"BOTON\"")) {
+        } else if (!clase.equals("\"BOTON\"") && !clase.equals("\"IMAGEN\"")) {
             if(!listaParametros.contains("\"NOMBRE_CAMPO\"")) {
                 Advertencia advert = new Advertencia("Elemento Faltante", linea, columna, "NOMBRE_CAMPO");
+                listaErrores.add(advert);
+                comprobante = false;
+            }
+        }
+        if(clase.equals("\"COMBO\"") || clase.equals("\"RADIO\"") || clase.equals("\"CHECKBOX\"")) {
+            if(!listaParametros.contains("\"OPCIONES\"")) {
+                Advertencia advert = new Advertencia("Elemento Faltante", linea, columna, "OPCIONES");
                 listaErrores.add(advert);
                 comprobante = false;
             }
@@ -2035,7 +2042,7 @@ class CUP$ParserSolicitudes$actions {
           case 94: // opciones_modificacion_usuario ::= FECHA_MODIFICACION PUNTOS error 
             {
               Object RESULT =null;
-		 listaErroers.get(punteroErrores).setDescripcion("Valor inválido para ser adignado a una fecha, verifique que la fecha ingresada pertenezca al calendario o revise si hace falta el símnolo ',' o '}' de fin de instruccion"); 
+		 listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser adignado a una fecha, verifique que la fecha ingresada pertenezca al calendario o revise si hace falta el símnolo ',' o '}' de fin de instruccion"); 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("opciones_modificacion_usuario",51, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
           return CUP$ParserSolicitudes$result;
@@ -2974,6 +2981,7 @@ class CUP$ParserSolicitudes$actions {
                                                                                                         }
                                                                                                     }
                                                                                                     listaParametros.clear();
+                                                                                                    p1 = null; p2 = null; p3 = null; p4 = null;
                                                                                                 
               CUP$ParserSolicitudes$result = parser.getSymbolFactory().newSymbol("accion_modificacion_formulario",34, ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.elementAt(CUP$ParserSolicitudes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserSolicitudes$stack.peek()), RESULT);
             }
@@ -3238,7 +3246,7 @@ class CUP$ParserSolicitudes$actions {
 		
                                                                                                     linea = llaAleft;
                                                                                                     columna = llaAright;
-                                                                                                    String[] listaObligatorios = {"\"ID\"", "\"NOMBRE_CAMPO\"", "\"FORMULARIO\"", "\"CLASE\"", "\"TEXTO_VISIBLE\""};
+                                                                                                    String[] listaObligatorios = {"\"ID\"", "\"FORMULARIO\"", "\"CLASE\"", "\"TEXTO_VISIBLE\""};
                                                                                                     if(verificacionBloque(listaObligatorios, listaParametros)){
                                                                                                         if(verificacionClase(listaParametros, clase)) {
                                                                                                             InstruccionAgregarComponente inst = new InstruccionAgregarComponente();

@@ -16,6 +16,13 @@ import java.util.ArrayList;
 public class InstruccionEliminarUsuario extends Instruccion {
     private String usuario;
 
+    /**
+     * Permite eliminar un usuario del sistema
+     * @param listaUsuarios Lista de los usuarios que hay en el sistema
+     * @param listaFormularios Lista de los formularios que hay en el sistema
+     * @param userOnline Usuario loggeado en el sistema
+     * @return Código índigo de respuesta del servidor al cliente
+     */
     @Override
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
         if(usuario.equals(userOnline)) {
@@ -33,10 +40,14 @@ public class InstruccionEliminarUsuario extends Instruccion {
         }
         
         if(comprobador) {
-            for(int i = 0; i < listaFormularios.size(); i++) {
-                if(listaFormularios.get(i).getUsuarioCreacion().equals(usuario)) {
-                    listaFormularios.remove(i);
+            ArrayList<Formulario> delete = new ArrayList<>();
+            for(Formulario form : listaFormularios) {
+                if(form.getUsuarioCreacion().equals(usuario)) {
+                    delete.add(form);
                 }
+            }
+            for(Formulario form : delete) {
+                listaFormularios.remove(form);
             }
             descripcion = "Se ha eliminado del sistema al usuario " + usuario;
         } else {

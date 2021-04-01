@@ -33,6 +33,14 @@ public class InstruccionModificarComponente extends Instruccion {
         this.indice = -1;
     }
     
+    /**
+     * Permite modificar un componente de un formulario en específico
+     * @param listaUsuarios Lista de los usuarios que hay en el sistema
+     * @param listaFormularios Lista de los formularios que hay en el sistema
+     * @param userOnline Usuario loggeado en el sistema
+     * @return Código índigo de respuesta del servidor al cliente
+     */
+    @Override
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
         if(userOnline.equals("")) {
             return generarCodigoRespuesta("Conflicto en Agregar Componente", "Para agregar un componente a un formulario, primero inicie sesión en el sistema");
