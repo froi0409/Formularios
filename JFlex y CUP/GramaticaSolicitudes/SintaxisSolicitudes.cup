@@ -257,8 +257,8 @@ accion_crear_usuario ::=    LLAVE_A:llaA accion_crear_usuario_p LLAVE_C         
                                                                                     listaParametros.clear();
                                                                                     p1 = null; p2 = null; p3 = null;
                                                                                 :}
-                            | error accion_crear_usuario_p LLAVE_C              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' en la instrucción"); :}
-                            | LLAVE_A accion_crear_usuario_p error
+                            | error accion_crear_usuario_p LLAVE_C              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}
+                            | LLAVE_A accion_crear_usuario_p error              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '}' o ',' en la instrucción"); listaParametros.clear(); :}
                             ;
 
 accion_crear_usuario_p ::=  opciones_crear_usuario COMA accion_crear_usuario_p 
@@ -274,9 +274,9 @@ opciones_crear_usuario ::=  USUARIO:usr PUNTOS tipos_entrada:ent                
                             | PASSWORD error tipos_entrada                      {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
                             | USUARIO error                                     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido a asignar a un usuario"); :}
                             | USUARIO PUNTOS error                              {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un usuario, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción"); :}
-                            | PASSWORD PUNTOS error                             {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una contraseña, revise si el valor a asignar contiene caracteres inválidos o si hace falta la coma de fin de instrucción"); :}
-                            | PASSWORD error                                    {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una fecha de creación, revise si la fecha ingresada pertenece al calendario, si la misma contiene caracteres inválidos o si hace falta la coma de fin de instrucción"); :}
-                            | FECHA_CREACION PUNTOS error                       {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                            | PASSWORD PUNTOS error                             {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una contraseña, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instruccion"); :}
+                            | PASSWORD error                                    {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor valido para ser asignado a una contraseña"); :}
+                            | FECHA_CREACION PUNTOS error                       {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una fecha de creacion, revise si la fecha ingresada pertenece al calendario, si la misma contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instruccion"); :}
                             | FECHA_CREACION error FECHA                        {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
                             | FECHA_CREACION error                              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción y una fecha válda a asignar a la fecha de creación"); :}
                             | error                                             {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instucción: PARAMETRO ':' VALOR_A_ASIGNAR"); :}
@@ -304,7 +304,7 @@ accion_modificacion_usuario ::= LLAVE_A:llaA accion_modificacion_usuario_p LLAVE
                                                                                         listaParametros.clear();
                                                                                         p1 = null; p2 = null; p3 = null; p4 = null;
                                                                                     :}            
-                                | error accion_modificacion_usuario_p LLAVE_C
+                                | error accion_modificacion_usuario_p LLAVE_C       {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}
                                 | LLAVE_A accion_modificacion_usuario_p error
                                 ;
 
@@ -319,12 +319,18 @@ opciones_modificacion_usuario ::=   USUARIO_ANTIGUO:para PUNTOS tipos_entrada:en
                                     | FECHA_MODIFICACION:para PUNTOS FECHA:ent      {: listaParametros.add(para.toString()); p4 = ent.toString(); :}
                                     | error tipos_entrada                           {: listaErrores.get(punteroErrores).setDescripcion("No se reconoce el tipo de parámetro a asignar valor en la instrucción"); :}
                                     | error PUNTOS tipos_entrada                    {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un parametro valido para asignar valor seguido del símbolo ':' "); :}
-                                    | USUARIO PUNTOS error                          {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un usuario, revise si el valor a asignar contiene caracteres invalidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
-                                    | USUARIO error tipos_entrada                   {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
-                                    | USUARIO error                                 {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un usuario"); :}
-                                    | PASSWORD PUNTOS error                         {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una contraseña, revise si el valor a asignar contiene caracteres invalidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
-                                    | PASSWORD error tipos_entrada                  {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
-                                    | PASSWORD error                                {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a una contraseña"); :}
+                                    | USUARIO_ANTIGUO PUNTOS error                  {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un usuario, revise si el valor a asignar contiene caracteres invalidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
+                                    | USUARIO_ANTIGUO error tipos_entrada           {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                                    | USUARIO_ANTIGUO error                         {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un usuario"); :}
+                                    | USUARIO_NUEVO PUNTOS error                    {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un nuevo usuario, revise si el valor a asignar contiene caracteres invalidos o si hace falta el simbolo ',' o '}' de fin de isntruccion"); :}
+                                    | USUARIO_NUEVO error tipos_entrada             {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                                    | USUARIO_NUEVO error                           {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un usuario nuevo"); :}
+                                    | NUEVO_PASSWORD PUNTOS error                   {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una contraseña, revise si el valor a asignar contiene caracteres invalidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
+                                    | NUEVO_PASSWORD error tipos_entrada            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                                    | NUEVO_PASSWORD error                          {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a una contraseña"); :}
+                                    | FECHA_MODIFICACION PUNTOS error               {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser adignado a una fecha, verifique que la fecha ingresada pertenezca al calendario o revise si hace falta el símnolo ',' o '}' de fin de instruccion"); :}
+                                    | FECHA_MODIFICACION error FECHA                {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                                    | FECHA error                                   {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a una fecha"); :}
                                     | error                                         {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción PARAMETRO ':' VALOR_A_ASIGNAR"); :}
                                     ;
 
@@ -345,7 +351,7 @@ accion_eliminacion_usuario ::=          LLAVE_A:llaA opciones_eliminacion_usuari
                                                                                                     listaParametros.clear();
                                                                                                     p1 = null;
                                                                                                 :}
-                                        | error opciones_eliminacion_usuario LLAVE_C            {: listaErrores.get(punteroErrores).setDescripcion("Se recuperó jaja"); :}
+                                        | error opciones_eliminacion_usuario LLAVE_C            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}
                                         | LLAVE_A opciones_eliminacion_usuario error
                                         ;
 
@@ -376,7 +382,7 @@ accion_login_usuario ::=            LLAVE_A:llaA accion_login_usuario_p LLAVE_C 
                                                                                                 listaParametros.clear();
                                                                                                 p1 = null; p2 = null;
                                                                                             :}
-                                    | error accion_login_usuario_p LLAVE_C
+                                    | error accion_login_usuario_p LLAVE_C                  {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}
                                     | LLAVE_A accion_login_usuario_p error
                                     ;
 
@@ -423,7 +429,7 @@ accion_nuevo_formulario ::=         LLAVE_A:llaA accion_nuevo_formulario_p LLAVE
                                                                                                 listaParametros.clear();
                                                                                                 p1 = null; p2 =null; p3 = null; p4 =null; p5 = null; p6 =null;
                                                                                             :}
-                                    | error accion_nuevo_formulario_p LLAVE_C
+                                    | error accion_nuevo_formulario_p LLAVE_C               {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}
                                     | LLAVE_A accion_nuevo_formulario_p error
                                     ;
 
@@ -482,7 +488,7 @@ accion_eliminacion_formulario ::=       LLAVE_A:llaA accion_eliminacion_formular
                                                                                                     listaParametros.clear();
                                                                                                     p1 = null;
                                                                                                 :}
-                                        | error accion_eliminacion_formulario_p LLAVE_C
+                                        | error accion_eliminacion_formulario_p LLAVE_C         {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}
                                         | LLAVE_A accion_eliminacion_formulario_p error
                                         ;
 
@@ -526,7 +532,7 @@ accion_modificacion_formulario ::=      LLAVE_A:llaA accion_modificacion_formula
                                                                                                     }
                                                                                                     listaParametros.clear();
                                                                                                 :}
-                                        | error accion_modificacion_formulario_p LLAVE_C
+                                        | error accion_modificacion_formulario_p LLAVE_C        {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}                       
                                         | LLAVE_A accion_modificacion_formulario_p error
                                         ;
 
@@ -600,7 +606,7 @@ accion_agregar_componente ::=       LLAVE_A:llaA accion_agregar_componente_p LLA
                                                                                                     listaParametros.clear();
                                                                                                     listaParametrosClase.clear();
                                                                                                 :}
-                                    | error accion_agregar_componente_p LLAVE_C
+                                    | error accion_agregar_componente_p LLAVE_C                 {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}
                                     | LLAVE_A accion_agregar_componente_p error
                                     ;
 
@@ -696,7 +702,7 @@ accion_eliminacion_componente ::=       LLAVE_A:llaA accion_eliminacion_componen
                                                                                                         listaParametros.clear();
                                                                                                         p1 = null; p2 = null;
                                                                                                     :}
-                                        | error accion_eliminacion_componente_p LLAVE_C
+                                        | error accion_eliminacion_componente_p LLAVE_C             {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}
                                         | LLAVE_A accion_eliminacion_componente_p error
                                         ;
 
@@ -775,7 +781,7 @@ accion_modificacion_componente ::=      LLAVE_A:llaA accion_modificacion_compone
                                                                                                         clase = null;
                                                                                                         p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null; p12 = null;
                                                                                                     :}
-                                        | error accion_modificacion_componente_p LLAVE_C
+                                        | error accion_modificacion_componente_p LLAVE_C            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}
                                         | LLAVE_A accion_modificacion_componente_p error
                                         ;
 
@@ -796,7 +802,7 @@ instruccion_consultar_datos ::=     accion_consultar_datos COMA instruccion_cons
                                     ;
 
 accion_consultar_datos ::=          LLAVE_A:llaA accion_consultar_datos_p LLAVE_C
-                                    | error accion_consultar_datos_p LLAVE_C
+                                    | error accion_consultar_datos_p LLAVE_C            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}
                                     | LLAVE_A accion_consultar_datos_p error
                                     ;
 
