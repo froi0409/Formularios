@@ -11,6 +11,6 @@ function obtenerLink() {
     document.body.appendChild(aux);
     aux.select();
     document.execCommand("copy");
+    document.body.removeChild(aux);
     window.alert("Enlace del formulario\ncopiado al portapapeles");
-    document.body.removeChild(aux.select);
 }

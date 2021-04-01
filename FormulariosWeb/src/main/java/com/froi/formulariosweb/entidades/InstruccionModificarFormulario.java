@@ -91,7 +91,7 @@ public class InstruccionModificarFormulario extends Instruccion {
     }
 
     public void setTema(String tema) {
-        this.tema = tema;
+        this.tema = tema.replace(" ","").replace("\n","").replace("\t","");
     }
     
 }

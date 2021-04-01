@@ -11,7 +11,8 @@ import java.util.ArrayList;
  *
  * @author froi-pc
  */
-public class Componente {
+public class Componente implements Comparable<Componente> {
+    private int indice;
     private String id;
     private String nombreCampo;
     private String formulario;
@@ -25,7 +26,8 @@ public class Componente {
     private String url;
     private ArrayList<String> datosRecopilados;
 
-    public Componente(String id, String formulario, String clase, String textoVisible) {
+    public Componente(int indice, String id, String formulario, String clase, String textoVisible) {
+        this.indice = indice;
         this.id = id;
         this.formulario = formulario;
         this.clase = clase;
@@ -38,6 +40,14 @@ public class Componente {
             this.nombreCampo = "";
         } 
         this.datosRecopilados = new ArrayList<>();
+    }
+
+    public int getIndice() {
+        return indice;
+    }
+
+    public void setIndice(int indice) {
+        this.indice = indice;
     }
 
     public String getId() {
@@ -134,6 +144,28 @@ public class Componente {
 
     public void setDatosRecopilados(ArrayList<String> datosRecopilados) {
         this.datosRecopilados = datosRecopilados;
+    }
+    
+    /**
+     * Método que nos sirve para incrementar en una unidad el indice de un componente
+     */
+    public void incrementarIndice() {
+        this.indice++;
+    }
+    
+    public void reducirIndice() {
+        this.indice--;
+    }
+
+    @Override
+    public int compareTo(Componente comp) {
+        if(indice < comp.getIndice()) {
+            return -1;
+        }
+        if(indice < comp.getIndice()) {
+            return 1;
+        }
+        return 0;
     }
 
 }

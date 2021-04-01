@@ -209,7 +209,7 @@ public class ParserGuardado extends java_cup.runtime.lr_parser {
     private ArrayList<Usuario> listaUsuarios;
     private ArrayList<Formulario> listaFormularios;
     private ArrayList<Componente> listaComponentes;
-    private String p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11;
+    private String p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12;
     private String c1, c2, c3, c4, c5, c6;
     private ArrayList<String> registros;
     
@@ -470,13 +470,14 @@ class CUP$ParserGuardado$actions {
             {
               Object RESULT =null;
 		
+                                                                            int pApoyo12 = Integer.parseInt(p12.substring(1, p12.length()-1));
                                                                             p1 = (p1.substring(1, p1.length()-1));
                                                                             p3 = (p3.substring(1, p3.length()-1));
                                                                             p4 = (p4.substring(1, p4.length()-1));
                                                                             p5 = (p5.substring(1, p5.length()-1));
                                                                             System.out.println("Probando p1");
                                                                             System.out.println(p1);
-                                                                            Componente compo = new Componente(p1, p3, p4, p5);
+                                                                            Componente compo = new Componente(pApoyo12, p1, p3, p4, p5);
                                                                             if(p2 != null) {
                                                                                 compo.setNombreCampo(p2.substring(1, p2.length()-1));
                                                                             }
@@ -502,7 +503,7 @@ class CUP$ParserGuardado$actions {
                                                                                 compo.getDatosRecopilados().add(element);
                                                                             }
                                                                             listaComponentes.add(compo);
-                                                                            p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null;
+                                                                            p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null; p12 = null;
                                                                             registros.clear();
                                                                         
               CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("estructura_forms",5, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
@@ -603,7 +604,7 @@ class CUP$ParserGuardado$actions {
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserGuardado$stack.peek()).value;
-
+		 p12 = ent.toString() 
               CUP$ParserGuardado$result = parser.getSymbolFactory().newSymbol("opciones_estructura_forms",8, ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.elementAt(CUP$ParserGuardado$top-2)), ((java_cup.runtime.Symbol)CUP$ParserGuardado$stack.peek()), RESULT);
             }
           return CUP$ParserGuardado$result;

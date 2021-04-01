@@ -42,7 +42,7 @@
                 <div class="col-3" align="right">
                     &nbsp;&nbsp;
                     <%if(request.getSession().getAttribute("USER") != null) {%>
-                        <a href="javascript:obtenerLink();" class="btn btn-outline-light form">Obtener Enlace</a>
+                        <a onclick="obtenerLink()" class="btn btn-outline-light form">Obtener Enlace</a>
                     <%}%>
                 </div>
             </div>

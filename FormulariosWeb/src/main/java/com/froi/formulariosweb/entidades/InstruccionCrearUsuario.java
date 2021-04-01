@@ -73,7 +73,7 @@ public class InstruccionCrearUsuario extends Instruccion {
     }
 
     public void setFechaCreacion(String fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+        this.fechaCreacion = fechaCreacion.replace(" ","").replace("\n","").replace("\t","");
     }
     
 }

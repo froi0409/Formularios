@@ -107,7 +107,7 @@ public class InstruccionModificarUsuario extends Instruccion {
     }
 
     public void setFechaModificacion(String fechaModificacion) {
-        this.fechaModificacion = fechaModificacion;
+        this.fechaModificacion = fechaModificacion.replace(" ","").replace("\n","").replace("\t","");
     }
     
     

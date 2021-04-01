@@ -113,7 +113,7 @@ public class InstruccionNuevoFormulario extends Instruccion {
     }
 
     public void setTema(String tema) {
-        this.tema = tema;
+        this.tema = tema.replace(" ","").replace("\n","").replace("\t","");
     }
 
     public void setUsuarioCreacion(String usuarioCreacion) {
@@ -121,7 +121,7 @@ public class InstruccionNuevoFormulario extends Instruccion {
     }
 
     public void setFechaCreacion(String fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+        this.fechaCreacion = fechaCreacion.replace(" ","").replace("\n","").replace("\t","");
     }
     
 }

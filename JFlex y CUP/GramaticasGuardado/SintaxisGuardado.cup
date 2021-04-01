@@ -11,7 +11,7 @@ parser code {:
     private ArrayList<Usuario> listaUsuarios;
     private ArrayList<Formulario> listaFormularios;
     private ArrayList<Componente> listaComponentes;
-    private String p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11;
+    private String p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12;
     private String c1, c2, c3, c4, c5, c6;
     private ArrayList<String> registros;
     
@@ -102,13 +102,14 @@ estructura_forms_p ::=  estructura_forms COMA estructura_forms_p
                         ;
 
 estructura_forms ::=    LLAVE_A instruccion_estructura_forms LLAVE_C    {:
+                                                                            int pApoyo12 = Integer.parseInt(p12.substring(1, p12.length()-1));
                                                                             p1 = (p1.substring(1, p1.length()-1));
                                                                             p3 = (p3.substring(1, p3.length()-1));
                                                                             p4 = (p4.substring(1, p4.length()-1));
                                                                             p5 = (p5.substring(1, p5.length()-1));
                                                                             System.out.println("Probando p1");
                                                                             System.out.println(p1);
-                                                                            Componente compo = new Componente(p1, p3, p4, p5);
+                                                                            Componente compo = new Componente(pApoyo12, p1, p3, p4, p5);
                                                                             if(p2 != null) {
                                                                                 compo.setNombreCampo(p2.substring(1, p2.length()-1));
                                                                             }
@@ -134,7 +135,7 @@ estructura_forms ::=    LLAVE_A instruccion_estructura_forms LLAVE_C    {:
                                                                                 compo.getDatosRecopilados().add(element);
                                                                             }
                                                                             listaComponentes.add(compo);
-                                                                            p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null;
+                                                                            p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null; p12 = null;
                                                                             registros.clear();
                                                                         :}
                         | LLAVE_A error LLAVE_C
@@ -149,7 +150,7 @@ opciones_estructura_forms ::=       ID_COMPONENTE_N PUNTOS ALLCHARACTERS:ent    
                                     | FORMULARIO PUNTOS ALLCHARACTERS:ent       {: p3 = ent.toString(); :}
                                     | CLASE PUNTOS ALLCHARACTERS:ent            {: p4 = ent.toString(); :}
                                     | TEXTO_VISIBLE PUNTOS ALLCHARACTERS:ent    {: p5 = ent.toString(); :}
-                                    | INDICE PUNTOS ALLCHARACTERS:ent           
+                                    | INDICE PUNTOS ALLCHARACTERS:ent           {: p12 = ent.toString(); :}
                                     | ALINEACION PUNTOS ALLCHARACTERS:ent       {: p6 = ent.toString(); :}
                                     | REQUERIDO PUNTOS ALLCHARACTERS:ent        {: p7 = ent.toString(); :}
                                     | OPCIONES PUNTOS ALLCHARACTERS:ent         {: p8 = ent.toString(); :}

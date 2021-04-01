@@ -27,6 +27,13 @@ public class InstruccionAgregarComponente extends Instruccion {
     private String columnas;
     private String url;
 
+    /**
+     * 
+     * @param listaUsuarios
+     * @param listaFormularios
+     * @param userOnline
+     * @return 
+     */
     @Override
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
         if(userOnline.equals("")) {
@@ -60,7 +67,8 @@ public class InstruccionAgregarComponente extends Instruccion {
                 }
             }
             if (comprobanteSecundario && comprobanteTerciario) {
-                Componente compo = new Componente(id, formulario, clase, textoVisible);
+                int indice = listaFormularios.get(cont).getListaComponentes().size();
+                Componente compo = new Componente(indice, id, formulario, clase, textoVisible);
                 if (nombreCampo != null) {
                     compo.setNombreCampo(nombreCampo);
                 } 
@@ -143,7 +151,7 @@ public class InstruccionAgregarComponente extends Instruccion {
     }
 
     public void setClase(String clase) {
-        this.clase = clase;
+        this.clase = clase.replace(" ","").replace("\n","").replace("\t","");
     }
 
     public String getTextoVisible() {
@@ -159,7 +167,7 @@ public class InstruccionAgregarComponente extends Instruccion {
     }
 
     public void setAlineacion(String alineacion) {
-        this.alineacion = alineacion;
+        this.alineacion = alineacion.replace(" ","").replace("\n","").replace("\t","");
     }
 
     public String getRequerido() {
@@ -167,7 +175,7 @@ public class InstruccionAgregarComponente extends Instruccion {
     }
 
     public void setRequerido(String requerido) {
-        this.requerido = requerido;
+        this.requerido = requerido.replace(" ","").replace("\n","").replace("\t","");
     }
 
     public String getOpciones() {
@@ -183,7 +191,7 @@ public class InstruccionAgregarComponente extends Instruccion {
     }
 
     public void setFilas(String filas) {
-        this.filas = filas;
+        this.filas = filas.replace(" ","").replace("\n","").replace("\t","");
     }
 
     public String getColumnas() {
@@ -191,7 +199,7 @@ public class InstruccionAgregarComponente extends Instruccion {
     }
 
     public void setColumnas(String columnas) {
-        this.columnas = columnas;
+        this.columnas = columnas.replace(" ","").replace("\n","").replace("\t","");
     }
 
     public String getUrl() { 

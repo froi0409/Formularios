@@ -6,9 +6,14 @@
 package com.froi.formulariosweb.servlets.manejadores;
 
 import com.froi.formulariosweb.analizadores.codigoindigo.AnalizadorEntrada;
+import com.froi.formulariosweb.entidadesfundamentales.Componente;
 import com.froi.formulariosweb.entidadesfundamentales.Formulario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +39,8 @@ public class RenderizarFormulario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+
         String usuarioFormulario = request.getParameter("user");
         String idFormulario = request.getParameter("identificador");
         
@@ -42,10 +49,10 @@ public class RenderizarFormulario extends HttpServlet {
         
         for(Formulario element : analizador.getListaFormularios()) {
             if(element.getIdentificador().equals(idFormulario)) {
+                Collections.sort(element.getListaComponentes());
                 request.setAttribute("formulario", element);
                 request.setAttribute("usuario", element.getUsuarioCreacion());
-                System.out.println("\n\n\n\n\n\n");
-                System.out.println(element.getUsuarioCreacion());
+                
                 request.getRequestDispatcher("mostrar-formulario.jsp").forward(request, response);
             }
         }
@@ -63,5 +70,6 @@ public class RenderizarFormulario extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
 }
+

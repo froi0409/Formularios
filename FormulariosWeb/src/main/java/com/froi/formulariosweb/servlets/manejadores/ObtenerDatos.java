@@ -57,8 +57,8 @@ public class ObtenerDatos extends HttpServlet {
             if(element.getIdentificador().equals(idFormulario)) {
                 for(Componente componente: element.getListaComponentes()) {
                     if(request.getParameter(componente.getNombreCampo()) != null) {
-                        componente.getDatosRecopilados().add(request.getParameter(componente.getNombreCampo()));
-                    } else if(!componente.getClase().equals("IMAGEN") || !componente.getClase().equals("BOTON")) {
+                        componente.getDatosRecopilados().add(request.getParameter(componente.getNombreCampo()).replace("\"", "").replace("|", ""));
+                    } else if(!componente.getClase().equals("IMAGEN") && !componente.getClase().equals("BOTON")) {
                         componente.getDatosRecopilados().add("");
                     }
                 }

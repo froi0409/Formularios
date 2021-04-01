@@ -23,7 +23,6 @@ public class InstruccionEliminarFormulario extends Instruccion {
         
         String codigo = "", descripcion;
         boolean comprobador = false;
-        System.out.println("se ejecuta");
         for(Formulario element : listaFormularios) {
             if(element.getIdentificador().equals(idFormulario) && element.getUsuarioCreacion().equals(userOnline)) {
                 listaFormularios.remove(element);
@@ -31,7 +30,6 @@ public class InstruccionEliminarFormulario extends Instruccion {
                 break;
             }
         }
-        System.out.println("hola");
         if(comprobador) {
             descripcion = "Se ha eliminado el formulario " + idFormulario + " con éxito";
         } else {
