@@ -40,7 +40,7 @@ import static com.froi.formulariosweb.analizadores.codigoindigo.ParserReportesSy
 TerminacionLinea = [\r|\n|\r\n]
 WS = [ \t\f]
 Ignore = {TerminacionLinea} | [ \t\f]
-IDENTIFICADOR = ("$" | "_" | "-") ( [a-zA-Z] | [0-9] | "$" | "_" | "-")*;
+IDENTIFICADOR = ("$" | "_" | "-") ( [a-zA-Z] | [0-9] | "$" | "_" | "-")*
 ALLCHARACTERSNOSPACE = [^' ' "," "\"" "|" "[" "]" "<" ">" "=" \n \t]+
 NUMEROCONSULTA = [-]?[0-9]+ ([.][0-9]+)?
 CADENACONSULTA = ("\’" | "\'") ([^ "\"" "\'" "\’" "|"] | [ \t\f])* ("\’" | "\'")
