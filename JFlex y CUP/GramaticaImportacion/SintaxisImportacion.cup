@@ -1,15 +1,26 @@
+package com.froi.formulariosweb.analizadores.importacion;
+
+import com.froi.formulariosweb.entidades.Advertencia;
+import com.froi.formulariosweb.entidadesfundamentales.Componente;
+import com.froi.formulariosweb.entidadesfundamentales.Formulario;
+import java.util.ArrayList;
+import java_cup.runtime.*;
 
 class ParserImportacion;
 
 parser code{:
 
     private ArrayList<Advertencia> listaErrores;
-    private Formulario formulario;
+    private ArrayList<Formulario> listaFormularios;
+    private ArrayList<Componente> listaComponentes;
+    private String c1, c2, c3, c4, c5, c6;
+    private String p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12;
     
-    public ParserImportacion(ImportacionLexer lexer, ArrayList<Advertencia> listaErrores) {
+    public ParserImportacion(ImportacionLexer lexer, ArrayList<Formulario> listaFormularios, ArrayList<Advertencia> listaErrores) {
         super(lexer);
         this.listaErrores = listaErrores;
-        this.formulario = new Formulario();
+        this.listaFormularios = listaFormularios;
+        this.listaComponentes = new ArrayList<>();
     }
     public void report_error(String message, Object info) {
         System.out.println("reporterror");
@@ -23,9 +34,6 @@ parser code{:
     }
     protected int error_sync_size() {
         return 1;
-    }
-    public Formulario getFormulario() {
-        return formulario;
     }
 :}
 
@@ -41,25 +49,45 @@ non terminal tipos_entrada, tipos_entrada_complete, temas, clases, alineacion, r
 start with inicio;
 
 inicio ::=  NEW_FORMULARIO PARENT_A instruccion_formulario PARENT_C
+            | error PARENT_A instruccion_formulario PARENT_C
+            | NEW_FORMULARIO error instruccion_formulario PARENT_C
+            | NEW_FORMULARIO PARENT_A error PARENT_C
+            | NEW_FORMULARIO PARENT_A instruccion_formulario error
             ;
 
 instruccion_formulario ::=  valores_formulario COMA instruccion_formulario
                             | valores_formulario
                             ;
 
-valores_formulario ::=      LLAVE_A accion_formulario LLAVE_C
+valores_formulario ::=      LLAVE_A accion_formulario LLAVE_C   {:
+                                                                    System.out.println("Se detectó un formulario nuevo");
+                                                                    c1 = (c1.substring(1, c1.length()-1));
+                                                                    c2 = (c2.substring(1, c2.length()-1));
+                                                                    c3 = (c3.substring(1, c3.length()-1));
+                                                                    c4 = (c4.substring(1, c4.length()-1));
+                                                                    c5 = (c5.substring(1, c5.length()-1));
+                                                                    c6 = (c6.substring(1, c6.length()-1));
+                                                                    System.out.println(c1+c2+c3+c4+c5+c6);
+                                                                    Formulario form = new Formulario(c1, c2, c3, c4, c5, c6);
+                                                                    form.setListaComponentes((ArrayList<Componente>) listaComponentes.clone());
+                                                                    listaFormularios.add(form);
+                                                                    listaComponentes.clear();
+                                                                    c1 = null; c2 = null; c3 = null; c4 = null; c5 = null; c6 = null;
+                                                                :}
+                            | LLAVE_A error LLAVE_C               {: listaComponentes.clear();
+                                                                    c1 = null; c2 = null; c3 = null; c4 = null; c5 = null; c6 = null; :}
                             ;
 
-accion_formulario ::=       opciones_formulario COMA opciones_formulario
+accion_formulario ::=       opciones_formulario COMA accion_formulario
                             | opciones_formulario
                             ;
 
-opciones_formulario ::=     ID_FORMULARIO PUNTOS IDENTIFICADOR:ent
-                            | TITULO PUNTOS tipos_entrada_complete:ent
-                            | NOMBRE PUNTOS tipos_entrada:ent
-                            | TEMA PUNTOS temas:ent
-                            | USUARIO_CREACION PUNTOS tipos_entrada:ent
-                            | FECHA_CREACION PUNTOS FECHA:ent
+opciones_formulario ::=     ID_FORMULARIO PUNTOS IDENTIFICADOR:ent          {: c1 = ent.toString(); :}
+                            | TITULO PUNTOS tipos_entrada_complete:ent      {: c2 = ent.toString(); :}
+                            | NOMBRE PUNTOS tipos_entrada:ent               {: c3 = ent.toString(); :}
+                            | TEMA PUNTOS temas:ent                         {: c4 = ent.toString(); :}
+                            | USUARIO_CREACION PUNTOS tipos_entrada:ent     {: c5 = ent.toString(); :}
+                            | FECHA_CREACION PUNTOS FECHA:ent               {: c6 = ent.toString(); :}
                             | ESTRUCTURA PUNTOS PARENT_A estructura_formulario_p PARENT_C
                             ;
 
@@ -67,25 +95,59 @@ estructura_formulario_p ::=     estructura_formulario COMA estructura_formulario
                                 | estructura_formulario
                                 ;
 
-estructura_formulario ::=       LLAVE_A instruccion_estructura_formulario LLAVE_C
+estructura_formulario ::=       LLAVE_A instruccion_estructura_formulario LLAVE_C   {:
+                                                                                        int pApoyo12 = Integer.parseInt(p12.substring(1, p12.length()-1));
+                                                                                        p1 = (p1.substring(1, p1.length()-1));
+                                                                                        p3 = (p3.substring(1, p3.length()-1));
+                                                                                        p4 = (p4.substring(1, p4.length()-1));
+                                                                                        p5 = (p5.substring(1, p5.length()-1));
+                                                                                        System.out.println("Probando p1");
+                                                                                        System.out.println(p1);
+                                                                                        Componente compo = new Componente(pApoyo12, p1, p3, p4, p5);
+                                                                                        if(p2 != null) {
+                                                                                            compo.setNombreCampo(p2.substring(1, p2.length()-1));
+                                                                                        }
+                                                                                        if(p6 != null) {
+                                                                                            compo.setAlineacion(p6.substring(1, p6.length()-1));
+                                                                                        }
+                                                                                        if(p7 != null) {
+                                                                                            compo.setRequerido(p7.substring(1, p7.length()-1));
+                                                                                            }
+                                                                                        if(p8 != null) {
+                                                                                            compo.setOpciones(p8.substring(1, p8.length()-1));
+                                                                                        }
+                                                                                        if(p9 != null) {
+                                                                                            compo.setFilas(Integer.parseInt(p9.substring(1, p9.length()-1)));
+                                                                                        }
+                                                                                        if(p10 != null) {
+                                                                                            compo.setColumnas(Integer.parseInt(p10.substring(1, p10.length()-1)));
+                                                                                        }
+                                                                                        if(p11 != null) {
+                                                                                            compo.setUrl(p11.substring(1, p11.length()-1));
+                                                                                        }
+                                                                                        
+                                                                                        listaComponentes.add(compo);
+                                                                                        p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null; p12 = null;
+                                                                                    :}
+                                | LLAVE_A error LLAVE_C                             {: p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null; p12 = null; :}
                                 ;
 
 instruccion_estructura_formulario ::=   opciones_estructura_formulario COMA instruccion_estructura_formulario
                                         |
                                         ;
 
-opciones_estructura_formulario  ::=     ID_COMPONENTE_N PUNTOS IDENTIFICADOR:ent
-                                        | NOMBRE_CAMPO PUNTOS tipos_entrada:ent
-                                        | FORMULARIO PUNTOS IDENTIFICADOR:ent
-                                        | CLASE PUNTOS clases:ent
-                                        | TEXTO_VISIBLE tipos_entrada_complete:ent
-                                        | INDICE PUNTOS NUMERO:ent
-                                        | ALINEACION PUNTOS alineacion:ent
-                                        | REQUERIDO PUNTOS required:ent
-                                        | OPCIONES PUNTOS OPCIONES:ent
-                                        | FILAS PUNTOS NUMERO:ent
-                                        | COLUMNAS PUNTOS NUMERO:ent
-                                        | URL PUNTOS tipos_entrada:ent
+opciones_estructura_formulario  ::=     ID_COMPONENTE_N PUNTOS IDENTIFICADOR:ent        {: p1 = ent.toString(); :}
+                                        | NOMBRE_CAMPO PUNTOS tipos_entrada:ent         {: p2 = ent.toString(); :}
+                                        | FORMULARIO PUNTOS IDENTIFICADOR:ent           {: p3 = ent.toString(); :}
+                                        | CLASE PUNTOS clases:ent                       {: p4 = ent.toString(); :}
+                                        | TEXTO_VISIBLE PUNTOS tipos_entrada_complete:ent      {: p5 = ent.toString(); :}
+                                        | INDICE PUNTOS NUMERO:ent                      {: p12 = ent.toString(); :}
+                                        | ALINEACION PUNTOS alineacion:ent              {: p6 = ent.toString(); :}
+                                        | REQUERIDO PUNTOS required:ent                 {: p7 = ent.toString(); :}
+                                        | OPCIONES PUNTOS OPCIONES:ent                  {: p8 = ent.toString(); :}
+                                        | FILAS PUNTOS NUMERO:ent                       {: p9 = ent.toString(); :}
+                                        | COLUMNAS PUNTOS NUMERO:ent                    {: p10 = ent.toString(); :}
+                                        | URL PUNTOS tipos_entrada:ent                  {: p11 = ent.toString(); :}
                                         ;
 
 tipos_entrada ::=   ALLCHARACTERSNOSPACE:para   {: RESULT=para; :}

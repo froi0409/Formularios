@@ -6,9 +6,12 @@
 package com.froi.editorcodigoindigo.frontend;
 
 import com.froi.editorcodigoindigo.gramaticas.codigoindigo.AnalizadorCodigoIndigo;
+import java.io.File;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -51,6 +54,7 @@ public class VentanaEditor extends javax.swing.JFrame {
         btnCompilar = new javax.swing.JButton();
         lblCursor = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JButton();
+        btnImportarFormularios = new javax.swing.JButton();
         paneReportes = new javax.swing.JScrollPane();
         jLabel3 = new javax.swing.JLabel();
         comboReportes = new javax.swing.JComboBox<>();
@@ -77,6 +81,7 @@ public class VentanaEditor extends javax.swing.JFrame {
 
         jLabel2.setText("Área de Código");
 
+        btnCompilar.setBackground(new java.awt.Color(211, 211, 211));
         btnCompilar.setText("Compilar");
         btnCompilar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,10 +91,19 @@ public class VentanaEditor extends javax.swing.JFrame {
 
         lblCursor.setText("Fila: 0, Columna: 0");
 
+        btnCerrarSesion.setBackground(new java.awt.Color(211, 211, 211));
         btnCerrarSesion.setText("Cerrar Sesion");
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCerrarSesionActionPerformed(evt);
+            }
+        });
+
+        btnImportarFormularios.setBackground(new java.awt.Color(211, 211, 211));
+        btnImportarFormularios.setText("Importar Formulario");
+        btnImportarFormularios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportarFormulariosActionPerformed(evt);
             }
         });
 
@@ -101,6 +115,8 @@ public class VentanaEditor extends javax.swing.JFrame {
                 .addComponent(btnCompilar)
                 .addGap(18, 18, 18)
                 .addComponent(btnCerrarSesion)
+                .addGap(18, 18, 18)
+                .addComponent(btnImportarFormularios)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblCursor, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -111,7 +127,8 @@ public class VentanaEditor extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCompilar)
                     .addComponent(lblCursor)
-                    .addComponent(btnCerrarSesion)))
+                    .addComponent(btnCerrarSesion)
+                    .addComponent(btnImportarFormularios)))
         );
 
         btnCompilar.getAccessibleContext().setAccessibleName("btnCompilar");
@@ -236,6 +253,26 @@ public class VentanaEditor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
+    private void btnImportarFormulariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarFormulariosActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        //Indicamos que solo podemos seleccionar archivos
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        //Indicamos el filtro .form
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.form", "form");
+        fileChooser.setFileFilter(filtro);
+        //Abrimos el file chooser
+        int comprobante = fileChooser.showOpenDialog(fileChooser);
+        if(comprobante == JFileChooser.APPROVE_OPTION) {
+            File archivo = fileChooser.getSelectedFile();
+            txtSalida.setText("Se seleccionó el archivo a importar\n");
+            //Enviamos a analizar el archivo a importar
+            analizador.analizarImportacion(archivo, txtSalida, listaTablas);
+        } else {
+            txtSalida.setText("Error al seleccionar el archivo a importar\n");
+        }
+    }//GEN-LAST:event_btnImportarFormulariosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -274,6 +311,7 @@ public class VentanaEditor extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnCompilar;
+    private javax.swing.JButton btnImportarFormularios;
     private javax.swing.JComboBox<String> comboReportes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -62,12 +62,6 @@ instruccion_formulariosdb ::=       valores_formulariosdb COMA instruccion_formu
                                     ;
 
 valores_formulariosdb ::=           LLAVE_A acciones_formulariosdb LLAVE_C                  {:
-                                                                                                System.out.println("aún no pasa");
-                                                                                                for(Componente element: listaComponentes) {
-                                                                                                    System.out.println(element.getClase());
-                                                                                                }
-                                                                                                System.out.println("ya pasó");
-                                                                                                
                                                                                                 c1 = (c1.substring(1, c1.length()-1));
                                                                                                 c2 = (c2.substring(1, c2.length()-1));
                                                                                                 c3 = (c3.substring(1, c3.length()-1));

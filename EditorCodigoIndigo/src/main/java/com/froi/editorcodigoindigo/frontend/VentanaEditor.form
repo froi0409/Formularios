@@ -166,6 +166,8 @@
                       <Component id="btnCompilar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnCerrarSesion" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnImportarFormularios" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="lblCursor" min="-2" pref="153" max="-2" attributes="0"/>
                   </Group>
@@ -179,6 +181,7 @@
                           <Component id="btnCompilar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblCursor" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnCerrarSesion" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnImportarFormularios" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -187,6 +190,9 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="btnCompilar">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="d3" green="d3" red="d3" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Compilar"/>
               </Properties>
               <AccessibilityProperties>
@@ -203,10 +209,24 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnCerrarSesion">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="d3" green="d3" red="d3" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cerrar Sesion"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCerrarSesionActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnImportarFormularios">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="d3" green="d3" red="d3" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Importar Formulario"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnImportarFormulariosActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

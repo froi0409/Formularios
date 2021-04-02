@@ -36,4 +36,22 @@ public class Canal {
         }
     }
     
+    public String importar(String entrada) {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request =  HttpRequest.newBuilder()
+                    .uri(URI.create("http://localhost:8080/FormulariosWeb/AnalizadorImportacion"))
+                    .POST(HttpRequest.BodyPublishers.ofString(entrada))
+                    .build();
+            
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            
+            return response.body();
+
+        } catch (Exception e) {
+            System.out.println("Error al tratar de enviar al servidor el código a importar: " + e.getMessage());
+            return null;
+        }
+    }
+    
 }
