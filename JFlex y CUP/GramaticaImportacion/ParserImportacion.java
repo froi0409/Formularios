@@ -9,6 +9,9 @@ import com.froi.formulariosweb.entidades.Advertencia;
 import com.froi.formulariosweb.entidadesfundamentales.Componente;
 import com.froi.formulariosweb.entidadesfundamentales.Formulario;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java_cup.runtime.*;
 import java_cup.runtime.XMLElement;
 
@@ -35,25 +38,41 @@ public class ParserImportacion extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\075\000\002\002\004\000\002\002\006\000\002\002" +
+    "\000\157\000\002\002\004\000\002\002\006\000\002\002" +
     "\006\000\002\002\006\000\002\002\006\000\002\002\006" +
     "\000\002\003\005\000\002\003\003\000\002\004\005\000" +
     "\002\004\005\000\002\005\005\000\002\005\003\000\002" +
     "\006\005\000\002\006\005\000\002\006\005\000\002\006" +
-    "\005\000\002\006\007\000\002\007\005\000\002\007\003" +
-    "\000\002\010\005\000\002\010\005\000\002\011\005\000" +
-    "\002\011\003\000\002\012\005\000\002\012\005\000\002" +
+    "\005\000\002\006\007\000\002\006\005\000\002\006\004" +
+    "\000\002\006\005\000\002\006\005\000\002\006\004\000" +
+    "\002\006\005\000\002\006\005\000\002\006\004\000\002" +
+    "\006\005\000\002\006\005\000\002\006\004\000\002\006" +
+    "\005\000\002\006\005\000\002\006\004\000\002\006\007" +
+    "\000\002\007\005\000\002\007\003\000\002\010\005\000" +
+    "\002\010\005\000\002\011\005\000\002\011\003\000\002" +
     "\012\005\000\002\012\005\000\002\012\005\000\002\012" +
     "\005\000\002\012\005\000\002\012\005\000\002\012\005" +
-    "\000\002\012\005\000\002\012\005\000\002\013\003\000" +
+    "\000\002\012\005\000\002\012\005\000\002\012\005\000" +
+    "\002\012\005\000\002\012\005\000\002\012\004\000\002" +
+    "\012\005\000\002\012\005\000\002\012\004\000\002\012" +
+    "\005\000\002\012\005\000\002\012\004\000\002\012\005" +
+    "\000\002\012\005\000\002\012\004\000\002\012\005\000" +
+    "\002\012\005\000\002\012\004\000\002\012\005\000\002" +
+    "\012\005\000\002\012\004\000\002\012\005\000\002\012" +
+    "\005\000\002\012\004\000\002\012\005\000\002\012\005" +
+    "\000\002\012\004\000\002\012\005\000\002\012\005\000" +
+    "\002\012\004\000\002\012\005\000\002\012\005\000\002" +
+    "\012\004\000\002\012\005\000\002\012\005\000\002\012" +
+    "\004\000\002\012\005\000\002\012\005\000\002\012\004" +
+    "\000\002\013\003\000\002\013\003\000\002\013\003\000" +
     "\002\013\003\000\002\013\003\000\002\013\003\000\002" +
-    "\013\003\000\002\013\003\000\002\013\003\000\002\013" +
-    "\003\000\002\013\003\000\002\014\003\000\002\014\003" +
-    "\000\002\015\003\000\002\015\003\000\002\016\003\000" +
+    "\013\003\000\002\013\003\000\002\013\003\000\002\014" +
+    "\003\000\002\014\003\000\002\015\003\000\002\015\003" +
+    "\000\002\016\003\000\002\016\003\000\002\016\003\000" +
     "\002\016\003\000\002\016\003\000\002\016\003\000\002" +
-    "\016\003\000\002\016\003\000\002\016\003\000\002\016" +
-    "\003\000\002\017\003\000\002\017\003\000\002\017\003" +
-    "\000\002\017\003\000\002\020\003\000\002\020\003" });
+    "\016\003\000\002\016\003\000\002\017\003\000\002\017" +
+    "\003\000\002\017\003\000\002\017\003\000\002\020\003" +
+    "\000\002\020\003" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -61,91 +80,170 @@ public class ParserImportacion extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\164\000\006\003\004\012\005\001\002\000\004\004" +
-    "\164\001\002\000\006\003\010\004\011\001\002\000\004" +
+    "\000\254\000\006\003\004\012\005\001\002\000\004\004" +
+    "\254\001\002\000\006\003\010\004\011\001\002\000\004" +
     "\002\007\001\002\000\004\002\001\001\002\000\004\006" +
     "\015\001\002\000\006\003\013\006\015\001\002\000\010" +
-    "\003\ufffa\005\ufffa\011\160\001\002\000\004\005\157\001" +
-    "\002\000\006\003\155\005\156\001\002\000\016\003\021" +
-    "\013\023\014\017\015\025\016\016\020\022\001\002\000" +
-    "\004\010\153\001\002\000\004\010\151\001\002\000\006" +
-    "\007\ufff6\011\147\001\002\000\004\007\146\001\002\000" +
-    "\004\010\064\001\002\000\004\010\062\001\002\000\004" +
-    "\007\061\001\002\000\004\010\026\001\002\000\054\030" +
-    "\057\034\033\035\055\036\046\037\054\040\037\041\043" +
-    "\042\056\043\060\046\051\047\050\050\045\051\053\053" +
-    "\040\054\031\055\044\056\027\057\052\060\030\061\042" +
-    "\062\032\001\002\000\006\007\uffcf\011\uffcf\001\002\000" +
-    "\006\007\uffcd\011\uffcd\001\002\000\006\007\uffd1\011\uffd1" +
-    "\001\002\000\006\007\uffcb\011\uffcb\001\002\000\006\007" +
-    "\uffd4\011\uffd4\001\002\000\006\007\ufff3\011\ufff3\001\002" +
-    "\000\006\007\uffd8\011\uffd8\001\002\000\006\007\uffd7\011" +
-    "\uffd7\001\002\000\006\007\uffca\011\uffca\001\002\000\006" +
-    "\007\uffd2\011\uffd2\001\002\000\006\007\uffda\011\uffda\001" +
-    "\002\000\006\007\uffcc\011\uffcc\001\002\000\006\007\uffc9" +
-    "\011\uffc9\001\002\000\006\007\uffd0\011\uffd0\001\002\000" +
-    "\006\007\uffdc\011\uffdc\001\002\000\006\007\uffc6\011\uffc6" +
-    "\001\002\000\006\007\uffd9\011\uffd9\001\002\000\006\007" +
-    "\uffdd\011\uffdd\001\002\000\006\007\uffdb\011\uffdb\001\002" +
-    "\000\006\007\uffce\011\uffce\001\002\000\006\007\uffdf\011" +
-    "\uffdf\001\002\000\006\007\uffc5\011\uffc5\001\002\000\006" +
-    "\007\uffd3\011\uffd3\001\002\000\006\007\uffc8\011\uffc8\001" +
-    "\002\000\006\007\uffde\011\uffde\001\002\000\006\007\uffc7" +
-    "\011\uffc7\001\002\000\010\003\ufff9\005\ufff9\011\ufff9\001" +
-    "\002\000\004\046\063\001\002\000\006\007\ufff5\011\ufff5" +
-    "\001\002\000\004\004\065\001\002\000\004\006\070\001" +
-    "\002\000\004\005\145\001\002\000\006\005\uffef\011\143" +
-    "\001\002\000\032\003\105\021\101\023\103\024\076\025" +
-    "\106\026\071\027\100\030\073\031\072\032\077\033\104" +
-    "\045\075\001\002\000\004\010\141\001\002\000\004\010" +
-    "\137\001\002\000\004\010\135\001\002\000\004\007\134" +
-    "\001\002\000\004\010\132\001\002\000\004\010\130\001" +
-    "\002\000\004\010\126\001\002\000\004\010\122\001\002" +
-    "\000\004\010\120\001\002\000\006\007\uffeb\011\116\001" +
-    "\002\000\004\010\114\001\002\000\004\010\112\001\002" +
-    "\000\004\007\111\001\002\000\004\010\107\001\002\000" +
-    "\012\040\037\041\043\042\056\043\060\001\002\000\006" +
-    "\007\uffe5\011\uffe5\001\002\000\006\005\uffed\011\uffed\001" +
-    "\002\000\054\030\057\034\033\035\055\036\046\037\054" +
-    "\040\037\041\043\042\056\043\060\046\051\047\050\050" +
-    "\045\051\053\053\040\054\031\055\044\056\027\057\052" +
-    "\060\030\061\042\062\032\001\002\000\006\007\uffe0\011" +
-    "\uffe0\001\002\000\022\053\040\054\031\055\044\056\027" +
-    "\057\052\060\030\061\042\062\032\001\002\000\006\007" +
-    "\uffe8\011\uffe8\001\002\000\030\021\101\023\103\024\076" +
-    "\025\106\026\071\027\100\030\073\031\072\032\077\033" +
-    "\104\045\075\001\002\000\004\007\uffec\001\002\000\004" +
-    "\047\121\001\002\000\006\007\uffe6\011\uffe6\001\002\000" +
-    "\056\030\057\034\033\035\055\036\046\037\054\040\037" +
-    "\041\043\042\056\043\060\046\051\047\050\050\045\051" +
-    "\053\052\124\053\040\054\031\055\044\056\027\057\052" +
-    "\060\030\061\042\062\032\001\002\000\006\007\uffe7\011" +
-    "\uffe7\001\002\000\006\007\uffd6\011\uffd6\001\002\000\006" +
-    "\007\uffd5\011\uffd5\001\002\000\004\047\127\001\002\000" +
-    "\006\007\uffe1\011\uffe1\001\002\000\006\036\046\037\054" +
-    "\001\002\000\006\007\uffe4\011\uffe4\001\002\000\004\046" +
-    "\133\001\002\000\006\007\uffea\011\uffea\001\002\000\006" +
-    "\005\uffee\011\uffee\001\002\000\004\030\136\001\002\000" +
-    "\006\007\uffe3\011\uffe3\001\002\000\004\047\140\001\002" +
-    "\000\006\007\uffe2\011\uffe2\001\002\000\054\030\057\034" +
-    "\033\035\055\036\046\037\054\040\037\041\043\042\056" +
-    "\043\060\046\051\047\050\050\045\051\053\053\040\054" +
-    "\031\055\044\056\027\057\052\060\030\061\042\062\032" +
-    "\001\002\000\006\007\uffe9\011\uffe9\001\002\000\004\006" +
-    "\070\001\002\000\004\005\ufff0\001\002\000\006\007\ufff1" +
-    "\011\ufff1\001\002\000\010\003\ufff8\005\ufff8\011\ufff8\001" +
-    "\002\000\014\013\023\014\017\015\025\016\016\020\022" +
-    "\001\002\000\004\007\ufff7\001\002\000\056\030\057\034" +
-    "\033\035\055\036\046\037\054\040\037\041\043\042\056" +
-    "\043\060\046\051\047\050\050\045\051\053\052\124\053" +
-    "\040\054\031\055\044\056\027\057\052\060\030\061\042" +
-    "\062\032\001\002\000\006\007\ufff4\011\ufff4\001\002\000" +
-    "\006\034\033\035\055\001\002\000\006\007\ufff2\011\ufff2" +
-    "\001\002\000\004\002\ufffc\001\002\000\004\002\000\001" +
-    "\002\000\004\002\ufffd\001\002\000\004\006\015\001\002" +
-    "\000\006\003\ufffb\005\ufffb\001\002\000\004\005\163\001" +
-    "\002\000\004\002\ufffe\001\002\000\004\006\015\001\002" +
-    "\000\004\005\166\001\002\000\004\002\uffff\001\002" });
+    "\003\ufffa\005\ufffa\011\250\001\002\000\004\005\247\001" +
+    "\002\000\006\003\245\005\246\001\002\000\016\003\022" +
+    "\013\023\014\017\015\025\016\016\020\021\001\002\000" +
+    "\006\003\241\010\240\001\002\000\006\003\234\010\233" +
+    "\001\002\000\006\007\ufff6\011\230\001\002\000\004\010" +
+    "\100\001\002\000\062\007\076\010\074\030\060\034\034" +
+    "\035\056\036\047\037\055\040\040\041\044\042\057\043" +
+    "\061\046\053\047\050\050\046\051\054\052\073\054\043" +
+    "\055\032\056\045\057\031\060\052\061\030\062\042\063" +
+    "\033\001\002\000\006\003\066\010\065\001\002\000\004" +
+    "\007\064\001\002\000\006\003\027\010\026\001\002\000" +
+    "\056\003\063\030\060\034\034\035\056\036\047\037\055" +
+    "\040\040\041\044\042\057\043\061\046\053\047\050\050" +
+    "\046\051\054\054\043\055\032\056\045\057\031\060\052" +
+    "\061\030\062\042\063\033\001\002\000\060\007\uffe6\011" +
+    "\uffe6\030\060\034\034\035\056\036\047\037\055\040\040" +
+    "\041\044\042\057\043\061\046\053\047\050\050\046\051" +
+    "\054\054\043\055\032\056\045\057\031\060\052\061\030" +
+    "\062\042\063\033\001\002\000\006\007\uff9b\011\uff9b\001" +
+    "\002\000\006\007\uff9d\011\uff9d\001\002\000\006\007\uff9f" +
+    "\011\uff9f\001\002\000\006\007\uff99\011\uff99\001\002\000" +
+    "\006\007\uffa2\011\uffa2\001\002\000\006\007\uffe7\011\uffe7" +
+    "\001\002\000\006\007\uffa6\011\uffa6\001\002\000\006\007" +
+    "\uffa5\011\uffa5\001\002\000\006\007\uff98\011\uff98\001\002" +
+    "\000\006\007\uffa8\011\uffa8\001\002\000\006\007\uff9a\011" +
+    "\uff9a\001\002\000\006\007\uffa0\011\uffa0\001\002\000\006" +
+    "\007\uff97\011\uff97\001\002\000\006\007\uff9e\011\uff9e\001" +
+    "\002\000\006\007\uffaa\011\uffaa\001\002\000\006\007\uff94" +
+    "\011\uff94\001\002\000\006\007\uffab\011\uffab\001\002\000" +
+    "\006\007\uffa7\011\uffa7\001\002\000\006\007\uff9c\011\uff9c" +
+    "\001\002\000\006\007\uffa9\011\uffa9\001\002\000\006\007" +
+    "\uffad\011\uffad\001\002\000\006\007\uff93\011\uff93\001\002" +
+    "\000\006\007\uffa1\011\uffa1\001\002\000\006\007\uff96\011" +
+    "\uff96\001\002\000\006\007\uffac\011\uffac\001\002\000\006" +
+    "\007\uff95\011\uff95\001\002\000\006\007\ufff3\011\ufff3\001" +
+    "\002\000\006\007\uffe8\011\uffe8\001\002\000\010\003\ufff9" +
+    "\005\ufff9\011\ufff9\001\002\000\006\003\070\046\071\001" +
+    "\002\000\010\007\uffec\011\uffec\046\067\001\002\000\006" +
+    "\007\uffed\011\uffed\001\002\000\006\007\uffee\011\uffee\001" +
+    "\002\000\006\007\ufff5\011\ufff5\001\002\000\006\007\uffef" +
+    "\011\uffef\001\002\000\006\007\uffa4\011\uffa4\001\002\000" +
+    "\056\030\060\034\034\035\056\036\047\037\055\040\040" +
+    "\041\044\042\057\043\061\046\053\047\050\050\046\051" +
+    "\054\052\073\054\043\055\032\056\045\057\031\060\052" +
+    "\061\030\062\042\063\033\001\002\000\006\007\uffa3\011" +
+    "\uffa3\001\002\000\010\003\ufff8\005\ufff8\011\ufff8\001\002" +
+    "\000\006\007\ufff0\011\ufff0\001\002\000\006\003\101\004" +
+    "\102\001\002\000\004\006\105\001\002\000\004\006\105" +
+    "\001\002\000\004\005\225\001\002\000\006\005\uffe0\011" +
+    "\223\001\002\000\032\003\122\021\115\023\120\024\113" +
+    "\025\123\026\106\027\116\030\111\031\107\032\114\033" +
+    "\121\045\112\001\002\000\006\003\217\010\216\001\002" +
+    "\000\006\003\212\010\211\001\002\000\004\007\210\001" +
+    "\002\000\006\003\204\010\203\001\002\000\006\003\177" +
+    "\010\176\001\002\000\006\003\172\010\171\001\002\000" +
+    "\006\003\165\010\164\001\002\000\006\003\160\010\157" +
+    "\001\002\000\006\003\153\010\152\001\002\000\006\007" +
+    "\uffdc\011\147\001\002\000\006\003\143\010\142\001\002" +
+    "\000\006\003\136\010\135\001\002\000\062\007\133\010" +
+    "\132\030\060\034\034\035\056\036\047\037\055\040\040" +
+    "\041\044\042\057\043\061\046\053\047\050\050\046\051" +
+    "\054\052\073\054\043\055\032\056\045\057\031\060\052" +
+    "\061\030\062\042\063\033\001\002\000\006\003\125\010" +
+    "\124\001\002\000\014\003\130\040\040\041\044\042\057" +
+    "\043\061\001\002\000\016\007\uffbd\011\uffbd\040\040\041" +
+    "\044\042\057\043\061\001\002\000\006\007\uffbe\011\uffbe" +
+    "\001\002\000\006\007\uffd6\011\uffd6\001\002\000\006\007" +
+    "\uffbf\011\uffbf\001\002\000\006\007\uffcf\011\uffcf\001\002" +
+    "\000\056\030\060\034\034\035\056\036\047\037\055\040" +
+    "\040\041\044\042\057\043\061\046\053\047\050\050\046" +
+    "\051\054\052\073\054\043\055\032\056\045\057\031\060" +
+    "\052\061\030\062\042\063\033\001\002\000\006\005\uffde" +
+    "\011\uffde\001\002\000\006\007\uffd0\011\uffd0\001\002\000" +
+    "\056\003\141\030\060\034\034\035\056\036\047\037\055" +
+    "\040\040\041\044\042\057\043\061\046\053\047\050\050" +
+    "\046\051\054\054\043\055\032\056\045\057\031\060\052" +
+    "\061\030\062\042\063\033\001\002\000\062\007\uffae\011" +
+    "\uffae\030\060\034\034\035\056\036\047\037\055\040\040" +
+    "\041\044\042\057\043\061\046\053\047\050\050\046\051" +
+    "\054\052\073\054\043\055\032\056\045\057\031\060\052" +
+    "\061\030\062\042\063\033\001\002\000\006\007\uffaf\011" +
+    "\uffaf\001\002\000\006\007\uffd1\011\uffd1\001\002\000\006" +
+    "\007\uffb0\011\uffb0\001\002\000\024\003\146\054\043\055" +
+    "\032\056\045\057\031\060\052\061\030\062\042\063\033" +
+    "\001\002\000\026\007\uffc6\011\uffc6\054\043\055\032\056" +
+    "\045\057\031\060\052\061\030\062\042\063\033\001\002" +
+    "\000\006\007\uffc7\011\uffc7\001\002\000\006\007\uffd9\011" +
+    "\uffd9\001\002\000\006\007\uffc8\011\uffc8\001\002\000\032" +
+    "\003\151\021\115\023\120\024\113\025\123\026\106\027" +
+    "\116\030\111\031\107\032\114\033\121\045\112\001\002" +
+    "\000\004\007\uffdd\001\002\000\060\010\132\030\060\034" +
+    "\034\035\056\036\047\037\055\040\040\041\044\042\057" +
+    "\043\061\046\053\047\050\050\046\051\054\052\073\054" +
+    "\043\055\032\056\045\057\031\060\052\061\030\062\042" +
+    "\063\033\001\002\000\060\003\156\030\060\034\034\035" +
+    "\056\036\047\037\055\040\040\041\044\042\057\043\061" +
+    "\046\053\047\050\050\046\051\054\052\073\054\043\055" +
+    "\032\056\045\057\031\060\052\061\030\062\042\063\033" +
+    "\001\002\000\062\007\uffc3\011\uffc3\030\060\034\034\035" +
+    "\056\036\047\037\055\040\040\041\044\042\057\043\061" +
+    "\046\053\047\050\050\046\051\054\052\073\054\043\055" +
+    "\032\056\045\057\031\060\052\061\030\062\042\063\033" +
+    "\001\002\000\006\007\uffc4\011\uffc4\001\002\000\006\007" +
+    "\uffd8\011\uffd8\001\002\000\006\007\uffc5\011\uffc5\001\002" +
+    "\000\006\003\163\047\162\001\002\000\010\007\uffc0\011" +
+    "\uffc0\047\161\001\002\000\006\007\uffc1\011\uffc1\001\002" +
+    "\000\006\007\uffd7\011\uffd7\001\002\000\006\007\uffc2\011" +
+    "\uffc2\001\002\000\006\003\170\047\167\001\002\000\010" +
+    "\007\uffb1\011\uffb1\047\166\001\002\000\006\007\uffb2\011" +
+    "\uffb2\001\002\000\006\007\uffd2\011\uffd2\001\002\000\006" +
+    "\007\uffb3\011\uffb3\001\002\000\010\003\174\036\047\037" +
+    "\055\001\002\000\012\007\uffba\011\uffba\036\047\037\055" +
+    "\001\002\000\006\007\uffbb\011\uffbb\001\002\000\006\007" +
+    "\uffbc\011\uffbc\001\002\000\006\007\uffd5\011\uffd5\001\002" +
+    "\000\006\003\201\046\202\001\002\000\010\007\uffcc\011" +
+    "\uffcc\046\200\001\002\000\006\007\uffcd\011\uffcd\001\002" +
+    "\000\006\007\uffce\011\uffce\001\002\000\006\007\uffdb\011" +
+    "\uffdb\001\002\000\006\003\206\053\207\001\002\000\010" +
+    "\007\uffb7\011\uffb7\053\205\001\002\000\006\007\uffb8\011" +
+    "\uffb8\001\002\000\006\007\uffb9\011\uffb9\001\002\000\006" +
+    "\007\uffd4\011\uffd4\001\002\000\006\005\uffdf\011\uffdf\001" +
+    "\002\000\006\003\215\047\214\001\002\000\010\007\uffb4" +
+    "\011\uffb4\047\213\001\002\000\006\007\uffb5\011\uffb5\001" +
+    "\002\000\006\007\uffd3\011\uffd3\001\002\000\006\007\uffb6" +
+    "\011\uffb6\001\002\000\056\003\222\030\060\034\034\035" +
+    "\056\036\047\037\055\040\040\041\044\042\057\043\061" +
+    "\046\053\047\050\050\046\051\054\054\043\055\032\056" +
+    "\045\057\031\060\052\061\030\062\042\063\033\001\002" +
+    "\000\060\007\uffc9\011\uffc9\030\060\034\034\035\056\036" +
+    "\047\037\055\040\040\041\044\042\057\043\061\046\053" +
+    "\047\050\050\046\051\054\054\043\055\032\056\045\057" +
+    "\031\060\052\061\030\062\042\063\033\001\002\000\006" +
+    "\007\uffca\011\uffca\001\002\000\006\007\uffda\011\uffda\001" +
+    "\002\000\006\007\uffcb\011\uffcb\001\002\000\004\006\105" +
+    "\001\002\000\004\005\uffe1\001\002\000\006\007\ufff1\011" +
+    "\ufff1\001\002\000\004\005\227\001\002\000\006\007\uffe2" +
+    "\011\uffe2\001\002\000\016\003\231\013\023\014\017\015" +
+    "\025\016\016\020\021\001\002\000\060\010\074\030\060" +
+    "\034\034\035\056\036\047\037\055\040\040\041\044\042" +
+    "\057\043\061\046\053\047\050\050\046\051\054\052\073" +
+    "\054\043\055\032\056\045\057\031\060\052\061\030\062" +
+    "\042\063\033\001\002\000\004\007\ufff7\001\002\000\060" +
+    "\003\237\030\060\034\034\035\056\036\047\037\055\040" +
+    "\040\041\044\042\057\043\061\046\053\047\050\050\046" +
+    "\051\054\052\073\054\043\055\032\056\045\057\031\060" +
+    "\052\061\030\062\042\063\033\001\002\000\062\007\uffe9" +
+    "\011\uffe9\030\060\034\034\035\056\036\047\037\055\040" +
+    "\040\041\044\042\057\043\061\046\053\047\050\050\046" +
+    "\051\054\052\073\054\043\055\032\056\045\057\031\060" +
+    "\052\061\030\062\042\063\033\001\002\000\006\007\uffea" +
+    "\011\uffea\001\002\000\006\007\ufff4\011\ufff4\001\002\000" +
+    "\006\007\uffeb\011\uffeb\001\002\000\010\003\244\034\034" +
+    "\035\056\001\002\000\012\007\uffe3\011\uffe3\034\034\035" +
+    "\056\001\002\000\006\007\uffe4\011\uffe4\001\002\000\006" +
+    "\007\ufff2\011\ufff2\001\002\000\006\007\uffe5\011\uffe5\001" +
+    "\002\000\004\002\ufffc\001\002\000\004\002\000\001\002" +
+    "\000\004\002\ufffd\001\002\000\004\006\015\001\002\000" +
+    "\006\003\ufffb\005\ufffb\001\002\000\004\005\253\001\002" +
+    "\000\004\002\ufffe\001\002\000\004\006\015\001\002\000" +
+    "\004\005\256\001\002\000\004\002\uffff\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -153,14 +251,16 @@ public class ParserImportacion extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\164\000\004\002\005\001\001\000\002\001\001\000" +
+    "\000\254\000\004\002\005\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\006" +
-    "\003\161\004\011\001\001\000\006\003\013\004\011\001" +
+    "\003\251\004\011\001\001\000\006\003\013\004\011\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\006\005\023\006\017\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\014\013\033\015\040\016\046\017\034\020\035" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\016" +
+    "\013\074\014\071\015\040\016\050\017\035\020\036\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\014\013\061\015\040\016\050\017\035\020\036\001" +
+    "\001\000\014\013\034\015\040\016\050\017\035\020\036" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
@@ -170,32 +270,58 @@ public class ParserImportacion extends java_cup.runtime.lr_parser {
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\006\007\065\010\066\001\001" +
-    "\000\002\001\001\000\002\001\001\000\006\011\073\012" +
-    "\101\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\016\013\074\014\076\015\040\016\050" +
+    "\017\035\020\036\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\006\007\225" +
+    "\010\103\001\001\000\006\007\102\010\103\001\001\000" +
+    "\002\001\001\000\002\001\001\000\006\011\107\012\116" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\017\107\001\001" +
-    "\000\002\001\001\000\002\001\001\000\014\013\112\015" +
-    "\040\016\046\017\034\020\035\001\001\000\002\001\001" +
-    "\000\004\016\114\001\001\000\002\001\001\000\006\011" +
-    "\116\012\101\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\016\013\124\014\122\015\040\016" +
-    "\046\017\034\020\035\001\001\000\002\001\001\000\002" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\016" +
+    "\013\074\014\130\015\040\016\050\017\035\020\036\001" +
+    "\001\000\002\001\001\000\004\017\126\001\001\000\004" +
+    "\017\125\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\016\013\074\014\133" +
+    "\015\040\016\050\017\035\020\036\001\001\000\002\001" +
+    "\001\000\002\001\001\000\014\013\137\015\040\016\050" +
+    "\017\035\020\036\001\001\000\016\013\074\014\136\015" +
+    "\040\016\050\017\035\020\036\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\004\016\144\001" +
+    "\001\000\004\016\143\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\006\011\147\012\116\001" +
+    "\001\000\002\001\001\000\016\013\074\014\130\015\040" +
+    "\016\050\017\035\020\036\001\001\000\016\013\074\014" +
+    "\154\015\040\016\050\017\035\020\036\001\001\000\016" +
+    "\013\074\014\153\015\040\016\050\017\035\020\036\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\004\020\130\001\001\000\002\001\001\000\002" +
+    "\001\000\004\020\174\001\001\000\004\020\172\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\014\013\141\015\040\016\046\017\034\020\035\001" +
-    "\001\000\002\001\001\000\006\007\143\010\066\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\006\005\147\006\017\001\001\000\002\001\001\000\016" +
-    "\013\124\014\151\015\040\016\046\017\034\020\035\001" +
-    "\001\000\002\001\001\000\004\015\153\001\001\000\002" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\014" +
+    "\013\220\015\040\016\050\017\035\020\036\001\001\000" +
+    "\014\013\217\015\040\016\050\017\035\020\036\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\006\007\223\010\103\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\006\005" +
+    "\231\006\017\001\001\000\016\013\074\014\071\015\040" +
+    "\016\050\017\035\020\036\001\001\000\002\001\001\000" +
+    "\016\013\074\014\235\015\040\016\050\017\035\020\036" +
+    "\001\001\000\016\013\074\014\234\015\040\016\050\017" +
+    "\035\020\036\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\004\015\242\001\001\000\004\015" +
+    "\241\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\006\003\160\004\011\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\006\003\164\004" +
+    "\001\000\006\003\250\004\011\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\006\003\254\004" +
     "\011\001\001\000\002\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
@@ -239,14 +365,21 @@ public class ParserImportacion extends java_cup.runtime.lr_parser {
     private ArrayList<Advertencia> listaErrores;
     private ArrayList<Formulario> listaFormularios;
     private ArrayList<Componente> listaComponentes;
+    private ArrayList<String> listaParametros;
+    private ArrayList<String> listaParametrosComponentes;
     private String c1, c2, c3, c4, c5, c6;
     private String p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12;
-    
+    private int punteroErrores, linea=0, columna=0;
+    private String clase;
+
+
     public ParserImportacion(ImportacionLexer lexer, ArrayList<Formulario> listaFormularios, ArrayList<Advertencia> listaErrores) {
         super(lexer);
         this.listaErrores = listaErrores;
         this.listaFormularios = listaFormularios;
         this.listaComponentes = new ArrayList<>();
+        this.listaParametros = new ArrayList<>();
+        this.listaParametrosComponentes = new ArrayList<>();
     }
     public void report_error(String message, Object info) {
         System.out.println("reporterror");
@@ -259,9 +392,95 @@ public class ParserImportacion extends java_cup.runtime.lr_parser {
         System.out.println("linea: " + s.left + "   columna: " + s.right);
         Advertencia advert = new Advertencia((String)s.value, s.left, s.right, "Sintáctico", "error sintáctico");
         listaErrores.add(advert);
+        punteroErrores = listaErrores.size()-1;
     }
     protected int error_sync_size() {
         return 1;
+    }
+    public boolean verificacionBloque(String[] listaObligatorios, ArrayList<String> listaParametros) {
+        boolean comprobante = true;
+        for(int i = 0; i < listaParametros.size(); i++) {
+            String parametro = listaParametros.get(i).replace(" ","").replace("\n","").replace("\t","");
+            System.out.println("VERIFICANDO: " + listaParametros.get(i));
+            listaParametros.set(i, parametro);
+        }
+        for (String element: listaObligatorios) {
+            if(!listaParametros.contains(element)) {
+                Advertencia advert = new Advertencia("Elemento Faltante", linea, columna, element);
+                System.out.println("Hace falta el parametro: " + element + " En el bloque de la linea " + linea);
+                listaErrores.add(advert);
+                comprobante = false;
+            }
+            
+        }
+        Set<String> datosSinDuplicar = new HashSet<String>(listaParametros); //Creamos un Set de la lista de parametros clonada
+        for(String datoRevisado : datosSinDuplicar) {
+            int repeticion = Collections.frequency(listaParametros, datoRevisado); //Contamos las veces que se repite un parametro
+            System.out.println("Dato Revisado: " + datoRevisado + ", repeticion: " + repeticion);
+            if(repeticion > 1) {
+                Advertencia advert = new Advertencia("Elemento Repetido", linea, columna, datoRevisado + " " + repeticion + " " + "veces");
+                listaErrores.add(advert);
+                comprobante = false;
+            }
+        }
+        return comprobante;
+    }
+    public boolean verificacionClase(ArrayList<String> listaParametrosC, String clase) {
+        boolean comprobante = true;
+        clase = clase.replace(" ","").replace("\n","").replace("\t","");
+        for(String element: listaParametrosC) {
+            element = element.replace(" ","").replace("\n","").replace("\t","");
+            if(element.equals("\"OPCIONES\"")) {
+                if(!clase.equals("\"CHECKBOX\"") && !clase.equals("\"RADIO\"") && !clase.equals("\"COMBO\"")) {
+                    System.out.println("La instrucción \"OPCIONES\" del bloque de la linea "  + linea +  " no es valida para " + clase);
+                    Advertencia advert = new Advertencia("Clase Invalida", linea, columna, "El parámetro " + element + " no es válido para la clase " + clase);
+                    listaErrores.add(advert);
+                    comprobante = false;
+                }
+            } else if(element.equals("\"FILAS\"")) {
+                if(!clase.equals("\"AREA_TEXTO\"")) {
+                    System.out.println("La instruccion \"FILAS\" del bloque de la linea "  + linea + " no es valida para " + clase);
+                    Advertencia advert = new Advertencia("Clase Invalida", linea, columna, "El parámetro " + element + " no es válido para la clase " + clase);
+                    listaErrores.add(advert);
+                    comprobante = false;
+                }
+            } else if(element.equals("\"COLUMNAS\"")) {
+                if(!clase.equals("\"AREA_TEXTO\"")) {
+                    System.out.println("La instruccion \"COLUMNAS\" del bloque de la linea "  + linea + " no es valida para " + clase);
+                    Advertencia advert = new Advertencia("Clase Invalida", linea, columna, "El parámetro " + element + " no es válido para la clase " + clase);
+                    listaErrores.add(advert);
+                    comprobante = false;
+                }
+            } else if(element.equals("\"URL\"")) {
+                if(!clase.equals("\"IMAGEN\"")) {
+                    System.out.println("La instruccion \"URL\" del bloque de la linea "  + linea + " no es valida para " + clase);
+                    Advertencia advert = new Advertencia("Clase Invalida", linea, columna, "El parámetro " + element + " no es válido para la clase " + clase);
+                    listaErrores.add(advert);
+                    comprobante = false;
+                }
+            }
+        }
+        if(clase.equals("\"IMAGEN\"")) {
+            if(!listaParametrosC.contains("\"URL\"")) {
+                Advertencia advert = new Advertencia("Elemento Faltante", linea, columna, "URL");
+                listaErrores.add(advert);
+                comprobante = false;
+            }
+        } else if (!clase.equals("\"BOTON\"") && !clase.equals("\"IMAGEN\"")) {
+            if(!listaParametrosC.contains("\"NOMBRE_CAMPO\"")) {
+                Advertencia advert = new Advertencia("Elemento Faltante", linea, columna, "NOMBRE_CAMPO");
+                listaErrores.add(advert);
+                comprobante = false;
+            }
+        }
+        if(clase.equals("\"COMBO\"") || clase.equals("\"RADIO\"") || clase.equals("\"CHECKBOX\"")) {
+            if(!listaParametrosC.contains("\"OPCIONES\"")) {
+                Advertencia advert = new Advertencia("Elemento Faltante", linea, columna, "OPCIONES");
+                listaErrores.add(advert);
+                comprobante = false;
+            }
+        }
+        return comprobante;
     }
 
 
@@ -372,14 +591,17 @@ class CUP$ParserImportacion$actions {
               Object RESULT =null;
 		
                                                                     System.out.println("Se detectó un formulario nuevo");
-                                                                    c1 = (c1.substring(1, c1.length()-1));
-                                                                    c2 = (c2.substring(1, c2.length()-1));
-                                                                    c3 = (c3.substring(1, c3.length()-1));
-                                                                    c4 = (c4.substring(1, c4.length()-1));
-                                                                    Formulario form = new Formulario(c1, c2, c3, c4);
-                                                                    form.setListaComponentes((ArrayList<Componente>) listaComponentes.clone());
-                                                                    System.out.println("CATIDAD DE COMPONENTES EN GRAMATICA: " + listaComponentes.size());
-                                                                    listaFormularios.add(form);
+                                                                    String[] listaObligatorios = {"\"ID_FORMULARIO\"", "\"TITULO\"", "\"NOMBRE\"", "\"TEMA\""};
+                                                                    if(verificacionBloque(listaObligatorios, listaParametros)) {
+                                                                        c1 = (c1.substring(1, c1.length()-1));
+                                                                        c2 = (c2.substring(1, c2.length()-1));
+                                                                        c3 = (c3.substring(1, c3.length()-1));
+                                                                        c4 = (c4.substring(1, c4.length()-1));
+                                                                        Formulario form = new Formulario(c1, c2, c3, c4);
+                                                                        form.setListaComponentes((ArrayList<Componente>) listaComponentes.clone());
+                                                                        System.out.println("CATIDAD DE COMPONENTES EN GRAMATICA: " + listaComponentes.size());
+                                                                        listaFormularios.add(form);
+                                                                    }
                                                                     listaComponentes.clear();
                                                                     c1 = null; c2 = null; c3 = null; c4 = null; c5 = null; c6 = null;
                                                                 
@@ -419,10 +641,13 @@ class CUP$ParserImportacion$actions {
           case 12: // opciones_formulario ::= ID_FORMULARIO PUNTOS IDENTIFICADOR 
             {
               Object RESULT =null;
+		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).left;
+		int pararight = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).right;
+		Object para = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).value;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.peek()).value;
-		 c1 = ent.toString(); 
+		 listaParametros.add(para.toString()); c1 = ent.toString(); 
               CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
             }
           return CUP$ParserImportacion$result;
@@ -431,10 +656,13 @@ class CUP$ParserImportacion$actions {
           case 13: // opciones_formulario ::= TITULO PUNTOS tipos_entrada_complete 
             {
               Object RESULT =null;
+		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).left;
+		int pararight = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).right;
+		Object para = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).value;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.peek()).value;
-		 c2 = ent.toString(); 
+		 listaParametros.add(para.toString()); c2 = ent.toString(); 
               CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
             }
           return CUP$ParserImportacion$result;
@@ -443,10 +671,13 @@ class CUP$ParserImportacion$actions {
           case 14: // opciones_formulario ::= NOMBRE PUNTOS tipos_entrada 
             {
               Object RESULT =null;
+		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).left;
+		int pararight = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).right;
+		Object para = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).value;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.peek()).value;
-		 c3 = ent.toString(); 
+		 listaParametros.add(para.toString()); c3 = ent.toString(); 
               CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
             }
           return CUP$ParserImportacion$result;
@@ -455,10 +686,13 @@ class CUP$ParserImportacion$actions {
           case 15: // opciones_formulario ::= TEMA PUNTOS temas 
             {
               Object RESULT =null;
+		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).left;
+		int pararight = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).right;
+		Object para = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).value;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.peek()).value;
-		 c4 = ent.toString(); 
+		 listaParametros.add(para.toString()); c4 = ent.toString(); 
               CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
             }
           return CUP$ParserImportacion$result;
@@ -467,13 +701,151 @@ class CUP$ParserImportacion$actions {
           case 16: // opciones_formulario ::= ESTRUCTURA PUNTOS PARENT_A estructura_formulario_p PARENT_C 
             {
               Object RESULT =null;
+		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-4)).left;
+		int pararight = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-4)).right;
+		Object para = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-4)).value;
 
               CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-4)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
             }
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 17: // estructura_formulario_p ::= estructura_formulario COMA estructura_formulario_p 
+          case 17: // opciones_formulario ::= error PUNTOS tipos_entrada_complete 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("No se reconoce el tipo de parámetro a asignar valor en la instrucción"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 18: // opciones_formulario ::= error tipos_entrada_complete 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un parametro valido para asignar valor seguido del símbolo ':' "); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-1)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 19: // opciones_formulario ::= ID_FORMULARIO PUNTOS error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un id, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción "); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 20: // opciones_formulario ::= ID_FORMULARIO error IDENTIFICADOR 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 21: // opciones_formulario ::= ID_FORMULARIO error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un identificador"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-1)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 22: // opciones_formulario ::= TITULO PUNTOS error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un titulo, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción "); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 23: // opciones_formulario ::= TITULO error tipos_entrada_complete 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 24: // opciones_formulario ::= TITULO error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un titulo"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-1)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 25: // opciones_formulario ::= NOMBRE PUNTOS error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un nombre, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción "); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 26: // opciones_formulario ::= NOMBRE error tipos_entrada 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 27: // opciones_formulario ::= NOMBRE error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un titulo"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-1)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 28: // opciones_formulario ::= TEMA PUNTOS error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un tema, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción "); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 29: // opciones_formulario ::= TEMA error temas 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 30: // opciones_formulario ::= TEMA error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un tema"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-1)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 31: // opciones_formulario ::= ESTRUCTURA PUNTOS error estructura_formulario_p PARENT_C 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '(' en la instruccion"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-4)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 32: // estructura_formulario_p ::= estructura_formulario COMA estructura_formulario_p 
             {
               Object RESULT =null;
 
@@ -482,7 +854,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 18: // estructura_formulario_p ::= estructura_formulario 
+          case 33: // estructura_formulario_p ::= estructura_formulario 
             {
               Object RESULT =null;
 
@@ -491,50 +863,64 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 19: // estructura_formulario ::= LLAVE_A instruccion_estructura_formulario LLAVE_C 
+          case 34: // estructura_formulario ::= LLAVE_A instruccion_estructura_formulario LLAVE_C 
             {
               Object RESULT =null;
+		int llaAleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).left;
+		int llaAright = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).right;
+		Object llaA = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).value;
 		
-                                                                                        int pApoyo12 = Integer.parseInt(p12.substring(1, p12.length()-1));
-                                                                                        p1 = (p1.substring(1, p1.length()-1));
-                                                                                        p4 = (p4.substring(1, p4.length()-1));
-                                                                                        p5 = (p5.substring(1, p5.length()-1));
-                                                                                        System.out.println("Probando p1");
-                                                                                        System.out.println(p1);
-                                                                                        String idForm = c1.substring(1, c1.length()-1);
-                                                                                        System.out.println(idForm);
-                                                                                        Componente compo = new Componente(pApoyo12, p1, idForm, p4, p5);
-                                                                                        if(p2 != null) {
-                                                                                            compo.setNombreCampo(p2.substring(1, p2.length()-1));
-                                                                                        }
-                                                                                        if(p6 != null) {
-                                                                                            compo.setAlineacion(p6.substring(1, p6.length()-1));
-                                                                                        }
-                                                                                        if(p7 != null) {
-                                                                                            compo.setRequerido(p7.substring(1, p7.length()-1));
-                                                                                            }
-                                                                                        if(p8 != null) {
-                                                                                            compo.setOpciones(p8.substring(1, p8.length()-1));
-                                                                                        }
-                                                                                        if(p9 != null) {
-                                                                                            compo.setFilas(Integer.parseInt(p9.substring(1, p9.length()-1)));
-                                                                                        }
-                                                                                        if(p10 != null) {
-                                                                                            compo.setColumnas(Integer.parseInt(p10.substring(1, p10.length()-1)));
-                                                                                        }
-                                                                                        if(p11 != null) {
-                                                                                            compo.setUrl(p11.substring(1, p11.length()-1));
-                                                                                        }
-                                                                                        
-                                                                                        listaComponentes.add(compo);
-                                                                                        p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null; p12 = null;
+                                                                                            linea = llaAleft;
+                                                                                            columna = llaAright;
+                                                                                            String[] listaObligatorios = {"\"CLASE\"", "\"TEXTO_VISIBLE\""};
+                                                                                            System.out.println("FILTRO1");
+                                                                                            if(verificacionBloque(listaObligatorios, listaParametrosComponentes)) {
+                                                                                                System.out.println("FILTRO2");
+                                                                                                if(verificacionClase(listaParametrosComponentes, clase)) {
+                                                                                                    System.out.println("FILTRO3");
+                                                                                                    int pApoyo12 = Integer.parseInt(p12.substring(1, p12.length()-1));
+                                                                                                    p1 = (p1.substring(1, p1.length()-1));
+                                                                                                    p4 = (p4.substring(1, p4.length()-1));
+                                                                                                    p5 = (p5.substring(1, p5.length()-1));
+                                                                                                    System.out.println("Probando p1");
+                                                                                                    System.out.println(p1);
+                                                                                                    String idForm = c1.substring(1, c1.length()-1);
+                                                                                                    System.out.println(idForm);
+                                                                                                    Componente compo = new Componente(pApoyo12, p1, idForm, p4, p5);
+                                                                                                    if(p2 != null) {
+                                                                                                        compo.setNombreCampo(p2.substring(1, p2.length()-1));
+                                                                                                    }
+                                                                                                    if(p6 != null) {
+                                                                                                        compo.setAlineacion(p6.substring(1, p6.length()-1));
+                                                                                                    }
+                                                                                                    if(p7 != null) {
+                                                                                                        compo.setRequerido(p7.substring(1, p7.length()-1));
+                                                                                                        }
+                                                                                                    if(p8 != null) {
+                                                                                                        compo.setOpciones(p8.substring(1, p8.length()-1));
+                                                                                                    }
+                                                                                                    if(p9 != null) {
+                                                                                                        compo.setFilas(Integer.parseInt(p9.substring(1, p9.length()-1)));
+                                                                                                    }
+                                                                                                    if(p10 != null) {
+                                                                                                        compo.setColumnas(Integer.parseInt(p10.substring(1, p10.length()-1)));
+                                                                                                    }
+                                                                                                    if(p11 != null) {
+                                                                                                        compo.setUrl(p11.substring(1, p11.length()-1));
+                                                                                                    }
+                                                                                                    
+                                                                                                    listaComponentes.add(compo);
+                                                                                                }
+                                                                                            } 
+                                                                                            listaParametrosComponentes.clear();
+                                                                                            p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null; p12 = null;
                                                                                     
               CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("estructura_formulario",6, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
             }
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 20: // estructura_formulario ::= LLAVE_A error LLAVE_C 
+          case 35: // estructura_formulario ::= LLAVE_A error LLAVE_C 
             {
               Object RESULT =null;
 		 p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null; p12 = null; 
@@ -543,7 +929,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 21: // instruccion_estructura_formulario ::= opciones_estructura_formulario COMA instruccion_estructura_formulario 
+          case 36: // instruccion_estructura_formulario ::= opciones_estructura_formulario COMA instruccion_estructura_formulario 
             {
               Object RESULT =null;
 
@@ -552,7 +938,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 22: // instruccion_estructura_formulario ::= opciones_estructura_formulario 
+          case 37: // instruccion_estructura_formulario ::= opciones_estructura_formulario 
             {
               Object RESULT =null;
 
@@ -561,139 +947,487 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 23: // opciones_estructura_formulario ::= ID_COMPONENTE_N PUNTOS IDENTIFICADOR 
+          case 38: // opciones_estructura_formulario ::= ID_COMPONENTE_N PUNTOS IDENTIFICADOR 
             {
               Object RESULT =null;
+		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).left;
+		int pararight = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).right;
+		Object para = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).value;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.peek()).value;
-		 p1 = ent.toString(); 
+		 listaParametrosComponentes.add(para.toString()); p1 = ent.toString(); 
               CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
             }
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 24: // opciones_estructura_formulario ::= NOMBRE_CAMPO PUNTOS tipos_entrada 
+          case 39: // opciones_estructura_formulario ::= NOMBRE_CAMPO PUNTOS tipos_entrada 
             {
               Object RESULT =null;
+		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).left;
+		int pararight = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).right;
+		Object para = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).value;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.peek()).value;
-		 p2 = ent.toString(); 
+		 listaParametrosComponentes.add(para.toString()); p2 = ent.toString(); 
               CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
             }
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 25: // opciones_estructura_formulario ::= CLASE PUNTOS clases 
+          case 40: // opciones_estructura_formulario ::= CLASE PUNTOS clases 
             {
               Object RESULT =null;
+		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).left;
+		int pararight = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).right;
+		Object para = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).value;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.peek()).value;
-		 p4 = ent.toString(); 
+		 listaParametrosComponentes.add(para.toString()); p4 = ent.toString(); clase = ent.toString(); 
               CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
             }
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 26: // opciones_estructura_formulario ::= TEXTO_VISIBLE PUNTOS tipos_entrada_complete 
+          case 41: // opciones_estructura_formulario ::= TEXTO_VISIBLE PUNTOS tipos_entrada_complete 
             {
               Object RESULT =null;
+		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).left;
+		int pararight = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).right;
+		Object para = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).value;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.peek()).value;
-		 p5 = ent.toString(); 
+		 listaParametrosComponentes.add(para.toString()); p5 = ent.toString(); 
               CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
             }
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 27: // opciones_estructura_formulario ::= INDICE PUNTOS NUMERO 
+          case 42: // opciones_estructura_formulario ::= INDICE PUNTOS NUMERO 
             {
               Object RESULT =null;
+		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).left;
+		int pararight = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).right;
+		Object para = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).value;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.peek()).value;
-		 p12 = ent.toString(); 
+		 listaParametrosComponentes.add(para.toString()); p12 = ent.toString(); 
               CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
             }
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 28: // opciones_estructura_formulario ::= ALINEACION PUNTOS alineacion 
+          case 43: // opciones_estructura_formulario ::= ALINEACION PUNTOS alineacion 
             {
               Object RESULT =null;
+		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).left;
+		int pararight = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).right;
+		Object para = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).value;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.peek()).value;
-		 p6 = ent.toString(); 
+		 listaParametrosComponentes.add(para.toString()); p6 = ent.toString(); 
               CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
             }
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 29: // opciones_estructura_formulario ::= REQUERIDO PUNTOS required 
+          case 44: // opciones_estructura_formulario ::= REQUERIDO PUNTOS required 
             {
               Object RESULT =null;
+		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).left;
+		int pararight = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).right;
+		Object para = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).value;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.peek()).value;
-		 p7 = ent.toString(); 
+		 listaParametrosComponentes.add(para.toString()); p7 = ent.toString(); 
               CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
             }
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 30: // opciones_estructura_formulario ::= OPCIONES PUNTOS OPCIONES 
+          case 45: // opciones_estructura_formulario ::= OPCIONES PUNTOS OPTIONS 
             {
               Object RESULT =null;
+		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).left;
+		int pararight = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).right;
+		Object para = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).value;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.peek()).value;
-		 p8 = ent.toString(); 
+		 listaParametrosComponentes.add(para.toString()); p8 = ent.toString(); 
               CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
             }
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 31: // opciones_estructura_formulario ::= FILAS PUNTOS NUMERO 
+          case 46: // opciones_estructura_formulario ::= FILAS PUNTOS NUMERO 
             {
               Object RESULT =null;
+		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).left;
+		int pararight = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).right;
+		Object para = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).value;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.peek()).value;
-		 p9 = ent.toString(); 
+		 listaParametrosComponentes.add(para.toString()); p9 = ent.toString(); 
               CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
             }
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 32: // opciones_estructura_formulario ::= COLUMNAS PUNTOS NUMERO 
+          case 47: // opciones_estructura_formulario ::= COLUMNAS PUNTOS NUMERO 
             {
               Object RESULT =null;
+		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).left;
+		int pararight = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).right;
+		Object para = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).value;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.peek()).value;
-		 p10 = ent.toString(); 
+		 listaParametrosComponentes.add(para.toString()); p10 = ent.toString(); 
               CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
             }
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 33: // opciones_estructura_formulario ::= URL PUNTOS tipos_entrada 
+          case 48: // opciones_estructura_formulario ::= URL PUNTOS tipos_entrada 
             {
               Object RESULT =null;
+		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).left;
+		int pararight = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).right;
+		Object para = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)).value;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.peek()).value;
-		 p11 = ent.toString(); 
+		 listaParametrosComponentes.add(para.toString()); p11 = ent.toString(); 
               CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
             }
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 34: // tipos_entrada ::= ALLCHARACTERSNOSPACE 
+          case 49: // opciones_estructura_formulario ::= error PUNTOS tipos_entrada_complete 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("No se reconoce el tipo de parámetro a asignar valor en la instrucción"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 50: // opciones_estructura_formulario ::= error tipos_entrada_complete 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un parametro valido para asignar valor seguido del símbolo ':' "); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-1)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 51: // opciones_estructura_formulario ::= ID_COMPONENTE_N PUNTOS error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un id, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción "); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 52: // opciones_estructura_formulario ::= ID_COMPONENTE_N error IDENTIFICADOR 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 53: // opciones_estructura_formulario ::= ID_COMPONENTE_N error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un identificador"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-1)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 54: // opciones_estructura_formulario ::= NOMBRE_CAMPO PUNTOS error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un nombre de campo, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción "); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 55: // opciones_estructura_formulario ::= NOMBRE_CAMPO error tipos_entrada 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 56: // opciones_estructura_formulario ::= NOMBRE_CAMPO error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un nombre de campo"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-1)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 57: // opciones_estructura_formulario ::= CLASE PUNTOS error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una clase, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción "); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 58: // opciones_estructura_formulario ::= CLASE error clases 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 59: // opciones_estructura_formulario ::= CLASE error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a una clase"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-1)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 60: // opciones_estructura_formulario ::= TEXTO_VISIBLE PUNTOS error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un texto visible, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción "); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 61: // opciones_estructura_formulario ::= TEXTO_VISIBLE error tipos_entrada_complete 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 62: // opciones_estructura_formulario ::= TEXTO_VISIBLE error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a texto visible"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-1)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 63: // opciones_estructura_formulario ::= INDICE PUNTOS error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un indice, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción "); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 64: // opciones_estructura_formulario ::= INDICE error NUMERO 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 65: // opciones_estructura_formulario ::= INDICE error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un indice"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-1)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 66: // opciones_estructura_formulario ::= ALINEACION PUNTOS error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una alineacion, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción "); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 67: // opciones_estructura_formulario ::= ALINEACION error alineacion 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 68: // opciones_estructura_formulario ::= ALINEACION error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a una alineacion"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-1)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 69: // opciones_estructura_formulario ::= REQUERIDO PUNTOS error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un campo requerido, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción "); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 70: // opciones_estructura_formulario ::= REQUERIDO error required 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 71: // opciones_estructura_formulario ::= REQUERIDO error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un campo requerido"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-1)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 72: // opciones_estructura_formulario ::= OPCIONES PUNTOS error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un parametro de opciones, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción "); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 73: // opciones_estructura_formulario ::= OPCIONES error OPTIONS 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 74: // opciones_estructura_formulario ::= OPCIONES error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un parametro de opciones"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-1)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 75: // opciones_estructura_formulario ::= FILAS PUNTOS error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un parametro filas, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción "); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 76: // opciones_estructura_formulario ::= FILAS error NUMERO 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 77: // opciones_estructura_formulario ::= FILAS error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un parametro filas"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-1)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 78: // opciones_estructura_formulario ::= COLUMNAS PUNTOS error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un parametro collumnas, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción "); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 79: // opciones_estructura_formulario ::= COLUMNAS error NUMERO 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 80: // opciones_estructura_formulario ::= COLUMNAS error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un parametro columnas"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-1)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 81: // opciones_estructura_formulario ::= URL PUNTOS error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un parametro URL, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción "); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 82: // opciones_estructura_formulario ::= URL error tipos_entrada_complete 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 83: // opciones_estructura_formulario ::= URL error 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un parametro URL"); 
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-1)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+            }
+          return CUP$ParserImportacion$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 84: // tipos_entrada ::= ALLCHARACTERSNOSPACE 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -705,7 +1439,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 35: // tipos_entrada ::= OPCIONES 
+          case 85: // tipos_entrada ::= OPCIONES 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -717,7 +1451,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 36: // tipos_entrada ::= NUMERO 
+          case 86: // tipos_entrada ::= NUMERO 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -729,7 +1463,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 37: // tipos_entrada ::= FECHA 
+          case 87: // tipos_entrada ::= FECHA 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -741,7 +1475,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 38: // tipos_entrada ::= IDENTIFICADOR 
+          case 88: // tipos_entrada ::= IDENTIFICADOR 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -753,7 +1487,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 39: // tipos_entrada ::= temas 
+          case 89: // tipos_entrada ::= temas 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -765,7 +1499,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 40: // tipos_entrada ::= clases 
+          case 90: // tipos_entrada ::= clases 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -777,7 +1511,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 41: // tipos_entrada ::= alineacion 
+          case 91: // tipos_entrada ::= alineacion 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -789,7 +1523,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 42: // tipos_entrada ::= required 
+          case 92: // tipos_entrada ::= required 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -801,7 +1535,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 43: // tipos_entrada_complete ::= ALLCHARACTERS 
+          case 93: // tipos_entrada_complete ::= ALLCHARACTERS 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -813,7 +1547,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 44: // tipos_entrada_complete ::= tipos_entrada 
+          case 94: // tipos_entrada_complete ::= tipos_entrada 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -825,7 +1559,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 45: // temas ::= DARK 
+          case 95: // temas ::= DARK 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -837,7 +1571,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 46: // temas ::= WHITE 
+          case 96: // temas ::= WHITE 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -849,7 +1583,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 47: // clases ::= CAMPO_TEXTO 
+          case 97: // clases ::= CAMPO_TEXTO 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -861,7 +1595,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 48: // clases ::= AREA_TEXTO 
+          case 98: // clases ::= AREA_TEXTO 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -873,7 +1607,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 49: // clases ::= CHECKBOX 
+          case 99: // clases ::= CHECKBOX 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -885,7 +1619,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 50: // clases ::= RADIO 
+          case 100: // clases ::= RADIO 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -897,7 +1631,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 51: // clases ::= FICHERO 
+          case 101: // clases ::= FICHERO 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -909,7 +1643,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 52: // clases ::= IMAGEN 
+          case 102: // clases ::= IMAGEN 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -921,7 +1655,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 53: // clases ::= COMBO 
+          case 103: // clases ::= COMBO 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -933,7 +1667,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 54: // clases ::= BOTON 
+          case 104: // clases ::= BOTON 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -945,7 +1679,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 55: // alineacion ::= CENTRO 
+          case 105: // alineacion ::= CENTRO 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -957,7 +1691,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 56: // alineacion ::= IZQUIERDA 
+          case 106: // alineacion ::= IZQUIERDA 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -969,7 +1703,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 57: // alineacion ::= DERECHA 
+          case 107: // alineacion ::= DERECHA 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -981,7 +1715,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 58: // alineacion ::= JUSTIFICAR 
+          case 108: // alineacion ::= JUSTIFICAR 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -993,7 +1727,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 59: // required ::= SI 
+          case 109: // required ::= SI 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -1005,7 +1739,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 60: // required ::= NO 
+          case 110: // required ::= NO 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;

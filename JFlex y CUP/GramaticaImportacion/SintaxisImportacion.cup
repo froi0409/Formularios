@@ -4,6 +4,9 @@ import com.froi.formulariosweb.entidades.Advertencia;
 import com.froi.formulariosweb.entidadesfundamentales.Componente;
 import com.froi.formulariosweb.entidadesfundamentales.Formulario;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java_cup.runtime.*;
 
 class ParserImportacion;
@@ -40,7 +43,7 @@ parser code{:
         System.out.println("linea: " + s.left + "   columna: " + s.right);
         Advertencia advert = new Advertencia((String)s.value, s.left, s.right, "Sintáctico", "error sintáctico");
         listaErrores.add(advert);
-        punteroErrores = listaErrores.size();
+        punteroErrores = listaErrores.size()-1;
     }
     protected int error_sync_size() {
         return 1;
@@ -156,7 +159,7 @@ instruccion_formulario ::=  valores_formulario COMA instruccion_formulario
 
 valores_formulario ::=      LLAVE_A accion_formulario LLAVE_C   {:
                                                                     System.out.println("Se detectó un formulario nuevo");
-                                                                    String[] listaObligatorios = {"\"ID_FORMULARIO\"", "\"TITULO\"", "\"NOMBRE\"", "\"TEMA\"", "\"ESTRUCTURA\""}
+                                                                    String[] listaObligatorios = {"\"ID_FORMULARIO\"", "\"TITULO\"", "\"NOMBRE\"", "\"TEMA\""};
                                                                     if(verificacionBloque(listaObligatorios, listaParametros)) {
                                                                         c1 = (c1.substring(1, c1.length()-1));
                                                                         c2 = (c2.substring(1, c2.length()-1));
@@ -190,7 +193,7 @@ opciones_formulario ::=     ID_FORMULARIO:para PUNTOS IDENTIFICADOR:ent         
                             | ID_FORMULARIO error                           {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un identificador"); :}
                             | TITULO PUNTOS error                           {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un titulo, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción "); :}
                             | TITULO error tipos_entrada_complete           {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
-                            | TTULO error                                   {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un titulo"); :}
+                            | TITULO error                                   {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un titulo"); :}
                             | NOMBRE PUNTOS error                           {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un nombre, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción "); :}
                             | NOMBRE error tipos_entrada                    {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
                             | NOMBRE error                                  {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un titulo"); :}
@@ -207,10 +210,13 @@ estructura_formulario_p ::=     estructura_formulario COMA estructura_formulario
 estructura_formulario ::=       LLAVE_A:llaA instruccion_estructura_formulario LLAVE_C   {:
                                                                                             linea = llaAleft;
                                                                                             columna = llaAright;
-                                                                                            int pApoyo12 = Integer.parseInt(p12.substring(1, p12.length()-1));
-                                                                                            String[] listaObligatorios = {"\"CLASE\"", "\"TEXTO_VISIBLE\""}
+                                                                                            String[] listaObligatorios = {"\"CLASE\"", "\"TEXTO_VISIBLE\""};
+                                                                                            System.out.println("FILTRO1");
                                                                                             if(verificacionBloque(listaObligatorios, listaParametrosComponentes)) {
+                                                                                                System.out.println("FILTRO2");
                                                                                                 if(verificacionClase(listaParametrosComponentes, clase)) {
+                                                                                                    System.out.println("FILTRO3");
+                                                                                                    int pApoyo12 = Integer.parseInt(p12.substring(1, p12.length()-1));
                                                                                                     p1 = (p1.substring(1, p1.length()-1));
                                                                                                     p4 = (p4.substring(1, p4.length()-1));
                                                                                                     p5 = (p5.substring(1, p5.length()-1));
@@ -244,7 +250,7 @@ estructura_formulario ::=       LLAVE_A:llaA instruccion_estructura_formulario L
                                                                                                     listaComponentes.add(compo);
                                                                                                 }
                                                                                             } 
-                                                                                            
+                                                                                            listaParametrosComponentes.clear();
                                                                                             p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null; p12 = null;
                                                                                     :}
                                 | LLAVE_A error LLAVE_C                             {: p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null; p12 = null; :}
@@ -256,8 +262,8 @@ instruccion_estructura_formulario ::=   opciones_estructura_formulario COMA inst
 
 opciones_estructura_formulario  ::=     ID_COMPONENTE_N:para PUNTOS IDENTIFICADOR:ent        {: listaParametrosComponentes.add(para.toString()); p1 = ent.toString(); :}
                                         | NOMBRE_CAMPO:para PUNTOS tipos_entrada:ent         {: listaParametrosComponentes.add(para.toString()); p2 = ent.toString(); :}
-                                        | CLASE:para PUNTOS clases:ent                       {: listaParametrosComponentes.add(para.toString()); p4 = ent.toString(); :}
-                                        | TEXTO_VISIBLE:para PUNTOS tipos_entrada_complete:ent      {: listaParametrosComponentes.add(para.toString()); p5 = ent.toString(); clase = ent.toString(); :}
+                                        | CLASE:para PUNTOS clases:ent                       {: listaParametrosComponentes.add(para.toString()); p4 = ent.toString(); clase = ent.toString(); :}
+                                        | TEXTO_VISIBLE:para PUNTOS tipos_entrada_complete:ent      {: listaParametrosComponentes.add(para.toString()); p5 = ent.toString(); :}
                                         | INDICE:para PUNTOS NUMERO:ent                      {: listaParametrosComponentes.add(para.toString()); p12 = ent.toString(); :}
                                         | ALINEACION:para PUNTOS alineacion:ent              {: listaParametrosComponentes.add(para.toString()); p6 = ent.toString(); :}
                                         | REQUERIDO:para PUNTOS required:ent                 {: listaParametrosComponentes.add(para.toString()); p7 = ent.toString(); :}
