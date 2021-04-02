@@ -31,6 +31,8 @@ parser code{:
     @Override
     public void syntax_error(Symbol s) {
         System.out.println("linea: " + s.left + "   columna: " + s.right);
+        Advertencia advert = new Advertencia((String)s.value, s.left, s.right, "Sintáctico", "error sintáctico");
+        listaErrores.add(advert);
     }
     protected int error_sync_size() {
         return 1;
@@ -65,11 +67,9 @@ valores_formulario ::=      LLAVE_A accion_formulario LLAVE_C   {:
                                                                     c2 = (c2.substring(1, c2.length()-1));
                                                                     c3 = (c3.substring(1, c3.length()-1));
                                                                     c4 = (c4.substring(1, c4.length()-1));
-                                                                    c5 = (c5.substring(1, c5.length()-1));
-                                                                    c6 = (c6.substring(1, c6.length()-1));
-                                                                    System.out.println(c1+c2+c3+c4+c5+c6);
-                                                                    Formulario form = new Formulario(c1, c2, c3, c4, c5, c6);
+                                                                    Formulario form = new Formulario(c1, c2, c3, c4);
                                                                     form.setListaComponentes((ArrayList<Componente>) listaComponentes.clone());
+                                                                    System.out.println("CATIDAD DE COMPONENTES EN GRAMATICA: " + listaComponentes.size());
                                                                     listaFormularios.add(form);
                                                                     listaComponentes.clear();
                                                                     c1 = null; c2 = null; c3 = null; c4 = null; c5 = null; c6 = null;
@@ -86,8 +86,6 @@ opciones_formulario ::=     ID_FORMULARIO PUNTOS IDENTIFICADOR:ent          {: c
                             | TITULO PUNTOS tipos_entrada_complete:ent      {: c2 = ent.toString(); :}
                             | NOMBRE PUNTOS tipos_entrada:ent               {: c3 = ent.toString(); :}
                             | TEMA PUNTOS temas:ent                         {: c4 = ent.toString(); :}
-                            | USUARIO_CREACION PUNTOS tipos_entrada:ent     {: c5 = ent.toString(); :}
-                            | FECHA_CREACION PUNTOS FECHA:ent               {: c6 = ent.toString(); :}
                             | ESTRUCTURA PUNTOS PARENT_A estructura_formulario_p PARENT_C
                             ;
 
@@ -98,12 +96,13 @@ estructura_formulario_p ::=     estructura_formulario COMA estructura_formulario
 estructura_formulario ::=       LLAVE_A instruccion_estructura_formulario LLAVE_C   {:
                                                                                         int pApoyo12 = Integer.parseInt(p12.substring(1, p12.length()-1));
                                                                                         p1 = (p1.substring(1, p1.length()-1));
-                                                                                        p3 = (p3.substring(1, p3.length()-1));
                                                                                         p4 = (p4.substring(1, p4.length()-1));
                                                                                         p5 = (p5.substring(1, p5.length()-1));
                                                                                         System.out.println("Probando p1");
                                                                                         System.out.println(p1);
-                                                                                        Componente compo = new Componente(pApoyo12, p1, p3, p4, p5);
+                                                                                        String idForm = c1.substring(1, c1.length()-1);
+                                                                                        System.out.println(idForm);
+                                                                                        Componente compo = new Componente(pApoyo12, p1, idForm, p4, p5);
                                                                                         if(p2 != null) {
                                                                                             compo.setNombreCampo(p2.substring(1, p2.length()-1));
                                                                                         }
@@ -133,12 +132,11 @@ estructura_formulario ::=       LLAVE_A instruccion_estructura_formulario LLAVE_
                                 ;
 
 instruccion_estructura_formulario ::=   opciones_estructura_formulario COMA instruccion_estructura_formulario
-                                        |
+                                        | opciones_estructura_formulario
                                         ;
 
 opciones_estructura_formulario  ::=     ID_COMPONENTE_N PUNTOS IDENTIFICADOR:ent        {: p1 = ent.toString(); :}
                                         | NOMBRE_CAMPO PUNTOS tipos_entrada:ent         {: p2 = ent.toString(); :}
-                                        | FORMULARIO PUNTOS IDENTIFICADOR:ent           {: p3 = ent.toString(); :}
                                         | CLASE PUNTOS clases:ent                       {: p4 = ent.toString(); :}
                                         | TEXTO_VISIBLE PUNTOS tipos_entrada_complete:ent      {: p5 = ent.toString(); :}
                                         | INDICE PUNTOS NUMERO:ent                      {: p12 = ent.toString(); :}
