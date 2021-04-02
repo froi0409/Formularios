@@ -32,6 +32,13 @@ public class InstruccionCrearUsuario extends Instruccion {
         this.fechaCreacion = año + "-" + mes + "-" + dia;    
     }
 
+    /**
+     * Permite crear un usuario en el sistema
+     * @param listaUsuarios Lista de los usuarios que hay en el sistema
+     * @param listaFormularios Lista de los formularios que hay en el sistema
+     * @param userOnline Usuario loggeado en el sistema
+     * @return Código índigo de respuesta del servidor al cliente
+     */
     @Override
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
         String codigo = "";
@@ -73,7 +80,7 @@ public class InstruccionCrearUsuario extends Instruccion {
     }
 
     public void setFechaCreacion(String fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+        this.fechaCreacion = fechaCreacion.replace(" ","").replace("\n","").replace("\t","");
     }
     
 }

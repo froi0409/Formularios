@@ -16,6 +16,14 @@ import java.util.ArrayList;
 public class InstruccionEliminarFormulario extends Instruccion {
     private String idFormulario;
 
+    /**
+     * Permite eliminar un formulario del sistema
+     * @param listaUsuarios Lista de los usuarios que hay en el sistema
+     * @param listaFormularios Lista de los formularios que hay en el sistema
+     * @param userOnline Usuario loggeado en el sistema
+     * @return Código índigo de respuesta del servidor al cliente
+     */
+    @Override
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
         if(userOnline.equals("")) {
             return generarCodigoRespuesta("Conflicto en Eliminacion de Formulario", "Para realizar una eliminacion, primero inicie sesión en el sistema");
@@ -23,7 +31,6 @@ public class InstruccionEliminarFormulario extends Instruccion {
         
         String codigo = "", descripcion;
         boolean comprobador = false;
-        System.out.println("se ejecuta");
         for(Formulario element : listaFormularios) {
             if(element.getIdentificador().equals(idFormulario) && element.getUsuarioCreacion().equals(userOnline)) {
                 listaFormularios.remove(element);
@@ -31,7 +38,6 @@ public class InstruccionEliminarFormulario extends Instruccion {
                 break;
             }
         }
-        System.out.println("hola");
         if(comprobador) {
             descripcion = "Se ha eliminado el formulario " + idFormulario + " con éxito";
         } else {

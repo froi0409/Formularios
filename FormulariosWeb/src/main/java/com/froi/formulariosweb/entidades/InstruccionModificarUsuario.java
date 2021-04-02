@@ -31,6 +31,13 @@ public class InstruccionModificarUsuario extends Instruccion {
         this.fechaModificacion = año + "-" + mes + "-" + dia;   
     }
 
+    /**
+     * Permite modificar la información de un usuario en el sistema
+     * @param listaUsuarios Lista de los usuarios que hay en el sistema
+     * @param listaFormularios Lista de los formularios que hay en el sistema
+     * @param userOnline Usuario loggeado en el sistema
+     * @return Código índigo de respuesta del servidor al cliente
+     */
     @Override
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
         String codigo = "", descripcion = "";
@@ -107,7 +114,7 @@ public class InstruccionModificarUsuario extends Instruccion {
     }
 
     public void setFechaModificacion(String fechaModificacion) {
-        this.fechaModificacion = fechaModificacion;
+        this.fechaModificacion = fechaModificacion.replace(" ","").replace("\n","").replace("\t","");
     }
     
     

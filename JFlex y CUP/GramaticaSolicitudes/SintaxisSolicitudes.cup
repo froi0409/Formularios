@@ -21,7 +21,7 @@ parser code  {:
     private int punteroErrores;
     private int bloque = 0, linea, columna;
     private String clase = "";
-    private String p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11;
+    private String p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12;
 
     public ParserSolicitudes(SolicitudesLexer lexer, ArrayList<Advertencia> listaErrores, ArrayList<Instruccion> listaInstrucciones) {
         super(lexer);
@@ -44,7 +44,6 @@ parser code  {:
         Advertencia advert = new Advertencia((String)s.value, s.left, s.right, "Sintáctico", "error sintáctico");
         listaErrores.add(advert);
         punteroErrores = listaErrores.size()-1;
-        listaParametros.clear();
     }
     protected int error_sync_size() {
         return 1;
@@ -54,6 +53,7 @@ parser code  {:
         boolean comprobante = true;
         for(int i = 0; i < listaParametros.size(); i++) {
             String parametro = listaParametros.get(i).replace(" ","").replace("\n","").replace("\t","");
+            System.out.println("VERIFICANDO: " + listaParametros.get(i));
             listaParametros.set(i, parametro);
         }
         for (String element: listaObligatorios) {
@@ -119,9 +119,16 @@ parser code  {:
                 listaErrores.add(advert);
                 comprobante = false;
             }
-        } else if (!clase.equals("\"BOTON\"")) {
+        } else if (!clase.equals("\"BOTON\"") && !clase.equals("\"IMAGEN\"")) {
             if(!listaParametros.contains("\"NOMBRE_CAMPO\"")) {
                 Advertencia advert = new Advertencia("Elemento Faltante", linea, columna, "NOMBRE_CAMPO");
+                listaErrores.add(advert);
+                comprobante = false;
+            }
+        }
+        if(clase.equals("\"COMBO\"") || clase.equals("\"RADIO\"") || clase.equals("\"CHECKBOX\"")) {
+            if(!listaParametros.contains("\"OPCIONES\"")) {
+                Advertencia advert = new Advertencia("Elemento Faltante", linea, columna, "OPCIONES");
                 listaErrores.add(advert);
                 comprobante = false;
             }
@@ -257,8 +264,8 @@ accion_crear_usuario ::=    LLAVE_A:llaA accion_crear_usuario_p LLAVE_C         
                                                                                     listaParametros.clear();
                                                                                     p1 = null; p2 = null; p3 = null;
                                                                                 :}
-                            | error accion_crear_usuario_p LLAVE_C              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' en la instrucción"); :}
-                            | LLAVE_A accion_crear_usuario_p error
+                            | error accion_crear_usuario_p LLAVE_C              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}
+                            | LLAVE_A accion_crear_usuario_p error              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '}' o ',' en la instrucción"); listaParametros.clear(); :}
                             ;
 
 accion_crear_usuario_p ::=  opciones_crear_usuario COMA accion_crear_usuario_p 
@@ -274,9 +281,9 @@ opciones_crear_usuario ::=  USUARIO:usr PUNTOS tipos_entrada:ent                
                             | PASSWORD error tipos_entrada                      {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
                             | USUARIO error                                     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido a asignar a un usuario"); :}
                             | USUARIO PUNTOS error                              {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un usuario, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instrucción"); :}
-                            | PASSWORD PUNTOS error                             {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una contraseña, revise si el valor a asignar contiene caracteres inválidos o si hace falta la coma de fin de instrucción"); :}
-                            | PASSWORD error                                    {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una fecha de creación, revise si la fecha ingresada pertenece al calendario, si la misma contiene caracteres inválidos o si hace falta la coma de fin de instrucción"); :}
-                            | FECHA_CREACION PUNTOS error                       {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                            | PASSWORD PUNTOS error                             {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una contraseña, revise si el valor a asignar contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instruccion"); :}
+                            | PASSWORD error                                    {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor valido para ser asignado a una contraseña"); :}
+                            | FECHA_CREACION PUNTOS error                       {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una fecha de creacion, revise si la fecha ingresada pertenece al calendario, si la misma contiene caracteres inválidos o si hace falta el simbolo ',' o '}' de fin de instruccion"); :}
                             | FECHA_CREACION error FECHA                        {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
                             | FECHA_CREACION error                              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción y una fecha válda a asignar a la fecha de creación"); :}
                             | error                                             {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instucción: PARAMETRO ':' VALOR_A_ASIGNAR"); :}
@@ -304,7 +311,7 @@ accion_modificacion_usuario ::= LLAVE_A:llaA accion_modificacion_usuario_p LLAVE
                                                                                         listaParametros.clear();
                                                                                         p1 = null; p2 = null; p3 = null; p4 = null;
                                                                                     :}            
-                                | error accion_modificacion_usuario_p LLAVE_C
+                                | error accion_modificacion_usuario_p LLAVE_C       {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}
                                 | LLAVE_A accion_modificacion_usuario_p error
                                 ;
 
@@ -319,12 +326,18 @@ opciones_modificacion_usuario ::=   USUARIO_ANTIGUO:para PUNTOS tipos_entrada:en
                                     | FECHA_MODIFICACION:para PUNTOS FECHA:ent      {: listaParametros.add(para.toString()); p4 = ent.toString(); :}
                                     | error tipos_entrada                           {: listaErrores.get(punteroErrores).setDescripcion("No se reconoce el tipo de parámetro a asignar valor en la instrucción"); :}
                                     | error PUNTOS tipos_entrada                    {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un parametro valido para asignar valor seguido del símbolo ':' "); :}
-                                    | USUARIO PUNTOS error                          {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un usuario, revise si el valor a asignar contiene caracteres invalidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
-                                    | USUARIO error tipos_entrada                   {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
-                                    | USUARIO error                                 {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un usuario"); :}
-                                    | PASSWORD PUNTOS error                         {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una contraseña, revise si el valor a asignar contiene caracteres invalidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
-                                    | PASSWORD error tipos_entrada                  {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
-                                    | PASSWORD error                                {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a una contraseña"); :}
+                                    | USUARIO_ANTIGUO PUNTOS error                  {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un usuario, revise si el valor a asignar contiene caracteres invalidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
+                                    | USUARIO_ANTIGUO error tipos_entrada           {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                                    | USUARIO_ANTIGUO error                         {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un usuario"); :}
+                                    | USUARIO_NUEVO PUNTOS error                    {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un nuevo usuario, revise si el valor a asignar contiene caracteres invalidos o si hace falta el simbolo ',' o '}' de fin de isntruccion"); :}
+                                    | USUARIO_NUEVO error tipos_entrada             {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                                    | USUARIO_NUEVO error                           {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a un usuario nuevo"); :}
+                                    | NUEVO_PASSWORD PUNTOS error                   {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a una contraseña, revise si el valor a asignar contiene caracteres invalidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
+                                    | NUEVO_PASSWORD error tipos_entrada            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                                    | NUEVO_PASSWORD error                          {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a una contraseña"); :}
+                                    | FECHA_MODIFICACION PUNTOS error               {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser adignado a una fecha, verifique que la fecha ingresada pertenezca al calendario o revise si hace falta el símnolo ',' o '}' de fin de instruccion"); :}
+                                    | FECHA_MODIFICACION error FECHA                {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
+                                    | FECHA error                                   {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' y un valor válido para ser asignado a una fecha"); :}
                                     | error                                         {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción PARAMETRO ':' VALOR_A_ASIGNAR"); :}
                                     ;
 
@@ -345,7 +358,7 @@ accion_eliminacion_usuario ::=          LLAVE_A:llaA opciones_eliminacion_usuari
                                                                                                     listaParametros.clear();
                                                                                                     p1 = null;
                                                                                                 :}
-                                        | error opciones_eliminacion_usuario LLAVE_C
+                                        | error opciones_eliminacion_usuario LLAVE_C            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}
                                         | LLAVE_A opciones_eliminacion_usuario error
                                         ;
 
@@ -376,7 +389,7 @@ accion_login_usuario ::=            LLAVE_A:llaA accion_login_usuario_p LLAVE_C 
                                                                                                 listaParametros.clear();
                                                                                                 p1 = null; p2 = null;
                                                                                             :}
-                                    | error accion_login_usuario_p LLAVE_C
+                                    | error accion_login_usuario_p LLAVE_C                  {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}
                                     | LLAVE_A accion_login_usuario_p error
                                     ;
 
@@ -423,7 +436,7 @@ accion_nuevo_formulario ::=         LLAVE_A:llaA accion_nuevo_formulario_p LLAVE
                                                                                                 listaParametros.clear();
                                                                                                 p1 = null; p2 =null; p3 = null; p4 =null; p5 = null; p6 =null;
                                                                                             :}
-                                    | error accion_nuevo_formulario_p LLAVE_C
+                                    | error accion_nuevo_formulario_p LLAVE_C               {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}
                                     | LLAVE_A accion_nuevo_formulario_p error
                                     ;
 
@@ -436,6 +449,7 @@ opciones_nuevo_formulario ::=       ID:para PUNTOS IDENTIFICADOR:ent            
                                     | NOMBRE:para PUNTOS tipos_entrada:ent              {: listaParametros.add(para.toString()); p3 = ent.toString(); :}
                                     | TEMA:para PUNTOS theme:ent                        {: listaParametros.add(para.toString()); p4 = ent.toString(); :}
                                     | USUARIO_CREACION:para PUNTOS tipos_entrada:ent    {: listaParametros.add(para.toString()); p5 = ent.toString(); :}
+                                    | FECHA_CREACION:para PUNTOS FECHA:ent              {: listaParametros.add(para.toString()); p6 = ent.toString(); :}
                                     | error tipos_entrada_complete                      {: listaErrores.get(punteroErrores).setDescripcion("No se reconoce el tipo de parametro al cual se le asignará valor"); :}
                                     | error PUNTOS tipos_entrada_complete               {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un parametro válido para asignar valor, seguido del símbolo ':'"); :}
                                     | ID PUNTOS error                                   {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un identificador, revise si el valor a asignar contiene caracteres inválidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
@@ -481,7 +495,7 @@ accion_eliminacion_formulario ::=       LLAVE_A:llaA accion_eliminacion_formular
                                                                                                     listaParametros.clear();
                                                                                                     p1 = null;
                                                                                                 :}
-                                        | error accion_eliminacion_formulario_p LLAVE_C
+                                        | error accion_eliminacion_formulario_p LLAVE_C         {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}
                                         | LLAVE_A accion_eliminacion_formulario_p error
                                         ;
 
@@ -524,8 +538,9 @@ accion_modificacion_formulario ::=      LLAVE_A:llaA accion_modificacion_formula
                                                                                                         }
                                                                                                     }
                                                                                                     listaParametros.clear();
+                                                                                                    p1 = null; p2 = null; p3 = null; p4 = null;
                                                                                                 :}
-                                        | error accion_modificacion_formulario_p LLAVE_C
+                                        | error accion_modificacion_formulario_p LLAVE_C        {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}                       
                                         | LLAVE_A accion_modificacion_formulario_p error
                                         ;
 
@@ -562,7 +577,7 @@ instruccion_agregar_componente ::=  accion_agregar_componente COMA instruccion_a
 accion_agregar_componente ::=       LLAVE_A:llaA accion_agregar_componente_p LLAVE_C            {:
                                                                                                     linea = llaAleft;
                                                                                                     columna = llaAright;
-                                                                                                    String[] listaObligatorios = {"\"ID\"", "\"NOMBRE_CAMPO\"", "\"FORMULARIO\"", "\"CLASE\"", "\"TEXTO_VISIBLE\""};
+                                                                                                    String[] listaObligatorios = {"\"ID\"", "\"FORMULARIO\"", "\"CLASE\"", "\"TEXTO_VISIBLE\""};
                                                                                                     if(verificacionBloque(listaObligatorios, listaParametros)){
                                                                                                         if(verificacionClase(listaParametros, clase)) {
                                                                                                             InstruccionAgregarComponente inst = new InstruccionAgregarComponente();
@@ -594,11 +609,12 @@ accion_agregar_componente ::=       LLAVE_A:llaA accion_agregar_componente_p LLA
                                                                                                             listaInstrucciones.add(inst);
                                                                                                         }
                                                                                                     }
+                                                                                                    clase = null;
                                                                                                     p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null; 
                                                                                                     listaParametros.clear();
                                                                                                     listaParametrosClase.clear();
                                                                                                 :}
-                                    | error accion_agregar_componente_p LLAVE_C
+                                    | error accion_agregar_componente_p LLAVE_C                 {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}
                                     | LLAVE_A accion_agregar_componente_p error
                                     ;
 
@@ -608,16 +624,16 @@ accion_agregar_componente_p ::=     opciones_agregar_componente COMA accion_agre
 
 opciones_agregar_componente ::=     ID:par PUNTOS IDENTIFICADOR:entr                            {: listaParametros.add(par.toString()); p1 = entr.toString(); :}
                                     | NOMBRE_CAMPO:par PUNTOS tipos_entrada:entr                {: listaParametros.add(par.toString()); p2 = entr.toString(); :}
-                                    | FORMULARIO:par PUNTOS IDENTIFICADOR:entr                  {: listaParametros.add(par.toString()); p3 = entr.toString(); :}
-                                    | CLASE:par PUNTOS tipo_clase:tc                            {: listaParametros.add(par.toString()); p4 = tc.toString(); clase = tc.toString(); :}
+                                    | FORMULARIO:par PUNTOS IDENTIFICADOR:entr                  {: System.out.println("FORMULARIO encontrado");listaParametros.add(par.toString()); p3 = entr.toString(); :}
+                                    | CLASE:par PUNTOS tipo_clase:tc                            {: System.out.println("CLASE encontrado");listaParametros.add(par.toString()); p4 = tc.toString(); clase = tc.toString(); :}
                                     //| INDICE PUNTOS NUMERO
-                                    | TEXTO_VISIBLE:par PUNTOS tipos_entrada_complete:entr      {: listaParametros.add(par.toString()); p5 = entr.toString(); :}
-                                    | ALINEACION:par PUNTOS tipo_alineacion:entr                {: listaParametros.add(par.toString()); p6 = entr.toString(); :}
-                                    | REQUERIDO:par PUNTOS required:entr                        {: listaParametros.add(par.toString()); p7 = entr.toString(); :}
-                                    | OPCIONES:par PUNTOS OPTIONS:entr                          {: listaParametros.add(par.toString()); p8 = entr.toString(); :}
-                                    | FILAS:par PUNTOS NUMERO:entr                              {: listaParametros.add(par.toString()); p9 = entr.toString(); :}
-                                    | COLUMNAS:par PUNTOS NUMERO:entr                           {: listaParametros.add(par.toString()); p10 = entr.toString(); :}
-                                    | URL:par PUNTOS tipos_entrada_complete:entr                {: listaParametros.add(par.toString()); p11 = entr.toString(); :}
+                                    | TEXTO_VISIBLE:par PUNTOS tipos_entrada_complete:entr      {: System.out.println("TEXTO_VISIBLE encontrado");listaParametros.add(par.toString()); p5 = entr.toString(); :}
+                                    | ALINEACION:par PUNTOS tipo_alineacion:entr                {: System.out.println("ALINEACION encontrado");listaParametros.add(par.toString()); p6 = entr.toString(); :}
+                                    | REQUERIDO:par PUNTOS required:entr                        {: System.out.println("REQUERIDO encontrado");listaParametros.add(par.toString()); p7 = entr.toString(); :}
+                                    | OPCIONES:par PUNTOS OPTIONS:entr                          {: System.out.println("OPCIONES encontrado");listaParametros.add(par.toString()); p8 = entr.toString(); :}
+                                    | FILAS:par PUNTOS NUMERO:entr                              {: System.out.println("FILAS encontrado");listaParametros.add(par.toString()); p9 = entr.toString(); :}
+                                    | COLUMNAS:par PUNTOS NUMERO:entr                           {: System.out.println("COLUMNAS encontrado");listaParametros.add(par.toString()); p10 = entr.toString(); :}
+                                    | URL:par PUNTOS tipos_entrada_complete:entr                {: System.out.println("URL encontrado");listaParametros.add(par.toString()); p11 = entr.toString(); :}
                                     | error PUNTOS tipos_entrada_complete                       {: listaErrores.get(punteroErrores).setDescripcion("No se reconoce el tipo de parametro al cual se le asignará valor"); :}
                                     | error tipos_entrada_complete                              {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un parametro válido para asignar valor, seguido del símbolo ':' en la instrucción"); :}
                                     | ID PUNTOS error                                           {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un identificador, revise si el valor a asignar contiene caracteres inválidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
@@ -694,7 +710,7 @@ accion_eliminacion_componente ::=       LLAVE_A:llaA accion_eliminacion_componen
                                                                                                         listaParametros.clear();
                                                                                                         p1 = null; p2 = null;
                                                                                                     :}
-                                        | error accion_eliminacion_componente_p LLAVE_C
+                                        | error accion_eliminacion_componente_p LLAVE_C             {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}
                                         | LLAVE_A accion_eliminacion_componente_p error
                                         ;
 
@@ -724,11 +740,56 @@ accion_modificacion_componente ::=      LLAVE_A:llaA accion_modificacion_compone
                                                                                                         linea = llaAleft;
                                                                                                         columna = llaAright;
                                                                                                         String[] listaObligatorios = {"\"ID\"", "\"FORMULARIO\""};
-                                                                                                        verificacionBloque(listaObligatorios, listaParametros);
+                                                                                                        boolean comparador = true;
+
+                                                                                                        if(verificacionBloque(listaObligatorios, listaParametros)) {
+                                                                                                            if((p4 != null && verificacionClase(listaParametros, clase)) || p4 == null) {
+                                                                                                                comparador = true;
+                                                                                                            } else {
+                                                                                                                comparador = false;
+                                                                                                            }
+                                                                                                        } else {
+                                                                                                            comparador = false;
+                                                                                                        }
+                                                                                                        if(comparador) {
+                                                                                                            InstruccionModificarComponente inst = new InstruccionModificarComponente();
+                                                                                                            inst.setIdComponente(p1.substring(1, p1.length()-1));
+                                                                                                            inst.setFormulario(p3.substring(1, p3.length()-1));
+                                                                                                            if(p2 != null) {
+                                                                                                                inst.setNombreCampo(p2.substring(1, p2.length() - 1));
+                                                                                                            } 
+                                                                                                            if(p5 != null) {
+                                                                                                                inst.setTextoVisible(p5.substring(1, p5.length()-1));
+                                                                                                            }
+                                                                                                            if(p6 != null) {
+                                                                                                                inst.setAlineacion(p6.substring(1, p6.length()-1));
+                                                                                                            }
+                                                                                                            if(p7 != null) {
+                                                                                                                inst.setRequerido(p7.substring(1, p7.length()-1));
+                                                                                                            }
+                                                                                                            if(p8 != null) {
+                                                                                                                inst.setOpciones(p8.substring(1, p8.length()-1));
+                                                                                                            }
+                                                                                                            if(p9 != null) {
+                                                                                                                inst.setFilas(p9.substring(1, p9.length()-1));
+                                                                                                            }
+                                                                                                            if(p10 != null) {
+                                                                                                                inst.setColumnas(p10.substring(1, p10.length()-1));
+                                                                                                            }
+                                                                                                            if(p11 != null) {
+                                                                                                                inst.setUrl(p11.substring(1, p11.length()-1));
+                                                                                                            }
+                                                                                                            if(p12 != null) {
+                                                                                                                inst.setIndice(Integer.parseInt(p12.substring(1, p12.length()-1)));
+                                                                                                            }
+                                                                                                            listaInstrucciones.add(inst);
+                                                                                                        }
+                                                                                                        
                                                                                                         listaParametros.clear();
-                                                                                                        p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null; //p12 = null;
+                                                                                                        clase = null;
+                                                                                                        p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null; p12 = null;
                                                                                                     :}
-                                        | error accion_modificacion_componente_p LLAVE_C
+                                        | error accion_modificacion_componente_p LLAVE_C            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}
                                         | LLAVE_A accion_modificacion_componente_p error
                                         ;
 
@@ -736,7 +797,7 @@ accion_modificacion_componente_p ::=    opciones_modificacion_componente COMA ac
                                         | opciones_modificacion_componente
                                         ;
 
-opciones_modificacion_componente ::=    INDICE:para PUNTOS NUMERO               {: listaParametros.add(para.toString()); :}
+opciones_modificacion_componente ::=    INDICE:para PUNTOS NUMERO:ent               {: listaParametros.add(para.toString()); p12 = ent.toString(); :}
                                         | opciones_agregar_componente
                                         | INDICE PUNTOS error                   {: listaErrores.get(punteroErrores).setDescripcion("Valor inválido para ser asignado a un indice, revise si el valor a asignar contiene caracteres inválidos o si hace falta el símbolo ',' o '}' de fin de instrucción"); :}
                                         | INDICE error NUMERO                   {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ':' en la instrucción"); :}
@@ -749,7 +810,7 @@ instruccion_consultar_datos ::=     accion_consultar_datos COMA instruccion_cons
                                     ;
 
 accion_consultar_datos ::=          LLAVE_A:llaA accion_consultar_datos_p LLAVE_C
-                                    | error accion_consultar_datos_p LLAVE_C
+                                    | error accion_consultar_datos_p LLAVE_C            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '{' o ',' en la instrucción"); listaParametros.clear(); :}
                                     | LLAVE_A accion_consultar_datos_p error
                                     ;
 
@@ -761,7 +822,7 @@ opciones_consultar_datos ::=        CONSULTA PUNTOS ALLCHARACTERS:ent           
                                                                                                 String cadenaConsulta = ent.toString();
                                                                                                 String entrada = cadenaConsulta.substring(1, cadenaConsulta.length()-1);
                                                                                                 StringReader lector = new StringReader(entrada);
-                                                                                                ReportesLexer reportesLexer = new ReportesLexer(lector);
+                                                                                                ReportesLexer reportesLexer = new ReportesLexer(lector, listaErrores, entleft, entright);
                                                                                                 ParserReportes parserReportes = new ParserReportes(reportesLexer, listaErrores, listaInstrucciones, entleft, entright);
                                                                                                 try {
                                                                                                     parserReportes.parse();
@@ -776,41 +837,9 @@ opciones_consultar_datos ::=        CONSULTA PUNTOS ALLCHARACTERS:ent           
                                     //| error consulta_datos COMILLAS                     {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba exactamente la instrucción \"CONSULTA\" : \""); :}
                                     ;
 
-consulta_datos ::=                  SELECT TO FROM FLECHA IDENTIFCONSULTA CORCHETE_A campos_posibles CORCHETE_C condicion_principal         
-                                    | error TO FROM FLECHA IDENTIFCONSULTA CORCHETE_A campos_posibles CORCHETE_C condicion_principal        {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba la palabra SELECT"); :}
-                                    | SELECT error FROM FLECHA IDENTIFCONSULTA CORCHETE_A campos_posibles CORCHETE_C condicion_principal    {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba la palabra TO"); :}
-                                    | SELECT TO error FLECHA IDENTIFCONSULTA CORCHETE_A campos_posibles CORCHETE_C condicion_principal      {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba la palabra FORM"); :}
-                                    | SELECT TO FROM error IDENTIFCONSULTA CORCHETE_A campos_posibles CORCHETE_C condicion_principal        {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba la palabra ->"); :}
-                                    | SELECT TO FROM FLECHA error CORCHETE_A campos_posibles CORCHETE_C condicion_principal                 {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba UN identificador para un formulario"); :}
-                                    | SELECT TO FROM FLECHA IDENTIFCONSULTA error campos_posibles CORCHETE_C condicion_principal            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un símbolo '['"); :}
-                                    //| SELECT TO FROM FLECHA IDENTIFCONSULTA CORCHETE_A error CORCHETE_C condicion_principal
-                                    | SELECT TO FROM FLECHA IDENTIFCONSULTA CORCHETE_A campos_posibles error condicion_principal            {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un símbolo ']'"); :}
-                                    ;
 
-campos_posibles ::=                 CAMPOS COMA campos_posibles
-                                    | CAMPOS
-                                    |
-                                    ;
-
-condicion_principal ::=             WHERE CORCHETE_A condicion_interna      
-                                    | error CORCHETE_A condicion_interna    {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba la palabra WHERE"); :}
-                                    | WHERE error condicion_interna         {: listaErrores.get(punteroErrores).setDescripcion("Se esperaba un símbolo '['"); :}
-                                    | WHERE CORCHETE_A error                {: listaErrores.get(punteroErrores).setDescripcion("Hubo problemas al revisar la condición de la consulta, revise los parametros"); :}
-                                    ;
-
-condicion_interna ::=               CAMPOS operador valor_condicion condicion_secundaria
-                                    /*| error operador valor_condicion condicion_secundaria
-                                    | CAMPO error valor_condicion condicion_secundaria
-                                    | CAMPO operador error condicion_secundaria
-                                    | CAMPO error condicion_secundaria
-                                    | CAMPO error
-                                    */;
-
-condicion_secundaria ::=    AND condicion_interna
-                            | OR condicion_interna
-                            | CORCHETE_C
-                            ;
-/* ENTRADAS */
+ 
+ /* ENTRADAS */
 tipos_entrada ::=   ALLCHARACTERSNOSPACE:para       {: RESULT = para; :}
                     | NUMERO:para                   {: RESULT = para; :}
                     | FECHA:para                    {: RESULT = para; :}
@@ -830,15 +859,6 @@ tipos_entrada_complete ::=  ALLCHARACTERSNOSPACE:para   {: RESULT = para; :}
                             | required:para             {: RESULT = para; :}
                             | theme:para                {: RESULT = para; :}
                             ;
-
-operador ::=    MAYOR_QUE
-                | MENOR_QUE
-                | MAYOR_IGUAL
-                | MENOR_IGUAL
-                | DIFERENTE
-                | IGUAL
-                | NOT
-                ;
 
 valor_condicion ::=     NUMERO_CONSULTA
                         | CADENA_CONSULTA

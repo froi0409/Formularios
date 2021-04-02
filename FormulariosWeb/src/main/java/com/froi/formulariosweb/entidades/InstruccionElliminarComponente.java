@@ -9,6 +9,7 @@ import com.froi.formulariosweb.entidadesfundamentales.Componente;
 import com.froi.formulariosweb.entidadesfundamentales.Formulario;
 import com.froi.formulariosweb.entidadesfundamentales.Usuario;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -18,6 +19,13 @@ public class InstruccionElliminarComponente extends Instruccion {
     private String idComponente;
     private String idFormulario;
 
+    /**
+     * Permite eliminar un componente de un formulario en específico
+     * @param listaUsuarios Lista de los usuarios que hay en el sistema
+     * @param listaFormularios Lista de los formularios que hay en el sistema
+     * @param userOnline Usuario loggeado en el sistema
+     * @return Código índigo de respuesta del servidor al cliente
+     */
     @Override
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
         if(userOnline.equals("")) {
@@ -34,6 +42,13 @@ public class InstruccionElliminarComponente extends Instruccion {
                         comprobanteComp = true;
                         break;
                     }
+                }
+                int cont = 1;
+                //Establecemos los indices de los componentes
+                Collections.sort(element.getListaComponentes());
+                for(Componente compo : element.getListaComponentes()) {
+                    compo.setIndice(cont);
+                    cont++;
                 }
                 break;
             }

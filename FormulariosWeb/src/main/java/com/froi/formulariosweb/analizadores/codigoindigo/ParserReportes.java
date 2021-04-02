@@ -8,8 +8,8 @@ package com.froi.formulariosweb.analizadores.codigoindigo;
 import com.froi.formulariosweb.entidades.Advertencia;
 import com.froi.formulariosweb.entidades.Instruccion;
 import com.froi.formulariosweb.entidades.InstruccionConsulta;
-import com.froi.formulariosweb.entidadesfundamentales.Comparacion;
 import com.froi.formulariosweb.entidadesfundamentales.Condicion;
+import com.froi.formulariosweb.entidadesfundamentales.Comparacion;
 import java_cup.runtime.*;
 import java.util.ArrayList;
 import java_cup.runtime.XMLElement;
@@ -37,20 +37,21 @@ public class ParserReportes extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\052\000\002\002\004\000\002\002\013\000\002\002" +
-    "\013\000\002\002\012\000\002\002\010\000\002\002\007" +
-    "\000\002\002\005\000\002\002\013\000\002\003\003\000" +
-    "\002\003\002\000\002\004\005\000\002\004\003\000\002" +
-    "\005\006\000\002\005\002\000\002\005\006\000\002\005" +
-    "\005\000\002\005\006\000\002\006\006\000\002\006\005" +
-    "\000\002\006\005\000\002\006\004\000\002\006\006\000" +
-    "\002\006\005\000\002\007\006\000\002\007\006\000\002" +
-    "\007\007\000\002\007\007\000\002\007\002\000\002\007" +
-    "\006\000\002\007\006\000\002\007\007\000\002\007\007" +
-    "\000\002\014\004\000\002\014\004\000\002\010\003\000" +
-    "\002\010\003\000\002\010\003\000\002\010\003\000\002" +
-    "\010\003\000\002\010\003\000\002\011\003\000\002\011" +
-    "\003" });
+    "\000\056\000\002\002\004\000\002\002\013\000\002\002" +
+    "\013\000\002\002\014\000\002\002\013\000\002\002\013" +
+    "\000\002\002\013\000\002\002\013\000\002\002\012\000" +
+    "\002\002\010\000\002\002\007\000\002\002\013\000\002" +
+    "\003\003\000\002\003\002\000\002\004\005\000\002\004" +
+    "\003\000\002\005\006\000\002\005\002\000\002\005\006" +
+    "\000\002\005\005\000\002\005\006\000\002\006\006\000" +
+    "\002\006\005\000\002\006\005\000\002\006\004\000\002" +
+    "\006\006\000\002\006\005\000\002\007\006\000\002\007" +
+    "\006\000\002\007\007\000\002\007\007\000\002\007\002" +
+    "\000\002\007\006\000\002\007\006\000\002\007\007\000" +
+    "\002\007\007\000\002\014\004\000\002\014\004\000\002" +
+    "\010\003\000\002\010\003\000\002\010\003\000\002\010" +
+    "\003\000\002\010\003\000\002\010\003\000\002\011\003" +
+    "\000\002\011\003" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -58,77 +59,93 @@ public class ParserReportes extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\151\000\006\003\004\004\006\001\002\000\014\005" +
-    "\123\006\122\022\126\023\125\025\124\001\002\000\004" +
-    "\002\121\001\002\000\004\005\007\001\002\000\004\006" +
-    "\010\001\002\000\004\007\011\001\002\000\004\025\012" +
-    "\001\002\000\004\022\013\001\002\000\010\003\ufff8\023" +
-    "\ufff8\025\014\001\002\000\010\003\ufff6\023\ufff6\026\117" +
-    "\001\002\000\006\003\017\023\020\001\002\000\006\003" +
-    "\ufff9\023\ufff9\001\002\000\010\002\ufff4\003\023\010\022" +
-    "\001\002\000\010\002\ufff4\003\023\010\022\001\002\000" +
-    "\004\002\000\001\002\000\004\022\113\001\002\000\012" +
-    "\003\026\013\025\022\030\025\024\001\002\000\020\003" +
-    "\110\014\044\015\036\016\045\017\047\020\041\021\046" +
-    "\001\002\000\004\025\102\001\002\000\026\003\uffe6\011" +
-    "\035\012\050\014\044\015\036\016\045\017\047\020\041" +
-    "\021\046\023\uffe6\001\002\000\004\023\034\001\002\000" +
-    "\010\003\026\013\025\025\024\001\002\000\006\003\032" +
-    "\023\033\001\002\000\004\002\ufff1\001\002\000\004\002" +
-    "\ufff3\001\002\000\004\002\ufff2\001\002\000\006\013\070" +
-    "\025\067\001\002\000\004\027\uffdf\001\002\000\006\003" +
-    "\uffed\023\uffed\001\002\000\004\030\066\001\002\000\004" +
-    "\027\uffdd\001\002\000\012\003\uffe6\011\035\012\050\023" +
-    "\uffe6\001\002\000\004\027\064\001\002\000\004\027\uffde" +
-    "\001\002\000\006\027\uffda\030\uffd9\001\002\000\006\027" +
-    "\uffdb\030\uffd8\001\002\000\004\027\uffdc\001\002\000\006" +
-    "\013\052\025\051\001\002\000\020\003\061\014\044\015" +
-    "\036\016\045\017\047\020\041\021\046\001\002\000\004" +
-    "\025\053\001\002\000\020\003\055\014\044\015\036\016" +
-    "\045\017\047\020\041\021\046\001\002\000\012\003\uffe6" +
-    "\011\035\012\050\023\uffe6\001\002\000\012\003\uffe6\011" +
-    "\035\012\050\023\uffe6\001\002\000\006\003\uffe2\023\uffe2" +
-    "\001\002\000\006\003\uffe7\023\uffe7\001\002\000\012\003" +
-    "\uffe6\011\035\012\050\023\uffe6\001\002\000\012\003\uffe6" +
-    "\011\035\012\050\023\uffe6\001\002\000\006\003\uffe4\023" +
-    "\uffe4\001\002\000\006\003\uffe9\023\uffe9\001\002\000\012" +
-    "\003\uffe1\011\uffe1\012\uffe1\023\uffe1\001\002\000\006\003" +
-    "\uffee\023\uffee\001\002\000\012\003\uffe0\011\uffe0\012\uffe0" +
-    "\023\uffe0\001\002\000\020\003\077\014\044\015\036\016" +
-    "\045\017\047\020\041\021\046\001\002\000\004\025\071" +
-    "\001\002\000\020\003\073\014\044\015\036\016\045\017" +
-    "\047\020\041\021\046\001\002\000\012\003\uffe6\011\035" +
-    "\012\050\023\uffe6\001\002\000\012\003\uffe6\011\035\012" +
-    "\050\023\uffe6\001\002\000\006\003\uffe3\023\uffe3\001\002" +
-    "\000\006\003\uffe8\023\uffe8\001\002\000\012\003\uffe6\011" +
-    "\035\012\050\023\uffe6\001\002\000\012\003\uffe6\011\035" +
-    "\012\050\023\uffe6\001\002\000\006\003\uffe5\023\uffe5\001" +
-    "\002\000\006\003\uffea\023\uffea\001\002\000\020\003\104" +
-    "\014\044\015\036\016\045\017\047\020\041\021\046\001" +
-    "\002\000\012\003\uffe6\011\035\012\050\023\uffe6\001\002" +
-    "\000\012\003\uffe6\011\035\012\050\023\uffe6\001\002\000" +
-    "\006\003\uffec\023\uffec\001\002\000\006\003\ufff0\023\ufff0" +
-    "\001\002\000\012\003\uffe6\011\035\012\050\023\uffe6\001" +
-    "\002\000\012\003\uffe6\011\035\012\050\023\uffe6\001\002" +
-    "\000\006\003\uffeb\023\uffeb\001\002\000\006\003\uffef\023" +
-    "\uffef\001\002\000\010\003\026\013\025\025\024\001\002" +
-    "\000\004\023\115\001\002\000\004\002\ufff5\001\002\000" +
-    "\004\002\ufffa\001\002\000\004\025\014\001\002\000\006" +
-    "\003\ufff7\023\ufff7\001\002\000\004\002\001\001\002\000" +
-    "\004\007\146\001\002\000\004\006\137\001\002\000\004" +
-    "\022\133\001\002\000\010\002\ufff4\003\023\010\022\001" +
-    "\002\000\004\003\127\001\002\000\004\023\130\001\002" +
-    "\000\010\002\ufff4\003\023\010\022\001\002\000\004\002" +
-    "\ufffc\001\002\000\004\002\ufffb\001\002\000\004\003\134" +
-    "\001\002\000\004\023\135\001\002\000\010\002\ufff4\003" +
-    "\023\010\022\001\002\000\004\002\ufffd\001\002\000\004" +
-    "\007\140\001\002\000\004\025\141\001\002\000\004\022" +
-    "\142\001\002\000\006\023\ufff8\025\014\001\002\000\004" +
-    "\023\144\001\002\000\010\002\ufff4\003\023\010\022\001" +
-    "\002\000\004\002\uffff\001\002\000\004\025\147\001\002" +
-    "\000\004\022\150\001\002\000\004\003\151\001\002\000" +
-    "\004\023\152\001\002\000\010\002\ufff4\003\023\010\022" +
-    "\001\002\000\004\002\ufffe\001\002" });
+    "\000\206\000\006\003\004\004\006\001\002\000\012\005" +
+    "\162\006\161\022\164\025\163\001\002\000\004\002\160" +
+    "\001\002\000\006\003\010\005\007\001\002\000\006\003" +
+    "\122\006\121\001\002\000\004\005\011\001\002\000\004" +
+    "\006\012\001\002\000\004\007\013\001\002\000\004\025" +
+    "\014\001\002\000\004\022\015\001\002\000\006\023\ufff4" +
+    "\025\016\001\002\000\010\003\ufff2\023\ufff2\026\117\001" +
+    "\002\000\004\023\021\001\002\000\006\003\ufff5\023\ufff5" +
+    "\001\002\000\010\002\ufff0\003\024\010\023\001\002\000" +
+    "\004\002\ufffe\001\002\000\004\022\114\001\002\000\012" +
+    "\003\026\013\027\022\030\025\025\001\002\000\020\003" +
+    "\111\014\044\015\037\016\045\017\050\020\041\021\047" +
+    "\001\002\000\026\003\uffe2\011\051\012\053\014\044\015" +
+    "\037\016\045\017\050\020\041\021\047\023\uffe2\001\002" +
+    "\000\004\025\036\001\002\000\010\003\026\013\027\025" +
+    "\025\001\002\000\004\023\032\001\002\000\004\002\uffee" +
+    "\001\002\000\006\003\034\023\035\001\002\000\004\002" +
+    "\uffed\001\002\000\004\002\uffef\001\002\000\020\003\046" +
+    "\014\044\015\037\016\045\017\050\020\041\021\047\001" +
+    "\002\000\004\027\uffdb\001\002\000\004\030\104\001\002" +
+    "\000\004\027\uffd9\001\002\000\012\003\uffe2\011\051\012" +
+    "\053\023\uffe2\001\002\000\004\027\102\001\002\000\004" +
+    "\027\uffda\001\002\000\006\027\uffd6\030\uffd5\001\002\000" +
+    "\012\003\uffe2\011\051\012\053\023\uffe2\001\002\000\006" +
+    "\027\uffd7\030\uffd4\001\002\000\004\027\uffd8\001\002\000" +
+    "\006\013\070\025\067\001\002\000\006\003\uffe8\023\uffe8" +
+    "\001\002\000\006\013\055\025\054\001\002\000\020\003" +
+    "\064\014\044\015\037\016\045\017\050\020\041\021\047" +
+    "\001\002\000\004\025\056\001\002\000\020\003\060\014" +
+    "\044\015\037\016\045\017\050\020\041\021\047\001\002" +
+    "\000\012\003\uffe2\011\051\012\053\023\uffe2\001\002\000" +
+    "\012\003\uffe2\011\051\012\053\023\uffe2\001\002\000\006" +
+    "\003\uffde\023\uffde\001\002\000\006\003\uffe3\023\uffe3\001" +
+    "\002\000\012\003\uffe2\011\051\012\053\023\uffe2\001\002" +
+    "\000\012\003\uffe2\011\051\012\053\023\uffe2\001\002\000" +
+    "\006\003\uffe0\023\uffe0\001\002\000\006\003\uffe5\023\uffe5" +
+    "\001\002\000\020\003\077\014\044\015\037\016\045\017" +
+    "\050\020\041\021\047\001\002\000\004\025\071\001\002" +
+    "\000\020\003\073\014\044\015\037\016\045\017\050\020" +
+    "\041\021\047\001\002\000\012\003\uffe2\011\051\012\053" +
+    "\023\uffe2\001\002\000\012\003\uffe2\011\051\012\053\023" +
+    "\uffe2\001\002\000\006\003\uffdf\023\uffdf\001\002\000\006" +
+    "\003\uffe4\023\uffe4\001\002\000\012\003\uffe2\011\051\012" +
+    "\053\023\uffe2\001\002\000\012\003\uffe2\011\051\012\053" +
+    "\023\uffe2\001\002\000\006\003\uffe1\023\uffe1\001\002\000" +
+    "\006\003\uffe6\023\uffe6\001\002\000\012\003\uffdd\011\uffdd" +
+    "\012\uffdd\023\uffdd\001\002\000\006\003\uffec\023\uffec\001" +
+    "\002\000\012\003\uffdc\011\uffdc\012\uffdc\023\uffdc\001\002" +
+    "\000\006\003\uffe9\023\uffe9\001\002\000\012\003\uffe2\011" +
+    "\051\012\053\023\uffe2\001\002\000\006\003\uffea\023\uffea" +
+    "\001\002\000\012\003\uffe2\011\051\012\053\023\uffe2\001" +
+    "\002\000\012\003\uffe2\011\051\012\053\023\uffe2\001\002" +
+    "\000\006\003\uffe7\023\uffe7\001\002\000\006\003\uffeb\023" +
+    "\uffeb\001\002\000\010\003\026\013\027\025\025\001\002" +
+    "\000\004\023\116\001\002\000\004\002\ufff1\001\002\000" +
+    "\004\025\016\001\002\000\006\003\ufff3\023\ufff3\001\002" +
+    "\000\006\003\132\007\131\001\002\000\004\007\123\001" +
+    "\002\000\004\025\124\001\002\000\004\022\125\001\002" +
+    "\000\006\023\ufff4\025\016\001\002\000\004\023\127\001" +
+    "\002\000\010\002\ufff0\003\024\010\023\001\002\000\004" +
+    "\002\ufffd\001\002\000\006\003\141\025\140\001\002\000" +
+    "\004\025\133\001\002\000\004\022\134\001\002\000\006" +
+    "\023\ufff4\025\016\001\002\000\004\023\136\001\002\000" +
+    "\010\002\ufff0\003\024\010\023\001\002\000\004\002\ufffc" +
+    "\001\002\000\006\003\146\022\147\001\002\000\004\022" +
+    "\142\001\002\000\006\023\ufff4\025\016\001\002\000\004" +
+    "\023\144\001\002\000\010\002\ufff0\003\024\010\023\001" +
+    "\002\000\004\002\ufffb\001\002\000\006\023\ufff4\025\016" +
+    "\001\002\000\010\003\ufff4\023\ufff4\025\016\001\002\000" +
+    "\006\003\151\023\152\001\002\000\010\002\ufff0\003\024" +
+    "\010\023\001\002\000\010\002\ufff0\003\024\010\023\001" +
+    "\002\000\004\002\000\001\002\000\004\002\ufff6\001\002" +
+    "\000\004\023\156\001\002\000\010\002\ufff0\003\024\010" +
+    "\023\001\002\000\004\002\ufffa\001\002\000\004\002\001" +
+    "\001\002\000\004\007\203\001\002\000\004\006\174\001" +
+    "\002\000\004\022\170\001\002\000\004\003\165\001\002" +
+    "\000\004\023\166\001\002\000\010\002\ufff0\003\024\010" +
+    "\023\001\002\000\004\002\ufff7\001\002\000\004\003\171" +
+    "\001\002\000\004\023\172\001\002\000\010\002\ufff0\003" +
+    "\024\010\023\001\002\000\004\002\ufff8\001\002\000\004" +
+    "\007\175\001\002\000\004\025\176\001\002\000\004\022" +
+    "\177\001\002\000\006\023\ufff4\025\016\001\002\000\004" +
+    "\023\201\001\002\000\010\002\ufff0\003\024\010\023\001" +
+    "\002\000\004\002\uffff\001\002\000\004\025\204\001\002" +
+    "\000\004\022\205\001\002\000\004\003\206\001\002\000" +
+    "\004\023\207\001\002\000\010\002\ufff0\003\024\010\023" +
+    "\001\002\000\004\002\ufff9\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -136,47 +153,58 @@ public class ParserReportes extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\151\000\004\002\004\001\001\000\002\001\001\000" +
+    "\000\206\000\004\002\004\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\006\003" +
-    "\014\004\015\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\004\005\115\001\001\000\004\005" +
-    "\020\001\001\000\002\001\001\000\002\001\001\000\004" +
-    "\006\026\001\001\000\010\010\042\011\037\014\106\001" +
-    "\001\000\002\001\001\000\012\007\036\010\042\011\037" +
-    "\014\041\001\001\000\002\001\001\000\004\006\030\001" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\006\003\016\004\017\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\004\005\021\001\001\000\002\001\001\000\002\001\001" +
+    "\000\004\006\030\001\001\000\010\010\042\011\037\014" +
+    "\107\001\001\000\012\007\104\010\042\011\037\014\105" +
+    "\001\001\000\002\001\001\000\004\006\032\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\010\010\042\011\037\014" +
+    "\041\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\004\007\102\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\004\007\051\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\010\010\042\011\037" +
+    "\014\062\001\001\000\002\001\001\000\010\010\042\011" +
+    "\037\014\056\001\001\000\004\007\061\001\001\000\004" +
+    "\007\060\001\001\000\002\001\001\000\002\001\001\000" +
+    "\004\007\065\001\001\000\004\007\064\001\001\000\002" +
+    "\001\001\000\002\001\001\000\010\010\042\011\037\014" +
+    "\075\001\001\000\002\001\001\000\010\010\042\011\037" +
+    "\014\071\001\001\000\004\007\074\001\001\000\004\007" +
+    "\073\001\001\000\002\001\001\000\002\001\001\000\004" +
+    "\007\100\001\001\000\004\007\077\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
-    "\007\064\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\010\010\042\011\037\014\057\001\001\000" +
-    "\002\001\001\000\010\010\042\011\037\014\053\001\001" +
-    "\000\004\007\056\001\001\000\004\007\055\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\007\062\001\001" +
-    "\000\004\007\061\001\001\000\002\001\001\000\002\001" +
+    "\000\002\001\001\000\002\001\001\000\004\007\106\001" +
+    "\001\000\002\001\001\000\004\007\112\001\001\000\004" +
+    "\007\111\001\001\000\002\001\001\000\002\001\001\000" +
+    "\004\006\114\001\001\000\002\001\001\000\002\001\001" +
+    "\000\004\004\117\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\010\010\042\011\037\014\075\001\001\000\002\001" +
-    "\001\000\010\010\042\011\037\014\071\001\001\000\004" +
-    "\007\074\001\001\000\004\007\073\001\001\000\002\001" +
-    "\001\000\002\001\001\000\004\007\100\001\001\000\004" +
-    "\007\077\001\001\000\002\001\001\000\002\001\001\000" +
-    "\010\010\042\011\037\014\102\001\001\000\004\007\105" +
-    "\001\001\000\004\007\104\001\001\000\002\001\001\000" +
-    "\002\001\001\000\004\007\111\001\001\000\004\007\110" +
-    "\001\001\000\002\001\001\000\002\001\001\000\004\006" +
-    "\113\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\004\004\117\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\004\005\131\001\001\000\002\001\001\000" +
-    "\002\001\001\000\004\005\130\001\001\000\002\001\001" +
+    "\000\006\003\125\004\017\001\001\000\002\001\001\000" +
+    "\004\005\127\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\006\003\134\004" +
+    "\017\001\001\000\002\001\001\000\004\005\136\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\004\005\135\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\006\003\142\004" +
-    "\015\001\001\000\002\001\001\000\004\005\144\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\005\152\001\001" +
-    "\000\002\001\001" });
+    "\006\003\142\004\017\001\001\000\002\001\001\000\004" +
+    "\005\144\001\001\000\002\001\001\000\006\003\154\004" +
+    "\017\001\001\000\006\003\147\004\017\001\001\000\002" +
+    "\001\001\000\004\005\153\001\001\000\004\005\152\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\004\005\156\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\004\005\166\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\004\005\172\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\006\003\177" +
+    "\004\017\001\001\000\002\001\001\000\004\005\201\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\004\005\207\001" +
+    "\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -332,58 +360,94 @@ class CUP$ParserReportes$actions {
           case 2: // inicio ::= error TO FORM FLECHA ALLCHARACTERSNOSPACE CORCHETE_A campos_posibles CORCHETE_C condicion_principal 
             {
               Object RESULT =null;
-		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instruccion"); 
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba la palabra SELECT en la instruccion"); 
               CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("inicio",0, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-8)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
             }
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 3: // inicio ::= error FORM FLECHA ALLCHARACTERSNOSPACE CORCHETE_A error CORCHETE_C condicion_principal 
+          case 3: // inicio ::= SELECT error TO FORM FLECHA ALLCHARACTERSNOSPACE CORCHETE_A campos_posibles CORCHETE_C condicion_principal 
             {
               Object RESULT =null;
-		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instruccion"); 
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba la palabra TO en la instruccion"); 
+              CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("inicio",0, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-9)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
+            }
+          return CUP$ParserReportes$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 4: // inicio ::= SELECT TO error FLECHA ALLCHARACTERSNOSPACE CORCHETE_A campos_posibles CORCHETE_C condicion_principal 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba la palabra FORM en la instruccion"); 
+              CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("inicio",0, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-8)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
+            }
+          return CUP$ParserReportes$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 5: // inicio ::= SELECT TO FORM error ALLCHARACTERSNOSPACE CORCHETE_A campos_posibles CORCHETE_C condicion_principal 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba la palabra -> en la instruccion"); 
+              CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("inicio",0, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-8)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
+            }
+          return CUP$ParserReportes$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 6: // inicio ::= SELECT TO FORM FLECHA error CORCHETE_A campos_posibles CORCHETE_C condicion_principal 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un identificador o nombre de un formulario en la instruccion"); 
+              CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("inicio",0, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-8)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
+            }
+          return CUP$ParserReportes$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 7: // inicio ::= SELECT TO FORM FLECHA ALLCHARACTERSNOSPACE error campos_posibles CORCHETE_C condicion_principal 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba la palabra '[' en la instruccion"); 
+              CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("inicio",0, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-8)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
+            }
+          return CUP$ParserReportes$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 8: // inicio ::= error FORM FLECHA ALLCHARACTERSNOSPACE CORCHETE_A error CORCHETE_C condicion_principal 
+            {
+              Object RESULT =null;
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaban exactamente las palabras SELECT TO en la instruccion"); 
               CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("inicio",0, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-7)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
             }
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 4: // inicio ::= error ALLCHARACTERSNOSPACE CORCHETE_A error CORCHETE_C condicion_principal 
+          case 9: // inicio ::= error ALLCHARACTERSNOSPACE CORCHETE_A error CORCHETE_C condicion_principal 
             {
               Object RESULT =null;
-		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instruccion"); 
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaban exactamente las palabras SELECT TO FORM en la instruccion"); 
               CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("inicio",0, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-5)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
             }
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 5: // inicio ::= error CORCHETE_A error CORCHETE_C condicion_principal 
+          case 10: // inicio ::= error CORCHETE_A error CORCHETE_C condicion_principal 
             {
               Object RESULT =null;
-		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instruccion"); 
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaban exactamente las palabras SELECT TO FORM -> en la instruccion"); 
               CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("inicio",0, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-4)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
             }
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // inicio ::= error CORCHETE_C condicion_principal 
+          case 11: // inicio ::= SELECT TO FORM FLECHA ALLCHARACTERSNOSPACE CORCHETE_A campos_posibles error condicion_principal 
             {
               Object RESULT =null;
-		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instruccion"); 
-              CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("inicio",0, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
-            }
-          return CUP$ParserReportes$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // inicio ::= SELECT TO FORM FLECHA ALLCHARACTERSNOSPACE CORCHETE_A campos_posibles error condicion_principal 
-            {
-              Object RESULT =null;
-		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo '>' en la instruccion"); 
+		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ']' en la instruccion"); 
               CUP$ParserReportes$result = parser.getSymbolFactory().newSymbol("inicio",0, ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-8)), ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()), RESULT);
             }
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 8: // campos_posibles ::= campos_posibles_p 
+          case 12: // campos_posibles ::= campos_posibles_p 
             {
               Object RESULT =null;
 
@@ -392,7 +456,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 9: // campos_posibles ::= 
+          case 13: // campos_posibles ::= 
             {
               Object RESULT =null;
 
@@ -401,7 +465,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 10: // campos_posibles_p ::= ALLCHARACTERSNOSPACE COMA campos_posibles_p 
+          case 14: // campos_posibles_p ::= ALLCHARACTERSNOSPACE COMA campos_posibles_p 
             {
               Object RESULT =null;
 		int campoleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).left;
@@ -413,7 +477,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 11: // campos_posibles_p ::= ALLCHARACTERSNOSPACE 
+          case 15: // campos_posibles_p ::= ALLCHARACTERSNOSPACE 
             {
               Object RESULT =null;
 		int campoleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).left;
@@ -425,7 +489,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 12: // condicion_principal ::= WHERE CORCHETE_A condicion_interna CORCHETE_C 
+          case 16: // condicion_principal ::= WHERE CORCHETE_A condicion_interna CORCHETE_C 
             {
               Object RESULT =null;
 
@@ -434,7 +498,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 13: // condicion_principal ::= 
+          case 17: // condicion_principal ::= 
             {
               Object RESULT =null;
 
@@ -443,7 +507,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 14: // condicion_principal ::= error CORCHETE_A condicion_interna CORCHETE_C 
+          case 18: // condicion_principal ::= error CORCHETE_A condicion_interna CORCHETE_C 
             {
               Object RESULT =null;
 		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba la palabra 'WHERE' en la instruccion"); 
@@ -452,7 +516,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 15: // condicion_principal ::= error condicion_interna CORCHETE_C 
+          case 19: // condicion_principal ::= error condicion_interna CORCHETE_C 
             {
               Object RESULT =null;
 		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba la instruccion 'WHERE [' en la instruccion"); 
@@ -461,7 +525,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 16: // condicion_principal ::= error CORCHETE_A condicion_interna error 
+          case 20: // condicion_principal ::= error CORCHETE_A condicion_interna error 
             {
               Object RESULT =null;
 		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un simbolo ']' para finalizar la isntruccion"); 
@@ -470,7 +534,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 17: // condicion_interna ::= NOT ALLCHARACTERSNOSPACE comparacion condicion_secundaria 
+          case 21: // condicion_interna ::= NOT ALLCHARACTERSNOSPACE comparacion condicion_secundaria 
             {
               Object RESULT =null;
 		int nombreCampoleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).left;
@@ -485,7 +549,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 18: // condicion_interna ::= ALLCHARACTERSNOSPACE comparacion condicion_secundaria 
+          case 22: // condicion_interna ::= ALLCHARACTERSNOSPACE comparacion condicion_secundaria 
             {
               Object RESULT =null;
 		int nombreCampoleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).left;
@@ -500,7 +564,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 19: // condicion_interna ::= error comparacion condicion_secundaria 
+          case 23: // condicion_interna ::= error comparacion condicion_secundaria 
             {
               Object RESULT =null;
 		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un id o campo para realizar la condicion"); 
@@ -509,7 +573,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 20: // condicion_interna ::= error condicion_secundaria 
+          case 24: // condicion_interna ::= error condicion_secundaria 
             {
               Object RESULT =null;
 		 listaErrores.get(punteroErrores).setDescripcion("Hace falta una condicion antes de usar un operador logico"); 
@@ -518,7 +582,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 21: // condicion_interna ::= NOT ALLCHARACTERSNOSPACE error condicion_secundaria 
+          case 25: // condicion_interna ::= NOT ALLCHARACTERSNOSPACE error condicion_secundaria 
             {
               Object RESULT =null;
 		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un operador relacional seguido de un valor de comparacion valido. Recuerde que una cadena solo pede ser comparada por los operadores '=' y '<>'."); 
@@ -527,7 +591,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 22: // condicion_interna ::= ALLCHARACTERSNOSPACE error condicion_secundaria 
+          case 26: // condicion_interna ::= ALLCHARACTERSNOSPACE error condicion_secundaria 
             {
               Object RESULT =null;
 		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un operador relacional seguido de un valor de comparacion valido. Recuerde que una cadena solo pede ser comparada por los operadores '=' y '<>'."); 
@@ -536,7 +600,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 23: // condicion_secundaria ::= AND ALLCHARACTERSNOSPACE comparacion condicion_secundaria 
+          case 27: // condicion_secundaria ::= AND ALLCHARACTERSNOSPACE comparacion condicion_secundaria 
             {
               Object RESULT =null;
 		int nombreCampoleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).left;
@@ -551,7 +615,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 24: // condicion_secundaria ::= OR ALLCHARACTERSNOSPACE comparacion condicion_secundaria 
+          case 28: // condicion_secundaria ::= OR ALLCHARACTERSNOSPACE comparacion condicion_secundaria 
             {
               Object RESULT =null;
 		int nombreCampoleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).left;
@@ -566,7 +630,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 25: // condicion_secundaria ::= AND NOT ALLCHARACTERSNOSPACE comparacion condicion_secundaria 
+          case 29: // condicion_secundaria ::= AND NOT ALLCHARACTERSNOSPACE comparacion condicion_secundaria 
             {
               Object RESULT =null;
 		int nombreCampoleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).left;
@@ -581,7 +645,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 26: // condicion_secundaria ::= OR NOT ALLCHARACTERSNOSPACE comparacion condicion_secundaria 
+          case 30: // condicion_secundaria ::= OR NOT ALLCHARACTERSNOSPACE comparacion condicion_secundaria 
             {
               Object RESULT =null;
 		int nombreCampoleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-2)).left;
@@ -596,7 +660,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 27: // condicion_secundaria ::= 
+          case 31: // condicion_secundaria ::= 
             {
               Object RESULT =null;
 
@@ -605,7 +669,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 28: // condicion_secundaria ::= AND ALLCHARACTERSNOSPACE error condicion_secundaria 
+          case 32: // condicion_secundaria ::= AND ALLCHARACTERSNOSPACE error condicion_secundaria 
             {
               Object RESULT =null;
 		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un operador relacional seguido de un valor de comparacion valido. Recuerde que una cadena solo pede ser comparada por los operadores '=' y '<>'."); 
@@ -614,7 +678,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 29: // condicion_secundaria ::= OR ALLCHARACTERSNOSPACE error condicion_secundaria 
+          case 33: // condicion_secundaria ::= OR ALLCHARACTERSNOSPACE error condicion_secundaria 
             {
               Object RESULT =null;
 		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un operador relacional seguido de un valor de comparacion valido. Recuerde que una cadena solo pede ser comparada por los operadores '=' y '<>'."); 
@@ -623,7 +687,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 30: // condicion_secundaria ::= AND NOT ALLCHARACTERSNOSPACE error condicion_secundaria 
+          case 34: // condicion_secundaria ::= AND NOT ALLCHARACTERSNOSPACE error condicion_secundaria 
             {
               Object RESULT =null;
 		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un operador relacional seguido de un valor de comparacion valido. Recuerde que una cadena solo pede ser comparada por los operadores '=' y '<>'."); 
@@ -632,7 +696,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 31: // condicion_secundaria ::= OR NOT ALLCHARACTERSNOSPACE error condicion_secundaria 
+          case 35: // condicion_secundaria ::= OR NOT ALLCHARACTERSNOSPACE error condicion_secundaria 
             {
               Object RESULT =null;
 		 listaErrores.get(punteroErrores).setDescripcion("Se esperaba un operador relacional seguido de un valor de comparacion valido. Recuerde que una cadena solo pede ser comparada por los operadores '=' y '<>'."); 
@@ -641,7 +705,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 32: // comparacion ::= operador_numero NUMERO_CONSULTA 
+          case 36: // comparacion ::= operador_numero NUMERO_CONSULTA 
             {
               Comparacion RESULT =null;
 		int opleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)).left;
@@ -656,7 +720,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 33: // comparacion ::= operador_cadena CADENA_CONSULTA 
+          case 37: // comparacion ::= operador_cadena CADENA_CONSULTA 
             {
               Comparacion RESULT =null;
 		int opleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.elementAt(CUP$ParserReportes$top-1)).left;
@@ -671,7 +735,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 34: // operador_numero ::= MAYOR_QUE 
+          case 38: // operador_numero ::= MAYOR_QUE 
             {
               Object RESULT =null;
 		int opeleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).left;
@@ -683,7 +747,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 35: // operador_numero ::= MENOR_QUE 
+          case 39: // operador_numero ::= MENOR_QUE 
             {
               Object RESULT =null;
 		int opeleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).left;
@@ -695,7 +759,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 36: // operador_numero ::= MAYOR_IGUAL 
+          case 40: // operador_numero ::= MAYOR_IGUAL 
             {
               Object RESULT =null;
 		int opeleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).left;
@@ -707,7 +771,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 37: // operador_numero ::= MENOR_IGUAL 
+          case 41: // operador_numero ::= MENOR_IGUAL 
             {
               Object RESULT =null;
 		int opeleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).left;
@@ -719,7 +783,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 38: // operador_numero ::= DIFERENTE 
+          case 42: // operador_numero ::= DIFERENTE 
             {
               Object RESULT =null;
 		int opeleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).left;
@@ -731,7 +795,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 39: // operador_numero ::= IGUAL 
+          case 43: // operador_numero ::= IGUAL 
             {
               Object RESULT =null;
 		int opeleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).left;
@@ -743,7 +807,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 40: // operador_cadena ::= IGUAL 
+          case 44: // operador_cadena ::= IGUAL 
             {
               Object RESULT =null;
 		int opeleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).left;
@@ -755,7 +819,7 @@ class CUP$ParserReportes$actions {
           return CUP$ParserReportes$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 41: // operador_cadena ::= DIFERENTE 
+          case 45: // operador_cadena ::= DIFERENTE 
             {
               Object RESULT =null;
 		int opeleft = ((java_cup.runtime.Symbol)CUP$ParserReportes$stack.peek()).left;

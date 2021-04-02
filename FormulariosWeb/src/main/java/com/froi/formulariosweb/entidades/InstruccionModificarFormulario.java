@@ -19,6 +19,14 @@ public class InstruccionModificarFormulario extends Instruccion {
     private String nombre;
     private String tema;
 
+    /**
+     * Permite modificar la información de un formulario del sistema
+     * @param listaUsuarios Lista de los usuarios que hay en el sistema
+     * @param listaFormularios Lista de los formularios que hay en el sistema
+     * @param userOnline Usuario loggeado en el sistema
+     * @return Código índigo de respuesta del servidor al cliente
+     */
+    @Override
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
         if(userOnline.equals("")) {
             return generarCodigoRespuesta("Conflicto en Modificaion de Formulario", "Para realizar una modificacion, primero inicie sesión en el sistema");
@@ -91,7 +99,7 @@ public class InstruccionModificarFormulario extends Instruccion {
     }
 
     public void setTema(String tema) {
-        this.tema = tema;
+        this.tema = tema.replace(" ","").replace("\n","").replace("\t","");
     }
     
 }

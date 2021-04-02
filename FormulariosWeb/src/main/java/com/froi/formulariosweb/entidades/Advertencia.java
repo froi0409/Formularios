@@ -35,6 +35,10 @@ public class Advertencia {
         this.columna += columna;
         this.descripcion = descripcion.replace("\"", "");
     }
+    public Advertencia(String tipo, String descripcion) {
+        this.tipo = tipo;
+        this.descripcion = descripcion;
+    }
     
     public String toString(){
         String mensaje;

@@ -9,6 +9,9 @@ import com.froi.editorcodigoindigo.analizadorrespuesta.ParserRespuestas;
 import com.froi.editorcodigoindigo.analizadorrespuesta.RespuestasLexer;
 import com.froi.editorcodigoindigo.entidades.Advertencia;
 import com.froi.editorcodigoindigo.servidor.Canal;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import javax.swing.JTable;
@@ -58,6 +61,34 @@ public class AnalizadorCodigoIndigo {
             System.out.println("USUARIO LOGGEADO: " + userOnline);
         } catch (Exception e) {
             salida.append("\n\n......Ha ocurrido un error al leer la respuesta del servidor: " + e.getMessage() + "......");
+        }
+    }
+    
+    public void analizarImportacion(File archivo, JTextArea salida, ArrayList<DefaultTableModel> listaTablas) {
+        try {
+            FileReader fileReader = new FileReader(archivo);
+            BufferedReader lectorArchivo = new BufferedReader(fileReader);
+            String cadena, codigo = "";
+            //Almacenamos el codigo en la variable codigo
+            while((cadena = lectorArchivo.readLine()) != null) {
+                codigo += cadena + "\n";
+            }
+            listaErrores.clear();
+            listaRespuestas.clear();
+            salida.setText("");
+            salida.append("Analizando importación...\n");
+            String respuesta = canal.importar(codigo, userOnline);
+            StringReader reader = new StringReader(respuesta);
+            RespuestasLexer respuestasLexer = new RespuestasLexer(reader);
+            ParserRespuestas parserRespuestas = new ParserRespuestas(respuestasLexer, listaRespuestas, listaErrores, listaTablas, this);
+            parserRespuestas.parse();
+            salida.append("----------Conexión con el servidor establecida----------" + "\n" );
+            for(String element : listaRespuestas) {
+                salida.append(element + "\n\n");
+            }
+            
+        } catch (Exception e) {
+            salida.append("Problemas al tratar de leer el archivo a importar: " + e.getMessage());
         }
     }
 

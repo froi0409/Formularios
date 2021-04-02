@@ -19,6 +19,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -30,6 +31,7 @@ public class AnalizadorEntrada {
     private ArrayList<Usuario> listaUsuarios;
     private ArrayList<Formulario> listaFormularios;
     private String entrada;
+    private String rutaDirectorio;
     private String rutaUsuarios;
     private String rutaFormularios;
     private String userOnline;
@@ -45,6 +47,7 @@ public class AnalizadorEntrada {
         this.listaUsuarios = new ArrayList<>();
         this.listaFormularios = new ArrayList<>();
         this.entrada = entrada;
+        this.rutaDirectorio = "Recursos";
         this.rutaUsuarios = "Recursos/dbUsuarios.txt";
         this.rutaFormularios = "Recursos/dbFormularios.txt";
         this.userOnline = userOnline;
@@ -61,7 +64,7 @@ public class AnalizadorEntrada {
         analisisDatosExistentes(); //Verificamos los datos almacenados
         
         StringReader reader = new StringReader(entrada);
-        SolicitudesLexer lexer = new SolicitudesLexer(reader);
+        SolicitudesLexer lexer = new SolicitudesLexer(reader, listaErrores);
         ParserSolicitudes parser = new ParserSolicitudes(lexer, listaErrores, listaInstrucciones);
         try {
             parser.parse();
@@ -99,8 +102,14 @@ public class AnalizadorEntrada {
      * Sirve para analizar los datos que hay guardados en el sistema
      */
     public void analisisDatosExistentes() {
+        File directorio = new File(rutaDirectorio);
         File dbUsuarios = new File(rutaUsuarios);
         File dbFormularios = new File(rutaFormularios);
+        if(!directorio.exists()) {
+            if(!directorio.mkdirs()) {
+                listaErrores.add(new Advertencia("Archivo Inexistente", "No se ha encontrado la carpeta 'Recursos en el servidor'"));
+            }
+        }
         if(dbUsuarios.exists()) {
             try {
                 //Leemos el archivo dbUsuarios
@@ -125,7 +134,14 @@ public class AnalizadorEntrada {
             }
 
         } else {
-            System.out.println("No existe archivo que contenga los usuarios");
+            try {
+                FileWriter fw = new FileWriter(dbUsuarios);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write("");
+                bw.close();
+            } catch (Exception e) {
+                listaErrores.add(new Advertencia("Archivo Inexistente", "Se ha producido un error en la creacion de la base de datos de los usuarios existentes"));
+            }
         }
         
         if(dbFormularios.exists()) {
@@ -151,7 +167,14 @@ public class AnalizadorEntrada {
             }
                 
         } else {
-            System.out.println("No existe archivo que contenga los formlarios");
+            try {
+                FileWriter fw = new FileWriter(dbFormularios);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write("");
+                bw.close();
+            } catch (Exception e) {
+                listaErrores.add(new Advertencia("Archivo Inexistente", "Se ha producido un error en la creacion de la base de datos de los formularios existentes"));
+            }
         }
     }
     
@@ -207,13 +230,14 @@ public class AnalizadorEntrada {
                 codigo += ",\n";
                 codigo += "\"ESTRUCTURA\" : (\n";              
                 int indice = 1;
+                Collections.sort(element.getListaComponentes());
                 for(Componente elem : element.getListaComponentes()) {
                     if(indice > 1) {
                         codigo += ",\n";
                     }
                     codigo += "{\n";
                     codigo += "\"ID_COMPONENTE_" + indice + "\" : \"" + elem.getId() + "\",\n";
-                    codigo += "\"INDICE\" : \"" + indice + "\",\n";
+                    codigo += "\"INDICE\" : \"" + elem.getIndice() + "\",\n";
                     codigo += "\"FORMULARIO\" : \"" + elem.getFormulario() + "\",\n";
                     codigo += "\"CLASE\" : \"" + elem.getClase() + "\",\n";
                     codigo += "\"TEXTO_VISIBLE\" : \"" + elem.getTextoVisible() + "\",\n";

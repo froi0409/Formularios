@@ -5,6 +5,8 @@
 package com.froi.formulariosweb.analizadores.codigoindigo;
 
 import java_cup.runtime.*;
+import com.froi.formulariosweb.entidades.Advertencia;
+import java.util.ArrayList;
 import static com.froi.formulariosweb.analizadores.codigoindigo.ParserReportesSym.*;
 
 
@@ -65,7 +67,7 @@ public class ReportesLexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_CMAP_BLOCKS = zzUnpackcmap_blocks();
 
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
-    "\11\0\2\1\1\0\2\1\22\0\1\2\1\0\1\3"+
+    "\11\0\2\1\1\0\2\2\22\0\1\1\1\0\1\3"+
     "\1\0\1\4\2\0\1\5\4\0\1\6\1\7\1\10"+
     "\1\0\12\11\1\0\1\12\1\13\1\14\1\15\2\0"+
     "\1\16\1\17\1\20\1\21\1\22\1\23\1\17\1\24"+
@@ -130,10 +132,10 @@ public class ReportesLexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\41\0\41\0\102\0\102\0\143\0\204\0\102"+
-    "\0\245\0\306\0\347\0\41\0\u0108\0\u0129\0\u014a\0\u016b"+
+    "\0\0\0\41\0\102\0\41\0\102\0\143\0\204\0\102"+
+    "\0\245\0\306\0\347\0\102\0\u0108\0\u0129\0\u014a\0\u016b"+
     "\0\u018c\0\u01ad\0\u01ce\0\u01ef\0\102\0\102\0\u0210\0\41"+
-    "\0\204\0\102\0\u0231\0\41\0\u0252\0\41\0\41\0\41"+
+    "\0\204\0\102\0\u0231\0\102\0\u0252\0\102\0\102\0\102"+
     "\0\u0273\0\u0294\0\u02b5\0\41\0\u02d6\0\41\0\u02f7\0\41"+
     "\0\u0252\0\41\0\u0318\0\41\0\u0339\0\u035a\0\41\0\u037b"+
     "\0\u039c\0\u03bd\0\41\0\41";
@@ -165,37 +167,47 @@ public class ReportesLexer implements java_cup.runtime.Scanner {
     "\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11"+
     "\1\2\1\12\1\2\1\13\1\14\1\15\1\16\4\2"+
     "\1\17\3\2\1\20\1\21\1\2\1\22\1\23\1\24"+
-    "\1\25\1\26\1\4\1\27\2\2\2\0\1\2\2\0"+
-    "\26\2\3\0\1\2\41\0\2\2\2\0\1\6\2\0"+
-    "\1\6\1\2\1\6\1\30\3\2\17\6\3\0\1\2"+
-    "\3\31\1\0\1\31\1\32\31\31\1\0\1\32\2\2"+
-    "\2\0\1\6\2\0\1\6\1\2\1\33\1\30\2\2"+
-    "\1\34\17\6\3\0\3\2\2\0\1\2\2\0\1\2"+
-    "\1\35\1\12\23\2\3\0\3\2\2\0\1\2\2\0"+
-    "\5\2\1\36\1\37\17\2\3\0\3\2\2\0\1\2"+
-    "\2\0\5\2\1\40\20\2\3\0\3\2\2\0\1\2"+
-    "\2\0\20\2\1\41\5\2\3\0\3\2\2\0\1\2"+
-    "\2\0\21\2\1\42\4\2\3\0\3\2\2\0\1\2"+
-    "\2\0\21\2\1\43\4\2\3\0\3\2\2\0\1\2"+
-    "\2\0\22\2\1\44\3\2\3\0\3\2\2\0\1\2"+
-    "\2\0\13\2\1\45\12\2\3\0\3\2\2\0\1\2"+
-    "\2\0\21\2\1\46\4\2\3\0\3\2\2\0\1\2"+
-    "\2\0\15\2\1\47\10\2\3\0\1\2\2\27\1\31"+
-    "\1\0\1\27\1\32\1\31\26\27\2\31\1\0\1\50"+
-    "\2\2\2\0\1\6\2\0\1\6\1\35\1\33\1\30"+
-    "\3\2\17\6\3\0\3\2\2\0\1\2\2\0\2\2"+
-    "\1\51\23\2\3\0\3\2\2\0\1\2\2\0\12\2"+
-    "\1\52\13\2\3\0\3\2\2\0\1\2\2\0\22\2"+
-    "\1\53\3\2\3\0\3\2\2\0\1\2\2\0\24\2"+
-    "\1\54\1\2\3\0\3\2\2\0\1\2\2\0\16\2"+
-    "\1\55\7\2\3\0\3\2\2\0\1\2\2\0\13\2"+
-    "\1\56\12\2\3\0\3\2\2\0\1\2\2\0\17\2"+
-    "\1\57\6\2\3\0\3\2\2\0\1\2\2\0\13\2"+
-    "\1\60\12\2\3\0\3\2\2\0\1\2\2\0\22\2"+
-    "\1\61\3\2\3\0\3\2\2\0\1\2\2\0\11\2"+
-    "\1\62\14\2\3\0\3\2\2\0\1\2\2\0\13\2"+
-    "\1\63\12\2\3\0\3\2\2\0\1\2\2\0\24\2"+
-    "\1\64\1\2\3\0\1\2";
+    "\1\25\1\26\1\3\1\27\1\2\1\0\1\2\1\0"+
+    "\1\2\2\0\4\2\3\0\17\2\3\0\1\2\41\0"+
+    "\1\2\1\0\1\2\1\0\1\6\2\0\1\6\1\2"+
+    "\1\6\1\30\3\0\17\6\3\0\1\2\3\31\1\0"+
+    "\1\31\1\32\31\31\1\0\1\32\1\2\1\0\1\2"+
+    "\1\0\1\6\2\0\1\6\1\2\1\33\1\30\2\0"+
+    "\1\34\17\6\3\0\2\2\1\0\1\2\1\0\1\2"+
+    "\2\0\1\2\1\35\1\12\1\2\3\0\17\2\3\0"+
+    "\1\2\14\0\1\36\1\37\37\0\1\40\24\0\1\2"+
+    "\1\0\1\2\1\0\1\2\2\0\4\2\3\0\11\2"+
+    "\1\41\5\2\3\0\2\2\1\0\1\2\1\0\1\2"+
+    "\2\0\4\2\3\0\12\2\1\42\4\2\3\0\2\2"+
+    "\1\0\1\2\1\0\1\2\2\0\4\2\3\0\12\2"+
+    "\1\43\4\2\3\0\2\2\1\0\1\2\1\0\1\2"+
+    "\2\0\4\2\3\0\13\2\1\44\3\2\3\0\2\2"+
+    "\1\0\1\2\1\0\1\2\2\0\4\2\3\0\4\2"+
+    "\1\45\12\2\3\0\2\2\1\0\1\2\1\0\1\2"+
+    "\2\0\4\2\3\0\12\2\1\46\4\2\3\0\2\2"+
+    "\1\0\1\2\1\0\1\2\2\0\4\2\3\0\6\2"+
+    "\1\47\10\2\3\0\1\2\1\27\1\31\1\27\1\0"+
+    "\1\27\1\32\1\31\4\27\3\31\17\27\2\31\1\0"+
+    "\1\50\1\2\1\0\1\2\1\0\1\6\2\0\1\6"+
+    "\1\35\1\33\1\30\3\0\17\6\3\0\2\2\1\0"+
+    "\1\2\1\0\1\2\2\0\2\2\1\51\1\2\3\0"+
+    "\17\2\3\0\2\2\1\0\1\2\1\0\1\2\2\0"+
+    "\4\2\3\0\3\2\1\52\13\2\3\0\2\2\1\0"+
+    "\1\2\1\0\1\2\2\0\4\2\3\0\13\2\1\53"+
+    "\3\2\3\0\2\2\1\0\1\2\1\0\1\2\2\0"+
+    "\4\2\3\0\15\2\1\54\1\2\3\0\2\2\1\0"+
+    "\1\2\1\0\1\2\2\0\4\2\3\0\7\2\1\55"+
+    "\7\2\3\0\2\2\1\0\1\2\1\0\1\2\2\0"+
+    "\4\2\3\0\4\2\1\56\12\2\3\0\2\2\1\0"+
+    "\1\2\1\0\1\2\2\0\4\2\3\0\10\2\1\57"+
+    "\6\2\3\0\2\2\1\0\1\2\1\0\1\2\2\0"+
+    "\4\2\3\0\4\2\1\60\12\2\3\0\2\2\1\0"+
+    "\1\2\1\0\1\2\2\0\4\2\3\0\13\2\1\61"+
+    "\3\2\3\0\2\2\1\0\1\2\1\0\1\2\2\0"+
+    "\4\2\3\0\2\2\1\62\14\2\3\0\2\2\1\0"+
+    "\1\2\1\0\1\2\2\0\4\2\3\0\4\2\1\63"+
+    "\12\2\3\0\2\2\1\0\1\2\1\0\1\2\2\0"+
+    "\4\2\3\0\15\2\1\64\1\2\3\0\1\2";
 
   private static int [] zzUnpackTrans() {
     int [] result = new int[990];
@@ -241,8 +253,9 @@ public class ReportesLexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\2\1\2\11\2\1\1\11\14\1\2\11\2\1"+
-    "\1\0\1\11\32\1";
+    "\1\0\1\1\1\11\1\1\1\11\2\1\1\11\3\1"+
+    "\1\11\10\1\2\11\2\1\1\0\1\11\1\1\1\11"+
+    "\1\1\3\11\24\1";
 
   private static int [] zzUnpackAttribute() {
     int [] result = new int[52];
@@ -320,6 +333,25 @@ public class ReportesLexer implements java_cup.runtime.Scanner {
 
   /** Whether the user-EOF-code has already been executed. */
   private boolean zzEOFDone;
+
+  /* user code: */
+    private String cadenaLexica = "";
+    private ArrayList<Advertencia> listaErrores;
+    private int linea, columna;
+
+    public ReportesLexer(java.io.Reader in, ArrayList<Advertencia> listaErrores, int linea, int columna) {
+        this.zzReader = in;
+        this.listaErrores = listaErrores;
+    }
+
+    public void agregarError(int line, int column) {
+        if(cadenaLexica.length() > 0) {
+            int columnaTotal = columna + (column - cadenaLexica.length());
+            int filaTotal = line + linea;
+            listaErrores.add(new Advertencia(cadenaLexica, filaTotal, columnaTotal, "Léxico", "Símbolo no reconocido por la gramatica de reporteria"));
+            cadenaLexica = "";
+        }
+    }
 
 
   /**
@@ -573,6 +605,7 @@ public class ReportesLexer implements java_cup.runtime.Scanner {
     if (!zzEOFDone) {
       zzEOFDone = true;
     
+    agregarError(yyline, yycolumn);
   yyclose();    }
   }
 
@@ -728,12 +761,12 @@ public class ReportesLexer implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { System.out.println("ALLCHARNOSPACE: " + yytext()); return new Symbol(ALLCHARACTERSNOSPACE, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(ALLCHARACTERSNOSPACE, yyline, yycolumn, yytext());
             }
             // fall through
           case 24: break;
           case 2:
-            { /* Ignorar */
+            { agregarError(yyline,yycolumn); /* Ignorar */
             }
             // fall through
           case 25: break;
@@ -743,102 +776,102 @@ public class ReportesLexer implements java_cup.runtime.Scanner {
             // fall through
           case 26: break;
           case 4:
-            { System.out.println("COMA: " + yytext()); return new Symbol(COMA, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(COMA, yyline, yycolumn, yytext());
             }
             // fall through
           case 27: break;
           case 5:
-            { System.out.println("NUMERO_CONSULTA: " + yytext()); return new Symbol(NUMERO_CONSULTA, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(NUMERO_CONSULTA, yyline, yycolumn, yytext());
             }
             // fall through
           case 28: break;
           case 6:
-            { System.out.println("MENOR_QUE: " + yytext()); return new Symbol(MENOR_QUE, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(MENOR_QUE, yyline, yycolumn, yytext());
             }
             // fall through
           case 29: break;
           case 7:
-            { System.out.println("IGUAL: " + yytext()); return new Symbol(IGUAL, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(IGUAL, yyline, yycolumn, yytext());
             }
             // fall through
           case 30: break;
           case 8:
-            { System.out.println("MAYOR_QUE: " + yytext()); return new Symbol(MAYOR_QUE, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(MAYOR_QUE, yyline, yycolumn, yytext());
             }
             // fall through
           case 31: break;
           case 9:
-            { System.out.println("CORCHETE_A: " + yytext()); return new Symbol(CORCHETE_A, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(CORCHETE_A, yyline, yycolumn, yytext());
             }
             // fall through
           case 32: break;
           case 10:
-            { System.out.println("CORCHETE_C: " + yytext()); return new Symbol(CORCHETE_C, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(CORCHETE_C, yyline, yycolumn, yytext());
             }
             // fall through
           case 33: break;
           case 11:
-            { System.out.println("IDENTIFICADOR: " + yytext()); return new Symbol(IDENTIFICADOR, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(IDENTIFICADOR, yyline, yycolumn, yytext());
             }
             // fall through
           case 34: break;
           case 12:
-            { System.out.println("CADENA_CONSULTA: " + yytext()); return new Symbol(CADENA_CONSULTA, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(CADENA_CONSULTA, yyline, yycolumn, yytext());
             }
             // fall through
           case 35: break;
           case 13:
-            { System.out.println("FLECHA: " + yytext()); return new Symbol(FLECHA, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(FLECHA, yyline, yycolumn, yytext());
             }
             // fall through
           case 36: break;
           case 14:
-            { System.out.println("MENOR_IGUAL: " + yytext()); return new Symbol(MENOR_IGUAL, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(MENOR_IGUAL, yyline, yycolumn, yytext());
             }
             // fall through
           case 37: break;
           case 15:
-            { System.out.println("DIFERENTE: " + yytext()); return new Symbol(DIFERENTE, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(DIFERENTE, yyline, yycolumn, yytext());
             }
             // fall through
           case 38: break;
           case 16:
-            { System.out.println("MAYOR_IGUAL: " + yytext()); return new Symbol(MAYOR_IGUAL, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(MAYOR_IGUAL, yyline, yycolumn, yytext());
             }
             // fall through
           case 39: break;
           case 17:
-            { System.out.println("OR: " + yytext()); return new Symbol(OR, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(OR, yyline, yycolumn, yytext());
             }
             // fall through
           case 40: break;
           case 18:
-            { System.out.println("TO: " + yytext()); return new Symbol(TO, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(TO, yyline, yycolumn, yytext());
             }
             // fall through
           case 41: break;
           case 19:
-            { System.out.println("AND: " + yytext()); return new Symbol(AND, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(AND, yyline, yycolumn, yytext());
             }
             // fall through
           case 42: break;
           case 20:
-            { System.out.println("NOT: " + yytext()); return new Symbol(NOT, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(NOT, yyline, yycolumn, yytext());
             }
             // fall through
           case 43: break;
           case 21:
-            { System.out.println("FORM: " + yytext()); return new Symbol(FORM, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(FORM, yyline, yycolumn, yytext());
             }
             // fall through
           case 44: break;
           case 22:
-            { System.out.println("WHERE: " + yytext()); return new Symbol(WHERE, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(WHERE, yyline, yycolumn, yytext());
             }
             // fall through
           case 45: break;
           case 23:
-            { System.out.println("SELECT: " + yytext()); return new Symbol(SELECT, yyline, yycolumn, yytext());
+            { agregarError(yyline,yycolumn); return new Symbol(SELECT, yyline, yycolumn, yytext());
             }
             // fall through
           case 46: break;

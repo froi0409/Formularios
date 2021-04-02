@@ -6,9 +6,12 @@
 package com.froi.editorcodigoindigo.frontend;
 
 import com.froi.editorcodigoindigo.gramaticas.codigoindigo.AnalizadorCodigoIndigo;
+import java.io.File;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -51,9 +54,13 @@ public class VentanaEditor extends javax.swing.JFrame {
         btnCompilar = new javax.swing.JButton();
         lblCursor = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JButton();
+        btnImportarFormularios = new javax.swing.JButton();
         paneReportes = new javax.swing.JScrollPane();
         jLabel3 = new javax.swing.JLabel();
         comboReportes = new javax.swing.JComboBox<>();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,6 +81,7 @@ public class VentanaEditor extends javax.swing.JFrame {
 
         jLabel2.setText("Área de Código");
 
+        btnCompilar.setBackground(new java.awt.Color(211, 211, 211));
         btnCompilar.setText("Compilar");
         btnCompilar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,10 +91,19 @@ public class VentanaEditor extends javax.swing.JFrame {
 
         lblCursor.setText("Fila: 0, Columna: 0");
 
+        btnCerrarSesion.setBackground(new java.awt.Color(211, 211, 211));
         btnCerrarSesion.setText("Cerrar Sesion");
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCerrarSesionActionPerformed(evt);
+            }
+        });
+
+        btnImportarFormularios.setBackground(new java.awt.Color(211, 211, 211));
+        btnImportarFormularios.setText("Importar Formulario");
+        btnImportarFormularios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportarFormulariosActionPerformed(evt);
             }
         });
 
@@ -98,6 +115,8 @@ public class VentanaEditor extends javax.swing.JFrame {
                 .addComponent(btnCompilar)
                 .addGap(18, 18, 18)
                 .addComponent(btnCerrarSesion)
+                .addGap(18, 18, 18)
+                .addComponent(btnImportarFormularios)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblCursor, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -108,7 +127,8 @@ public class VentanaEditor extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCompilar)
                     .addComponent(lblCursor)
-                    .addComponent(btnCerrarSesion)))
+                    .addComponent(btnCerrarSesion)
+                    .addComponent(btnImportarFormularios)))
         );
 
         btnCompilar.getAccessibleContext().setAccessibleName("btnCompilar");
@@ -129,25 +149,20 @@ public class VentanaEditor extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(paneReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
                             .addComponent(jScrollPane1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3)
-                        .addGap(240, 240, 240)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(paneReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboReportes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -162,7 +177,7 @@ public class VentanaEditor extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -173,6 +188,14 @@ public class VentanaEditor extends javax.swing.JFrame {
                         .addComponent(paneReportes)))
                 .addContainerGap())
         );
+
+        jMenu1.setText("Archivo");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Editar");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -230,6 +253,26 @@ public class VentanaEditor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
+    private void btnImportarFormulariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarFormulariosActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        //Indicamos que solo podemos seleccionar archivos
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        //Indicamos el filtro .form
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.form", "form");
+        fileChooser.setFileFilter(filtro);
+        //Abrimos el file chooser
+        int comprobante = fileChooser.showOpenDialog(fileChooser);
+        if(comprobante == JFileChooser.APPROVE_OPTION) {
+            File archivo = fileChooser.getSelectedFile();
+            txtSalida.setText("Se seleccionó el archivo a importar\n");
+            //Enviamos a analizar el archivo a importar
+            analizador.analizarImportacion(archivo, txtSalida, listaTablas);
+        } else {
+            txtSalida.setText("Error al seleccionar el archivo a importar\n");
+        }
+    }//GEN-LAST:event_btnImportarFormulariosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -268,10 +311,14 @@ public class VentanaEditor extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnCompilar;
+    private javax.swing.JButton btnImportarFormularios;
     private javax.swing.JComboBox<String> comboReportes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

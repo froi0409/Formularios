@@ -21,6 +21,13 @@ public class InstruccionLoginUsuario extends Instruccion {
     public InstruccionLoginUsuario() {
     }
     
+    /**
+     * Permite a un usuario iniciar sesión en el sistema (también se encarga de notificarlo a la aplicación cliente)
+     * @param listaUsuarios Lista de los usuarios que hay en el sistema
+     * @param listaFormularios Lista de los formularios que hay en el sistema
+     * @param userOnline Usuario loggeado en el sistema
+     * @return Código índigo de respuesta del servidor al cliente
+     */
     @Override
     public String analizar(ArrayList<Usuario> listaUsuarios, ArrayList<Formulario> listaFormularios, String userOnline) {
         String codigo = "";

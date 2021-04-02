@@ -11,6 +11,7 @@
 <!DOCTYPE html>
 <%
     Formulario formulario = (Formulario) request.getAttribute("formulario");
+    request.getSession().setAttribute("formularioObjeto", formulario);
     String tema, letra;
     request.getSession().setAttribute("formularioUsario", formulario.getIdentificador());
     String usuario = (String) request.getAttribute("usuario");
@@ -34,7 +35,11 @@
             <div class="row fondoInicio align-items-center">
 
                 <div class="col-3" align="left">
-                    
+                    <%if(request.getSession().getAttribute("USER") != null) {%>
+                        <form action="ExportarFormulario" method="POST"> 
+                            <input type="submit" value="Exportar" class="btn btn-outline-light form"/>
+                        </form>
+                    <%}%>
                 </div>
                 <div class="col-6" align="center">
                     <h2>FORMULARIOS WEB</h2>
@@ -42,7 +47,7 @@
                 <div class="col-3" align="right">
                     &nbsp;&nbsp;
                     <%if(request.getSession().getAttribute("USER") != null) {%>
-                        <a href="javascript:obtenerLink();" class="btn btn-outline-light form">Obtener Enlace</a>
+                        <a onclick="obtenerLink()" class="btn btn-outline-light form">Obtener Enlace</a>
                     <%}%>
                 </div>
             </div>
