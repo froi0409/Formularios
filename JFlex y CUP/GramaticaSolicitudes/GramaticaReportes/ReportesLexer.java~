@@ -343,6 +343,7 @@ public class ReportesLexer implements java_cup.runtime.Scanner {
             int columnaTotal = columna + (column - cadenaLexica.length());
             int filaTotal = line + linea;
             listaErrores.add(new Advertencia(cadenaLexica, filaTotal, columnaTotal, "Léxico", "Símbolo no reconocido por la gramatica de reporteria"));
+            cadenaLexica = "";
         }
     }
 

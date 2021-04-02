@@ -79,7 +79,6 @@ non terminal opciones_error_detectado, opciones_instruccion_ejecutada, opciones_
 start with inicio;
 
 inicio ::=  MENOR_QUE EXCLAMACION INI_RESPUESTAS MAYOR_QUE instruccion_respuestas MENOR_QUE EXCLAMACION FIN_RESPUESTAS MAYOR_QUE
-            | MENOR_QUE EXCLAMACION INI_RESPUESTAS MAYOR_QUE instruccion_respuestas MENOR_QUE EXCLAMACION FIN_RESPUESTAS MAYOR_QUE error
             ;
 
 instruccion_respuestas ::=  respuesta  instruccion_respuestas

@@ -41,7 +41,7 @@ TerminacionLinea = [\r|\n|\r\n]
 WS = [ \t\f]
 Ignore = {TerminacionLinea} | [ \t\f]
 IDENTIFICADOR = ("$" | "_" | "-") ( [a-zA-Z] | [0-9] | "$" | "_" | "-")*;
-ALLCHARACTERSNOSPACE = [^' ' "," "\"" "|" "[" "]" "<" ">" "="]+
+ALLCHARACTERSNOSPACE = [^' ' "," "\"" "|" "[" "]" "<" ">" "=" \n \t]+
 NUMEROCONSULTA = [-]?[0-9]+ ([.][0-9]+)?
 CADENACONSULTA = ("\’" | "\'") ([^ "\"" "\'" "\’" "|"] | [ \t\f])* ("\’" | "\'")
 %%
