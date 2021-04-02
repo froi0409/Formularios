@@ -51,12 +51,13 @@ public class AnalizadorImportacion extends HttpServlet {
         BufferedReader reader = request.getReader();
         String comprobador;
         String codigoEntrada = "";
+        String userOnline = request.getHeader("userOnline");
         while((comprobador = reader.readLine()) != null) {
             codigoEntrada += comprobador + "\n";
         }
         //linea que nos sirve para reconocer los caracteres especiales que no se reconocen a traves del canal HTTP
         String codigo = new String(codigoEntrada.getBytes("ISO-8859-1"), "UTF-8");
-        AnalizadorEntradaImportacion analizadorEntrada = new AnalizadorEntradaImportacion(codigo);
+        AnalizadorEntradaImportacion analizadorEntrada = new AnalizadorEntradaImportacion(codigo, userOnline);
         String codigoRespuesta = analizadorEntrada.analizar();
         
         

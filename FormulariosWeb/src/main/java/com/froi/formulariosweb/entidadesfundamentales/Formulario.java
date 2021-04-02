@@ -6,6 +6,8 @@
 package com.froi.formulariosweb.entidadesfundamentales;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -28,6 +30,18 @@ public class Formulario {
         this.usuarioCreacion = usuarioCreacion;
         this.fechaCreacion = fechaCreacion;
         this.listaComponentes = new ArrayList<>();
+    }
+    public Formulario(String identificador, String titulo, String nombre, String tema) {
+        this.identificador = identificador;
+        this.titulo = titulo;
+        this.nombre = nombre;
+        this.tema = tema;
+        Calendar c2 = new GregorianCalendar();
+        
+        String dia = Integer.toString(c2.get(Calendar.DATE));
+        String mes = Integer.toString(c2.get(Calendar.MONTH) + 1);
+        String año = Integer.toString(c2.get(Calendar.YEAR));
+        this.fechaCreacion = año + "-" + mes + "-" + dia; 
     }
 
     public String getIdentificador() {

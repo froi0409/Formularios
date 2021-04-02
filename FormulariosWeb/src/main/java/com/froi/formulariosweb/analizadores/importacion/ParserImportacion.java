@@ -35,26 +35,25 @@ public class ParserImportacion extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\100\000\002\002\004\000\002\002\006\000\002\002" +
+    "\000\075\000\002\002\004\000\002\002\006\000\002\002" +
     "\006\000\002\002\006\000\002\002\006\000\002\002\006" +
     "\000\002\003\005\000\002\003\003\000\002\004\005\000" +
     "\002\004\005\000\002\005\005\000\002\005\003\000\002" +
     "\006\005\000\002\006\005\000\002\006\005\000\002\006" +
-    "\005\000\002\006\005\000\002\006\005\000\002\006\007" +
-    "\000\002\007\005\000\002\007\003\000\002\010\005\000" +
-    "\002\010\005\000\002\011\005\000\002\011\002\000\002" +
+    "\005\000\002\006\007\000\002\007\005\000\002\007\003" +
+    "\000\002\010\005\000\002\010\005\000\002\011\005\000" +
+    "\002\011\003\000\002\012\005\000\002\012\005\000\002" +
     "\012\005\000\002\012\005\000\002\012\005\000\002\012" +
     "\005\000\002\012\005\000\002\012\005\000\002\012\005" +
-    "\000\002\012\005\000\002\012\005\000\002\012\005\000" +
-    "\002\012\005\000\002\012\005\000\002\013\003\000\002" +
+    "\000\002\012\005\000\002\012\005\000\002\013\003\000" +
+    "\002\013\003\000\002\013\003\000\002\013\003\000\002" +
     "\013\003\000\002\013\003\000\002\013\003\000\002\013" +
-    "\003\000\002\013\003\000\002\013\003\000\002\013\003" +
-    "\000\002\013\003\000\002\014\003\000\002\014\003\000" +
-    "\002\015\003\000\002\015\003\000\002\016\003\000\002" +
+    "\003\000\002\013\003\000\002\014\003\000\002\014\003" +
+    "\000\002\015\003\000\002\015\003\000\002\016\003\000" +
+    "\002\016\003\000\002\016\003\000\002\016\003\000\002" +
     "\016\003\000\002\016\003\000\002\016\003\000\002\016" +
-    "\003\000\002\016\003\000\002\016\003\000\002\016\003" +
-    "\000\002\017\003\000\002\017\003\000\002\017\003\000" +
-    "\002\017\003\000\002\020\003\000\002\020\003" });
+    "\003\000\002\017\003\000\002\017\003\000\002\017\003" +
+    "\000\002\017\003\000\002\020\003\000\002\020\003" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -62,98 +61,91 @@ public class ParserImportacion extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\175\000\006\003\004\012\005\001\002\000\004\004" +
-    "\175\001\002\000\006\003\010\004\011\001\002\000\004" +
+    "\000\164\000\006\003\004\012\005\001\002\000\004\004" +
+    "\164\001\002\000\006\003\010\004\011\001\002\000\004" +
     "\002\007\001\002\000\004\002\001\001\002\000\004\006" +
     "\015\001\002\000\006\003\013\006\015\001\002\000\010" +
-    "\003\ufffa\005\ufffa\011\171\001\002\000\004\005\170\001" +
-    "\002\000\006\003\166\005\167\001\002\000\022\003\025" +
-    "\013\020\014\021\015\027\016\024\017\016\020\022\044" +
-    "\026\001\002\000\004\010\164\001\002\000\006\007\ufff6" +
-    "\011\162\001\002\000\004\010\160\001\002\000\004\010" +
-    "\156\001\002\000\004\010\071\001\002\000\004\007\070" +
-    "\001\002\000\004\010\066\001\002\000\004\007\065\001" +
-    "\002\000\004\010\063\001\002\000\004\010\030\001\002" +
-    "\000\054\030\061\034\035\035\057\036\050\037\056\040" +
-    "\041\041\045\042\060\043\062\046\054\047\051\050\047" +
-    "\051\055\053\044\054\033\055\046\056\032\057\053\060" +
-    "\031\061\043\062\034\001\002\000\006\007\uffca\011\uffca" +
-    "\001\002\000\006\007\uffcc\011\uffcc\001\002\000\006\007" +
-    "\uffce\011\uffce\001\002\000\006\007\uffc8\011\uffc8\001\002" +
-    "\000\006\007\uffd1\011\uffd1\001\002\000\006\007\ufff3\011" +
-    "\ufff3\001\002\000\006\007\uffd5\011\uffd5\001\002\000\006" +
-    "\007\uffd4\011\uffd4\001\002\000\006\007\uffc7\011\uffc7\001" +
-    "\002\000\006\007\uffd7\011\uffd7\001\002\000\006\007\uffc9" +
-    "\011\uffc9\001\002\000\006\007\uffcf\011\uffcf\001\002\000" +
-    "\006\007\uffc6\011\uffc6\001\002\000\006\007\uffcd\011\uffcd" +
+    "\003\ufffa\005\ufffa\011\160\001\002\000\004\005\157\001" +
+    "\002\000\006\003\155\005\156\001\002\000\016\003\021" +
+    "\013\023\014\017\015\025\016\016\020\022\001\002\000" +
+    "\004\010\153\001\002\000\004\010\151\001\002\000\006" +
+    "\007\ufff6\011\147\001\002\000\004\007\146\001\002\000" +
+    "\004\010\064\001\002\000\004\010\062\001\002\000\004" +
+    "\007\061\001\002\000\004\010\026\001\002\000\054\030" +
+    "\057\034\033\035\055\036\046\037\054\040\037\041\043" +
+    "\042\056\043\060\046\051\047\050\050\045\051\053\053" +
+    "\040\054\031\055\044\056\027\057\052\060\030\061\042" +
+    "\062\032\001\002\000\006\007\uffcf\011\uffcf\001\002\000" +
+    "\006\007\uffcd\011\uffcd\001\002\000\006\007\uffd1\011\uffd1" +
+    "\001\002\000\006\007\uffcb\011\uffcb\001\002\000\006\007" +
+    "\uffd4\011\uffd4\001\002\000\006\007\ufff3\011\ufff3\001\002" +
+    "\000\006\007\uffd8\011\uffd8\001\002\000\006\007\uffd7\011" +
+    "\uffd7\001\002\000\006\007\uffca\011\uffca\001\002\000\006" +
+    "\007\uffd2\011\uffd2\001\002\000\006\007\uffda\011\uffda\001" +
+    "\002\000\006\007\uffcc\011\uffcc\001\002\000\006\007\uffc9" +
+    "\011\uffc9\001\002\000\006\007\uffd0\011\uffd0\001\002\000" +
+    "\006\007\uffdc\011\uffdc\001\002\000\006\007\uffc6\011\uffc6" +
     "\001\002\000\006\007\uffd9\011\uffd9\001\002\000\006\007" +
-    "\uffc3\011\uffc3\001\002\000\006\007\uffda\011\uffda\001\002" +
-    "\000\006\007\uffd6\011\uffd6\001\002\000\006\007\uffcb\011" +
-    "\uffcb\001\002\000\006\007\uffd8\011\uffd8\001\002\000\006" +
-    "\007\uffdc\011\uffdc\001\002\000\006\007\uffc2\011\uffc2\001" +
-    "\002\000\006\007\uffd0\011\uffd0\001\002\000\006\007\uffc5" +
-    "\011\uffc5\001\002\000\006\007\uffdb\011\uffdb\001\002\000" +
-    "\006\007\uffc4\011\uffc4\001\002\000\004\050\064\001\002" +
-    "\000\006\007\ufff0\011\ufff0\001\002\000\010\003\ufff8\005" +
-    "\ufff8\011\ufff8\001\002\000\006\034\035\035\057\001\002" +
-    "\000\006\007\ufff2\011\ufff2\001\002\000\010\003\ufff9\005" +
-    "\ufff9\011\ufff9\001\002\000\004\004\072\001\002\000\004" +
-    "\006\074\001\002\000\004\005\155\001\002\000\036\003" +
-    "\115\007\uffe9\021\111\022\106\023\113\024\105\025\116" +
-    "\026\100\027\110\030\103\031\101\032\107\033\114\045" +
-    "\104\001\002\000\006\005\uffed\011\076\001\002\000\004" +
-    "\006\074\001\002\000\004\005\uffee\001\002\000\004\010" +
-    "\153\001\002\000\004\010\151\001\002\000\004\007\150" +
-    "\001\002\000\004\010\146\001\002\000\004\010\144\001" +
-    "\002\000\004\010\142\001\002\000\004\010\140\001\002" +
-    "\000\004\010\136\001\002\000\004\010\132\001\002\000" +
-    "\004\010\130\001\002\000\004\011\126\001\002\000\004" +
-    "\010\124\001\002\000\004\010\122\001\002\000\004\007" +
-    "\121\001\002\000\004\010\117\001\002\000\012\040\041" +
-    "\041\045\042\060\043\062\001\002\000\004\011\uffe2\001" +
-    "\002\000\006\005\uffeb\011\uffeb\001\002\000\054\030\061" +
-    "\034\035\035\057\036\050\037\056\040\041\041\045\042" +
-    "\060\043\062\046\054\047\051\050\047\051\055\053\044" +
-    "\054\033\055\046\056\032\057\053\060\031\061\043\062" +
-    "\034\001\002\000\004\011\uffdd\001\002\000\022\053\044" +
-    "\054\033\055\046\056\032\057\053\060\031\061\043\062" +
-    "\034\001\002\000\004\011\uffe5\001\002\000\034\007\uffe9" +
-    "\021\111\022\106\023\113\024\105\025\116\026\100\027" +
-    "\110\030\103\031\101\032\107\033\114\045\104\001\002" +
-    "\000\004\007\uffea\001\002\000\004\047\131\001\002\000" +
-    "\004\011\uffe3\001\002\000\056\030\061\034\035\035\057" +
-    "\036\050\037\056\040\041\041\045\042\060\043\062\046" +
-    "\054\047\051\050\047\051\055\052\134\053\044\054\033" +
-    "\055\046\056\032\057\053\060\031\061\043\062\034\001" +
-    "\002\000\004\011\uffe4\001\002\000\006\007\uffd3\011\uffd3" +
-    "\001\002\000\006\007\uffd2\011\uffd2\001\002\000\004\047" +
-    "\137\001\002\000\004\011\uffde\001\002\000\004\046\141" +
-    "\001\002\000\004\011\uffe6\001\002\000\006\036\050\037" +
-    "\056\001\002\000\004\011\uffe1\001\002\000\004\046\145" +
-    "\001\002\000\004\011\uffe8\001\002\000\004\030\147\001" +
-    "\002\000\004\011\uffe0\001\002\000\006\005\uffec\011\uffec" +
-    "\001\002\000\004\047\152\001\002\000\004\011\uffdf\001" +
-    "\002\000\054\030\061\034\035\035\057\036\050\037\056" +
-    "\040\041\041\045\042\060\043\062\046\054\047\051\050" +
-    "\047\051\055\053\044\054\033\055\046\056\032\057\053" +
-    "\060\031\061\043\062\034\001\002\000\004\011\uffe7\001" +
-    "\002\000\006\007\uffef\011\uffef\001\002\000\056\030\061" +
-    "\034\035\035\057\036\050\037\056\040\041\041\045\042" +
-    "\060\043\062\046\054\047\051\050\047\051\055\052\134" +
-    "\053\044\054\033\055\046\056\032\057\053\060\031\061" +
-    "\043\062\034\001\002\000\006\007\ufff4\011\ufff4\001\002" +
-    "\000\004\046\161\001\002\000\006\007\ufff5\011\ufff5\001" +
-    "\002\000\020\013\020\014\021\015\027\016\024\017\016" +
-    "\020\022\044\026\001\002\000\004\007\ufff7\001\002\000" +
-    "\054\030\061\034\035\035\057\036\050\037\056\040\041" +
-    "\041\045\042\060\043\062\046\054\047\051\050\047\051" +
-    "\055\053\044\054\033\055\046\056\032\057\053\060\031" +
-    "\061\043\062\034\001\002\000\006\007\ufff1\011\ufff1\001" +
-    "\002\000\004\002\ufffc\001\002\000\004\002\000\001\002" +
-    "\000\004\002\ufffd\001\002\000\004\006\015\001\002\000" +
-    "\006\003\ufffb\005\ufffb\001\002\000\004\005\174\001\002" +
-    "\000\004\002\ufffe\001\002\000\004\006\015\001\002\000" +
-    "\004\005\177\001\002\000\004\002\uffff\001\002" });
+    "\uffdd\011\uffdd\001\002\000\006\007\uffdb\011\uffdb\001\002" +
+    "\000\006\007\uffce\011\uffce\001\002\000\006\007\uffdf\011" +
+    "\uffdf\001\002\000\006\007\uffc5\011\uffc5\001\002\000\006" +
+    "\007\uffd3\011\uffd3\001\002\000\006\007\uffc8\011\uffc8\001" +
+    "\002\000\006\007\uffde\011\uffde\001\002\000\006\007\uffc7" +
+    "\011\uffc7\001\002\000\010\003\ufff9\005\ufff9\011\ufff9\001" +
+    "\002\000\004\046\063\001\002\000\006\007\ufff5\011\ufff5" +
+    "\001\002\000\004\004\065\001\002\000\004\006\070\001" +
+    "\002\000\004\005\145\001\002\000\006\005\uffef\011\143" +
+    "\001\002\000\032\003\105\021\101\023\103\024\076\025" +
+    "\106\026\071\027\100\030\073\031\072\032\077\033\104" +
+    "\045\075\001\002\000\004\010\141\001\002\000\004\010" +
+    "\137\001\002\000\004\010\135\001\002\000\004\007\134" +
+    "\001\002\000\004\010\132\001\002\000\004\010\130\001" +
+    "\002\000\004\010\126\001\002\000\004\010\122\001\002" +
+    "\000\004\010\120\001\002\000\006\007\uffeb\011\116\001" +
+    "\002\000\004\010\114\001\002\000\004\010\112\001\002" +
+    "\000\004\007\111\001\002\000\004\010\107\001\002\000" +
+    "\012\040\037\041\043\042\056\043\060\001\002\000\006" +
+    "\007\uffe5\011\uffe5\001\002\000\006\005\uffed\011\uffed\001" +
+    "\002\000\054\030\057\034\033\035\055\036\046\037\054" +
+    "\040\037\041\043\042\056\043\060\046\051\047\050\050" +
+    "\045\051\053\053\040\054\031\055\044\056\027\057\052" +
+    "\060\030\061\042\062\032\001\002\000\006\007\uffe0\011" +
+    "\uffe0\001\002\000\022\053\040\054\031\055\044\056\027" +
+    "\057\052\060\030\061\042\062\032\001\002\000\006\007" +
+    "\uffe8\011\uffe8\001\002\000\030\021\101\023\103\024\076" +
+    "\025\106\026\071\027\100\030\073\031\072\032\077\033" +
+    "\104\045\075\001\002\000\004\007\uffec\001\002\000\004" +
+    "\047\121\001\002\000\006\007\uffe6\011\uffe6\001\002\000" +
+    "\056\030\057\034\033\035\055\036\046\037\054\040\037" +
+    "\041\043\042\056\043\060\046\051\047\050\050\045\051" +
+    "\053\052\124\053\040\054\031\055\044\056\027\057\052" +
+    "\060\030\061\042\062\032\001\002\000\006\007\uffe7\011" +
+    "\uffe7\001\002\000\006\007\uffd6\011\uffd6\001\002\000\006" +
+    "\007\uffd5\011\uffd5\001\002\000\004\047\127\001\002\000" +
+    "\006\007\uffe1\011\uffe1\001\002\000\006\036\046\037\054" +
+    "\001\002\000\006\007\uffe4\011\uffe4\001\002\000\004\046" +
+    "\133\001\002\000\006\007\uffea\011\uffea\001\002\000\006" +
+    "\005\uffee\011\uffee\001\002\000\004\030\136\001\002\000" +
+    "\006\007\uffe3\011\uffe3\001\002\000\004\047\140\001\002" +
+    "\000\006\007\uffe2\011\uffe2\001\002\000\054\030\057\034" +
+    "\033\035\055\036\046\037\054\040\037\041\043\042\056" +
+    "\043\060\046\051\047\050\050\045\051\053\053\040\054" +
+    "\031\055\044\056\027\057\052\060\030\061\042\062\032" +
+    "\001\002\000\006\007\uffe9\011\uffe9\001\002\000\004\006" +
+    "\070\001\002\000\004\005\ufff0\001\002\000\006\007\ufff1" +
+    "\011\ufff1\001\002\000\010\003\ufff8\005\ufff8\011\ufff8\001" +
+    "\002\000\014\013\023\014\017\015\025\016\016\020\022" +
+    "\001\002\000\004\007\ufff7\001\002\000\056\030\057\034" +
+    "\033\035\055\036\046\037\054\040\037\041\043\042\056" +
+    "\043\060\046\051\047\050\050\045\051\053\052\124\053" +
+    "\040\054\031\055\044\056\027\057\052\060\030\061\042" +
+    "\062\032\001\002\000\006\007\ufff4\011\ufff4\001\002\000" +
+    "\006\034\033\035\055\001\002\000\006\007\ufff2\011\ufff2" +
+    "\001\002\000\004\002\ufffc\001\002\000\004\002\000\001" +
+    "\002\000\004\002\ufffd\001\002\000\004\006\015\001\002" +
+    "\000\006\003\ufffb\005\ufffb\001\002\000\004\005\163\001" +
+    "\002\000\004\002\ufffe\001\002\000\004\006\015\001\002" +
+    "\000\004\005\166\001\002\000\004\002\uffff\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -161,15 +153,15 @@ public class ParserImportacion extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\175\000\004\002\005\001\001\000\002\001\001\000" +
+    "\000\164\000\004\002\005\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\006" +
-    "\003\172\004\011\001\001\000\006\003\013\004\011\001" +
+    "\003\161\004\011\001\001\000\006\003\013\004\011\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\006\005\022\006\016\001\001\000\002\001\001\000" +
+    "\000\006\005\023\006\017\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\014\013\035" +
-    "\015\041\016\051\017\036\020\037\001\001\000\002\001" +
+    "\001\000\014\013\033\015\040\016\046\017\034\020\035" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
@@ -178,37 +170,33 @@ public class ParserImportacion extends java_cup.runtime.lr_parser {
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\004\015\066" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\006\007\072\010\074\001\001\000\002\001\001" +
-    "\000\006\011\101\012\111\001\001\000\002\001\001\000" +
-    "\006\007\076\010\074\001\001\000\002\001\001\000\002" +
+    "\001\000\002\001\001\000\006\007\065\010\066\001\001" +
+    "\000\002\001\001\000\002\001\001\000\006\011\073\012" +
+    "\101\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\004\017\117\001\001\000" +
-    "\002\001\001\000\002\001\001\000\014\013\122\015\041" +
-    "\016\051\017\036\020\037\001\001\000\002\001\001\000" +
-    "\004\016\124\001\001\000\002\001\001\000\006\011\126" +
-    "\012\111\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\016\013\134\014\132\015\041\016\051" +
-    "\017\036\020\037\001\001\000\002\001\001\000\002\001" +
+    "\002\001\001\000\002\001\001\000\004\017\107\001\001" +
+    "\000\002\001\001\000\002\001\001\000\014\013\112\015" +
+    "\040\016\046\017\034\020\035\001\001\000\002\001\001" +
+    "\000\004\016\114\001\001\000\002\001\001\000\006\011" +
+    "\116\012\101\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\016\013\124\014\122\015\040\016" +
+    "\046\017\034\020\035\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\004\020\130\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\004\020\142\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\014\013\141\015\040\016\046\017\034\020\035\001" +
+    "\001\000\002\001\001\000\006\007\143\010\066\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\014\013\153\015\041" +
-    "\016\051\017\036\020\037\001\001\000\002\001\001\000" +
-    "\002\001\001\000\016\013\134\014\156\015\041\016\051" +
-    "\017\036\020\037\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\006\005\162\006\016\001\001" +
-    "\000\002\001\001\000\014\013\164\015\041\016\051\017" +
-    "\036\020\037\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\006\003\171\004" +
-    "\011\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\006\003\175\004\011\001\001\000\002\001" +
-    "\001\000\002\001\001" });
+    "\006\005\147\006\017\001\001\000\002\001\001\000\016" +
+    "\013\124\014\151\015\040\016\046\017\034\020\035\001" +
+    "\001\000\002\001\001\000\004\015\153\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\006\003\160\004\011\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\006\003\164\004" +
+    "\011\001\001\000\002\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -269,6 +257,8 @@ public class ParserImportacion extends java_cup.runtime.lr_parser {
     @Override
     public void syntax_error(Symbol s) {
         System.out.println("linea: " + s.left + "   columna: " + s.right);
+        Advertencia advert = new Advertencia((String)s.value, s.left, s.right, "Sintáctico", "error sintáctico");
+        listaErrores.add(advert);
     }
     protected int error_sync_size() {
         return 1;
@@ -386,11 +376,9 @@ class CUP$ParserImportacion$actions {
                                                                     c2 = (c2.substring(1, c2.length()-1));
                                                                     c3 = (c3.substring(1, c3.length()-1));
                                                                     c4 = (c4.substring(1, c4.length()-1));
-                                                                    c5 = (c5.substring(1, c5.length()-1));
-                                                                    c6 = (c6.substring(1, c6.length()-1));
-                                                                    System.out.println(c1+c2+c3+c4+c5+c6);
-                                                                    Formulario form = new Formulario(c1, c2, c3, c4, c5, c6);
+                                                                    Formulario form = new Formulario(c1, c2, c3, c4);
                                                                     form.setListaComponentes((ArrayList<Componente>) listaComponentes.clone());
+                                                                    System.out.println("CATIDAD DE COMPONENTES EN GRAMATICA: " + listaComponentes.size());
                                                                     listaFormularios.add(form);
                                                                     listaComponentes.clear();
                                                                     c1 = null; c2 = null; c3 = null; c4 = null; c5 = null; c6 = null;
@@ -476,31 +464,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 16: // opciones_formulario ::= USUARIO_CREACION PUNTOS tipos_entrada 
-            {
-              Object RESULT =null;
-		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
-		int entright = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).right;
-		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.peek()).value;
-		 c5 = ent.toString(); 
-              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
-            }
-          return CUP$ParserImportacion$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 17: // opciones_formulario ::= FECHA_CREACION PUNTOS FECHA 
-            {
-              Object RESULT =null;
-		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
-		int entright = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).right;
-		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.peek()).value;
-		 c6 = ent.toString(); 
-              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_formulario",4, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
-            }
-          return CUP$ParserImportacion$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 18: // opciones_formulario ::= ESTRUCTURA PUNTOS PARENT_A estructura_formulario_p PARENT_C 
+          case 16: // opciones_formulario ::= ESTRUCTURA PUNTOS PARENT_A estructura_formulario_p PARENT_C 
             {
               Object RESULT =null;
 
@@ -509,7 +473,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 19: // estructura_formulario_p ::= estructura_formulario COMA estructura_formulario_p 
+          case 17: // estructura_formulario_p ::= estructura_formulario COMA estructura_formulario_p 
             {
               Object RESULT =null;
 
@@ -518,7 +482,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 20: // estructura_formulario_p ::= estructura_formulario 
+          case 18: // estructura_formulario_p ::= estructura_formulario 
             {
               Object RESULT =null;
 
@@ -527,18 +491,19 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 21: // estructura_formulario ::= LLAVE_A instruccion_estructura_formulario LLAVE_C 
+          case 19: // estructura_formulario ::= LLAVE_A instruccion_estructura_formulario LLAVE_C 
             {
               Object RESULT =null;
 		
                                                                                         int pApoyo12 = Integer.parseInt(p12.substring(1, p12.length()-1));
                                                                                         p1 = (p1.substring(1, p1.length()-1));
-                                                                                        p3 = (p3.substring(1, p3.length()-1));
                                                                                         p4 = (p4.substring(1, p4.length()-1));
                                                                                         p5 = (p5.substring(1, p5.length()-1));
                                                                                         System.out.println("Probando p1");
                                                                                         System.out.println(p1);
-                                                                                        Componente compo = new Componente(pApoyo12, p1, p3, p4, p5);
+                                                                                        String idForm = c1.substring(1, c1.length()-1);
+                                                                                        System.out.println(idForm);
+                                                                                        Componente compo = new Componente(pApoyo12, p1, idForm, p4, p5);
                                                                                         if(p2 != null) {
                                                                                             compo.setNombreCampo(p2.substring(1, p2.length()-1));
                                                                                         }
@@ -569,7 +534,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 22: // estructura_formulario ::= LLAVE_A error LLAVE_C 
+          case 20: // estructura_formulario ::= LLAVE_A error LLAVE_C 
             {
               Object RESULT =null;
 		 p1 = null; p2 = null; p3 = null; p4 = null; p5 = null; p6 = null; p7 = null; p8 = null; p9 = null; p10 = null; p11 = null; p12 = null; 
@@ -578,7 +543,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 23: // instruccion_estructura_formulario ::= opciones_estructura_formulario COMA instruccion_estructura_formulario 
+          case 21: // instruccion_estructura_formulario ::= opciones_estructura_formulario COMA instruccion_estructura_formulario 
             {
               Object RESULT =null;
 
@@ -587,16 +552,16 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 24: // instruccion_estructura_formulario ::= 
+          case 22: // instruccion_estructura_formulario ::= opciones_estructura_formulario 
             {
               Object RESULT =null;
 
-              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("instruccion_estructura_formulario",7, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
+              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("instruccion_estructura_formulario",7, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
             }
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 25: // opciones_estructura_formulario ::= ID_COMPONENTE_N PUNTOS IDENTIFICADOR 
+          case 23: // opciones_estructura_formulario ::= ID_COMPONENTE_N PUNTOS IDENTIFICADOR 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -608,7 +573,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 26: // opciones_estructura_formulario ::= NOMBRE_CAMPO PUNTOS tipos_entrada 
+          case 24: // opciones_estructura_formulario ::= NOMBRE_CAMPO PUNTOS tipos_entrada 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -620,19 +585,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 27: // opciones_estructura_formulario ::= FORMULARIO PUNTOS IDENTIFICADOR 
-            {
-              Object RESULT =null;
-		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
-		int entright = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).right;
-		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.peek()).value;
-		 p3 = ent.toString(); 
-              CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
-            }
-          return CUP$ParserImportacion$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 28: // opciones_estructura_formulario ::= CLASE PUNTOS clases 
+          case 25: // opciones_estructura_formulario ::= CLASE PUNTOS clases 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -644,7 +597,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 29: // opciones_estructura_formulario ::= TEXTO_VISIBLE PUNTOS tipos_entrada_complete 
+          case 26: // opciones_estructura_formulario ::= TEXTO_VISIBLE PUNTOS tipos_entrada_complete 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -656,7 +609,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 30: // opciones_estructura_formulario ::= INDICE PUNTOS NUMERO 
+          case 27: // opciones_estructura_formulario ::= INDICE PUNTOS NUMERO 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -668,7 +621,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 31: // opciones_estructura_formulario ::= ALINEACION PUNTOS alineacion 
+          case 28: // opciones_estructura_formulario ::= ALINEACION PUNTOS alineacion 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -680,7 +633,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 32: // opciones_estructura_formulario ::= REQUERIDO PUNTOS required 
+          case 29: // opciones_estructura_formulario ::= REQUERIDO PUNTOS required 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -692,7 +645,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 33: // opciones_estructura_formulario ::= OPCIONES PUNTOS OPCIONES 
+          case 30: // opciones_estructura_formulario ::= OPCIONES PUNTOS OPCIONES 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -704,7 +657,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 34: // opciones_estructura_formulario ::= FILAS PUNTOS NUMERO 
+          case 31: // opciones_estructura_formulario ::= FILAS PUNTOS NUMERO 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -716,7 +669,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 35: // opciones_estructura_formulario ::= COLUMNAS PUNTOS NUMERO 
+          case 32: // opciones_estructura_formulario ::= COLUMNAS PUNTOS NUMERO 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -728,7 +681,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 36: // opciones_estructura_formulario ::= URL PUNTOS tipos_entrada 
+          case 33: // opciones_estructura_formulario ::= URL PUNTOS tipos_entrada 
             {
               Object RESULT =null;
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -740,7 +693,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 37: // tipos_entrada ::= ALLCHARACTERSNOSPACE 
+          case 34: // tipos_entrada ::= ALLCHARACTERSNOSPACE 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -752,7 +705,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 38: // tipos_entrada ::= OPCIONES 
+          case 35: // tipos_entrada ::= OPCIONES 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -764,7 +717,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 39: // tipos_entrada ::= NUMERO 
+          case 36: // tipos_entrada ::= NUMERO 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -776,7 +729,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 40: // tipos_entrada ::= FECHA 
+          case 37: // tipos_entrada ::= FECHA 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -788,7 +741,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 41: // tipos_entrada ::= IDENTIFICADOR 
+          case 38: // tipos_entrada ::= IDENTIFICADOR 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -800,7 +753,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 42: // tipos_entrada ::= temas 
+          case 39: // tipos_entrada ::= temas 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -812,7 +765,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 43: // tipos_entrada ::= clases 
+          case 40: // tipos_entrada ::= clases 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -824,7 +777,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 44: // tipos_entrada ::= alineacion 
+          case 41: // tipos_entrada ::= alineacion 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -836,7 +789,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 45: // tipos_entrada ::= required 
+          case 42: // tipos_entrada ::= required 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -848,7 +801,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 46: // tipos_entrada_complete ::= ALLCHARACTERS 
+          case 43: // tipos_entrada_complete ::= ALLCHARACTERS 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -860,7 +813,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 47: // tipos_entrada_complete ::= tipos_entrada 
+          case 44: // tipos_entrada_complete ::= tipos_entrada 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -872,7 +825,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 48: // temas ::= DARK 
+          case 45: // temas ::= DARK 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -884,7 +837,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 49: // temas ::= WHITE 
+          case 46: // temas ::= WHITE 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -896,7 +849,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 50: // clases ::= CAMPO_TEXTO 
+          case 47: // clases ::= CAMPO_TEXTO 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -908,7 +861,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 51: // clases ::= AREA_TEXTO 
+          case 48: // clases ::= AREA_TEXTO 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -920,7 +873,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 52: // clases ::= CHECKBOX 
+          case 49: // clases ::= CHECKBOX 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -932,7 +885,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 53: // clases ::= RADIO 
+          case 50: // clases ::= RADIO 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -944,7 +897,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 54: // clases ::= FICHERO 
+          case 51: // clases ::= FICHERO 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -956,7 +909,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 55: // clases ::= IMAGEN 
+          case 52: // clases ::= IMAGEN 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -968,7 +921,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 56: // clases ::= COMBO 
+          case 53: // clases ::= COMBO 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -980,7 +933,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 57: // clases ::= BOTON 
+          case 54: // clases ::= BOTON 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -992,7 +945,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 58: // alineacion ::= CENTRO 
+          case 55: // alineacion ::= CENTRO 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -1004,7 +957,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 59: // alineacion ::= IZQUIERDA 
+          case 56: // alineacion ::= IZQUIERDA 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -1016,7 +969,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 60: // alineacion ::= DERECHA 
+          case 57: // alineacion ::= DERECHA 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -1028,7 +981,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 61: // alineacion ::= JUSTIFICAR 
+          case 58: // alineacion ::= JUSTIFICAR 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -1040,7 +993,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 62: // required ::= SI 
+          case 59: // required ::= SI 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
@@ -1052,7 +1005,7 @@ class CUP$ParserImportacion$actions {
           return CUP$ParserImportacion$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 63: // required ::= NO 
+          case 60: // required ::= NO 
             {
               Object RESULT =null;
 		int paraleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;

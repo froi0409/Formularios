@@ -8,6 +8,7 @@ package com.froi.formulariosweb.analizadores.importacion;
 import com.froi.formulariosweb.analizadores.codigoindigo.AnalizadorEntrada;
 import com.froi.formulariosweb.entidades.Advertencia;
 import com.froi.formulariosweb.entidades.Instruccion;
+import com.froi.formulariosweb.entidadesfundamentales.Componente;
 import com.froi.formulariosweb.entidadesfundamentales.Formulario;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -20,14 +21,23 @@ public class AnalizadorEntradaImportacion {
     private ArrayList<Advertencia> listaErrores;
     private ArrayList<Formulario> listaFormularios;
     private String entrada;
+    private String userOnline;
     
-    public AnalizadorEntradaImportacion(String entrada) {
+    public AnalizadorEntradaImportacion(String entrada, String userOnline) {
         this.entrada = entrada;
         this.listaFormularios = new ArrayList<>();
         this.listaErrores = new ArrayList<>();
+        this.userOnline = userOnline;
     }
     
     public String analizar() {
+        if(userOnline.equals("")) {
+            Instruccion instruccion = new Instruccion();
+            String codigoConflicto = "<!ini_respuestas>\n";
+            codigoConflicto += instruccion.generarCodigoRespuesta("Importacion de Formulario", "Para importar un formulario, primero inicie sesión");
+            codigoConflicto += "<!fin_respuestas>";
+            return codigoConflicto;
+        }
         String codigo = "";
         StringReader reader = new StringReader(entrada);
         ImportacionLexer importacionLexer = new ImportacionLexer(reader);
@@ -44,6 +54,7 @@ public class AnalizadorEntradaImportacion {
                 System.out.println("Cantidad de formularios en el sistema: " + formulariosExistentes.size());
                 for(Formulario formulario : listaFormularios) {
                     boolean comprobador = true;
+                    formulario.setUsuarioCreacion(userOnline);
                     Instruccion instruccion = new Instruccion();
                     for(Formulario formularioAuxiliar : formulariosExistentes) {
                         if(formulario.getIdentificador().equals(formularioAuxiliar.getIdentificador())) {
@@ -56,7 +67,9 @@ public class AnalizadorEntradaImportacion {
                             break;
                         }
                     }
+                    
                     if(comprobador) {
+                        System.out.println("CANTIDAD DE COMPONENTES: " + formulario.getListaComponentes().size());
                         formulariosExistentes.add(formulario);
                         codigo += instruccion.generarCodigoRespuesta("Importacion de Formulario ", "El formulario " + formulario.getIdentificador() + " ha sido importado con éxito");
                     }

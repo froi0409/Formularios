@@ -103,7 +103,7 @@ OPTIONS = [\"] ([a-zA-Z0-9] | {WS} | [^"\"" "|"])+ ("|" ([a-zA-Z0-9] | {WS} | [^
     {IDENTIFICA}                                { agregarError(yyline+1,yycolumn+1); return new Symbol(IDENTIFICADOR, yyline+1, yycolumn+1, yytext()); }
     {NUMERO}                                    { agregarError(yyline+1,yycolumn+1); return new Symbol(NUMERO, yyline+1, yycolumn+1, yytext()); }
     {FECHA}                                     { agregarError(yyline+1,yycolumn+1); return new Symbol(FECHA, yyline+1, yycolumn+1, yytext()); }
-    {OPTIONS}                                   { agregarError(yyline+1,yycolumn+1); return new Symbol(OPCIONES, yyline+1, yycolumn+1, yytext()); }
+    {OPTIONS}                                   { agregarError(yyline+1,yycolumn+1); return new Symbol(OPTIONS, yyline+1, yycolumn+1, yytext()); }
     {ALLCHARACTERSNOSPACE}                      { agregarError(yyline+1,yycolumn+1); return new Symbol(ALLCHARACTERSNOSPACE, yyline+1, yycolumn+1, yytext()); }
     {ALLCHARACTERS}                             { agregarError(yyline+1,yycolumn+1); return new Symbol(ALLCHARACTERS, yyline+1, yycolumn+1, yytext()); }
 

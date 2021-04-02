@@ -60,9 +60,7 @@ public class ExportarFormulario extends HttpServlet {
             codigoFormulario += "\"ID_FORMULARIO\" : \"" + formulario.getIdentificador() + "\",\n";
             codigoFormulario += "\"TITULO\" : \"" + formulario.getTitulo() + "\",\n";
             codigoFormulario += "\"NOMBRE\" : \"" + formulario.getNombre() + "\",\n";
-            codigoFormulario += "\"TEMA\" : \"" + formulario.getTema() + "\",\n";
-            codigoFormulario += "\"USUARIO_CREACION\" : \"" + formulario.getUsuarioCreacion() + "\",\n";
-            codigoFormulario += "\"FECHA_CREACION\" : \"" + formulario.getFechaCreacion() + "\"";
+            codigoFormulario += "\"TEMA\" : \"" + formulario.getTema() + "\"";
             if(!formulario.getListaComponentes().isEmpty()) {
                 codigoFormulario += ",\n";
                 codigoFormulario += "\"ESTRUCTURA\" : (\n";
@@ -75,23 +73,26 @@ public class ExportarFormulario extends HttpServlet {
                     codigoFormulario += "{\n";
                     codigoFormulario += "\"ID_COMPONENTE_" + contCompo + "\" : \"" + componente.getId() + "\",\n";
                     codigoFormulario += "\"INDICE\" : \"" + componente.getIndice() + "\",\n";
-                    codigoFormulario += "\"FORMULARIO\" : \"" + componente.getFormulario() + "\",\n";
                     codigoFormulario += "\"CLASE\" : \"" + componente.getClase() + "\",\n";
                     codigoFormulario += "\"TEXTO_VISIBLE\" : \"" + componente.getTextoVisible() + "\",\n";
                     codigoFormulario += "\"REQUERIDO\" : \"" + componente.getRequerido() + "\",\n";
-                    codigoFormulario += "\"ALINEACION\" : \"" + componente.getAlineacion() + "\",\n";
+                    codigoFormulario += "\"ALINEACION\" : \"" + componente.getAlineacion() + "\"";
                     if (componente.getClase().equals("AREA_TEXTO")) {
+                        codigoFormulario += ",\n";
                         codigoFormulario += "\"FILAS\" : \"" + componente.getFilas() + "\",\n";
-                        codigoFormulario += "\"COLUMNAS\" : \"" + componente.getColumnas() + "\",\n";
+                        codigoFormulario += "\"COLUMNAS\" : \"" + componente.getColumnas() + "\"";
                     } else if (componente.getClase().equals("CHECKBOX") || componente.getClase().equals("RADIO") || componente.getClase().equals("COMBO")) {
-                        codigoFormulario += "\"OPCIONES\" : \"" + componente.getOpciones() + "\",\n";
+                        codigoFormulario += ",\n";
+                        codigoFormulario += "\"OPCIONES\" : \"" + componente.getOpciones() + "\"";
                     } else if(componente.getClase().equals("IMAGEN")) {
-                        codigoFormulario += "\"URL\" : \"" + componente.getUrl() + "\",\n";
+                        codigoFormulario += ",\n";
+                        codigoFormulario += "\"URL\" : \"" + componente.getUrl() + "\"";
                     }
                     if (componente.getNombreCampo() != null) {
-                        codigoFormulario += "\"NOMBRE_CAMPO\" : \"" + componente.getNombreCampo() + "\",\n";
+                        codigoFormulario += ",\n";
+                        codigoFormulario += "\"NOMBRE_CAMPO\" : \"" + componente.getNombreCampo() + "\"\n";
                     }
-                    codigoFormulario += "}\n";
+                    codigoFormulario += "\n}\n";
                     contCompo++;
                 }
                 codigoFormulario += ")\n";

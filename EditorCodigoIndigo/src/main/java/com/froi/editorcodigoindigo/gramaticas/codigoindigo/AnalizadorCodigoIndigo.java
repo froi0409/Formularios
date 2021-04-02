@@ -77,7 +77,7 @@ public class AnalizadorCodigoIndigo {
             listaRespuestas.clear();
             salida.setText("");
             salida.append("Analizando importación...\n");
-            String respuesta = canal.importar(codigo);
+            String respuesta = canal.importar(codigo, userOnline);
             StringReader reader = new StringReader(respuesta);
             RespuestasLexer respuestasLexer = new RespuestasLexer(reader);
             ParserRespuestas parserRespuestas = new ParserRespuestas(respuestasLexer, listaRespuestas, listaErrores, listaTablas, this);
