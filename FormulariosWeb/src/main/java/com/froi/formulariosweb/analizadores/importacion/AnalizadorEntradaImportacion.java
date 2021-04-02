@@ -12,6 +12,9 @@ import com.froi.formulariosweb.entidadesfundamentales.Componente;
 import com.froi.formulariosweb.entidadesfundamentales.Formulario;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -67,11 +70,26 @@ public class AnalizadorEntradaImportacion {
                             break;
                         }
                     }
-                    
+                    ArrayList<String> ids = new ArrayList<>();
+                    //Almacenamos los id de los componentes que posee, para verificar que no haya alguno repetido
+                    for(Componente componente : formulario.getListaComponentes()) {
+                        ids.add(componente.getId());
+                    }
+                    Set<String> datosSinDuplicar = new HashSet<String>(ids);
+                    String descripcion = "No se puede generar el formulario, porque ";
+                    for(String datoRevisado : datosSinDuplicar) {
+                        int repeticion = Collections.frequency(ids, datoRevisado);
+                        if(repeticion > 1) {
+                            descripcion += "El id " + datoRevisado + " se repite " + repeticion + " veces. ";
+                            comprobador = false;
+                        }
+                    }
                     if(comprobador) {
                         System.out.println("CANTIDAD DE COMPONENTES: " + formulario.getListaComponentes().size());
                         formulariosExistentes.add(formulario);
                         codigo += instruccion.generarCodigoRespuesta("Importacion de Formulario ", "El formulario " + formulario.getIdentificador() + " ha sido importado con éxito");
+                    } else {
+                        codigo += instruccion.generarCodigoRespuesta("Importacion de Formulario", descripcion);
                     }
                 }
                 analizadorExistencias.guardarFormularios();

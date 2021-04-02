@@ -872,7 +872,7 @@ class CUP$ParserImportacion$actions {
 		
                                                                                             linea = llaAleft;
                                                                                             columna = llaAright;
-                                                                                            String[] listaObligatorios = {"\"CLASE\"", "\"TEXTO_VISIBLE\""};
+                                                                                            String[] listaObligatorios = {"\"ID_COMPONENTE\"", "\"CLASE\"", "\"TEXTO_VISIBLE\""};
                                                                                             System.out.println("FILTRO1");
                                                                                             if(verificacionBloque(listaObligatorios, listaParametrosComponentes)) {
                                                                                                 System.out.println("FILTRO2");
@@ -956,7 +956,7 @@ class CUP$ParserImportacion$actions {
 		int entleft = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).left;
 		int entright = ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()).right;
 		Object ent = (Object)((java_cup.runtime.Symbol) CUP$ParserImportacion$stack.peek()).value;
-		 listaParametrosComponentes.add(para.toString()); p1 = ent.toString(); 
+		 listaParametrosComponentes.add("\"ID_COMPONENTE\""); p1 = ent.toString(); 
               CUP$ParserImportacion$result = parser.getSymbolFactory().newSymbol("opciones_estructura_formulario",8, ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.elementAt(CUP$ParserImportacion$top-2)), ((java_cup.runtime.Symbol)CUP$ParserImportacion$stack.peek()), RESULT);
             }
           return CUP$ParserImportacion$result;

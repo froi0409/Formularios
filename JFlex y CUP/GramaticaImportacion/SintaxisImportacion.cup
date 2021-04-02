@@ -210,7 +210,7 @@ estructura_formulario_p ::=     estructura_formulario COMA estructura_formulario
 estructura_formulario ::=       LLAVE_A:llaA instruccion_estructura_formulario LLAVE_C   {:
                                                                                             linea = llaAleft;
                                                                                             columna = llaAright;
-                                                                                            String[] listaObligatorios = {"\"CLASE\"", "\"TEXTO_VISIBLE\""};
+                                                                                            String[] listaObligatorios = {"\"ID_COMPONENTE\"", "\"CLASE\"", "\"TEXTO_VISIBLE\""};
                                                                                             System.out.println("FILTRO1");
                                                                                             if(verificacionBloque(listaObligatorios, listaParametrosComponentes)) {
                                                                                                 System.out.println("FILTRO2");
@@ -260,7 +260,7 @@ instruccion_estructura_formulario ::=   opciones_estructura_formulario COMA inst
                                         | opciones_estructura_formulario
                                         ;
 
-opciones_estructura_formulario  ::=     ID_COMPONENTE_N:para PUNTOS IDENTIFICADOR:ent        {: listaParametrosComponentes.add(para.toString()); p1 = ent.toString(); :}
+opciones_estructura_formulario  ::=     ID_COMPONENTE_N:para PUNTOS IDENTIFICADOR:ent        {: listaParametrosComponentes.add("\"ID_COMPONENTE\""); p1 = ent.toString(); :}
                                         | NOMBRE_CAMPO:para PUNTOS tipos_entrada:ent         {: listaParametrosComponentes.add(para.toString()); p2 = ent.toString(); :}
                                         | CLASE:para PUNTOS clases:ent                       {: listaParametrosComponentes.add(para.toString()); p4 = ent.toString(); clase = ent.toString(); :}
                                         | TEXTO_VISIBLE:para PUNTOS tipos_entrada_complete:ent      {: listaParametrosComponentes.add(para.toString()); p5 = ent.toString(); :}
